@@ -1,26 +1,30 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin } from 'obsidian';
+import { App, Modal, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Settings';
 import { CommandHandler } from './handlers/command_handlers';
-
+import { Planner } from './core/planner';
 export default class PlanningPlugin extends Plugin {
 	public settings: Settings;
+	public planner: Planner;
 	public command_handler: CommandHandler;
 
 	async onload(): Promise<void> {
 		await this.load_settings();
 
+		this.planner = new Planner(this);
+		await this.planner.setup();
+
 		// This creates an icon in the left ribbon.
 		const ribbonGoalIconEl = this.addRibbonIcon('goal', 'Goal', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+			this.planner.create_goal();
 		});
 		const ribbonProjectIconEl = this.addRibbonIcon('target', 'Project', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+			this.planner.create_project();
 		});
 		const ribbonTaskIconEl = this.addRibbonIcon('circle-check', 'Task', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+			this.planner.create_task();
 		});
 		// Perform additional things with the ribbon
 		ribbonGoalIconEl.addClass('my-plugin-ribbon-class');
@@ -86,18 +90,6 @@ export default class PlanningPlugin extends Plugin {
 	}
 
 	onunload(): void {
-
-	}
-
-	create_goal(): void {
-
-	}
-
-	create_project(): void {
-
-	}
-
-	create_task(): void {
 
 	}
 
