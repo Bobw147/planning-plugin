@@ -1,12 +1,12 @@
 export enum status_tag_type {
-    PLANNING_INBOX = "#planning/inbox",
-    PLANNING_NEXT = "#planning/next",
-    PLANNING_IN_PROGRESS = "#planning/in-progress",
-    PLANNING_WAITING_FOR = "#planning/waiting-for",
-    PLANNING_COMPLETED = "#planning/completed",
-    PLANNING_DELIVERED = "#planning/delivered",
-    PLANNING_ARCHIVED = "#planning/archived",
-    PLANNING_DEPRECATED = "#planning/deprecated",
+    STATUS_INBOX = "#status/inbox",
+    STATUS_NEXT = "#status/next",
+    STATUS_IN_PROGRESS = "#status/in-progress",
+    STATUS_WAITING_FOR = "#status/waiting-for",
+    STATUS_COMPLETED = "#status/completed",
+    STATUS_DELIVERED = "#status/delivered",
+    STATUS_ARCHIVED = "#status/archived",
+    STATUS_DEPRECATED = "#status/deprecated",
 }
 
 export enum ident_tag_type {
