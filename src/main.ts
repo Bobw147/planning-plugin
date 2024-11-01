@@ -2,6 +2,7 @@ import { App, Modal, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Settings';
 import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
+
 export default class PlanningPlugin extends Plugin {
 	public settings: Settings;
 	public planner: Planner;
