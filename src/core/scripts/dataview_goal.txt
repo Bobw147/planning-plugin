@@ -1,0 +1,84 @@
+```dataviewjs
+const DAY = 0;
+const MONTH = 1;
+const YEAR = 2;
+
+/* See which of the two date links represents the most recent in time */
+function getMostRecentDate(dateLink1, dateLink2){
+	let mostRecentDate = dateLink1;
+	
+	if (dateLink1 === null || dateLink1 === undefined) return dateLink2;
+	if (dateLink2 === null || dateLink2 === undefined) return dateLink1;
+
+	let task1WorkedOn = dv.page(dateLink1).file.name.split("-");
+	let task2WorkedOn = dv.page(dateLink2).file.name.split("-");
+
+	if (task2WorkedOn[YEAR] > task1WorkedOn[YEAR]){
+		mostRecentDate = dateLink2;
+	}
+	else if (task2WorkedOn[YEAR] == task1WorkedOn[YEAR]){
+		if (task2WorkedOn[MONTH] > task1WorkedOn[MONTH]){
+			mostRecentDate = dateLink2;
+		}
+		else if (task2WorkedOn[MONTH] == task1WorkedOn[MONTH]){
+			if (task2WorkedOn[DAY] > task1WorkedOn[DAY]){
+				mostRecentDate = dateLink2;
+			}
+		}
+	}
+	return mostRecentDate;
+}
+
+/* See which of the two date links represents the most distant in time */
+function getMostDistantDate(dateLink1, dateLink2){
+	let mostDistantDate = dateLink1;
+	
+	if (dateLink1 === null || dateLink1 === undefined) return dateLink2;
+	if (dateLink2 === null || dateLink2 === undefined) return dateLink1;
+
+	let task1WorkedOn = dv.page(dateLink1).file.name.split("-");
+	let task2WorkedOn = dv.page(dateLink2).file.name.split("-");
+
+	if (task2WorkedOn[YEAR] < task1WorkedOn[YEAR]){
+		mostDistantDate = dateLink1;
+	}
+	else if (task2WorkedOn[YEAR] == task1WorkedOn[YEAR]){
+		if (task2WorkedOn[MONTH] < task1WorkedOn[MONTH]){
+			mostDistantDate = dateLink1;
+		}
+		else if (task2WorkedOn[MONTH] == task1WorkedOn[MONTH]){
+			if (task2WorkedOn[DAY] < task1WorkedOn[DAY]){
+				mostDistantDate = dateLink1;
+			}
+		}
+	}
+	return mostDistantDate;
+}
+
+/* Execution starts here */
+/* ===================== */ 
+var projectInfo = [];
+
+/* Loop through each project */
+const projects = dv.pages('"3. Planning/2. Projects" and #planning/project')
+	.filter(project => project.Goal.toString().includes(dv.current().file.name))
+
+/* Loop through each project asociated with the current goal */
+projects.forEach(project => {
+	const tasks = dv.pages('"3. Planning/3. Tasks" and #planning/task')
+	.filter(task => task.Project.toString().includes(project.file.name))
+	console.log("Project = " + project.file.name)
+
+	/* Loop through each task associated with the current project */
+	var lastWorkedOn = null
+	tasks.forEach(task => {
+		project.LastWorkedOn = getMostRecentDate(project.LastWorkedOn, task.LastWorkedOn);
+		project.AnticipatedDate = getMostDistantDate(project.AnticipatedDate, task.AnticipatedDate);
+	});
+	projectInfo.push(project);
+});
+
+dv.table(["Project", "Due Date", "Expected Date", "Last Worked On"],
+	projectInfo.map(project => [project.file.link, project.TargetDate, project.AnticipatedDate, project.LastWorkedOn])
+)
+```
