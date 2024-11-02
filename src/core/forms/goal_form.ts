@@ -20,7 +20,7 @@ export const goalForm = '<div> \
         <input type="date" style="margin-bottom: 12px"> \
     </div> \
     <div> \
-        <button>Create Goal</button> \
-        <button>Cancel</button> \
+        <button id="create_goal">Create Goal</button> \
+        <button id="cancel_create">Cancel</button> \
     </div> \
 </div>'
