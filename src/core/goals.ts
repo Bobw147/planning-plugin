@@ -30,49 +30,29 @@ export class GoalIndexCard implements PlanningIndexCard{
     }
 }
 
+var instance: GoalsModal;
 export class GoalsModal extends Modal {
 	goalIndexCard: GoalIndexCard;
     goal_setting: string;
+    submit: (result: GoalIndexCard | null) => void;
+    callbackFunc: (result: GoalIndexCard | null) => void;
 
-    constructor(app: App, onSubmit: (result: GoalIndexCard | null) => void) {
+    constructor(app: App) {
 		super(app);
-    }
+    };
 
-    onOpen(): void{
+    show(callback: (indexCard: GoalIndexCard | null) => void) {
+        this.callbackFunc = callback;
         this.goalIndexCard = new GoalIndexCard();
-        
-//        console.log("__dirname is: ", __dirname);
-//        const htmlContent = readHtmlFile('example.html');
-//        console.log(htmlContent);
 
-        const {contentEl} = this;
-        contentEl.empty();
-
-        // Add the title
+        this.contentEl.empty();
         this.setTitle("Create a new Goal");
+        this.contentEl.innerHTML = goalForm;
+        this.open();
+        const create_goal = document.getElementById("create_goal") as HTMLButtonElement;
+        create_goal.onclick = () => this.callbackFunc(this.goalIndexCard);
+        const cancel_goal = document.getElementById("cancel_create") as HTMLButtonElement;
+        cancel_goal.onclick = () => this.callbackFunc(null);
 
-        // Add the remainder of the form
-        contentEl.innerHTML = goalForm;
     }
-/**        this.setTitle("Create a new Goal")
-
-        // Add a close button
-        new Setting(this.contentEl)
-        .addText()
-        .addButton((btn) => btn
-            .setButtonText('Cancel')
-            .setCta()
-            .onClick(() => {
-                this.close();
-                onSubmit(null);
-            }))
-        .addButton((btn) => btn
-            .setButtonText('Submit')
-            .setCta()
-            .onClick(() => {
-              this.close();
-              onSubmit(this.goalIndexCard);
-            }));
-    }
-*/
 }
