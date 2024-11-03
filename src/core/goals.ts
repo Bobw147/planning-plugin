@@ -33,26 +33,30 @@ export class GoalIndexCard implements PlanningIndexCard{
 var instance: GoalsModal;
 export class GoalsModal extends Modal {
 	goalIndexCard: GoalIndexCard;
-    goal_setting: string;
-    submit: (result: GoalIndexCard | null) => void;
-    callbackFunc: (result: GoalIndexCard | null) => void;
+    callbackFunc: (result: boolean) => void;
 
     constructor(app: App) {
 		super(app);
     };
 
-    show(callback: (indexCard: GoalIndexCard | null) => void) {
+    show(goal_index_card: GoalIndexCard, callback: (result: boolean) => void) {
         this.callbackFunc = callback;
-        this.goalIndexCard = new GoalIndexCard();
+        this.goalIndexCard = goal_index_card;
 
         this.contentEl.empty();
         this.setTitle("Create a new Goal");
         this.contentEl.innerHTML = goalForm;
         this.open();
-        const create_goal = document.getElementById("create_goal") as HTMLButtonElement;
-        create_goal.onclick = () => this.callbackFunc(this.goalIndexCard);
-        const cancel_goal = document.getElementById("cancel_create") as HTMLButtonElement;
-        cancel_goal.onclick = () => this.callbackFunc(null);
 
+        (document.getElementById("create_goal") as HTMLButtonElement).onclick = () => {
+            this.goalIndexCard.Name = (document.getElementById("goal_name") as HTMLInputElement).value;
+    //        this.goalIndexCard.ModeTag = (document.getElementById("mode_tag") as HTMLSelectElement).value;
+            this.callbackFunc(true);
+            this.close();
+        }
+        (document.getElementById("cancel_create") as HTMLButtonElement).onclick = () => {
+            this.callbackFunc(false);
+            this.close();
+        }
     }
 }
