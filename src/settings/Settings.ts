@@ -77,7 +77,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
                         this.plugin.save_settings();
                     });
                 // @ts-ignore
-                cb.containerEl.addClass("plasnning_search");
+                cb.containerEl.addClass("planning_search");
             });
 	}
 }
