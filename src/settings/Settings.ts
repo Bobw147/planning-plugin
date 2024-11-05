@@ -1,32 +1,39 @@
-import PlanningPlugin from "src/main";
+import  PlanningPlugin from "src/main";
 import { PluginSettingTab, Setting }  from "obsidian";
 import { FolderSuggest } from "./suggesters/FolderSuggester";
+import { status_tag_type } from "src/core/tags";
+import { mode_tag_type } from "src/core/tags";
+import { ident_tag_type } from "src/core/tags";
+import { arraycopy, arraymove } from "src/utils/utils";
 
 // Remember to rename these classes and interfaces!
 export interface Settings {
 	goalsFolder: string;
 	projectsFolder: string;
 	tasksFolder: string;
+    statusTags: typeof status_tag_type;
 }
-
+ 
 export const DEFAULT_SETTINGS: Settings = {
 	goalsFolder: 'Goals',
 	projectsFolder: 'Projects',
 	tasksFolder: 'Tasks',
+    statusTags: status_tag_type,
 }
 
 export class PlanningSettingsTab extends PluginSettingTab {
 	constructor(private plugin: PlanningPlugin) {
 		super(plugin.app, plugin);
-	}
+    }
 
 	display(): void {
 		const {containerEl} = this;
 
 		this.containerEl.empty();
-        this.add_goals_folder_setting()
-        this.add_projects_folder_setting()
-        this.add_tasks_folder_setting()
+        this.add_goals_folder_setting();
+        this.add_projects_folder_setting();
+        this.add_tasks_folder_setting();
+        this.add_status_settings();
     }
 
     add_goals_folder_setting() : void {
@@ -80,4 +87,75 @@ export class PlanningSettingsTab extends PluginSettingTab {
                 cb.containerEl.addClass("planning_search");
             });
 	}
+
+    add_status_settings(): void{
+        const status_tag_settings: Setting = new Setting(this.containerEl)
+            .setName("Group/Project/Task Status Tag Types").setHeading()
+            .setDesc("Used to show the current progress status")
+
+            this.plugin.settings.statusTags.forEach(
+                (status, index) => {
+                    const name = new Setting(this.containerEl)
+                    .addText((input) => {
+                        input.setValue(status)
+                    })
+                    .addExtraButton((cb) => {
+                        cb.setIcon("up-chevron-glyph")
+                        .setTooltip("Move up")
+                        .onClick(() => {
+                            arraymove(
+                                this.plugin.settings.statusTags,
+                                index,
+                                index - 1
+                            );
+                            this.plugin.save_settings();
+                            this.display();
+                        })
+                    })
+                    .addExtraButton((cb) => {
+                        cb.setIcon("down-chevron-glyph")
+                        .setTooltip("Move down")
+                        .onClick(() => {
+                            arraymove(
+                                this.plugin.settings.statusTags,
+                                index,
+                                index + 1
+                            );
+                            this.plugin.save_settings();
+                            this.display();
+                        })
+                    })
+                    .addExtraButton((cb) => {
+                        cb.setIcon("cross")
+                            .setTooltip("Delete")
+                            .onClick(() => {
+                                this.plugin.settings.statusTags.splice(
+                                    index,
+                                    1
+                                );
+                                this.plugin.save_settings();
+                                this.display();
+                            });
+                    })
+                }
+            )
+        status_tag_settings.addButton((cb) => {
+            cb.setButtonText("Restore Defaults")
+            .onClick(() => {
+                var defaults = arraycopy(DEFAULT_SETTINGS.statusTags);
+                this.plugin.settings.statusTags = defaults;
+                this.plugin.save_settings();
+                this.display();
+            })
+        })
+        status_tag_settings.addButton((cb) => {
+            cb.setButtonText("Add new status")
+            .onClick(() => {
+                this.display();
+            })
+        })
+    }
 }
+
+
+
