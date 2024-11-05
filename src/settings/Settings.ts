@@ -88,55 +88,60 @@ export class PlanningSettingsTab extends PluginSettingTab {
             });
 	}
 
+    _add_status_setting(status_entry: string, index: number): void {
+        const name = new Setting(this.containerEl)
+        .addText((input) => {
+            input.setValue(status_entry)
+        })
+        .addExtraButton((cb) => {
+            cb.setIcon("up-chevron-glyph")
+            .setTooltip("Move up")
+            .onClick(() => {
+                arraymove(
+                    this.plugin.settings.statusTags,
+                    index,
+                    index - 1
+                );
+                this.plugin.save_settings();
+                this.display();
+            })
+        })
+        .addExtraButton((cb) => {
+            cb.setIcon("down-chevron-glyph")
+            .setTooltip("Move down")
+            .onClick(() => {
+                arraymove(
+                    this.plugin.settings.statusTags,
+                    index,
+                    index + 1
+                );
+                this.plugin.save_settings();
+                this.display();
+            })
+        })
+        .addExtraButton((cb) => {
+            cb.setIcon("cross")
+                .setTooltip("Delete")
+                .onClick(() => {
+                    this.plugin.settings.statusTags.splice(
+                        index,
+                        1
+                    );
+                    this.plugin.save_settings();
+                    this.display();
+                });
+        })
+
+    }
+
     add_status_settings(): void{
         const status_tag_settings: Setting = new Setting(this.containerEl)
             .setName("Group/Project/Task Status Tag Types").setHeading()
             .setDesc("Used to show the current progress status")
 
             this.plugin.settings.statusTags.forEach(
-                (status, index) => {
-                    const name = new Setting(this.containerEl)
-                    .addText((input) => {
-                        input.setValue(status)
-                    })
-                    .addExtraButton((cb) => {
-                        cb.setIcon("up-chevron-glyph")
-                        .setTooltip("Move up")
-                        .onClick(() => {
-                            arraymove(
-                                this.plugin.settings.statusTags,
-                                index,
-                                index - 1
-                            );
-                            this.plugin.save_settings();
-                            this.display();
-                        })
-                    })
-                    .addExtraButton((cb) => {
-                        cb.setIcon("down-chevron-glyph")
-                        .setTooltip("Move down")
-                        .onClick(() => {
-                            arraymove(
-                                this.plugin.settings.statusTags,
-                                index,
-                                index + 1
-                            );
-                            this.plugin.save_settings();
-                            this.display();
-                        })
-                    })
-                    .addExtraButton((cb) => {
-                        cb.setIcon("cross")
-                            .setTooltip("Delete")
-                            .onClick(() => {
-                                this.plugin.settings.statusTags.splice(
-                                    index,
-                                    1
-                                );
-                                this.plugin.save_settings();
-                                this.display();
-                            });
-                    })
+                (status_entry, index) => {
+                    this._add_status_setting(status_entry, index);
                 }
             )
         status_tag_settings.addButton((cb) => {
