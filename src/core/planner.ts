@@ -1,6 +1,5 @@
-import { App, Notice } from "obsidian";
+import { Notice } from "obsidian";
 import PlanningPlugin from "src/main"
-import { status_tag_type } from "./tags";
 import { GoalsModal } from "./goals";
 import { GoalIndexCard } from "./goals";
 
@@ -20,7 +19,7 @@ export class Planner{
     create_goal(): void {
         this.goalIndexCard = new GoalIndexCard();
         this.goals_modal = new GoalsModal(this.plugin.app);
-        this.goals_modal.show(this.goalIndexCard, this.create_goal_response);
+        this.goals_modal.display(this.goalIndexCard, this.create_goal_response);
     }
 
     create_goal_response(result: boolean): void {
