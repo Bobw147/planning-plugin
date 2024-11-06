@@ -13,17 +13,17 @@ function readHtmlFile(filename: string): string {
 
 export class GoalIndexCard implements PlanningIndexCard{
     Name: string;
-    ModeTag: mode_tag_type | null;
-    IdentTag: ident_tag_type | null;
-    StatusTag: status_tag_type | null;
+    ModeTag: typeof mode_tag_type;
+    IdentTag: typeof ident_tag_type;
+    StatusTag: typeof status_tag_type;
     TargetDate: Date | null;
     PredictedDate: Date | null;
     UserTags: Array<string>;
     constructor(){
         this.Name = "";
-        this.ModeTag = null;
-        this.IdentTag = ident_tag_type.PLANNING_GOAL;
-        this.StatusTag = null;
+        this.ModeTag = [];
+        this.IdentTag = ident_tag_type;
+        this.StatusTag = [];
         this.TargetDate = null;
         this.PredictedDate = null;
         this.UserTags = [];
@@ -39,7 +39,7 @@ export class GoalsModal extends Modal {
 		super(app);
     };
 
-    show(goal_index_card: GoalIndexCard, callback: (result: boolean) => void) {
+    display(goal_index_card: GoalIndexCard, callback: (result: boolean) => void) {
         this.callbackFunc = callback;
         this.goalIndexCard = goal_index_card;
 
