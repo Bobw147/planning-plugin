@@ -6,7 +6,6 @@ import { mode_tag_type } from "src/core/tags";
 import { ident_tag_type } from "src/core/tags";
 import { arraycopy, arraymove } from "src/utils/utils";
 
-// Remember to rename these classes and interfaces!
 export interface Settings {
 	goalsFolder: string;
 	projectsFolder: string;
@@ -89,9 +88,13 @@ export class PlanningSettingsTab extends PluginSettingTab {
 	}
 
     _add_status_setting(status_entry: string, index: number): void {
-        const name = new Setting(this.containerEl)
-        .addText((input) => {
-            input.setValue(status_entry)
+        new Setting(this.containerEl)
+        .addText((input_instance) => {
+            input_instance.setValue(status_entry)
+            input_instance.onChange((value: string) => {
+                this.plugin.settings.statusTags[index] = value;
+                this.plugin.save_settings();
+            })
         })
         .addExtraButton((cb) => {
             cb.setIcon("up-chevron-glyph")
@@ -138,7 +141,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
         const status_tag_settings: Setting = new Setting(this.containerEl)
             .setName("Group/Project/Task Status Tag Types").setHeading()
             .setDesc("Used to show the current progress status")
-
+    
             this.plugin.settings.statusTags.forEach(
                 (status_entry, index) => {
                     this._add_status_setting(status_entry, index);
@@ -147,17 +150,20 @@ export class PlanningSettingsTab extends PluginSettingTab {
         status_tag_settings.addButton((cb) => {
             cb.setButtonText("Restore Defaults")
             .onClick(() => {
-                var defaults = arraycopy(DEFAULT_SETTINGS.statusTags);
-                this.plugin.settings.statusTags = defaults;
-                this.plugin.save_settings();
-                this.display();
+                if (window.confirm("Confirm that you want to restore defaults.\nThis action cannot be undone.")) {
+                    this.plugin.settings.statusTags = arraycopy(DEFAULT_SETTINGS.statusTags);
+                    this.plugin.save_settings();
+                    this.display();
+                }
             })
         })
         status_tag_settings.addButton((cb) => {
             cb.setButtonText("Add new status")
             .onClick(() => {
+                this.plugin.settings.statusTags.push("#status/" + name);
+                this.plugin.save_settings();
                 this.display();
-            })
+               })
         })
     }
 }
