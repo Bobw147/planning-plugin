@@ -9,12 +9,12 @@ export const status_tag_type: Array<string> = [
     "#status/deprecated",
 ]
 
-export const ident_tag_type = [
-    "#planning/goal",
-    "#planning/project",
-    "#planning/task",
-    "#planning/subtask",
-]
+export const ident_tag_type = {
+    PLANNING_GOAL: "#planning/goal",
+    PLANNING_PROJECT: "#planning/project",
+    PLANNING_TASK: "#planning/task",
+    PLANNING_SUBTASK: "#planning/subtask",
+}
 
 export const mode_tag_type  = [
     "#planning/business",
