@@ -140,10 +140,11 @@ export class PlanningSettingsTab extends PluginSettingTab {
     }
 
     _add_status_setting(status_entry: string, index: number): void {
-        new Setting(this.containerEl)
+        new Setting(this.containerEl).setClass("status-input")
         .addText((input_instance) => {
             input_instance.setValue(status_entry)
-            input_instance.onChange((value: string) => {
+            .
+            .onChange((value: string) => {
                 this.plugin.settings.statusTags[index] = value;
                 this.plugin.save_settings();
             })
