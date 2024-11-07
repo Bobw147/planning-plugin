@@ -11,6 +11,7 @@ export interface Settings {
 	projectsFolder: string;
 	tasksFolder: string;
     statusTags: typeof status_tag_type;
+    modeTags: typeof mode_tag_type;
 }
  
 export const DEFAULT_SETTINGS: Settings = {
@@ -18,6 +19,7 @@ export const DEFAULT_SETTINGS: Settings = {
 	projectsFolder: 'Projects',
 	tasksFolder: 'Tasks',
     statusTags: status_tag_type,
+    modeTags: mode_tag_type,
 }
 
 export class PlanningSettingsTab extends PluginSettingTab {
@@ -33,6 +35,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
         this.add_projects_folder_setting();
         this.add_tasks_folder_setting();
         this.add_status_settings();
+        this.add_mode_settings();
     }
 
     add_goals_folder_setting() : void {
@@ -87,6 +90,55 @@ export class PlanningSettingsTab extends PluginSettingTab {
             });
 	}
 
+    _add_mode_setting(mode_entry:string, index:number): void {
+        new Setting(this.containerEl)
+        .addText((input_instance) => {
+            input_instance.setValue(mode_entry)
+            input_instance.onChange((value: string) => {
+                this.plugin.settings.modeTags[index] = value;
+                this.plugin.save_settings();
+            })
+        })
+        .addExtraButton((cb) => {
+            cb.setIcon("up-chevron-glyph")
+            .setTooltip("Move up")
+            .onClick(() => {
+                arraymove(
+                    this.plugin.settings.modeTags,
+                    index,
+                    index - 1
+                );
+                this.plugin.save_settings();
+                this.display();
+            })
+        })
+        .addExtraButton((cb) => {
+            cb.setIcon("down-chevron-glyph")
+            .setTooltip("Move down")
+            .onClick(() => {
+                arraymove(
+                    this.plugin.settings.modeTags,
+                    index,
+                    index + 1
+                );
+                this.plugin.save_settings();
+                this.display();
+            })
+        })
+        .addExtraButton((cb) => {
+            cb.setIcon("cross")
+                .setTooltip("Delete")
+                .onClick(() => {
+                    this.plugin.settings.modeTags.splice(
+                        index,
+                        1
+                    );
+                    this.plugin.save_settings();
+                    this.display();
+                });
+        })
+    }
+
     _add_status_setting(status_entry: string, index: number): void {
         new Setting(this.containerEl)
         .addText((input_instance) => {
@@ -134,12 +186,11 @@ export class PlanningSettingsTab extends PluginSettingTab {
                     this.display();
                 });
         })
-
     }
 
-    add_status_settings(): void{
+    add_status_settings(): void {
         const status_tag_settings: Setting = new Setting(this.containerEl)
-            .setName("Group/Project/Task Status Tag Types").setHeading()
+            .setName("Goal/Project/Task Status Tag Types").setHeading()
             .setDesc("Used to show the current progress status")
     
             this.plugin.settings.statusTags.forEach(
@@ -166,7 +217,33 @@ export class PlanningSettingsTab extends PluginSettingTab {
                })
         })
     }
+
+    add_mode_settings(): void {
+        const mode_tag_settings: Setting = new Setting(this.containerEl)
+            .setName("Life areas your goals apply to").setHeading()
+            .setDesc("")
+            this.plugin.settings.modeTags.forEach(
+                (mode_entry, index) => {
+                    this._add_mode_setting(mode_entry, index);
+                }
+            )
+        mode_tag_settings.addButton((cb) => {
+            cb.setButtonText("Restore Defaults")
+            .onClick(() => {
+                if (window.confirm("Confirm that you want to restore defaults.\nThis action cannot be undone.")) {
+                    this.plugin.settings.modeTags = arraycopy(DEFAULT_SETTINGS.modeTags);
+                    this.plugin.save_settings();
+                    this.display();
+                }
+            })
+        })
+        mode_tag_settings.addButton((cb) => {
+            cb.setButtonText("Add new mode")
+            .onClick(() => {
+                this.plugin.settings.modeTags.push("#planning/" + name);
+                this.plugin.save_settings();
+                this.display();
+               })
+        })
+    }
 }
-
-
-
