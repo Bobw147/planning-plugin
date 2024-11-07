@@ -3,7 +3,6 @@ import { PluginSettingTab, Setting }  from "obsidian";
 import { FolderSuggest } from "./suggesters/FolderSuggester";
 import { status_tag_type } from "src/core/tags";
 import { mode_tag_type } from "src/core/tags";
-import { ident_tag_type } from "src/core/tags";
 import { arraycopy, arraymove } from "src/utils/utils";
 
 export interface Settings {
