@@ -6,7 +6,7 @@ export class CommandHandler{
 
     setup(): CommandHandler {
         this.plugin.addCommand({
-            id: "create-goal",
+            id: "createGoalCmd",
             name: "Create a new Goal",
             icon: "goal",
             hotkeys: [
