@@ -16,10 +16,6 @@ export class Planner{
       this.plugin = plugin;
     }
 
-    async setup(): Promise<void>{  
-
-    }
-
     create_goal(): void {
         this.goalIndexCard = new GoalIndexCard();
         this.goals_modal = new GoalsModal(this.plugin.app);
