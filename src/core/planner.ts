@@ -1,8 +1,10 @@
-import { Notice } from "obsidian";
+import { Editor, Notice } from "obsidian";
 import PlanningPlugin from "src/main"
 import { GoalsModal } from "./goals";
 import { GoalIndexCard } from "./goals";
-import { Vault } from "obsidian";
+import { DataviewApi } from "obsidian-dataview";
+import { TFile } from "obsidian";
+import { goalDataview } from "./scripts/dataview_goal";
 
 type callbackFunction = (result: boolean, plannerInstance: Planner) => void;
 
@@ -24,26 +26,23 @@ export class Planner{
         this.goals_modal.display(this.goalIndexCard, this, this.create_goal_response);
     }
     
-    ensure_folder_exists(): void {
-            let goals_folder: string;
-      //      let base_path: string;
-      
-            alert("Checking folder")
-            goals_folder = this.plugin.settings.goalsFolder;
-            this.plugin.app.vault.createFolder(goals_folder);
-            alert("Created folder");
-      }
+    async create_file(): Promise<void> {
+      let goals_folder: string;
+      let goal_file: TFile;
+      let file_content: string;
+      let goal_editor: Editor;
+
+      goals_folder = this.plugin.settings.goalsFolder;
+      this.plugin.app.vault.createFolder(goals_folder);
+      goal_file = await this.plugin.app.vault.create(goals_folder + '/' + this.goalIndexCard.Name + ".md", "");
+      this.plugin.app.vault.modify(goal_file, "```" + goalDataview + "```");
+    }
       
     create_goal_response(result: boolean, thisInstance: Planner): void {
-      if (result){
-        thisInstance.ensure_folder_exists();
-        alert("Processing folder")
-        var goalName = "Goal Name is : " + this.goalIndexCard.Name;
-      }
-      else {
-          alert("Goal creation cancelled");
-      }
-      this.goals_modal = null;
+        if (result){
+            thisInstance.create_file();
+        }
+        this.goals_modal = null;
     };
 
     create_project(): void {
