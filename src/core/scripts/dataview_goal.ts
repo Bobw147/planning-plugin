@@ -1,5 +1,19 @@
-export const goalDataview = 
-"dataviewjs\n \
+import { GoalIndexCard } from "../goals";
+
+export var goalDataview = 
+"##### Index Card\n \
+NamePlaceholder\n \
+ModePlaceholder\n \
+IdentTagPlaceholder\n \
+StatusTagPlaceholder\n \
+TargetDatePlaceholder\n \
+AnticipatedDatePlaceholder\n \
+CompletedDatePlaceholder\n \
+UserTagsPlaceholder\n \
+\n\
+\n\
+#### Project View\n \
+```dataviewjs\n \
 const DAY = 0;\n \
 const MONTH = 1;\n \
 const YEAR = 2;\n \
@@ -10,10 +24,10 @@ function getMostRecentDate(dateLink1, dateLink2){\n \
 \n\
 	if (dateLink1 === null || dateLink1 === undefined) return dateLink2;\n \
 	if (dateLink2 === null || dateLink2 === undefined) return dateLink1;\n \
-\n\
+\n \
 	let task1WorkedOn = dv.page(dateLink1).file.name.split('-');\n \
 	let task2WorkedOn = dv.page(dateLink2).file.name.split('-');\n \
-\n\
+\n \
 	if (task2WorkedOn[YEAR] > task1WorkedOn[YEAR]){\n \
 		mostRecentDate = dateLink2;\n \
 	}\n \
@@ -82,4 +96,16 @@ projects.forEach(project => {\n \
 dv.table(['Project', 'Due Date', 'Expected Date', 'Last Worked On'],\n \
 	projectInfo.map(project => [project.file.link, project.TargetDate, project.AnticipatedDate, project.LastWorkedOn])\n \
 )\n \
-"
+```"
+
+export function goal_page_content(indexCard: GoalIndexCard) : string {
+
+	return goalDataview.replace("NamePlaceholder", "Goal:: " + indexCard.Name)
+					.replace("ModePlaceholder", "ModeTag:: " + indexCard.ModeTag)
+					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.IdentTag)
+					.replace("StatusTagPlaceholder", "StatusTag::")
+					.replace("TargetDatePlaceholder", "TargetDate:: " + indexCard.TargetDate?.toLocaleDateString())
+					.replace("AnticipatedDatePlaceholder", "AnicipatedDate:: ")
+					.replace("CompletedDatePlaceholder", "CompletedDate:: ")
+					.replace("UserTagsPlaceholder", "UserTags:: ");
+}
