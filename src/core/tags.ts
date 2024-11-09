@@ -16,7 +16,7 @@ export const ident_tag_type = {
     PLANNING_SUBTASK: "#planning/subtask",
 }
 
-export const mode_tag_type  = [
+export const mode_tag_type: Array<string>  = [
     "#planning/business",
     "#planning/personal",
     "#planning/domestic",
