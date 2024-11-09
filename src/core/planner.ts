@@ -4,7 +4,7 @@ import { GoalsModal } from "./goals";
 import { GoalIndexCard } from "./goals";
 import { DataviewApi } from "obsidian-dataview";
 import { TFile } from "obsidian";
-import { goalDataview } from "./scripts/dataview_goal";
+import { goal_page_content} from "./scripts/dataview_goal";
 
 type callbackFunction = (result: boolean, plannerInstance: Planner) => void;
 
@@ -29,13 +29,12 @@ export class Planner{
     async create_file(): Promise<void> {
       let goals_folder: string;
       let goal_file: TFile;
-      let file_content: string;
-      let goal_editor: Editor;
 
       goals_folder = this.plugin.settings.goalsFolder;
       this.plugin.app.vault.createFolder(goals_folder);
       goal_file = await this.plugin.app.vault.create(goals_folder + '/' + this.goalIndexCard.Name + ".md", "");
-      this.plugin.app.vault.modify(goal_file, "```" + goalDataview + "```");
+
+      await this.plugin.app.vault.modify(goal_file, goal_page_content(this.goalIndexCard));
     }
       
     create_goal_response(result: boolean, thisInstance: Planner): void {
