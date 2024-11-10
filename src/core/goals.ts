@@ -6,12 +6,6 @@ import { join } from 'path';
 import { goalForm } from "./forms/goal_form";
 import { Planner } from "./planner";
 
-function readHtmlFile(filename: string): string {
-    const filePath = join(__dirname, filename);
-    const fileContents = readFileSync(filePath, 'utf-8');
-    return fileContents;
-}
-
 export class GoalIndexCard implements PlanningIndexCard{
     Name: string;
     ModeTag: string;
