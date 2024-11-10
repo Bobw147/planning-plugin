@@ -6,7 +6,7 @@ export interface PlanningIndexCard {
     IdentTag: string;
     StatusTag: string;
     TargetDate: Date | null;
-    AnicipatedDate: Date | null;
+    AnticipatedDate: Date | null;
     CompletedDate: Date | null;
     UserTags: Array<string>;
 };
