@@ -12,7 +12,6 @@ export default class PlanningPlugin extends Plugin {
 		await this.load_settings();
 
 		this.planner = new Planner(this);
-		await this.planner.setup();
 
 		// This creates an icon in the left ribbon.
 		const ribbonGoalIconEl = this.addRibbonIcon('goal', 'Goal', (evt: MouseEvent) => {
