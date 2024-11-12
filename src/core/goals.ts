@@ -1,8 +1,6 @@
 import { App, Modal, Setting } from "obsidian";
 import { PlanningIndexCard } from "./indexcard";
-import { mode_tag_type, ident_tag_type, status_tag_type } from "./tags";
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { ident_tags } from "./tags";
 import { goalForm } from "./forms/goal_form";
 import { Planner } from "./planner";
 
@@ -12,15 +10,17 @@ export class GoalIndexCard implements PlanningIndexCard{
     IdentTag: string;
     StatusTag: string;
     TargetDate: Date | null;
-    PredictedDate: Date | null;
+    AnticipatedDate: Date | null;
+    CompletedDate: Date | null;
     UserTags: Array<string>;
     constructor(){
         this.Name = "";
         this.ModeTag = "";
-        this.IdentTag = ident_tag_type.PLANNING_GOAL;
+        this.IdentTag = ident_tags.PLANNING_GOAL;
         this.StatusTag = "";
         this.TargetDate = null;
-        this.PredictedDate = null;
+        this.AnticipatedDate = null;
+        this.CompletedDate = null;
         this.UserTags = [];
     }
 }
