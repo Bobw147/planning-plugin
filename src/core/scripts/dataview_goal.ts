@@ -100,7 +100,7 @@ dv.table(['Project', 'Due Date', 'Expected Date', 'Last Worked On'],\n \
 
 export function goal_page_content(indexCard: GoalIndexCard) : string {
 
-	return goalDataview.replace("NamePlaceholder", "Goal:: " + indexCard.Name)
+	return goalDataview.replace("NamePlaceholder", "Name:: " + indexCard.Name)
 					.replace("ModePlaceholder", "ModeTag:: " + indexCard.ModeTag)
 					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.IdentTag)
 					.replace("StatusTagPlaceholder", "StatusTag::")
