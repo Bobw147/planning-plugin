@@ -1,24 +1,24 @@
 import  PlanningPlugin from "src/main";
 import { PluginSettingTab, Setting }  from "obsidian";
 import { FolderSuggest } from "./suggesters/FolderSuggester";
-import { default_status_tags } from "src/core/tags";
-import { default_mode_tags } from "src/core/tags";
+import { defaultStatusTags } from "src/core/tags";
+import { defaultModeTags } from "src/core/tags";
 import { arraycopy, arraymove } from "src/utils/utils";
 
 export interface Settings {
 	goalsFolder: string;
 	projectsFolder: string;
 	tasksFolder: string;
-    statusTags: typeof default_status_tags;
-    modeTags: typeof default_mode_tags;
+    statusTags: typeof defaultStatusTags;
+    modeTags: typeof defaultModeTags;
 }
  
 export const DEFAULT_SETTINGS: Settings = {
 	goalsFolder: 'Goals',
 	projectsFolder: 'Projects',
 	tasksFolder: 'Tasks',
-    statusTags: default_status_tags,
-    modeTags: default_mode_tags,
+    statusTags: defaultStatusTags,
+    modeTags: defaultModeTags,
 }
 
 export class PlanningSettingsTab extends PluginSettingTab {

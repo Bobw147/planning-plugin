@@ -1,62 +1,63 @@
-import { PlanningIndexCard } from "./indexcard";
-import { App, Modal } from "obsidian";
-import { Planner } from "./planner";
+import { IPlanningIndexCard, PlanningIndexCard } from "./indexcard";
+import { App, Modal, Vault } from "obsidian";
 import { taskForm } from "./forms/task_form";
-import { ident_tags } from "./tags";
+import { identTags } from "./tags";
+import { Settings } from "src/settings/Settings";
+import { createFolder } from "src/utils/utils";
+import { taskPageContent } from "./scripts/dataview_task";
 
-var goal_link: string;
+export interface ITaskIndexCard extends IPlanningIndexCard {
+    _parentProject: string;
 
-export class TaskIndexCard implements PlanningIndexCard{
-    Name: string;
-    Parent: string;
-    ModeTag: string;
-    IdentTag: string;
-    StatusTag: string;
-    TargetDate: Date | null;
-    AnticipatedDate: Date | null;
-    CompletedDate: Date |  null;
-    UserTags: Array<string>;
+    get parentProject(): string;
+    set parentProject(value: string);
+}
+
+export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
+    _parentProject: string;
+
     constructor(){
-        this.Name = "";
-        this.Parent = "";
-        this.ModeTag = "";
-        this.IdentTag = ident_tags.PLANNING_TASK;
-        this.StatusTag = "";
-        this.TargetDate = null;
-        this.AnticipatedDate = null;
-        this.CompletedDate = null;
-        this.UserTags = [];
+        super();
+        this._parentProject = ""
+        this._identTag = identTags.PLANNING_TASK;
+    }
+
+    public get parentProject(): string {
+        return this._parentProject;
+    }
+
+    public set parentProject(value: string) {
+        this._parentProject = value;
     }
 }
 
 export class TasksModal extends Modal {
-	taskIndexCard: PlanningIndexCard;
-    callbackFunc: (result: boolean, plannerInstance: Planner) => void;
-    planner_instance: Planner;
+    private _settings: Settings;
+    private _vault: Vault;
 
-    constructor(app: App) {
+    constructor(app: App, vault: Vault, settings: Settings) {
 		super(app);
+        this._settings = settings;
+        this._vault = vault;
     };
 
-    display(task_index_card: TaskIndexCard, planner_instance: Planner, callback: (result: boolean, planner: Planner) => void) {
-        this.callbackFunc = callback;
-        this.taskIndexCard = task_index_card;
+    display(): void {
         this.open()
         this.contentEl.empty();
         this.setTitle("Create a new Task");
         this.contentEl.innerHTML = taskForm;
-        this.planner_instance = planner_instance;
 
-        (document.getElementById("createTask") as HTMLButtonElement).onclick = () => {
-            this.taskIndexCard.Name = (document.getElementById("task-name") as HTMLInputElement).value;
-            this.taskIndexCard.ModeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
-            this.taskIndexCard.TargetDate = new Date((document.getElementById("target-date")as HTMLDataElement).value);
+        (document.getElementById("createTask") as HTMLButtonElement).onclick = async () => {
+            let _taskIndexCard = new TaskIndexCard();
+            _taskIndexCard.name = (document.getElementById("task-name") as HTMLInputElement).value;
+            _taskIndexCard.modeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
+            _taskIndexCard.targetDate = new Date((document.getElementById("target-date")as HTMLDataElement).value);
 
-            this.callbackFunc(true,  this.planner_instance);
+            await createFolder(this._vault, this._settings.projectsFolder);
+            await this._vault.modify(await this._vault.create(this._settings.projectsFolder + "/" + _taskIndexCard.name + ".md", ""), taskPageContent(_taskIndexCard))
             this.close();
         }
         (document.getElementById("cancelCreate") as HTMLButtonElement).onclick = () => {
-            this.callbackFunc(false, this.planner_instance);
             this.close();
         }
     }

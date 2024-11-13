@@ -1,4 +1,4 @@
-export const default_status_tags: Array<string> = [
+export const defaultStatusTags: Array<string> = [
     "#status/inbox",
     "#status/next",
     "#status/in-progress",
@@ -9,14 +9,14 @@ export const default_status_tags: Array<string> = [
     "#status/deprecated",
 ]
 
-export const ident_tags = {
+export const identTags = {
     PLANNING_GOAL: "#planning/goal",
     PLANNING_PROJECT: "#planning/project",
     PLANNING_TASK: "#planning/task",
     PLANNING_SUBTASK: "#planning/subtask",
 }
 
-export const default_mode_tags: Array<string>  = [
+export const defaultModeTags: Array<string>  = [
     "#planning/business",
     "#planning/personal",
     "#planning/domestic",

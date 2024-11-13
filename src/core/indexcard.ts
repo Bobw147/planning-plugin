@@ -1,6 +1,7 @@
 import { arraycopy } from "src/utils/utils";
 import { BadStatusTagError, BadModeTagError, BadIdentTagError, UserTagError } from "./exceptions/exceptions";
-export interface IIndexCard{
+
+export interface IPlanningIndexCard{
     _name: string;
     _modeTag: string;
     _identTag: string;
@@ -21,14 +22,13 @@ export interface IIndexCard{
 
     set name(value: string);
     set modeTag(value: string);
-    set identTag(value: string);
     set statusTag(value: string);
     set targetDate(value: Date | null);
     set anticipatedDate(value: Date | null);
     set completedDate(value: Date | null);
     set userTags(value: string[]);
 }
-export class PlanningIndexCard implements IIndexCard {
+export class PlanningIndexCard implements IPlanningIndexCard {
     _name: string;
     _modeTag: string;
     _identTag: string;
@@ -94,15 +94,6 @@ export class PlanningIndexCard implements IIndexCard {
         }
     };
 
-    set identTag(value: string) {
-        if (value.startsWith("#planning/")) {
-            this._identTag = value;
-        }
-        else {
-            throw new BadIdentTagError();
-        }
-    };
-
     set statusTag(value: string) {
         if (value.startsWith("#status/")) {
             this._modeTag = value;
@@ -114,7 +105,7 @@ export class PlanningIndexCard implements IIndexCard {
 
     set targetDate(value: Date | null)
     {
-        this.targetDate = value;
+        this._targetDate = value;
     };
 
     set anticipatedDate(value: Date | null) {
@@ -132,6 +123,6 @@ export class PlanningIndexCard implements IIndexCard {
                 throw new UserTagError();
             }
         });
-        this.userTags = arraycopy(value);
+        this._userTags = arraycopy(value);
     };
 }

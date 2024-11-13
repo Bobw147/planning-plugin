@@ -98,13 +98,13 @@ dv.table(['Project', 'Due Date', 'Expected Date', 'Last Worked On'],\n \
 )\n \
 ```"
 
-export function goal_page_content(indexCard: GoalIndexCard) : string {
+export function goalPageContent(indexCard: GoalIndexCard) : string {
 
-	return goalDataview.replace("NamePlaceholder", "Name:: " + indexCard.Name)
-					.replace("ModePlaceholder", "ModeTag:: " + indexCard.ModeTag)
-					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.IdentTag)
+	return goalDataview.replace("NamePlaceholder", "Name:: " + indexCard.name)
+					.replace("ModePlaceholder", "ModeTag:: " + indexCard.modeTag)
+					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.dentTag)
 					.replace("StatusTagPlaceholder", "StatusTag::")
-					.replace("TargetDatePlaceholder", "TargetDate:: " + indexCard.TargetDate?.toLocaleDateString())
+					.replace("TargetDatePlaceholder", "TargetDate:: " + indexCard.targetDate?.toLocaleDateString())
 					.replace("AnticipatedDatePlaceholder", "AnicipatedDate:: ")
 					.replace("CompletedDatePlaceholder", "CompletedDate:: ")
 					.replace("UserTagsPlaceholder", "UserTags:: ");

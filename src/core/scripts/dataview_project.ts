@@ -1,6 +1,6 @@
-import { GoalIndexCard } from "../goals";
+import { IProjectIndexCard } from "../projects";
 
-export var goalDataview = 
+export var projectDataview = 
 "##### Index Card\n \
 NamePlaceholder\n \
 ModePlaceholder\n \
@@ -98,13 +98,13 @@ dv.table(['Project', 'Due Date', 'Expected Date', 'Last Worked On'],\n \
 )\n \
 ```"
 
-export function project_page_content(indexCard: GoalIndexCard) : string {
+export function project_page_content(indexCard: IProjectIndexCard) : string {
 
-	return goalDataview.replace("NamePlaceholder", "Name:: " + indexCard.Name)
-					.replace("ModePlaceholder", "ModeTag:: " + indexCard.ModeTag)
-					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.IdentTag)
+	return projectDataview.replace("NamePlaceholder", "Name:: " + indexCard.name)
+					.replace("ModePlaceholder", "ModeTag:: " + indexCard.modeTag)
+					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.identTag)
 					.replace("StatusTagPlaceholder", "StatusTag::")
-					.replace("TargetDatePlaceholder", "TargetDate:: " + indexCard.TargetDate?.toLocaleDateString())
+					.replace("TargetDatePlaceholder", "TargetDate:: " + indexCard.targetDate?.toLocaleDateString())
 					.replace("AnticipatedDatePlaceholder", "AnicipatedDate:: ")
 					.replace("CompletedDatePlaceholder", "CompletedDate:: ")
 					.replace("UserTagsPlaceholder", "UserTags:: ");

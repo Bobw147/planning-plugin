@@ -1,62 +1,63 @@
-import { PlanningIndexCard } from "./indexcard";
-import { App, Modal } from "obsidian";
-import { Planner } from "./planner";
+import { IPlanningIndexCard, PlanningIndexCard } from "./indexcard";
+import { App, Modal, ValueComponent, Vault } from "obsidian";
 import { projectForm } from "./forms/project_form";
-import { ident_tags } from "./tags";
+import { Settings } from "src/settings/Settings";
+import { project_page_content } from "./scripts/dataview_project";
+import { createFolder } from "src/utils/utils";
+import { identTags } from "./tags";
 
-var goal_link: string;
+export interface IProjectIndexCard extends IPlanningIndexCard{
+    _parentGoal: string;
 
-export class ProjectIndexCard implements PlanningIndexCard{
-    Name: string;
-    Parent: string;
-    ModeTag: string;
-    IdentTag: string;
-    StatusTag: string;
-    TargetDate: Date | null;
-    AnticipatedDate: Date | null;
-    CompletedDate: Date |  null;
-    UserTags: Array<string>;
-    constructor(){
-        this.Name = "";
-        this.Parent = "";
-        this.ModeTag = "";
-        this.IdentTag = ident_tags.PLANNING_PROJECT;
-        this.StatusTag = "";
-        this.TargetDate = null;
-        this.AnticipatedDate = null;
-        this.CompletedDate = null;
-        this.UserTags = [];
+    get parentGoal() : string;
+    set parentGoal(value: string);
+}
+
+export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndexCard {
+    _parentGoal: string;
+
+    constructor() {
+        super();
+        this._parentGoal = "";
+        this._identTag = identTags.PLANNING_PROJECT;
+    }
+
+    public get parenGoal(): string {
+        return this._parentGoal;
+    }
+
+    public set parentGoal(value: string)  {
+        this._parentGoal = value;
     }
 }
 
 export class ProjectsModal extends Modal {
-	projectIndexCard: PlanningIndexCard;
-    callbackFunc: (result: boolean, plannerInstance: Planner) => void;
-    planner_instance: Planner;
+    private _settings: Settings;
+    private _vault: Vault;
 
-    constructor(app: App) {
+    constructor(app: App, vault: Vault, settings: Settings) {
 		super(app);
+        this._settings = settings;
+        this._vault = vault;
     };
 
-    display(project_index_card: ProjectIndexCard, planner_instance: Planner, callback: (result: boolean, planner: Planner) => void) {
-        this.callbackFunc = callback;
-        this.projectIndexCard = project_index_card;
+    display(): void{
         this.open()
         this.contentEl.empty();
         this.setTitle("Create a new Project");
         this.contentEl.innerHTML = projectForm;
-        this.planner_instance = planner_instance;
 
-        (document.getElementById("createProject") as HTMLButtonElement).onclick = () => {
-            this.projectIndexCard.Name = (document.getElementById("project-name") as HTMLInputElement).value;
-            this.projectIndexCard.ModeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
-            this.projectIndexCard.TargetDate = new Date((document.getElementById("target-date")as HTMLDataElement).value);
+        (document.getElementById("createProject") as HTMLButtonElement).onclick = async () => {
+            let _projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
+            _projectIndexCard.name = (document.getElementById("project-name") as HTMLInputElement).value;
+            _projectIndexCard.modeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
+            _projectIndexCard.targetDate = new Date((document.getElementById("target-date") as HTMLDataElement).value);
 
-            this.callbackFunc(true,  this.planner_instance);
+            await createFolder(this._vault, this._settings.projectsFolder);
+            await this._vault.modify(await this._vault.create(this._settings.projectsFolder + "/" + _projectIndexCard.name + ".md", ""), project_page_content(_projectIndexCard))
             this.close();
         }
         (document.getElementById("cancelCreate") as HTMLButtonElement).onclick = () => {
-            this.callbackFunc(false, this.planner_instance);
             this.close();
         }
     }

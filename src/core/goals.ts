@@ -1,59 +1,46 @@
-import { App, Modal, Setting } from "obsidian";
+import { App, Modal, Vault } from "obsidian";
 import { PlanningIndexCard } from "./indexcard";
-import { ident_tags } from "./tags";
+import { identTags } from "./tags";
 import { goalForm } from "./forms/goal_form";
-import { Planner } from "./planner";
+import { Settings } from "src/settings/Settings";
+import { createFolder } from "src/utils/utils";
+import { goalPageContent } from "./scripts/dataview_goal";
 
-export class GoalIndexCard implements PlanningIndexCard{
-    Name: string;
-    ModeTag: string;
-    IdentTag: string;
-    StatusTag: string;
-    TargetDate: Date | null;
-    AnticipatedDate: Date | null;
-    CompletedDate: Date | null;
-    UserTags: Array<string>;
+export class GoalIndexCard extends PlanningIndexCard{
+
     constructor(){
-        this.Name = "";
-        this.ModeTag = "";
-        this.IdentTag = ident_tags.PLANNING_GOAL;
-        this.StatusTag = "";
-        this.TargetDate = null;
-        this.AnticipatedDate = null;
-        this.CompletedDate = null;
-        this.UserTags = [];
+        super();
+        this._identTag = identTags.PLANNING_GOAL;
     }
 }
 
-var instance: GoalsModal;
 export class GoalsModal extends Modal {
-	goalIndexCard: GoalIndexCard;
-    callbackFunc: (result: boolean, plannerInstance: Planner) => void;
-    planner_instance: Planner;
+    private _settings: Settings;
+    private _vault: Vault;
 
-    constructor(app: App) {
+    constructor(app: App, vault: Vault, settings: Settings) {
 		super(app);
+        this._settings = settings;
+        this._vault = vault;
     };
 
-    display(goal_index_card: GoalIndexCard, planner_instance: Planner, callback: (result: boolean, planner: Planner) => void) {
-        this.callbackFunc = callback;
-        this.goalIndexCard = goal_index_card;
+    display() {
         this.open()
         this.contentEl.empty();
         this.setTitle("Create a new Goal");
         this.contentEl.innerHTML = goalForm;
-        this.planner_instance = planner_instance;
 
-        (document.getElementById("createGoal") as HTMLButtonElement).onclick = () => {
-            this.goalIndexCard.Name = (document.getElementById("goal-name") as HTMLInputElement).value;
-            this.goalIndexCard.ModeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
-            this.goalIndexCard.TargetDate = new Date((document.getElementById("target-date")as HTMLDataElement).value);
+        (document.getElementById("createGoal") as HTMLButtonElement).onclick = async () => {
+            let _goalIndexCard: GoalIndexCard = new GoalIndexCard();
+            _goalIndexCard.name = (document.getElementById("goal-name") as HTMLInputElement).value;
+            _goalIndexCard.modeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
+            _goalIndexCard.targetDate = new Date((document.getElementById("target-date") as HTMLDataElement).value);
 
-            this.callbackFunc(true,  this.planner_instance);
+            await createFolder(this._vault, this._settings.goalsFolder);
+            await this._vault.modify(await this._vault.create(this._settings.goalsFolder + "/" + _goalIndexCard.name + ".md", ""), goalPageContent(_goalIndexCard))
             this.close();
         }
         (document.getElementById("cancelCreate") as HTMLButtonElement).onclick = () => {
-            this.callbackFunc(false, this.planner_instance);
             this.close();
         }
     }
