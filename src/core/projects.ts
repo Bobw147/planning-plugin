@@ -1,5 +1,5 @@
 import { IPlanningIndexCard, PlanningIndexCard } from "./indexcard";
-import { App, Modal, ValueComponent, Vault } from "obsidian";
+import { App, Modal, Vault } from "obsidian";
 import { projectForm } from "./forms/project_form";
 import { Settings } from "src/settings/Settings";
 import { project_page_content } from "./scripts/dataview_project";

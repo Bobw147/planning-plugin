@@ -1,6 +1,6 @@
 import { TaskIndexCard } from "../tasks";
 
-export var taskDataview = 
+export const taskDataview = 
 "##### Index Card\n \
 NamePlaceholder\n \
 ModePlaceholder\n \

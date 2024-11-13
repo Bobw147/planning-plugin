@@ -1,6 +1,6 @@
 import { IProjectIndexCard } from "../projects";
 
-export var projectDataview = 
+export const projectDataview = 
 "##### Index Card\n \
 NamePlaceholder\n \
 ModePlaceholder\n \

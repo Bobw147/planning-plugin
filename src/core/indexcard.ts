@@ -12,22 +12,29 @@ export interface IPlanningIndexCard{
     _userTags: string[];
 
     get name(): string;
-    get modeTag(): string;
-    get identTag(): string;
-    get statusTag(): string;
-    get targetDate(): Date | null;
-    get anticipatedDate(): Date | null;
-    get completedDate(): Date | null;
-    get userTags(): string[];
-
     set name(value: string);
+
+    get modeTag(): string;
     set modeTag(value: string);
+
+    get identTag(): string;
+
+    get statusTag(): string;
     set statusTag(value: string);
+
+    get targetDate(): Date | null;
     set targetDate(value: Date | null);
+
+    get anticipatedDate(): Date | null;
     set anticipatedDate(value: Date | null);
+
+    get completedDate(): Date | null;
     set completedDate(value: Date | null);
+
+    get userTags(): string[];
     set userTags(value: string[]);
 }
+
 export class PlanningIndexCard implements IPlanningIndexCard {
     _name: string;
     _modeTag: string;
@@ -38,7 +45,7 @@ export class PlanningIndexCard implements IPlanningIndexCard {
     _completedDate: Date | null;
     _userTags: string[];
 
-    constructor(){
+    constructor() {
         this._name = "";
         this._modeTag = "";
         this._identTag = "";
@@ -47,43 +54,19 @@ export class PlanningIndexCard implements IPlanningIndexCard {
         this._anticipatedDate = null;
         this._completedDate = null;
         this._userTags = [];
-        };
+    }
 
     get name(): string {
         return this._name;
-    };
-
-    get modeTag(): string {
-        return this._modeTag;
-    };
-
-    get identTag(): string {
-        return this._identTag;
-    };
-
-    get statusTag(): string {
-        return this._statusTag;
-    };
-
-    get targetDate(): Date | null {
-        return this._targetDate;
-    };
-
-    get anticipatedDate(): Date | null {
-        return this._anticipatedDate;
-    };
-
-    get completedDate(): Date | null {
-        return this._completedDate;
-    };
-
-    get userTags(): string[] {
-        return this._userTags;
-    };
+    }
 
     set name(value: string) {
         this._name = value;
-    };
+    }
+
+    get modeTag(): string {
+        return this._modeTag;
+    }
 
     set modeTag(value: string) {
         if (value.startsWith("#planning/")) {
@@ -92,7 +75,15 @@ export class PlanningIndexCard implements IPlanningIndexCard {
         else {
             throw new BadModeTagError();
         }
-    };
+    }
+
+    get identTag(): string {
+        return this._identTag;
+    }
+
+    get statusTag(): string {
+        return this._statusTag;
+    }
 
     set statusTag(value: string) {
         if (value.startsWith("#status/")) {
@@ -101,20 +92,36 @@ export class PlanningIndexCard implements IPlanningIndexCard {
         else {
             throw new BadStatusTagError();
         }
-    };
+    }
+
+    get targetDate(): Date | null {
+        return this._targetDate;
+    }
 
     set targetDate(value: Date | null)
     {
         this._targetDate = value;
-    };
+    }
+
+    get anticipatedDate(): Date | null {
+        return this._anticipatedDate;
+    }
 
     set anticipatedDate(value: Date | null) {
         this._anticipatedDate = value;
-    };
+    }
+
+    get completedDate(): Date | null {
+        return this._completedDate;
+    }
 
     set completedDate(value: Date | null) {
         this._completedDate = value;
-    };
+    }
+
+    get userTags(): string[] {
+        return this._userTags;
+    }
 
     set userTags(value: string[]) {
         value.forEach(element => {
@@ -124,5 +131,5 @@ export class PlanningIndexCard implements IPlanningIndexCard {
             }
         });
         this._userTags = arraycopy(value);
-    };
+    }
 }

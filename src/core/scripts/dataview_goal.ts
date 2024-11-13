@@ -1,6 +1,6 @@
 import { GoalIndexCard } from "../goals";
 
-export var goalDataview = 
+export const goalDataview = 
 "##### Index Card\n \
 NamePlaceholder\n \
 ModePlaceholder\n \
