@@ -1,10 +1,7 @@
-import { Vault } from "obsidian";
 import PlanningPlugin from "src/main"
 import { GoalsModal } from "./goals";
 import { ProjectsModal } from "./projects";
 import { TasksModal } from "./tasks";
-
-type callbackFunction = (result: boolean, plannerInstance: Planner) => void;
 
 export class Planner {
     private goals_modal: GoalsModal | null;
