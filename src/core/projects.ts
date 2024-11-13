@@ -48,7 +48,7 @@ export class ProjectsModal extends Modal {
         this.contentEl.innerHTML = projectForm;
 
         (document.getElementById("createProject") as HTMLButtonElement).onclick = async () => {
-            let _projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
+            const _projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
             _projectIndexCard.name = (document.getElementById("project-name") as HTMLInputElement).value;
             _projectIndexCard.modeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
             _projectIndexCard.targetDate = new Date((document.getElementById("target-date") as HTMLDataElement).value);

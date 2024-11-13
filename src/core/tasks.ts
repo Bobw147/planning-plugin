@@ -48,7 +48,7 @@ export class TasksModal extends Modal {
         this.contentEl.innerHTML = taskForm;
 
         (document.getElementById("createTask") as HTMLButtonElement).onclick = async () => {
-            let _taskIndexCard = new TaskIndexCard();
+            const _taskIndexCard = new TaskIndexCard();
             _taskIndexCard.name = (document.getElementById("task-name") as HTMLInputElement).value;
             _taskIndexCard.modeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
             _taskIndexCard.targetDate = new Date((document.getElementById("target-date")as HTMLDataElement).value);

@@ -31,7 +31,7 @@ export class GoalsModal extends Modal {
         this.contentEl.innerHTML = goalForm;
 
         (document.getElementById("createGoal") as HTMLButtonElement).onclick = async () => {
-            let _goalIndexCard: GoalIndexCard = new GoalIndexCard();
+            const _goalIndexCard: GoalIndexCard = new GoalIndexCard();
             _goalIndexCard.name = (document.getElementById("goal-name") as HTMLInputElement).value;
             _goalIndexCard.modeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
             _goalIndexCard.targetDate = new Date((document.getElementById("target-date") as HTMLDataElement).value);
