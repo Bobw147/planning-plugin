@@ -47,6 +47,13 @@ export class ProjectsModal extends Modal {
         this.setTitle("Create a new Project");
         this.contentEl.innerHTML = projectForm;
 
+        const searchField = this.contentEl.doc.getElementById("mode-tag") as HTMLSelectElement;
+        this._settings.modeTags.forEach((value: string) => {
+            const option = document.createElement('option');
+            option.text = value;
+            searchField.add(option);
+        } );
+        
         (document.getElementById("createProject") as HTMLButtonElement).onclick = async () => {
             const _projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
             _projectIndexCard.name = (document.getElementById("project-name") as HTMLInputElement).value;
