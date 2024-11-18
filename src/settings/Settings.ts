@@ -2,7 +2,7 @@ import  PlanningPlugin from "src/main";
 import { PluginSettingTab, Setting }  from "obsidian";
 import { FolderSuggest } from "./suggesters/FolderSuggester";
 import { defaultStatusTags } from "src/core/tags";
-import { defaultModeTags } from "src/core/tags";
+import { defaultCategoryTags } from "src/core/tags";
 import { arraycopy, arraymove } from "src/utils/utils";
 
 export interface Settings {
@@ -10,7 +10,7 @@ export interface Settings {
 	projectsFolder: string;
 	tasksFolder: string;
     statusTags: typeof defaultStatusTags;
-    modeTags: typeof defaultModeTags;
+    categoryTags: typeof defaultCategoryTags;
 }
  
 export const DEFAULT_SETTINGS: Settings = {
@@ -18,7 +18,7 @@ export const DEFAULT_SETTINGS: Settings = {
 	projectsFolder: 'Projects',
 	tasksFolder: 'Tasks',
     statusTags: defaultStatusTags,
-    modeTags: defaultModeTags,
+    categoryTags: defaultCategoryTags,
 }
 
 export class PlanningSettingsTab extends PluginSettingTab {
@@ -94,7 +94,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
         .addText((input_instance) => {
             input_instance.setValue(mode_entry)
             input_instance.onChange((value: string) => {
-                this.plugin.settings.modeTags[index] = value;
+                this.plugin.settings.categoryTags[index] = value;
                 this.plugin.save_settings();
             })
         })
@@ -103,7 +103,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
             .setTooltip("Move up")
             .onClick(() => {
                 arraymove(
-                    this.plugin.settings.modeTags,
+                    this.plugin.settings.categoryTags,
                     index,
                     index - 1
                 );
@@ -116,7 +116,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
             .setTooltip("Move down")
             .onClick(() => {
                 arraymove(
-                    this.plugin.settings.modeTags,
+                    this.plugin.settings.categoryTags,
                     index,
                     index + 1
                 );
@@ -128,7 +128,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
             cb.setIcon("cross")
                 .setTooltip("Delete")
                 .onClick(() => {
-                    this.plugin.settings.modeTags.splice(
+                    this.plugin.settings.categoryTags.splice(
                         index,
                         1
                     );
@@ -221,7 +221,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
         const mode_tag_settings: Setting = new Setting(this.containerEl)
             .setName("Life areas your goals apply to").setHeading()
             .setDesc("")
-            this.plugin.settings.modeTags.forEach(
+            this.plugin.settings.categoryTags.forEach(
                 (mode_entry, index) => {
                     this._add_mode_setting(mode_entry, index);
                 }
@@ -230,7 +230,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
             cb.setButtonText("Restore Defaults")
             .onClick(() => {
                 if (window.confirm("Confirm that you want to restore defaults.\nThis action cannot be undone.")) {
-                    this.plugin.settings.modeTags = arraycopy(DEFAULT_SETTINGS.modeTags);
+                    this.plugin.settings.categoryTags = arraycopy(DEFAULT_SETTINGS.categoryTags);
                     this.plugin.save_settings();
                     this.display();
                 }
@@ -239,7 +239,7 @@ export class PlanningSettingsTab extends PluginSettingTab {
         mode_tag_settings.addButton((cb) => {
             cb.setButtonText("Add new mode")
             .onClick(() => {
-                this.plugin.settings.modeTags.push("#planning/" + name);
+                this.plugin.settings.categoryTags.push("#planning/" + name);
                 this.plugin.save_settings();
                 this.display();
                })

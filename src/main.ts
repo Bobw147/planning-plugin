@@ -1,9 +1,12 @@
-import { Plugin } from 'obsidian';
+import { MarkdownPostProcessorContext, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Settings';
 import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
+import { goalIndexForm, populateGoalIndexForm } from './core/forms/goalIndexForm';
+import { newGoalForm } from './core/forms/newGoalForm';
+import { TFile } from 'obsidian';
 
-export default class PlanningPlugin extends Plugin {
+  export default class PlanningPlugin extends Plugin {
 	public settings: Settings;
 	public planner: Planner;
 	public command_handler: CommandHandler;
@@ -47,12 +50,56 @@ export default class PlanningPlugin extends Plugin {
 			console.log('click', evt);
 		});
 
+		
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
-	}
 
-	onunload(): void {
+		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
+			// We only want to add the button once so check to see if it has already been inserted
+			if (document.getElementById('indexCardButton') == null)
+			{
+				// Create the button element along with a div element that will contain the form
+				// when the button is pressed
+				const button: HTMLButtonElement = document.createElement('button');
+				const div: HTMLDivElement = document.createElement('div');
+				div.id = "form-placeholder";
 
+				// Add the button and the div to the acctive document
+				button.textContent = "Show Index Card";
+				button.id = 'index-card-button'
+				el.appendChild(button);
+				el.appendChild(div);
+
+				// Add an event handler for when the button is pressed
+				button.addEventListener('click', () => {
+					if (button.textContent?.startsWith("Show")){
+
+						// Toggle the nature of the button
+						button.textContent = "Hide Index Card"
+
+						console.log("Metadatacache = " + this.app.metadataCache)
+
+						// Display the form and then add the index card data
+						div.innerHTML = goalIndexForm();
+
+						// Sadly the ctk.frontmatter entry passed into this callback does not 
+						// actually reference the frontmatter for this page. In addition ther
+						// appears to be no direct way of accesssing it from the information 
+						// avaialable at this point so a little bit of subterfuge is required. 
+						
+						// First we need to get a TFile reference for this file
+						const file = this.app.workspace.getActiveFile();
+//						const file: TFile = this.app.vault.getFileByPath(source);
+						populateGoalIndexForm(this.app.fileManager, file as TFile);
+						
+					}
+					else {
+						button.textContent = "Show Index Card";
+						div.innerHTML = ""
+					}
+				})
+			}
+		})
 	}
 
     async save_settings(): Promise<void> {

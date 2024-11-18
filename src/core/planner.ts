@@ -17,6 +17,10 @@ export class Planner {
         this.goals_modal.display();
     }
 
+    showGoalIndexCard(): void {
+
+    }
+    
     create_project(): void {
       this.projects_modal = new ProjectsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings);
       this.projects_modal.display();

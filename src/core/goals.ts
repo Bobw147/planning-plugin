@@ -1,18 +1,10 @@
-import { App, Modal, Vault } from "obsidian";
-import { PlanningIndexCard } from "./indexcard";
+import { App, Modal, TFile, Vault } from "obsidian";
+import { GoalIndexCard } from "./indexcards/goalIndexCard";
 import { identTags } from "./tags";
-import { goalForm } from "./forms/goal_form";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
+import { newGoalForm } from "./forms/newGoalForm";
 import { goalPageContent } from "./scripts/dataview_goal";
-
-export class GoalIndexCard extends PlanningIndexCard{
-
-    constructor(){
-        super();
-        this._identTag = identTags.PLANNING_GOAL;
-    }
-}
 
 export class GoalsModal extends Modal {
     private _settings: Settings;
@@ -24,22 +16,35 @@ export class GoalsModal extends Modal {
         this._vault = vault;
     };
 
+    
     display() {
-        this.open()
+        // Create and display the New Goal form
         this.contentEl.empty();
         this.setTitle("Create a new Goal");
-        this.contentEl.innerHTML = goalForm;
+        this.contentEl.innerHTML = newGoalForm;
+        this.open();
 
+        //  Add a handler to the 'Create' button
         (document.getElementById("createGoal") as HTMLButtonElement).onclick = async () => {
             const _goalIndexCard: GoalIndexCard = new GoalIndexCard();
+            
+            // Read the data from the form back into an index card
             _goalIndexCard.name = (document.getElementById("goal-name") as HTMLInputElement).value;
-            _goalIndexCard.modeTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
+            _goalIndexCard.categoryTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
             _goalIndexCard.targetDate = new Date((document.getElementById("target-date") as HTMLDataElement).value);
-
+            
+            // Make sure the target folder exists then create the file
             await createFolder(this._vault, this._settings.goalsFolder);
-            await this._vault.modify(await this._vault.create(this._settings.goalsFolder + "/" + _goalIndexCard.name + ".md", ""), goalPageContent(_goalIndexCard))
+            const file: TFile = await this._vault.create(this._settings.goalsFolder + "/" + _goalIndexCard.name + ".md", "");
+            
+            // Write the dataview script into the file then add the frontmatter properties. 
+            await this._vault.modify(file, goalPageContent());
+            await _goalIndexCard.save(this.app.fileManager, file, identTags.PLANNING_GOAL);
+
             this.close();
         }
+        
+        // Add a handler for the cancel button
         (document.getElementById("cancelCreate") as HTMLButtonElement).onclick = () => {
             this.close();
         }

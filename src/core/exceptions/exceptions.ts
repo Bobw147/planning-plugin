@@ -7,10 +7,10 @@ export class BadStatusTagError extends Error {
     }
 };
 
-export class BadModeTagError extends Error {
+export class BadCategoryTagError extends Error {
     constructor() {
-        super("Mode tag must begin with '#planning/'");
-        this.name = "Bad Mode Tag";
+        super("Category tag must begin with '#planning/'");
+        this.name = "Bad Category Tag";
     }
 };
 

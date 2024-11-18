@@ -16,7 +16,7 @@ export const identTags = {
     PLANNING_SUBTASK: "#planning/subtask",
 }
 
-export const defaultModeTags: Array<string>  = [
+export const defaultCategoryTags: Array<string>  = [
     "#planning/business",
     "#planning/personal",
     "#planning/domestic",

@@ -12,6 +12,7 @@ CompletedDatePlaceholder\n \
 UserTagsPlaceholder\n \
 \n\
 \n\
+<div><button> type='button'>Click me</button></div> \
 #### Project View\n \
 ```dataviewjs\n \
 const DAY = 0;\n \
