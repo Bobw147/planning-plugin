@@ -77,21 +77,19 @@ import { TFile } from 'obsidian';
 						// Toggle the nature of the button
 						button.textContent = "Hide Index Card"
 
-						console.log("Metadatacache = " + this.app.metadataCache)
-
-						// Display the form and then add the index card data
-						div.innerHTML = goalIndexForm();
-
-						// Sadly the ctk.frontmatter entry passed into this callback does not 
-						// actually reference the frontmatter for this page. In addition ther
-						// appears to be no direct way of accesssing it from the information 
-						// avaialable at this point so a little bit of subterfuge is required. 
-						
-						// First we need to get a TFile reference for this file
 						const file = this.app.workspace.getActiveFile();
-//						const file: TFile = this.app.vault.getFileByPath(source);
-						populateGoalIndexForm(this.app.fileManager, file as TFile);
-						
+						switch (source.trim()) {
+							case "Goal" :// Display the form and then add the index card data
+								div.innerHTML = goalIndexForm();
+								populateGoalIndexForm(this.app.fileManager, file as TFile);
+								break;
+
+							case "Project":
+								break;
+
+							case "Task":
+								break;
+						}
 					}
 					else {
 						button.textContent = "Show Index Card";
