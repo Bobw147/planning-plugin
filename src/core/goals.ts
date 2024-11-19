@@ -1,9 +1,9 @@
 import { App, Modal, TFile, Vault } from "obsidian";
 import { GoalIndexCard } from "./indexcards/goalIndexCard";
-import { identTags } from "./tags";
+import { Ident, identTags } from "./types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
-import { newGoalForm } from "./forms/newGoalForm";
+import { initIdentForm, newIdentForm } from "./forms/newGoalForm";
 import { goalPageContent } from "./scripts/dataview_goal";
 
 export class GoalsModal extends Modal {
@@ -21,8 +21,12 @@ export class GoalsModal extends Modal {
         // Create and display the New Goal form
         this.contentEl.empty();
         this.setTitle("Create a new Goal");
-        this.contentEl.innerHTML = newGoalForm;
+        this.contentEl.innerHTML = newIdentForm;
+
+        // Open the form to create the DOM so that we can manipulate the class names settings
+        // to just show the Goal part of the form
         this.open();
+        initIdentForm(Ident.GOAL);
 
         //  Add a handler to the 'Create' button
         (document.getElementById("createGoal") as HTMLButtonElement).onclick = async () => {
@@ -30,8 +34,8 @@ export class GoalsModal extends Modal {
             
             // Read the data from the form back into an index card
             _goalIndexCard.name = (document.getElementById("goal-name") as HTMLInputElement).value;
-            _goalIndexCard.categoryTag = (document.getElementById("mode-tag") as HTMLSelectElement).value;
-            _goalIndexCard.targetDate = new Date((document.getElementById("target-date") as HTMLDataElement).value);
+            _goalIndexCard.categoryTag = (document.getElementById("goal-category-tag") as HTMLSelectElement).value;
+            _goalIndexCard.targetDate = new Date((document.getElementById("goal-target-date") as HTMLDataElement).value);
             
             // Make sure the target folder exists then create the file
             await createFolder(this._vault, this._settings.goalsFolder);
