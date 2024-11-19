@@ -1,3 +1,10 @@
+export enum Ident {
+    GOAL,
+    PROJECT,
+    TASK,
+    SUBTASK
+}
+
 export const defaultStatusTags: Array<string> = [
     "#status/inbox",
     "#status/next",
@@ -21,3 +28,8 @@ export const defaultCategoryTags: Array<string>  = [
     "#planning/personal",
     "#planning/domestic",
 ]
+
+export const CategoryLockStates = {
+    HARD_LOCK: "hard lock",
+    SOFT_LOCK: "Soft loack",
+}
