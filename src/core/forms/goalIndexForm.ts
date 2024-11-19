@@ -1,6 +1,5 @@
 import { FileManager, TFile } from "obsidian";
 import { GoalIndexCard } from "../indexcards/goalIndexCard";
-import * as moment from "moment"
 
 const _goalIndexForm = '<div id="goal-index-card" style="border-width: 2px; border-style: solid; border-color: gray;"> \
     <div> \
@@ -8,15 +7,15 @@ const _goalIndexForm = '<div id="goal-index-card" style="border-width: 2px; bord
         <input type="text" id="goal-name" readonly style="margin-bottom: 12px"> \
     </div> \
     <div> \
-        <label style="margin-inline: 12px">Select the Mode type :</label> \
+        <label style="margin-inline: 12px">Category :</label> \
         <input type="text" id="category-tag" readonly style="margin-bottom: 12px"> \
    </div> \
-    <div> \
-        <label style="margin-inline: 12px">Select the Ident type :</label> \
+    <div style="display:none"> \
+        <label style="margin-inline: 12px">Ident :</label> \
         <input type="text" id="ident-tag" readonly style="margin-bottom: 12px"> \
    </div> \
     <div> \
-        <label style="margin-inline: 12px">Select the Status type :</label> \
+        <label style="margin-inline: 12px">Status :</label> \
         <input type="text" id="status-tag" readonly style="margin-bottom: 12px"> \
    </div> \
     <div> \
