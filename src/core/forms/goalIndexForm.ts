@@ -56,7 +56,7 @@ export async function populateGoalIndexForm(fileManager: FileManager, file: TFil
     (document.getElementById("target-date") as HTMLInputElement).value = (goalIndexCard.targetDate != null) ? dateFormatter(goalIndexCard.targetDate) : "";
     (document.getElementById("expected-date") as HTMLInputElement).value = (goalIndexCard.expectedDate != null) ? dateFormatter(goalIndexCard.expectedDate) : "";
     (document.getElementById("completed-date") as HTMLInputElement).value = (goalIndexCard.completedDate != null) ? dateFormatter(goalIndexCard.completedDate) : "";
-//    (document.getElementById("user-tags") as HTMLInputElement).textContent = goalIndexCard.userTags;
+    (document.getElementById("user-tags") as HTMLInputElement).textContent = flattenedTags(goalIndexCard.userTags);
 }
 
 function dateFormatter(date: Date): string {
@@ -64,4 +64,6 @@ function dateFormatter(date: Date): string {
     return (splitDate != "1970-01-01") ? splitDate : "";
 } 
 
-
+function flattenedTags(userTags: string[]) : string {
+    return userTags.flat().join(", ");
+}
