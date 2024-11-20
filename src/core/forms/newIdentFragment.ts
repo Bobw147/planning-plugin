@@ -1,6 +1,6 @@
-import { Ident } from "../types"
+import { Ident, MessageDictionary, MessageId } from "../types"
 
-export const newIdentForm = ' \
+export const newIdentFragment  = ' \
 <div> \
     <div id="goal-block"> \
         <div id="goal-creation"> \
@@ -80,7 +80,7 @@ export const newIdentForm = ' \
     </div> \
 </div>'
 
-export function initIdentForm(target: Ident) {
+export function initIdentFragment(target: Ident) {
     const goal_div: HTMLDivElement = document.getElementById("goal-block") as HTMLDivElement;
     const project_div: HTMLDivElement = document.getElementById("project-block") as HTMLDivElement;
     const task_div: HTMLDivElement = document.getElementById("task-block") as HTMLDivElement;
@@ -88,9 +88,9 @@ export function initIdentForm(target: Ident) {
 
     switch (target) {
         case Ident.GOAL:
-            goal_div.className = "pl-visible";
-            project_div.className = "pl-hidden";
-            task_div.className = "pl-hidden";
+            goal_div.className = MessageDictionary[MessageId.DIV_VISIBLE];
+            project_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
+            task_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
             break;
 
         case Ident.PROJECT:

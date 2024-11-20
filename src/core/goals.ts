@@ -3,7 +3,7 @@ import { GoalIndexCard } from "./indexcards/goalIndexCard";
 import { Ident, identTags } from "./types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
-import { initIdentForm, newIdentForm } from "./forms/newGoalForm";
+import { initIdentFragment, newIdentFragment } from "./forms/newIdentFragment";
 import { goalPageContent } from "./scripts/dataview_goal";
 
 export class GoalsModal extends Modal {
@@ -21,12 +21,12 @@ export class GoalsModal extends Modal {
         // Create and display the New Goal form
         this.contentEl.empty();
         this.setTitle("Create a new Goal");
-        this.contentEl.innerHTML = newIdentForm;
+        this.contentEl.innerHTML = newIdentFragment;
 
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
         this.open();
-        initIdentForm(Ident.GOAL);
+        initIdentFragment(Ident.GOAL);
 
         //  Add a handler to the 'Create' button
         (document.getElementById("createGoal") as HTMLButtonElement).onclick = async () => {
