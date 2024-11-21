@@ -3,7 +3,6 @@ import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Se
 import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
 import { goalIndexForm, populateGoalIndexForm } from './core/forms/goalIndexForm';
-import { newGoalForm } from './core/forms/newGoalForm';
 import { TFile } from 'obsidian';
 
   export default class PlanningPlugin extends Plugin {
