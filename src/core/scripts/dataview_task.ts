@@ -1,7 +1,13 @@
 import { TaskIndexCard } from "../tasks";
 
 export const taskDataview = 
-"##### Index Card\n \
+"\
+```IndexCard\n \
+Project\n \
+```\n \
+\n \
+\n \
+##### Index Card\n \
 NamePlaceholder\n \
 ModePlaceholder\n \
 IdentTagPlaceholder\n \

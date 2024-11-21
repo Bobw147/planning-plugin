@@ -12,8 +12,22 @@ export const enum MessageId {
     ID_GOAL_NAME = "id_goal_name",
     ID_GOAL_CATEGORY_TAG = "id_goal_category_tag",
     ID_GOAL_TARGET_DATE = "id_goal_target_date",
-    ID_CREATE_GOAL_BUTTON = "id_create_goal",
-    ID_CANCEL_GOAL_BUTTON = "id_cancel_goal",
+    ID_GOAL_CREATE_BUTTON = "id_create_goal",
+    ID_GOAL_CANCEL_BUTTON = "id_cancel_goal",
+    ID_PROJECT_BLOCK = "id_project_block",
+    ID_PROJECT_NAME = "id_project_name",
+    ID_PROJECT_GOAL_NAME = "id_project_goal_name",
+    ID_PROJECT_CATEGORY_TAG = "id_project_category_tag",
+    ID_PROJECT_TARGET_DATE = "id_project_target_date",
+    ID_PROJECT_CREATE_BUTTON = "id_project_create_button",
+    ID_PROJECT_CANCEL_BUTTON = "id_project_cancel_button",
+    ID_TASK_BLOCK = "id_task_block",
+    ID_TASK_NAME = "id_task_name",
+    ID_TASK_PROJECT_NAME = "id_task_project_name",
+    ID_TASK_CATEGORY_TAG = "id_task_category_tag",
+    ID_TASK_TARGET_DATE = "id_task_target_date",
+    ID_TASK_CREATE_BUTTON = "id_task_create_button",
+    ID_TASK_CANCEL_BUTTON = "id_task_cancel_button",
 }
 
 interface IMessageDictionaryType{
@@ -23,8 +37,22 @@ interface IMessageDictionaryType{
     [MessageId.ID_GOAL_NAME]: string;
     [MessageId.ID_GOAL_CATEGORY_TAG]: string;
     [MessageId.ID_GOAL_TARGET_DATE]: string;
-    [MessageId.ID_CREATE_GOAL_BUTTON]: string;
-    [MessageId.ID_CANCEL_GOAL_BUTTON]: string;
+    [MessageId.ID_GOAL_CREATE_BUTTON]: string;
+    [MessageId.ID_GOAL_CANCEL_BUTTON]: string;
+    [MessageId.ID_PROJECT_BLOCK]: string;
+    [MessageId.ID_PROJECT_NAME]: string;
+    [MessageId.ID_PROJECT_GOAL_NAME]: string;
+    [MessageId.ID_PROJECT_CATEGORY_TAG]: string;
+    [MessageId.ID_PROJECT_TARGET_DATE]: string;
+    [MessageId.ID_PROJECT_CREATE_BUTTON]: string;
+    [MessageId.ID_PROJECT_CANCEL_BUTTON]: string;
+    [MessageId.ID_TASK_BLOCK]: string;
+    [MessageId.ID_TASK_NAME]: string;
+    [MessageId.ID_TASK_PROJECT_NAME]: string;
+    [MessageId.ID_TASK_CATEGORY_TAG]: string;
+    [MessageId.ID_TASK_TARGET_DATE]: string;
+    [MessageId.ID_TASK_CREATE_BUTTON]: string;
+    [MessageId.ID_TASK_CANCEL_BUTTON]: string;
 }
 
 export const MessageDictionary: IMessageDictionaryType = {
@@ -34,8 +62,22 @@ export const MessageDictionary: IMessageDictionaryType = {
     [MessageId.ID_GOAL_NAME]: "goal-name",
     [MessageId.ID_GOAL_CATEGORY_TAG]: "goal-category-tag",
     [MessageId.ID_GOAL_TARGET_DATE]: "goal-target-date",
-    [MessageId.ID_CREATE_GOAL_BUTTON]: "create-goal-button",
-    [MessageId.ID_CANCEL_GOAL_BUTTON]: "cancel-goal-button",
+    [MessageId.ID_GOAL_CREATE_BUTTON]: "create-goal-button",
+    [MessageId.ID_GOAL_CANCEL_BUTTON]: "cancel-goal-button",
+    [MessageId.ID_PROJECT_BLOCK]: "project-block",
+    [MessageId.ID_PROJECT_NAME]: "project-name",
+    [MessageId.ID_PROJECT_GOAL_NAME]: "project-goal-name",
+    [MessageId.ID_PROJECT_CATEGORY_TAG]: "project-category-tag",
+    [MessageId.ID_PROJECT_TARGET_DATE]: "project-target-date",
+    [MessageId.ID_PROJECT_CREATE_BUTTON]: "create-project-button",
+    [MessageId.ID_PROJECT_CANCEL_BUTTON]: "cancel-project-button",
+    [MessageId.ID_TASK_BLOCK]: "task-block",
+    [MessageId.ID_TASK_NAME]: "task-name",
+    [MessageId.ID_TASK_PROJECT_NAME]: "task-project-name",
+    [MessageId.ID_TASK_CATEGORY_TAG]: "task-category-tag",
+    [MessageId.ID_TASK_TARGET_DATE]: "task-target-date",
+    [MessageId.ID_TASK_CREATE_BUTTON]: "create-task-button",
+    [MessageId.ID_TASK_CANCEL_BUTTON]: "cancel-task-button",
 }
 
 

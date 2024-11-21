@@ -1,7 +1,13 @@
 import { IProjectIndexCard } from "../projects";
 
 export const projectDataview = 
-"##### Index Card\n \
+" \
+```IndexCard\n \
+Project\n \
+```\n \
+\n\
+\n\
+##### Index Card\n \
 NamePlaceholder\n \
 ModePlaceholder\n \
 IdentTagPlaceholder\n \
@@ -99,14 +105,6 @@ dv.table(['Project', 'Due Date', 'Expected Date', 'Last Worked On'],\n \
 )\n \
 ```"
 
-export function project_page_content(indexCard: IProjectIndexCard) : string {
-
-	return projectDataview.replace("NamePlaceholder", "Name:: " + indexCard.name)
-					.replace("ModePlaceholder", "ModeTag:: " + indexCard.modeTag)
-					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.identTag)
-					.replace("StatusTagPlaceholder", "StatusTag::")
-					.replace("TargetDatePlaceholder", "TargetDate:: " + indexCard.targetDate?.toLocaleDateString())
-					.replace("AnticipatedDatePlaceholder", "AnicipatedDate:: ")
-					.replace("CompletedDatePlaceholder", "CompletedDate:: ")
-					.replace("UserTagsPlaceholder", "UserTags:: ");
+export function projectPageContent() : string {
+	return projectDataview;
 }

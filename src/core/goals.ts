@@ -17,7 +17,6 @@ export class GoalsModal extends Modal {
         this._vault = vault;
     }
 
-    
     display() {
         // Create and display the New Goal form
         this.contentEl.empty();
@@ -29,7 +28,7 @@ export class GoalsModal extends Modal {
         initIdentFragment(Ident.GOAL);
 
         //  Add a handler to the 'Create' button
-        (document.getElementById(wrapMessage(MessageId.ID_CREATE_GOAL_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
+        (document.getElementById(wrapMessage(MessageId.ID_GOAL_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
             const _goalIndexCard: GoalIndexCard = new GoalIndexCard();
             
             // Read the data from the form back into an index card
@@ -49,7 +48,7 @@ export class GoalsModal extends Modal {
         }
         
         // Add a handler for the cancel button
-        (document.getElementById(wrapMessage(MessageId.ID_CANCEL_GOAL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
+        (document.getElementById(wrapMessage(MessageId.ID_GOAL_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
             this.close();
         }
     }
