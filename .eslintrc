@@ -18,6 +18,23 @@
       "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
       "@typescript-eslint/ban-ts-comment": "off",
       "no-prototype-builtins": "off",
-      "@typescript-eslint/no-empty-function": "off"
+      "@typescript-eslint/no-magic-numbers": 2,
+      "@typescript-eslint/no-inferrable-types": "off",
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/naming-convention": [
+        "error",  
+        {
+          "selector": ["enum", "class"],
+          "format": ["PascalCase"]
+        },
+        {
+          "selector": "function",
+          "format": ["camelCase"]
+        },
+        {
+          "selector": "enumMember",
+          "format": ["UPPER_CASE"]
+        }
+      ]
     } 
   }
