@@ -1,15 +1,15 @@
-import { Ident, MessageDictionary, MessageId } from "../types"
+import { Ident, MessageDictionary, MessageId, wrapMessage } from "../types"
 
 export const newIdentFragment  = ' \
 <div> \
     <div id="goal-block"> \
-        <div id="goal-creation"> \
+        <div> \
             <label style="margin-inline: 12px">Enter the name of the Goal :</label> \
-            <input type="text" id="goal-name" autofocus style="margin-bottom: 12px"> \
+            <input type="text" id='+wrapMessage(MessageId.ID_GOAL_NAME, "\"")+' autofocus style="margin-bottom: 12px"> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Select the Category type :</label> \
-           <select id="goal-category-tag" style="margin-bottom: 12px"> \
+           <select id='+wrapMessage(MessageId.ID_GOAL_CATEGORY_TAG, "\"")+' style="margin-bottom: 12px"> \
                 <option>#planning/business</option> \
                 <option>#planning/personal</option> \
                 <option>#planning/domestic</option> \
@@ -17,11 +17,11 @@ export const newIdentFragment  = ' \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Target Date</label> \
-            <input type="date" id="goal-target-date" style="margin-bottom: 12px""> \
+            <input type="date" id='+wrapMessage(MessageId.ID_GOAL_TARGET_DATE, "\"")+' style="margin-bottom: 12px""> \
         </div> \
         <div> \
-            <button id="createGoal" type="button">Create Goal</button> \
-            <button id="cancelCreateGoal" type="button">Cancel</button> \
+            <button id='+wrapMessage(MessageId.ID_CREATE_GOAL_BUTTON, "\"")+' type="button">Create Goal</button> \
+            <button id='+wrapMessage(MessageId.ID_CANCEL_GOAL_BUTTON, "\"")+' type="button">Cancel</button> \
         </div> \
     </div> \
     <br> \
@@ -94,15 +94,15 @@ export function initIdentFragment(target: Ident) {
             break;
 
         case Ident.PROJECT:
-            goal_div.className = "pl-hidden";
-            project_div.className = "pl-visible";
-            task_div.className = "pl-hidden";
+            goal_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
+            project_div.className = MessageDictionary[MessageId.DIV_VISIBLE];
+            task_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
             break;
 
         case Ident.TASK:
-            goal_div.className = "pl-hidden";
-            project_div.className = "pl-hidden";
-            task_div.className = "pl-visible";
+            goal_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
+            project_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
+            task_div.className = MessageDictionary[MessageId.DIV_VISIBLE];
             break;
     }
 }
