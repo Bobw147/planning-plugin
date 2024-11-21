@@ -88,21 +88,21 @@ export function initIdentFragment(target: Ident) {
 
     switch (target) {
         case Ident.GOAL:
-            goal_div.className = MessageDictionary[MessageId.DIV_VISIBLE];
-            project_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
-            task_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
+            goal_div.className = MessageDictionary[MessageId.STYLE_DIV_VISIBLE];
+            project_div.className = MessageDictionary[MessageId.STYLE_DIV_HIDDEN];
+            task_div.className = MessageDictionary[MessageId.STYLE_DIV_HIDDEN];
             break;
 
         case Ident.PROJECT:
-            goal_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
-            project_div.className = MessageDictionary[MessageId.DIV_VISIBLE];
-            task_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
+            goal_div.className = MessageDictionary[MessageId.STYLE_DIV_HIDDEN];
+            project_div.className = MessageDictionary[MessageId.STYLE_DIV_VISIBLE];
+            task_div.className = MessageDictionary[MessageId.STYLE_DIV_HIDDEN];
             break;
 
         case Ident.TASK:
-            goal_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
-            project_div.className = MessageDictionary[MessageId.DIV_HIDDEN];
-            task_div.className = MessageDictionary[MessageId.DIV_VISIBLE];
+            goal_div.className = MessageDictionary[MessageId.STYLE_DIV_HIDDEN];
+            project_div.className = MessageDictionary[MessageId.STYLE_DIV_HIDDEN];
+            task_div.className = MessageDictionary[MessageId.STYLE_DIV_VISIBLE];
             break;
     }
 }

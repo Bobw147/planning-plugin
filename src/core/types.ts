@@ -6,8 +6,9 @@ export enum Ident {
 }
 
 export const enum MessageId {
-    DIV_VISIBLE = "div_visible",
-    DIV_HIDDEN = "div_hidden",
+    STYLE_DIV_VISIBLE = "style_div_visible",
+    STYLE_DIV_HIDDEN = "style_div_hidden",
+    ID_GOAL_BLOCK = "id_goal_block",
     ID_GOAL_NAME = "id_goal_name",
     ID_GOAL_CATEGORY_TAG = "id_goal_category_tag",
     ID_GOAL_TARGET_DATE = "id_goal_target_date",
@@ -16,8 +17,9 @@ export const enum MessageId {
 }
 
 interface IMessageDictionaryType{
-    [MessageId.DIV_VISIBLE]: string;
-    [MessageId.DIV_HIDDEN]: string;
+    [MessageId.STYLE_DIV_VISIBLE]: string;
+    [MessageId.STYLE_DIV_HIDDEN]: string;
+    [MessageId.ID_GOAL_BLOCK]: string;
     [MessageId.ID_GOAL_NAME]: string;
     [MessageId.ID_GOAL_CATEGORY_TAG]: string;
     [MessageId.ID_GOAL_TARGET_DATE]: string;
@@ -26,8 +28,9 @@ interface IMessageDictionaryType{
 }
 
 export const MessageDictionary: IMessageDictionaryType = {
-    [MessageId.DIV_VISIBLE]: "pl-visible",
-    [MessageId.DIV_HIDDEN]: "pl-hidden",
+    [MessageId.STYLE_DIV_VISIBLE]: "pl-visible",
+    [MessageId.STYLE_DIV_HIDDEN]: "pl-hidden",
+    [MessageId.ID_GOAL_BLOCK]: "goal-block",
     [MessageId.ID_GOAL_NAME]: "goal-name",
     [MessageId.ID_GOAL_CATEGORY_TAG]: "goal-category-tag",
     [MessageId.ID_GOAL_TARGET_DATE]: "goal-target-date",
