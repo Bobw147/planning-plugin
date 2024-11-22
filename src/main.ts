@@ -4,6 +4,7 @@ import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
 import { goalIndexCardForm, populateGoalIndexCardForm } from './core/forms/goalIndexCardForm';
 import { projectIndexCardForm, populateProjectIndexCardForm } from './core/forms/projecctIndexCardForm';
+import { taskIndexCardForm, populateTaskIndexCardForm } from './core/forms/taskIndexCardForm';
 import { TFile } from 'obsidian';
 
   export default class PlanningPlugin extends Plugin {
@@ -90,6 +91,8 @@ import { TFile } from 'obsidian';
 								break;
 
 							case "Task":
+								div.innerHTML = taskIndexCardForm();
+								populateTaskIndexCardForm(this.app.fileManager, file as TFile);
 								break;
 						}
 					}
