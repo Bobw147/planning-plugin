@@ -1,7 +1,6 @@
 import { PlanningIndexCard } from "./indexcard";
 import { FrontMatterCache } from "obsidian";
 import { FileManager, TFile } from "obsidian";
-import { identTags } from "./indexcard";
 
 export class GoalIndexCard extends PlanningIndexCard{
     constructor(){
