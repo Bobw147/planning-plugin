@@ -5,14 +5,7 @@ export class BadStatusTagError extends Error {
         super("Ident tag must begin with '#status/'");
         this.name = "Bad Status Tag";
     }
-};
-
-export class BadCategoryTagError extends Error {
-    constructor() {
-        super("Category tag must begin with '#planning/'");
-        this.name = "Bad Category Tag";
-    }
-};
+}
 
 export class BadIdentTagError extends Error {
     constructor() {
