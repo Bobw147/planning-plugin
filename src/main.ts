@@ -2,7 +2,8 @@ import { MarkdownPostProcessorContext, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Settings';
 import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
-import { goalIndexForm, populateGoalIndexForm } from './core/forms/goalIndexForm';
+import { goalIndexCardForm, populateGoalIndexCardForm } from './core/forms/goalIndexCardForm';
+import { projectIndexCardForm, populateProjectIndexCardForm } from './core/forms/projecctIndexCardForm';
 import { TFile } from 'obsidian';
 
   export default class PlanningPlugin extends Plugin {
@@ -79,11 +80,13 @@ import { TFile } from 'obsidian';
 						const file = this.app.workspace.getActiveFile();
 						switch (source.trim()) {
 							case "Goal" :// Display the form and then add the index card data
-								div.innerHTML = goalIndexForm();
-								populateGoalIndexForm(this.app.fileManager, file as TFile);
+								div.innerHTML = goalIndexCardForm();
+								populateGoalIndexCardForm(this.app.fileManager, file as TFile);
 								break;
 
 							case "Project":
+								div.innerHTML = projectIndexCardForm();
+								populateProjectIndexCardForm(this.app.fileManager, file as TFile);
 								break;
 
 							case "Task":
