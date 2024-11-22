@@ -22,7 +22,7 @@ export class TasksModal extends Modal {
         this.contentEl.empty();
         this.setTitle("Create a new Task");
         // Open the form to create the DOM so that we can manipulate the class names settings
-        // to just show the Goal part of the form
+        // to just show the Task part of the form
         this.contentEl.innerHTML = newIdentFragment;
         this.open();
         initIdentFragment(Ident.TASK);
@@ -37,9 +37,9 @@ export class TasksModal extends Modal {
             const file: TFile = await this._vault.create(this._settings.tasksFolder + "/" + _taskIndexCard.name + ".md", "");
    
             // Save the data from the form into the files frontmatter then write the dataviw script
-            await _taskIndexCard.save(this.app.fileManager, file, identTags.PLANNING_TASK);
             await this._vault.modify(file, taskPageContent(_taskIndexCard))
-
+            await _taskIndexCard.save(this.app.fileManager, file, identTags.PLANNING_TASK);
+ 
             this.close();
         }
         (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
