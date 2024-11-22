@@ -30,3 +30,14 @@ export async function createFolder(vault: Vault, path: string){
         }
     });
 }
+
+export function dateFormatter(date: Date): string {
+    const splitDate: string = date.toISOString().split("T")[0];
+    return (splitDate != "1970-01-01") ? splitDate : "";
+} 
+
+export function flattenedTags(userTags: string[]) : string {
+    const testArray: string[] = ["#mytag", "#region", "#endregion" ];
+    const flattened: string =  testArray.flat().join(", ");
+    return flattened;
+}
