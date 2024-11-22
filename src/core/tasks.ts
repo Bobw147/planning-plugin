@@ -27,11 +27,11 @@ export class TasksModal extends Modal {
         this.open();
         initIdentFragment(Ident.TASK);
 
-        (document.getElementById(wrapMessage(MessageId.ID_TASK_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
+        (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
             const _taskIndexCard = new TaskIndexCard();
-            _taskIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_TASK_NAME, "")) as HTMLInputElement).value;
-            _taskIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_TASK_CATEGORY_TAG, "")) as HTMLSelectElement).value;
-            _taskIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_TASK_TARGET_DATE, ""))as HTMLDataElement).value);
+            _taskIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_NAME, "")) as HTMLInputElement).value;
+            _taskIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CATEGORY_TAG, "")) as HTMLSelectElement).value;
+            _taskIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_TASK_TARGET_DATE, ""))as HTMLDataElement).value);
 
             await createFolder(this._vault, this._settings.tasksFolder);
             const file: TFile = await this._vault.create(this._settings.tasksFolder + "/" + _taskIndexCard.name + ".md", "");
@@ -42,7 +42,7 @@ export class TasksModal extends Modal {
 
             this.close();
         }
-        (document.getElementById(wrapMessage(MessageId.ID_TASK_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
+        (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
             this.close();
         }
     }
