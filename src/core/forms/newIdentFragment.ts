@@ -9,11 +9,11 @@ export const newIdentFragment  = ' \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Select the Category type :</label> \
-           <select id='+wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "\"")+' style="margin-bottom: 12px"> \
+            <select id='+wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "\"")+' style="margin-bottom: 12px"> \
                 <option>#planning/business</option> \
                 <option>#planning/personal</option> \
                 <option>#planning/domestic</option> \
-           </select> \
+            </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Target Date</label> \
@@ -81,28 +81,28 @@ export const newIdentFragment  = ' \
 </div>'
 
 export function initIdentFragment(target: Ident) {
-    const goal_div: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_BLOCK, "")) as HTMLDivElement;
-    const project_div: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_BLOCK, "")) as HTMLDivElement;
-    const task_div: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_BLOCK, "")) as HTMLDivElement;
+    const goalDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_BLOCK, "")) as HTMLDivElement;
+    const projectDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_BLOCK, "")) as HTMLDivElement;
+    const taskDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_BLOCK, "")) as HTMLDivElement;
 
 
     switch (target) {
         case Ident.GOAL:
-            goal_div.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
-            project_div.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
-            task_div.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+            goalDiv.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
+            projectDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+            taskDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
             break;
 
         case Ident.PROJECT:
-            goal_div.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
-            project_div.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
-            task_div.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+            goalDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+            projectDiv.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
+            taskDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
             break;
 
         case Ident.TASK:
-            goal_div.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
-            project_div.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
-            task_div.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
+            goalDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+            projectDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+            taskDiv.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
             break;
     }
 }
