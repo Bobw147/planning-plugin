@@ -5,21 +5,12 @@ export const projectDataview =
 ```IndexCard\n \
 Project\n \
 ```\n \
-\n\
-\n\
-##### Index Card\n \
-NamePlaceholder\n \
-ModePlaceholder\n \
-IdentTagPlaceholder\n \
-StatusTagPlaceholder\n \
-TargetDatePlaceholder\n \
-AnticipatedDatePlaceholder\n \
-CompletedDatePlaceholder\n \
-UserTagsPlaceholder\n \
-\n\
-\n\
-<div><button> type='button'>Click me</button></div> \
+\n \
+\n \
+\
 #### Project View\n \
+\n \
+\n \
 ```dataviewjs\n \
 const DAY = 0;\n \
 const MONTH = 1;\n \
