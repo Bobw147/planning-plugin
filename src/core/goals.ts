@@ -28,13 +28,13 @@ export class GoalsModal extends Modal {
         initIdentFragment(Ident.GOAL);
 
         //  Add a handler to the 'Create' button
-        (document.getElementById(wrapMessage(MessageId.ID_GOAL_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
+        (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
             const _goalIndexCard: GoalIndexCard = new GoalIndexCard();
             
             // Read the data from the form back into an index card
-            _goalIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_GOAL_NAME, "")) as HTMLInputElement).value;
-            _goalIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_GOAL_CATEGORY_TAG, "")) as HTMLSelectElement).value;
-            _goalIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_GOAL_TARGET_DATE, "")) as HTMLDataElement).value);
+            _goalIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_NAME, "")) as HTMLInputElement).value;
+            _goalIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "")) as HTMLSelectElement).value;
+            _goalIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_TARGET_DATE, "")) as HTMLDataElement).value);
             
             // Make sure the target folder exists then create the file
             await createFolder(this._vault, this._settings.goalsFolder);
@@ -48,7 +48,7 @@ export class GoalsModal extends Modal {
         }
         
         // Add a handler for the cancel button
-        (document.getElementById(wrapMessage(MessageId.ID_GOAL_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
+        (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
             this.close();
         }
     }
