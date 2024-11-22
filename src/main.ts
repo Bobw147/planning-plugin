@@ -5,9 +5,9 @@ import { Planner } from './core/planner';
 import { indexCardButtonHandler } from './handlers/indexxCardFormButtons';
 
   export default class PlanningPlugin extends Plugin {
-	public settings: Settings;
-	public planner: Planner;
-	public command_handler: CommandHandler;
+	public settings?: Settings;
+	public planner?: Planner;
+	public command_handler?: CommandHandler;
 
 	async onload(): Promise<void> {
 		await this.load_settings();
@@ -17,15 +17,15 @@ import { indexCardButtonHandler } from './handlers/indexxCardFormButtons';
 		// This creates an icon in the left ribbon.
 		const ribbonGoalIconEl = this.addRibbonIcon('goal', 'Goal', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_goal();
+			this.planner?.create_goal();
 		});
 		const ribbonProjectIconEl = this.addRibbonIcon('target', 'Project', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_project();
+			this.planner?.create_project();
 		});
 		const ribbonTaskIconEl = this.addRibbonIcon('circle-check', 'Task', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_task();
+			this.planner?.create_task();
 		});
 		// Perform additional things with the ribbon
 		ribbonGoalIconEl.addClass('my-plugin-ribbon-class');
@@ -47,10 +47,6 @@ import { indexCardButtonHandler } from './handlers/indexxCardFormButtons';
 		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
 			console.log('click', evt);
 		});
-
-		// TODO This is a historical entity from the sample plugin
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
 			indexCardButtonHandler(this.app, source, el)
