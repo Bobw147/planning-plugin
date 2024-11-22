@@ -8,78 +8,141 @@ export enum Ident {
 export const enum MessageId {
     STYLE_DIV_VISIBLE = "style_div_visible",
     STYLE_DIV_HIDDEN = "style_div_hidden",
-    ID_GOAL_BLOCK = "id_goal_block",
-    ID_GOAL_NAME = "id_goal_name",
-    ID_GOAL_CATEGORY_TAG = "id_goal_category_tag",
-    ID_GOAL_TARGET_DATE = "id_goal_target_date",
-    ID_GOAL_CREATE_BUTTON = "id_create_goal",
-    ID_GOAL_CANCEL_BUTTON = "id_cancel_goal",
-    ID_PROJECT_BLOCK = "id_project_block",
-    ID_PROJECT_NAME = "id_project_name",
-    ID_PROJECT_GOAL_NAME = "id_project_goal_name",
-    ID_PROJECT_CATEGORY_TAG = "id_project_category_tag",
-    ID_PROJECT_TARGET_DATE = "id_project_target_date",
-    ID_PROJECT_CREATE_BUTTON = "id_project_create_button",
-    ID_PROJECT_CANCEL_BUTTON = "id_project_cancel_button",
-    ID_TASK_BLOCK = "id_task_block",
-    ID_TASK_NAME = "id_task_name",
-    ID_TASK_PROJECT_NAME = "id_task_project_name",
-    ID_TASK_CATEGORY_TAG = "id_task_category_tag",
-    ID_TASK_TARGET_DATE = "id_task_target_date",
-    ID_TASK_CREATE_BUTTON = "id_task_create_button",
-    ID_TASK_CANCEL_BUTTON = "id_task_cancel_button",
+
+    // Goal creation form
+    ID_CF_GOAL_BLOCK = "id_cf_goal_block",
+    ID_CF_GOAL_NAME = "id_cf_goal_name",
+    ID_CF_GOAL_CATEGORY_TAG = "id_cf_goal_category_tag",
+    ID_CF_GOAL_TARGET_DATE = "id_cf_goal_target_date",
+    ID_CF_GOAL_CREATE_BUTTON = "id_cf_create_goal",
+    ID_CF_GOAL_CANCEL_BUTTON = "id_cf_cancel_goal",
+
+    // Project creation form
+    ID_CF_PROJECT_BLOCK = "id_cf_project_block",
+    ID_CF_PROJECT_NAME = "id_cf_project_name",
+    ID_CF_PROJECT_GOAL_NAME = "id_cf_project_goal_name",
+    ID_CF_PROJECT_CATEGORY_TAG = "id_cf_project_category_tag",
+    ID_CF_PROJECT_TARGET_DATE = "id_cf_project_target_date",
+    ID_CF_PROJECT_CREATE_BUTTON = "id_cf_project_create_button",
+    ID_CF_PROJECT_CANCEL_BUTTON = "id_cf_project_cancel_button",
+
+    // Task creation form
+    ID_CF_TASK_BLOCK = "id_cf_task_block",
+    ID_CF_TASK_NAME = "id_cf_task_name",
+    ID_CF_TASK_PROJECT_NAME = "id_cf_task_project_name",
+    ID_CF_TASK_CATEGORY_TAG = "id_cf_task_category_tag",
+    ID_CF_TASK_TARGET_DATE = "id_cf_task_target_date",
+    ID_CF_TASK_CREATE_BUTTON = "id_cf_task_create_button",
+    ID_CF_TASK_CANCEL_BUTTON = "id_cf_task_cancel_button",
+
+    // Goal Index Card
+    ID_IC_GOAL_INDEX_CARD = "id_ic_goal_index_card",
+    ID_IC_GOAL_NAME = "id_ic_goal_name",
+    ID_IC_GOAL_CATEGORY_TAG = "id_ic_goal_category_tag",
+    ID_IC_GOAL_STATUS_TAG = "id_ic_goal_status_tag",
+    ID_IC_GOAL_IDENT_TAG = "id_ic_goal_ident_tag",
+    ID_IC_GOAL_TARGET_DATE = "id_ic_goal_target_date",
+    ID_IC_GOAL_EXPECTED_DATE = "id_ic_goal_expected_date",
+    ID_IC_GOAL_COMPLETED_DATE = "id_ic_goal_completed_date",
+    ID_IC_GOAL_USER_TAGS = "id_ic_goal_user_tags",
+
+    // Project Index Card
+    ID_IC_PROJECT_INDEX_CARD = "id_ic_project_index_card",
+    ID_IC_PROJECT_NAME = "id_ic_project_name",
+    ID_IC_PROJECT_CATEGORY_TAG = "id_ic_project_category_tag",
+    ID_IC_PROJECT_STATUS_TAG = "id_ic_project_status_tag",
+    ID_IC_PROJECT_IDENT_TAG = "id_ic_project_ident_tag",
+    ID_IC_PROJECT_TARGET_DATE = "id_ic_project_target_date",
+    ID_IC_PROJECT_EXPECTED_DATE = "id_ic_gproject_expected_date",
+    ID_IC_PROJECT_COMPLETED_DATE = "id_ic_project_completed_date",
+    ID_IC_PROJECT_USER_TAGS = "id_ic_project_user_tags",
 }
 
 interface IMessageDictionaryType{
     [MessageId.STYLE_DIV_VISIBLE]: string;
     [MessageId.STYLE_DIV_HIDDEN]: string;
-    [MessageId.ID_GOAL_BLOCK]: string;
-    [MessageId.ID_GOAL_NAME]: string;
-    [MessageId.ID_GOAL_CATEGORY_TAG]: string;
-    [MessageId.ID_GOAL_TARGET_DATE]: string;
-    [MessageId.ID_GOAL_CREATE_BUTTON]: string;
-    [MessageId.ID_GOAL_CANCEL_BUTTON]: string;
-    [MessageId.ID_PROJECT_BLOCK]: string;
-    [MessageId.ID_PROJECT_NAME]: string;
-    [MessageId.ID_PROJECT_GOAL_NAME]: string;
-    [MessageId.ID_PROJECT_CATEGORY_TAG]: string;
-    [MessageId.ID_PROJECT_TARGET_DATE]: string;
-    [MessageId.ID_PROJECT_CREATE_BUTTON]: string;
-    [MessageId.ID_PROJECT_CANCEL_BUTTON]: string;
-    [MessageId.ID_TASK_BLOCK]: string;
-    [MessageId.ID_TASK_NAME]: string;
-    [MessageId.ID_TASK_PROJECT_NAME]: string;
-    [MessageId.ID_TASK_CATEGORY_TAG]: string;
-    [MessageId.ID_TASK_TARGET_DATE]: string;
-    [MessageId.ID_TASK_CREATE_BUTTON]: string;
-    [MessageId.ID_TASK_CANCEL_BUTTON]: string;
+    [MessageId.ID_CF_GOAL_BLOCK]: string;
+    [MessageId.ID_CF_GOAL_NAME]: string;
+    [MessageId.ID_CF_GOAL_CATEGORY_TAG]: string;
+    [MessageId.ID_CF_GOAL_TARGET_DATE]: string;
+    [MessageId.ID_CF_GOAL_CREATE_BUTTON]: string;
+    [MessageId.ID_CF_GOAL_CANCEL_BUTTON]: string;
+    [MessageId.ID_CF_PROJECT_BLOCK]: string;
+    [MessageId.ID_CF_PROJECT_NAME]: string;
+    [MessageId.ID_CF_PROJECT_GOAL_NAME]: string;
+    [MessageId.ID_CF_PROJECT_CATEGORY_TAG]: string;
+    [MessageId.ID_CF_PROJECT_TARGET_DATE]: string;
+    [MessageId.ID_CF_PROJECT_CREATE_BUTTON]: string;
+    [MessageId.ID_CF_PROJECT_CANCEL_BUTTON]: string;
+    [MessageId.ID_CF_TASK_BLOCK]: string;
+    [MessageId.ID_CF_TASK_NAME]: string;
+    [MessageId.ID_CF_TASK_PROJECT_NAME]: string;
+    [MessageId.ID_CF_TASK_CATEGORY_TAG]: string;
+    [MessageId.ID_CF_TASK_TARGET_DATE]: string;
+    [MessageId.ID_CF_TASK_CREATE_BUTTON]: string;
+    [MessageId.ID_CF_TASK_CANCEL_BUTTON]: string;
+    [MessageId.ID_IC_GOAL_INDEX_CARD]: string;
+    [MessageId.ID_IC_GOAL_NAME]: string;
+    [MessageId.ID_IC_GOAL_CATEGORY_TAG]: string;
+    [MessageId.ID_IC_GOAL_STATUS_TAG]: string;
+    [MessageId.ID_IC_GOAL_IDENT_TAG]: string;
+    [MessageId.ID_IC_GOAL_TARGET_DATE]: string;
+    [MessageId.ID_IC_GOAL_EXPECTED_DATE]: string;
+    [MessageId.ID_IC_GOAL_COMPLETED_DATE]: string;
+    [MessageId.ID_IC_GOAL_USER_TAGS] : string;
+    [MessageId.ID_IC_PROJECT_INDEX_CARD]: string;
+    [MessageId.ID_IC_PROJECT_NAME]: string;
+    [MessageId.ID_IC_PROJECT_CATEGORY_TAG]: string;
+    [MessageId.ID_IC_PROJECT_STATUS_TAG]: string;
+    [MessageId.ID_IC_PROJECT_IDENT_TAG]: string;
+    [MessageId.ID_IC_PROJECT_TARGET_DATE]: string;
+    [MessageId.ID_IC_PROJECT_EXPECTED_DATE]: string;
+    [MessageId.ID_IC_PROJECT_COMPLETED_DATE]: string;
+    [MessageId.ID_IC_PROJECT_USER_TAGS] : string;
 }
 
-export const MessageDictionary: IMessageDictionaryType = {
-    [MessageId.STYLE_DIV_VISIBLE]: "pl-visible",
-    [MessageId.STYLE_DIV_HIDDEN]: "pl-hidden",
-    [MessageId.ID_GOAL_BLOCK]: "goal-block",
-    [MessageId.ID_GOAL_NAME]: "goal-name",
-    [MessageId.ID_GOAL_CATEGORY_TAG]: "goal-category-tag",
-    [MessageId.ID_GOAL_TARGET_DATE]: "goal-target-date",
-    [MessageId.ID_GOAL_CREATE_BUTTON]: "create-goal-button",
-    [MessageId.ID_GOAL_CANCEL_BUTTON]: "cancel-goal-button",
-    [MessageId.ID_PROJECT_BLOCK]: "project-block",
-    [MessageId.ID_PROJECT_NAME]: "project-name",
-    [MessageId.ID_PROJECT_GOAL_NAME]: "project-goal-name",
-    [MessageId.ID_PROJECT_CATEGORY_TAG]: "project-category-tag",
-    [MessageId.ID_PROJECT_TARGET_DATE]: "project-target-date",
-    [MessageId.ID_PROJECT_CREATE_BUTTON]: "create-project-button",
-    [MessageId.ID_PROJECT_CANCEL_BUTTON]: "cancel-project-button",
-    [MessageId.ID_TASK_BLOCK]: "task-block",
-    [MessageId.ID_TASK_NAME]: "task-name",
-    [MessageId.ID_TASK_PROJECT_NAME]: "task-project-name",
-    [MessageId.ID_TASK_CATEGORY_TAG]: "task-category-tag",
-    [MessageId.ID_TASK_TARGET_DATE]: "task-target-date",
-    [MessageId.ID_TASK_CREATE_BUTTON]: "create-task-button",
-    [MessageId.ID_TASK_CANCEL_BUTTON]: "cancel-task-button",
+export const messageDictionary: IMessageDictionaryType = {
+    [MessageId.STYLE_DIV_VISIBLE]: "cf-pl-visible",
+    [MessageId.STYLE_DIV_HIDDEN]: "cf-pl-hidden",
+    [MessageId.ID_CF_GOAL_BLOCK]: "cf-goal-block",
+    [MessageId.ID_CF_GOAL_NAME]: "cf-goal-name",
+    [MessageId.ID_CF_GOAL_CATEGORY_TAG]: "cf-goal-category-tag",
+    [MessageId.ID_CF_GOAL_TARGET_DATE]: "cf-goal-target-date",
+    [MessageId.ID_CF_GOAL_CREATE_BUTTON]: "cf-create-goal-button",
+    [MessageId.ID_CF_GOAL_CANCEL_BUTTON]: "cf-cancel-goal-button",
+    [MessageId.ID_CF_PROJECT_BLOCK]: "cf-project-block",
+    [MessageId.ID_CF_PROJECT_NAME]: "cf-project-name",
+    [MessageId.ID_CF_PROJECT_GOAL_NAME]: "cf-project-goal-name",
+    [MessageId.ID_CF_PROJECT_CATEGORY_TAG]: "cf-project-category-tag",
+    [MessageId.ID_CF_PROJECT_TARGET_DATE]: "cf-project-target-date",
+    [MessageId.ID_CF_PROJECT_CREATE_BUTTON]: "cf-create-project-button",
+    [MessageId.ID_CF_PROJECT_CANCEL_BUTTON]: "cf-cancel-project-button",
+    [MessageId.ID_CF_TASK_BLOCK]: "cf-task-block",
+    [MessageId.ID_CF_TASK_NAME]: "cf-task-name",
+    [MessageId.ID_CF_TASK_PROJECT_NAME]: "cf-task-project-name",
+    [MessageId.ID_CF_TASK_CATEGORY_TAG]: "cf-task-category-tag",
+    [MessageId.ID_CF_TASK_TARGET_DATE]: "cf-task-target-date",
+    [MessageId.ID_CF_TASK_CREATE_BUTTON]: "cf-create-task-button",
+    [MessageId.ID_CF_TASK_CANCEL_BUTTON]: "cf-cancel-task-button",
+    [MessageId.ID_IC_GOAL_INDEX_CARD]: "ic-goal-index-card",
+    [MessageId.ID_IC_GOAL_NAME]: "ic-goal-name",
+    [MessageId.ID_IC_GOAL_CATEGORY_TAG]: "ic-goal-category-tag",
+    [MessageId.ID_IC_GOAL_IDENT_TAG]: "ic-goal-ident-tag",
+    [MessageId.ID_IC_GOAL_STATUS_TAG]: "ic-goal-status-tag",
+    [MessageId.ID_IC_GOAL_TARGET_DATE]: "ic-goal-target-date",
+    [MessageId.ID_IC_GOAL_EXPECTED_DATE]: "ic-goal-expected-date",
+    [MessageId.ID_IC_GOAL_COMPLETED_DATE]: "ic-goal-completed-date",
+    [MessageId.ID_IC_GOAL_USER_TAGS]: "ic-goal-user-tags",
+    [MessageId.ID_IC_PROJECT_INDEX_CARD]: "ic-project-index-card",
+    [MessageId.ID_IC_PROJECT_NAME]: "ic-project-name",
+    [MessageId.ID_IC_PROJECT_CATEGORY_TAG]: "ic-project-category-tag",
+    [MessageId.ID_IC_PROJECT_IDENT_TAG]: "ic-project-ident-tag",
+    [MessageId.ID_IC_PROJECT_STATUS_TAG]: "ic-project-status-tag",
+    [MessageId.ID_IC_PROJECT_TARGET_DATE]: "ic-project-target-date",
+    [MessageId.ID_IC_PROJECT_EXPECTED_DATE]: "ic-project-expected-date",
+    [MessageId.ID_IC_PROJECT_COMPLETED_DATE]: "ic-project-completed-date",
+    [MessageId.ID_IC_PROJECT_USER_TAGS]: "ic-project-user-tags",
 }
-
 
 export const defaultStatusTags: Array<string> = [
     "#status/inbox",
@@ -93,8 +156,8 @@ export const defaultStatusTags: Array<string> = [
 ]
 
 // This wrapper is necessary 
-export function wrapMessage(messageId: MessageId, wrapper: string){
-    return wrapper + MessageDictionary[messageId] + wrapper;
+export function wrapMessage(messageId: MessageId, wrapper: string): string{
+    return wrapper + messageDictionary[messageId] + wrapper;
 }
 
 export const identTags = {
