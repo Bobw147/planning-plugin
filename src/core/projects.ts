@@ -25,11 +25,11 @@ export class ProjectsModal extends Modal {
         initIdentFragment(Ident.PROJECT);
 
         // Add a handler to the 'Create' button
-        (document.getElementById(wrapMessage(MessageId.ID_PROJECT_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
+        (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
             const _projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
-            _projectIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_PROJECT_NAME, "")) as HTMLInputElement).value;
-            _projectIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement).value;
-            _projectIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_PROJECT_TARGET_DATE, "")) as HTMLDataElement).value);
+            _projectIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_NAME, "")) as HTMLInputElement).value;
+            _projectIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement).value;
+            _projectIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_TARGET_DATE, "")) as HTMLDataElement).value);
 
             await createFolder(this._vault, this._settings.projectsFolder);
             const file: TFile = await this._vault.create(this._settings.projectsFolder + "/" + _projectIndexCard.name + ".md", "")
@@ -40,7 +40,7 @@ export class ProjectsModal extends Modal {
 
             this.close();
         }
-        (document.getElementById(wrapMessage(MessageId.ID_PROJECT_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
+        (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
             this.close();
         }
     }
