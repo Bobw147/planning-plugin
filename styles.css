@@ -6,11 +6,11 @@
     width: calc((100% - 20px));
 }
 
-div.pl-hidden {
+div.cf-pl-hidden {
     display: none;
 }
 
-div.pl-visible {
+div.cf-pl-visible {
     border-width: 2px;
     border-style: solid;
     border-color: gray;
