@@ -17,6 +17,7 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
 
     constructor(){
         super();
+        this.parentProject = "";
     }
 
     async load(filemanager: FileManager, file: TFile): Promise<void> {
