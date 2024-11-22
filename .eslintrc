@@ -28,7 +28,7 @@
           "format": ["PascalCase"]
         },
         {
-          "selector": "function",
+          "selector": ["function", "variable"],
           "format": ["camelCase"]
         },
         {
