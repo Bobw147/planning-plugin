@@ -6,6 +6,7 @@ import { goalIndexCardForm, populateGoalIndexCardForm } from './core/forms/goalI
 import { projectIndexCardForm, populateProjectIndexCardForm } from './core/forms/projecctIndexCardForm';
 import { taskIndexCardForm, populateTaskIndexCardForm } from './core/forms/taskIndexCardForm';
 import { TFile } from 'obsidian';
+import { indexCardButtonHandler } from './handlers/indexxCardFormButtons';
 
   export default class PlanningPlugin extends Plugin {
 	public settings: Settings;
@@ -51,57 +52,12 @@ import { TFile } from 'obsidian';
 			console.log('click', evt);
 		});
 
-		
+		// TODO This is a historical entity from the sample plugin
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
-			// We only want to add the button once so check to see if it has already been inserted
-			if (document.getElementById('indexCardButton') == null)
-			{
-				// Create the button element along with a div element that will contain the form
-				// when the button is pressed
-				const button: HTMLButtonElement = document.createElement('button');
-				const div: HTMLDivElement = document.createElement('div');
-				div.id = "form-placeholder";
-
-				// Add the button and the div to the acctive document
-				button.textContent = "Show Index Card";
-				button.id = 'index-card-button'
-				el.appendChild(button);
-				el.appendChild(div);
-
-				// Add an event handler for when the button is pressed
-				button.addEventListener('click', () => {
-					if (button.textContent?.startsWith("Show")){
-
-						// Toggle the nature of the button
-						button.textContent = "Hide Index Card"
-
-						const file = this.app.workspace.getActiveFile();
-						switch (source.trim()) {
-							case "Goal" :// Display the form and then add the index card data
-								div.innerHTML = goalIndexCardForm();
-								populateGoalIndexCardForm(this.app.fileManager, file as TFile);
-								break;
-
-							case "Project":
-								div.innerHTML = projectIndexCardForm();
-								populateProjectIndexCardForm(this.app.fileManager, file as TFile);
-								break;
-
-							case "Task":
-								div.innerHTML = taskIndexCardForm();
-								populateTaskIndexCardForm(this.app.fileManager, file as TFile);
-								break;
-						}
-					}
-					else {
-						button.textContent = "Show Index Card";
-						div.innerHTML = ""
-					}
-				})
-			}
+			indexCardButtonHandler(this.app, source, el)
 		})
 	}
 
