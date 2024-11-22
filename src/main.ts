@@ -2,10 +2,6 @@ import { MarkdownPostProcessorContext, Plugin } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Settings';
 import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
-import { goalIndexCardForm, populateGoalIndexCardForm } from './core/forms/goalIndexCardForm';
-import { projectIndexCardForm, populateProjectIndexCardForm } from './core/forms/projecctIndexCardForm';
-import { taskIndexCardForm, populateTaskIndexCardForm } from './core/forms/taskIndexCardForm';
-import { TFile } from 'obsidian';
 import { indexCardButtonHandler } from './handlers/indexxCardFormButtons';
 
   export default class PlanningPlugin extends Plugin {
