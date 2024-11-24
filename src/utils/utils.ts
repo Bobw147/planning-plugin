@@ -41,3 +41,11 @@ export function flattenedTags(userTags: string[]) : string {
     const flattened: string =  testArray.flat().join(", ");
     return flattened;
 }
+
+export function assignOptions(selectorDiv: HTMLSelectElement, options: string[]){
+    options.forEach((option) => {
+        const optionElement = document.createElement('option') as HTMLOptionElement;
+        optionElement.value = option;
+        selectorDiv.add(optionElement);
+    })
+}

@@ -1,4 +1,6 @@
 import { Ident, MessageId, wrapMessage } from "../types"
+import { Settings } from "src/settings/Settings";
+import { assignOptions } from "src/utils/utils";
 
 export const newIdentFragment  = ' \
 <div> \
@@ -80,29 +82,41 @@ export const newIdentFragment  = ' \
     </div> \
 </div>'
 
-export function initIdentFragment(target: Ident) {
+export function initIdentFragment(target: Ident, settings: Settings) {
+    let targetTagDiv: HTMLSelectElement | null = null;
     const goalDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_BLOCK, "")) as HTMLDivElement;
     const projectDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_BLOCK, "")) as HTMLDivElement;
     const taskDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_BLOCK, "")) as HTMLDivElement;
-
 
     switch (target) {
         case Ident.GOAL:
             goalDiv.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
             projectDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
             taskDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+
+            // Populate the Category & Status selectors with options the list contained in the plugin settings
+            targetTagDiv = document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "")) as HTMLSelectElement;           
+            assignOptions(targetTagDiv, settings.categoryTags)
             break;
 
         case Ident.PROJECT:
             goalDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
             projectDiv.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
             taskDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
+
+            // Populate the Category & Status selectors with options the list contained in the plugin settings
+            targetTagDiv = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement;           
+            assignOptions(targetTagDiv, settings.categoryTags)
             break;
 
         case Ident.TASK:
             goalDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
             projectDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
             taskDiv.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
+
+            // Populate the Category & Status selectors with options the list contained in the plugin settings
+            targetTagDiv = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CATEGORY_TAG, "")) as HTMLSelectElement;           
+            assignOptions(targetTagDiv, settings.categoryTags)
             break;
     }
 }

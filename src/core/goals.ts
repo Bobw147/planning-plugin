@@ -25,7 +25,7 @@ export class GoalsModal extends Modal {
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
         this.open();
-        initIdentFragment(Ident.GOAL);
+        initIdentFragment(Ident.GOAL, this._settings);
 
         //  Add a handler to the 'Create' button
         (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
