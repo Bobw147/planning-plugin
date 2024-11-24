@@ -3,6 +3,7 @@ import { goalIndexCardForm, populateGoalIndexCardForm } from "src/core/forms/goa
 import { projectIndexCardForm, populateProjectIndexCardForm } from "src/core/forms/projecctIndexCardForm";
 import { taskIndexCardForm, populateTaskIndexCardForm } from "src/core/forms/taskIndexCardForm";
 
+//TODO Should I move this into the planner
 export function indexCardButtonHandler(app: App, source: string, el: HTMLElement): void {
 
     // Create the button element along with a div element that will contain the form
