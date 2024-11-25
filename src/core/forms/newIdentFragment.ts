@@ -1,6 +1,7 @@
-import { Ident, MessageId, wrapMessage } from "../types"
+import { Ident, identTags, MessageId, wrapMessage } from "../types"
 import { Settings } from "src/settings/Settings";
-import { assignOptions } from "src/utils/utils";
+import { assignTagOptions, assignNameOptions } from "src/utils/utils";
+import { App } from "obsidian";
 
 export const newIdentFragment  = ' \
 <div> \
@@ -12,9 +13,6 @@ export const newIdentFragment  = ' \
         <div> \
             <label style="margin-inline: 12px">Select the Category type :</label> \
             <select id='+wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "\"")+' style="margin-bottom: 12px"> \
-                <option>#planning/business</option> \
-                <option>#planning/personal</option> \
-                <option>#planning/domestic</option> \
             </select> \
         </div> \
         <div> \
@@ -34,14 +32,12 @@ export const newIdentFragment  = ' \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Belongs to goal :</label> \
-            <input type="text" id='+wrapMessage(MessageId.ID_CF_PROJECT_GOAL_NAME, "\"")+' autofocus style="margin-bottom: 12px"> \
+            <select id='+wrapMessage(MessageId.ID_CF_PROJECT_GOAL_NAME, "\"")+' style="margin-bottom: 12px"> \
+            </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Select the Catogory type :</label> \
             <select id='+wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "\"")+' style="margin-bottom: 12px"> \
-                <option>#planning/business</option> \
-                <option>#planning/personal</option> \
-                <option>#planning/domestic</option> \
             </select> \
         </div> \
         <div> \
@@ -61,14 +57,12 @@ export const newIdentFragment  = ' \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Belongs to Project :</label> \
-            <input type="text" id='+wrapMessage(MessageId.ID_CF_TASK_PROJECT_NAME, "\"")+' autofocus style="margin-bottom: 12px"> \
+            <select id='+wrapMessage(MessageId.ID_CF_TASK_PROJECT_NAME, "\"")+' style="margin-bottom: 12px"> \
+            </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Select the Category type :</label> \
             <select id='+wrapMessage(MessageId.ID_CF_TASK_CATEGORY_TAG, "\"")+' style="margin-bottom: 12px"> \
-                <option>#planning/business</option> \
-                <option>#planning/personal</option> \
-                <option>#planning/domestic</option> \
             </select> \
         </div> \
         <div> \
@@ -82,8 +76,8 @@ export const newIdentFragment  = ' \
     </div> \
 </div>'
 
-export function initIdentFragment(target: Ident, settings: Settings) {
-    let targetTagDiv: HTMLSelectElement | null = null;
+export function initIdentFragment(target: Ident, settings: Settings, app: App) {
+    let targetSelect: HTMLSelectElement | null = null;
     const goalDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_BLOCK, "")) as HTMLDivElement;
     const projectDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_BLOCK, "")) as HTMLDivElement;
     const taskDiv: HTMLDivElement = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_BLOCK, "")) as HTMLDivElement;
@@ -95,8 +89,8 @@ export function initIdentFragment(target: Ident, settings: Settings) {
             taskDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
 
             // Populate the Category & Status selectors with options the list contained in the plugin settings
-            targetTagDiv = document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "")) as HTMLSelectElement;           
-            assignOptions(targetTagDiv, settings.categoryTags)
+            targetSelect = document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "")) as HTMLSelectElement;           
+            assignTagOptions(targetSelect, settings.categoryTags)
             break;
 
         case Ident.PROJECT:
@@ -105,8 +99,11 @@ export function initIdentFragment(target: Ident, settings: Settings) {
             taskDiv.className = wrapMessage(MessageId.STYLE_DIV_HIDDEN, "");
 
             // Populate the Category & Status selectors with options the list contained in the plugin settings
-            targetTagDiv = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement;           
-            assignOptions(targetTagDiv, settings.categoryTags)
+            targetSelect = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement;           
+            assignTagOptions(targetSelect, settings.categoryTags)
+
+            targetSelect = document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_GOAL_NAME, "")) as HTMLSelectElement;
+            assignNameOptions(targetSelect, app, settings.goalsFolder, identTags.PLANNING_GOAL);
             break;
 
         case Ident.TASK:
@@ -115,8 +112,11 @@ export function initIdentFragment(target: Ident, settings: Settings) {
             taskDiv.className = wrapMessage(MessageId.STYLE_DIV_VISIBLE, "");
 
             // Populate the Category & Status selectors with options the list contained in the plugin settings
-            targetTagDiv = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CATEGORY_TAG, "")) as HTMLSelectElement;           
-            assignOptions(targetTagDiv, settings.categoryTags)
+            targetSelect = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CATEGORY_TAG, "")) as HTMLSelectElement;           
+            assignTagOptions(targetSelect, settings.categoryTags)
+
+            targetSelect = document.getElementById(wrapMessage(MessageId.ID_CF_TASK_PROJECT_NAME, "")) as HTMLSelectElement;
+            assignNameOptions(targetSelect, app, settings.projectsFolder, identTags.PLANNING_PROJECT);
             break;
     }
 }
