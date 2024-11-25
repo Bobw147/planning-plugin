@@ -1,31 +1,37 @@
-import { MarkdownPostProcessorContext, Plugin } from 'obsidian';
+import { App, MarkdownPostProcessorContext, Plugin, PluginManifest } from 'obsidian';
 import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Settings';
 import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
 import { indexCardButtonHandler } from './handlers/indexCardFormButtons';
 
   export default class PlanningPlugin extends Plugin {
-	public settings?: Settings;
-	public planner?: Planner;
-	public command_handler?: CommandHandler;
+	public settings: Settings;
+	public planner: Planner;
+	public command_handler: CommandHandler;
+
+	constructor(app: App, manifest: PluginManifest)
+	{
+		super(app, manifest);
+		this.settings = DEFAULT_SETTINGS;
+		this.planner = new Planner(this);
+		this.command_handler = new CommandHandler(this);
+	}
 
 	async onload(): Promise<void> {
 		await this.load_settings();
 
-		this.planner = new Planner(this);
-
 		// This creates an icon in the left ribbon.
 		const ribbonGoalIconEl = this.addRibbonIcon('goal', 'Goal', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner?.create_goal();
+			this.planner.create_goal();
 		});
 		const ribbonProjectIconEl = this.addRibbonIcon('target', 'Project', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner?.create_project();
+			this.planner.create_project();
 		});
 		const ribbonTaskIconEl = this.addRibbonIcon('circle-check', 'Task', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner?.create_task();
+			this.planner.create_task();
 		});
 		// Perform additional things with the ribbon
 		ribbonGoalIconEl.addClass('my-plugin-ribbon-class');
@@ -37,7 +43,7 @@ import { indexCardButtonHandler } from './handlers/indexCardFormButtons';
 		statusBarItemEl.setText('Status Bar Text');
 
 		// Add the command handlers to the command palette
-		this.command_handler = new CommandHandler(this).setup();
+		this.command_handler.setup();
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new PlanningSettingsTab(this));

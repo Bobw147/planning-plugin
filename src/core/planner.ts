@@ -4,9 +4,9 @@ import { ProjectsModal } from "./projects";
 import { TasksModal } from "./tasks";
 
 export class Planner {
-    private goals_modal: GoalsModal | null;
-    private projects_modal: ProjectsModal | null;
-    private tasks_modal: TasksModal | null;
+    private goals_modal?: GoalsModal | null;
+    private projects_modal?: ProjectsModal | null;
+    private tasks_modal?: TasksModal | null;
 
     constructor(private plugin: PlanningPlugin){
       this.plugin = plugin;
