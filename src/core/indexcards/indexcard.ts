@@ -71,13 +71,6 @@ export class PlanningIndexCard implements IPlanningIndexCard {
         this._userTags = [];
     }
 
-/*    async load(filemanager: FileManager, file: TFile): Promise<void> {
-        await filemanager.processFrontMatter(file, (frontmatter) => {
-            this.loadf(frontmatter);
-        })
-    }
-*/
-
     load(frontmatter: FrontMatterCache): void {
         this.name = frontmatter[fieldNames.NAME_FIELD];
         this.categoryTag = frontmatter[fieldNames.CATEGORY_TAG_FIELD];
