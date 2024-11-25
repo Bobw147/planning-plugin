@@ -25,7 +25,7 @@ export class TasksModal extends Modal {
         // to just show the Task part of the form
         this.contentEl.innerHTML = newIdentFragment;
         this.open();
-        initIdentFragment(Ident.TASK);
+        initIdentFragment(Ident.TASK, this._settings, this.app);
 
         (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
             const _taskIndexCard = new TaskIndexCard();
