@@ -26,6 +26,7 @@ export function indexCardButtonHandler(app: App, source: string, el: HTMLElement
             button.textContent = "Hide Index Card"
 
             const file = app.workspace.getActiveFile();
+
             switch (source.trim()) {
                 case "Goal" : // Display the form and then add the index card data
                     div.innerHTML = goalIndexCardForm();
@@ -45,7 +46,7 @@ export function indexCardButtonHandler(app: App, source: string, el: HTMLElement
         }
         else {
             button.textContent = "Show Index Card";
-            div.innerHTML = ""
+            el.empty();
 		}
     })
 }   
