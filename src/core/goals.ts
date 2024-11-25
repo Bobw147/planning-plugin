@@ -25,24 +25,24 @@ export class GoalsModal extends Modal {
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
         this.open();
-        initIdentFragment(Ident.GOAL, this._settings);
+        initIdentFragment(Ident.GOAL, this._settings, this.app);
 
         //  Add a handler to the 'Create' button
         (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
-            const _goalIndexCard: GoalIndexCard = new GoalIndexCard();
+            const goalIndexCard: GoalIndexCard = new GoalIndexCard();
             
             // Read the data from the form back into an index card
-            _goalIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_NAME, "")) as HTMLInputElement).value;
-            _goalIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "")) as HTMLSelectElement).value;
-            _goalIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_TARGET_DATE, "")) as HTMLDataElement).value);
+            goalIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_NAME, "")) as HTMLInputElement).value;
+            goalIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_CATEGORY_TAG, "")) as HTMLSelectElement).value;
+            goalIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_GOAL_TARGET_DATE, "")) as HTMLDataElement).value);
             
             // Make sure the target folder exists then create the file
             await createFolder(this._vault, this._settings.goalsFolder);
-            const file: TFile = await this._vault.create(this._settings.goalsFolder + "/" + _goalIndexCard.name + ".md", "");
+            const file: TFile = await this._vault.create(this._settings.goalsFolder + "/" + goalIndexCard.name + ".md", "");
             
             // Write the dataview script into the file then add the frontmatter properties. 
             await this._vault.modify(file, goalPageContent());
-            await _goalIndexCard.save(this.app.fileManager, file, identTags.PLANNING_GOAL);
+            await goalIndexCard.save(this.app.fileManager, file, identTags.PLANNING_GOAL);
 
             this.close();
         }
