@@ -22,21 +22,21 @@ export class ProjectsModal extends Modal {
         this.setTitle("Create a new Project");
         this.contentEl.innerHTML = newIdentFragment;
         this.open();
-        initIdentFragment(Ident.PROJECT);
+        initIdentFragment(Ident.PROJECT, this._settings, this.app);
 
         // Add a handler to the 'Create' button
         (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
-            const _projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
-            _projectIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_NAME, "")) as HTMLInputElement).value;
-            _projectIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement).value;
-            _projectIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_TARGET_DATE, "")) as HTMLDataElement).value);
+            const projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
+            projectIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_NAME, "")) as HTMLInputElement).value;
+            projectIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement).value;
+            projectIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_TARGET_DATE, "")) as HTMLDataElement).value);
 
             await createFolder(this._vault, this._settings.projectsFolder);
-            const file: TFile = await this._vault.create(this._settings.projectsFolder + "/" + _projectIndexCard.name + ".md", "")
+            const file: TFile = await this._vault.create(this._settings.projectsFolder + "/" + projectIndexCard.name + ".md", "")
             
             // Write the dataview script into the file then add the frontmatter properties. 
             await this._vault.modify(file, projectPageContent());
-            await _projectIndexCard.save(this.app.fileManager, file, identTags.PLANNING_PROJECT);
+            await projectIndexCard.save(this.app.fileManager, file, identTags.PLANNING_PROJECT);
 
             this.close();
         }
