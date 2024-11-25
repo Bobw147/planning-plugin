@@ -1,6 +1,7 @@
 // Credits go to SilentVoid13's Templater PlugIn: https://github.com/SilentVoid13/Templater
 
-import { Vault } from "obsidian";
+import { App, CachedMetadata, FrontMatterCache, getFrontMatterInfo, TAbstractFile, TagCache, TFile, TFolder, Vault } from "obsidian";
+import { fieldNames } from "src/core/indexcards/indexcard";
 
 export function arraymove<T>(
     arr: T[],
@@ -42,10 +43,37 @@ export function flattenedTags(userTags: string[]) : string {
     return flattened;
 }
 
-export function assignOptions(selectorDiv: HTMLSelectElement, options: string[]){
+export function assignTagOptions(selector: HTMLSelectElement, options: string[]){
     options.forEach((option) => {
         const optionElement = document.createElement('option') as HTMLOptionElement;
-        optionElement.value = option;
-        selectorDiv.add(optionElement);
+        optionElement.text = option;
+        selector.add(optionElement);
     })
+}
+
+interface Dictionary<T> {
+    [key: string]: T;
+}
+  
+export function assignNameOptions(selector: HTMLSelectElement, app: App, rootPath: string, searchTag: string): void {
+    const rootFolder: TFolder | null = app.vault.getFolderByPath(rootPath);
+    
+    if (rootFolder == null)
+        return;
+    
+    Vault.recurseChildren(rootFolder, (child:TAbstractFile) => {
+        // Make sure what we have is a file and not a folder
+        if (child instanceof TFolder)
+            return;
+        if (child instanceof TFile) {
+            // Get the frontmatter for the file
+            const cache: CachedMetadata | null = app.metadataCache.getCache((child.path));
+            const frontmatter: FrontMatterCache | undefined = cache?.frontmatter as Dictionary<string>;
+            if (frontmatter[fieldNames.IDENT_TAG_FIELD] == searchTag) {
+                const option = document.createElement('option');
+                option.text = frontmatter[fieldNames.NAME_FIELD];
+                selector.add(option);
+            }
+        }
+    });
 }
