@@ -1,17 +1,16 @@
 import { arraycopy } from "src/utils/utils";
-import { BadStatusTagError, BadCategoryTagError, BadIdentTagError, UserTagError } from "../exceptions/exceptions";
 import { TFile, FileManager } from "obsidian";
 import { FrontMatterCache } from "obsidian";
 
 export const fieldNames = {
-    NAME_FIELD: "pname: ",
-    CATEGORY_TAG_FIELD: "pcategory:",
-    IDENT_TAG_FIELD: "pidentTag:",
-    STATUS_TAG_FIELD: "pstatusTagField:",
-    TARGET_DATE_FIELD: "ptargetDate:",
-    EXPECTED_DATE_FIELD: "pexpectedDateField:",
-    COMPLETED_DATE_FIELD: "pcompletedDateField:",
-    USER_TAGS_FIELD: "puserTags:"
+    NAME_FIELD: "pname",
+    CATEGORY_TAG_FIELD: "pcategory",
+    IDENT_TAG_FIELD: "pidentTag",
+    STATUS_TAG_FIELD: "pstatusTagField",
+    TARGET_DATE_FIELD: "ptargetDate",
+    EXPECTED_DATE_FIELD: "pexpectedDateField",
+    COMPLETED_DATE_FIELD: "pcompletedDateField",
+    USER_TAGS_FIELD: "puserTags"
 }
 export interface IPlanningIndexCard{
     _name: string;
@@ -49,7 +48,7 @@ export interface IPlanningIndexCard{
 
     get userTags(): string[];
     set userTags(value: string[]);
-};
+}
 
 export class PlanningIndexCard implements IPlanningIndexCard {
     _name: string;
@@ -101,7 +100,7 @@ export class PlanningIndexCard implements IPlanningIndexCard {
             frontmatter[fieldNames.COMPLETED_DATE_FIELD] = this.completedDate;
             frontmatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
         }
-    )};
+    )}
 
 
     get name(): string {
