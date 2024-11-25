@@ -181,6 +181,7 @@ export const messageDictionary: IMessageDictionaryType = {
     // Project Index Card Form
     [MessageId.ID_IC_PROJECT_INDEX_CARD]: "ic-project-index-card",
     [MessageId.ID_IC_PROJECT_NAME]: "ic-project-name",
+    [MessageId.ID_IC_PROJECT_GOAL_NAME]: "ic-project-goal-name",
     [MessageId.ID_IC_PROJECT_CATEGORY_TAG]: "ic-project-category-tag",
     [MessageId.ID_IC_PROJECT_IDENT_TAG]: "ic-project-ident-tag",
     [MessageId.ID_IC_PROJECT_STATUS_TAG]: "ic-project-status-tag",
