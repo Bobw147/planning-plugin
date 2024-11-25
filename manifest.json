@@ -1,10 +1,10 @@
 {
 	"id": "planning-plugin",
-	"name": "Planning Plugin",
+	"name": "",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
+	"description": "A Goals,Project,Tasks based planning system",
+	"author": "Bob Wilson",
 	"authorUrl": "https://obsidian.md",
 	"fundingUrl": "https://obsidian.md/pricing",
 	"isDesktopOnly": false
