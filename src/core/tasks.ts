@@ -28,17 +28,17 @@ export class TasksModal extends Modal {
         initIdentFragment(Ident.TASK, this._settings, this.app);
 
         (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
-            const _taskIndexCard = new TaskIndexCard();
-            _taskIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_NAME, "")) as HTMLInputElement).value;
-            _taskIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CATEGORY_TAG, "")) as HTMLSelectElement).value;
-            _taskIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_TASK_TARGET_DATE, ""))as HTMLDataElement).value);
+            const taskIndexCard = new TaskIndexCard();
+            taskIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_NAME, "")) as HTMLInputElement).value;
+            taskIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_TASK_CATEGORY_TAG, "")) as HTMLSelectElement).value;
+            taskIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_TASK_TARGET_DATE, ""))as HTMLDataElement).value);
 
             await createFolder(this._vault, this._settings.tasksFolder);
-            const file: TFile = await this._vault.create(this._settings.tasksFolder + "/" + _taskIndexCard.name + ".md", "");
+            const file: TFile = await this._vault.create(this._settings.tasksFolder + "/" + taskIndexCard.name + ".md", "");
    
             // Save the data from the form into the files frontmatter then write the dataviw script
-            await this._vault.modify(file, taskPageContent(_taskIndexCard))
-            await _taskIndexCard.save(this.app.fileManager, file, identTags.PLANNING_TASK);
+            await this._vault.modify(file, taskPageContent(taskIndexCard))
+            await taskIndexCard.save(this.app.fileManager, file, identTags.PLANNING_TASK);
  
             this.close();
         }
