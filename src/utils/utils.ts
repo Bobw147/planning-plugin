@@ -2,7 +2,7 @@
 
 import { App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault } from "obsidian";
 import { fieldNames } from "src/core/indexcards/indexcard";
-import { IDictionary } from "src/core/types";
+import { IDictionary } from "src/core/types/types";
 
 export function arraymove<T>(
     arr: T[],

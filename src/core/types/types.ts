@@ -1,3 +1,7 @@
+export interface IDictionary<T> {
+    [key: string]: T;
+}
+
 export enum Ident {
     GOAL,
     PROJECT,
@@ -15,7 +19,7 @@ export const enum ElementId {
 
 export enum WrapperType {
     NONE = "\"\"",      // Reduces via """" to ""
-    QUOTE = "\"\\\"\"",     // Reduces via ""\""to "\""
+    QUOTE = "\"\\\"\"",     // Reduces via "("\"")" to "\"" ...brackets are for clarfication only
 }
 
 alert("wrapperType reductions are : " + WrapperType.NONE + " and " + WrapperType.QUOTE);

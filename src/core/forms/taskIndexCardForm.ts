@@ -1,5 +1,5 @@
 import { FileManager, TFile } from "obsidian";
-import { MessageId, wrapMessage } from "../types";
+import { MessageId, wrapMessage } from "../types/types";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { TaskIndexCard } from "../indexcards/taskIndexCard";
 

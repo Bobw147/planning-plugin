@@ -1,11 +1,11 @@
 import { App, Modal, TFile, Vault } from "obsidian";
 import { GoalIndexCard } from "./indexcards/goalIndexCard";
-import { Ident, identTags } from "./types";
+import { Ident, identTags } from "./types/types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { initIdentFragment, newIdentFragment } from "./forms/newIdentFragment";
 import { goalPageContent } from "./scripts/dataview_goal";
-import { MessageId, wrapMessage } from "./types";
+import { MessageId, wrapMessage } from "./types/types";
 
 export class GoalsModal extends Modal {
     private _settings: Settings;

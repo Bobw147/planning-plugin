@@ -1,11 +1,11 @@
 import { App, Modal, TFile, Vault } from "obsidian";
-import { Ident, identTags } from "./types";
+import { Ident, identTags } from "./types/types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { taskPageContent } from "./scripts/dataview_task";
 import { TaskIndexCard } from "./indexcards/taskIndexCard";
 import { initIdentFragment, newIdentFragment } from "./forms/newIdentFragment";
-import { MessageId,wrapMessage } from "./types";
+import { MessageId,wrapMessage } from "./types/types";
 
 
 export class TasksModal extends Modal {

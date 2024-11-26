@@ -3,9 +3,9 @@ import { initIdentFragment, newIdentFragment } from "./forms/newIdentFragment";
 import { Settings } from "src/settings/Settings";
 import { projectPageContent } from "./scripts/dataview_project";
 import { createFolder } from "src/utils/utils";
-import { Ident, identTags } from "./types";
+import { Ident, identTags } from "./types/types";
 import { ProjectIndexCard } from "./indexcards/projectindexcard";
-import { MessageId, wrapMessage } from "./types";
+import { MessageId, wrapMessage } from "./types/types";
 
 export class ProjectsModal extends Modal {
     private _settings: Settings;

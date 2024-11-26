@@ -1,6 +1,6 @@
 import { FileManager, TFile } from "obsidian";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
-import { MessageId, wrapMessage } from "../types";
+import { MessageId, wrapMessage } from "../types/types";
 import { ProjectIndexCard } from "../indexcards/projectindexcard";
 
 const _projectIndexCardForm = '<div id='+wrapMessage(MessageId.ID_IC_PROJECT_INDEX_CARD, "\"")+' style="border-width: 2px; border-style: solid; border-color: gray;"> \

@@ -1,4 +1,4 @@
-import { Ident, identTags, MessageId, wrapMessage } from "../types"
+import { Ident, identTags, MessageId, wrapMessage } from "../types/types"
 import { Settings } from "src/settings/Settings";
 import { assignTagOptions, assignNameOptions } from "src/utils/utils";
 import { App } from "obsidian";
