@@ -1,7 +1,8 @@
 // Credits go to SilentVoid13's Templater PlugIn: https://github.com/SilentVoid13/Templater
 
-import { App, CachedMetadata, FrontMatterCache, getFrontMatterInfo, TAbstractFile, TagCache, TFile, TFolder, Vault } from "obsidian";
+import { App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault } from "obsidian";
 import { fieldNames } from "src/core/indexcards/indexcard";
+import { IDictionary } from "src/core/types";
 
 export function arraymove<T>(
     arr: T[],
@@ -51,10 +52,6 @@ export function assignTagOptions(selector: HTMLSelectElement, options: string[])
     })
 }
 
-interface Dictionary<T> {
-    [key: string]: T;
-}
-  
 export function assignNameOptions(selector: HTMLSelectElement, app: App, rootPath: string, searchTag: string): void {
     const rootFolder: TFolder | null = app.vault.getFolderByPath(rootPath);
     
@@ -68,7 +65,7 @@ export function assignNameOptions(selector: HTMLSelectElement, app: App, rootPat
         if (child instanceof TFile) {
             // Get the frontmatter for the file
             const cache: CachedMetadata | null = app.metadataCache.getCache((child.path));
-            const frontmatter: FrontMatterCache | undefined = cache?.frontmatter as Dictionary<string>;
+            const frontmatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
             if (frontmatter[fieldNames.IDENT_TAG_FIELD] == searchTag) {
                 const option = document.createElement('option');
                 option.text = frontmatter[fieldNames.NAME_FIELD];
