@@ -5,7 +5,24 @@ export enum Ident {
     SUBTASK
 }
 
+export const enum ElementId {
+    DIV = 'div',
+    LABEL = 'label',
+    SELECT = 'select',
+    OPTION = 'option',
+    INPUT = 'input',
+}
+
+export enum WrapperType {
+    NONE = "\"\"",      // Reduces via """" to ""
+    QUOTE = "\"\\\"\"",     // Reduces via ""\""to "\""
+}
+
+alert("wrapperType reductions are : " + WrapperType.NONE + " and " + WrapperType.QUOTE);
+
 export const enum MessageId {
+
+    // Style class names
     STYLE_DIV_VISIBLE = "style_div_visible",
     STYLE_DIV_HIDDEN = "style_div_hidden",
 
@@ -37,6 +54,7 @@ export const enum MessageId {
 
     // Goal Index Card Form
     ID_IC_GOAL_INDEX_CARD = "id_ic_goal_index_card",
+    ID_IC_GOAL_NAME_LABEL = "id_ic_goal_name_label",
     ID_IC_GOAL_NAME = "id_ic_goal_name",
     ID_IC_GOAL_CATEGORY_TAG = "id_ic_goal_category_tag",
     ID_IC_GOAL_STATUS_TAG = "id_ic_goal_status_tag",
@@ -104,6 +122,7 @@ interface IMessageDictionaryType{
     // Goal Index Card Form
     [MessageId.ID_IC_GOAL_INDEX_CARD]: string;
     [MessageId.ID_IC_GOAL_NAME]: string;
+    [MessageId.ID_IC_GOAL_NAME_LABEL] : string;
     [MessageId.ID_IC_GOAL_CATEGORY_TAG]: string;
     [MessageId.ID_IC_GOAL_STATUS_TAG]: string;
     [MessageId.ID_IC_GOAL_IDENT_TAG]: string;
@@ -170,6 +189,7 @@ export const messageDictionary: IMessageDictionaryType = {
     // Goal Index Card Form
     [MessageId.ID_IC_GOAL_INDEX_CARD]: "ic-goal-index-card",
     [MessageId.ID_IC_GOAL_NAME]: "ic-goal-name",
+    [MessageId.ID_IC_GOAL_NAME_LABEL]: "ic-goal-name-label",
     [MessageId.ID_IC_GOAL_CATEGORY_TAG]: "ic-goal-category-tag",
     [MessageId.ID_IC_GOAL_IDENT_TAG]: "ic-goal-ident-tag",
     [MessageId.ID_IC_GOAL_STATUS_TAG]: "ic-goal-status-tag",
