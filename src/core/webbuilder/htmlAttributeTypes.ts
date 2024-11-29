@@ -3,6 +3,8 @@
 //
 // Create an enum for each attribute. The right hand value will become the
 // lookup key in the typechecked and interfaced dictionary below. 
+import { WrapperType } from "../types/types";
+
 export enum HtmlAttributes {
     ABBR = "abbbr_attrib",
     ACCEPT = "accept_attrib",
@@ -339,7 +341,7 @@ interface IHtmlAttributeType {
     [HtmlAttributes.ONBEFOREMATCH]: string;
     [HtmlAttributes.ONBEFOREPRINT]: string;
     [HtmlAttributes.ONBEFORETOGGGLE]: string;
-;   [HtmlAttributes.ONBEFOREUNLOAD]: string;
+    [HtmlAttributes.ONBEFOREUNLOAD]: string;
     [HtmlAttributes.ONBLUR]: string;
     [HtmlAttributes.ONCANCEL]: string;
     [HtmlAttributes.ONCANPLAY]: string;
@@ -387,7 +389,6 @@ interface IHtmlAttributeType {
     [HtmlAttributes.ONMOUSEOUT]: string;
     [HtmlAttributes.ONMOUSEOVER]: string;
     [HtmlAttributes.ONMOUSEUP]: string;
-    [HtmlAttributes.ONMOUSEWHEEL]: string;
     [HtmlAttributes.ONOFFLINE]: string;
     [HtmlAttributes.ONONLINE]: string;
     [HtmlAttributes.ONPAGEHIDE]: string;
@@ -474,7 +475,7 @@ interface IHtmlAttributeType {
 }
 
 // Create a dictionary based on the above enums and interface.
-export const htmlAttributeDictionary: IHtmlAttributeType = {
+const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.ABBR]: 'abbr',
     [HtmlAttributes.ACCEPT]: 'accept',
     [HtmlAttributes.ACCEPTCHARSET]: 'accept-charset',
@@ -567,7 +568,6 @@ export const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.NOMODULE]: 'nomodule',
     [HtmlAttributes.NONCE]: 'nonce',
     [HtmlAttributes.NOVALIDATE]: 'novalidate',
-    [HtmlAttributes.ONAUXCLICK]: 'onauxclick',
     [HtmlAttributes.ONABORT]: 'onabort',
     [HtmlAttributes.ONAFETRPRINT]: 'onafterprint',
     [HtmlAttributes.ONAUXCLICK]: 'onauxclick',
@@ -623,7 +623,6 @@ export const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.ONMOUSEOUT]: 'onmouseout',
     [HtmlAttributes.ONMOUSEOVER]: 'onmouseover',
     [HtmlAttributes.ONMOUSEUP]: 'onmouseup',
-    [HtmlAttributes.ONMOUSEWHEEL]: 'onmousewheel',
     [HtmlAttributes.ONOFFLINE]: 'onoffline',
     [HtmlAttributes.ONONLINE]: 'ononline',
     [HtmlAttributes.ONPAGEHIDE]: 'onpagehide',
@@ -643,7 +642,6 @@ export const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.ONSCROLL]: 'onscroll',
     [HtmlAttributes.ONSCROLLEND]: 'onscrollend',
     [HtmlAttributes.ONSECURITYPOLICYVIOLATION]: 'onsecuritypolicyviolation',
-    [HtmlAttributes.ONSEEKED]: 'onseeked',
     [HtmlAttributes.ONSEARCH]: 'onsearch',
     [HtmlAttributes.ONSEEKED]: 'onseeked',
     [HtmlAttributes.ONSEEKING]: 'onseeking',
@@ -815,3 +813,8 @@ export const globalAttributes: string[] = [
     htmlAttributeDictionary[HtmlAttributes.ONWAITING],
     htmlAttributeDictionary[HtmlAttributes.ONWAITING],
 ]
+
+// This wrapper is necessary 
+export function resolveAttr(tagId: HtmlAttributes, wrapper: WrapperType): string{
+    return wrapper + htmlAttributeDictionary[tagId] + wrapper;
+}

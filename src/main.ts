@@ -16,7 +16,7 @@ import { indexCardButtonHandler } from './handlers/indexCardFormButtons';
 		this.planner = new Planner(this);
 		this.command_handler = new CommandHandler(this);
 	}
-
+	
 	async onload(): Promise<void> {
 		await this.load_settings();
 

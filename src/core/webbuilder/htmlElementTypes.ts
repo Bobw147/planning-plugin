@@ -1,4 +1,4 @@
-import { globalAttributes, htmlAttributeDictionary, HtmlAttributes } from "./htmlAttributeTypes";
+import { WrapperType } from "../types/types";
 
 export enum HtmlTags {
     A = "a_tag",
@@ -120,7 +120,7 @@ export enum HtmlTags {
     WBR = "wbr_tag"
 }
 
-interface IHtmlElements {
+interface IHtmlTags {
     [HtmlTags.A]: string;
     [HtmlTags.ABBR]: string;
     [HtmlTags.ADDRESS]: string;
@@ -240,7 +240,7 @@ interface IHtmlElements {
     [HtmlTags.WBR]: string;
 }
 
-export const htmlElementDictionary: IHtmlElements = {
+const htmlTagDictionary: IHtmlTags = {
     [HtmlTags.A]: 'a',
     [HtmlTags.ABBR]: 'abbr',
     [HtmlTags.ADDRESS]: 'address',
@@ -306,7 +306,7 @@ export const htmlElementDictionary: IHtmlElements = {
     [HtmlTags.MAP]: 'map',
     [HtmlTags.MARK]: 'mark',
     [HtmlTags.MATH]: 'math',
-    [HtmlTags.MATHML]: 'MathML',
+    [HtmlTags.MATHML]: 'math',
     [HtmlTags.MENU]: 'menu',
     [HtmlTags.META]: 'meta',
     [HtmlTags.METER]: 'meter',
@@ -360,6 +360,12 @@ export const htmlElementDictionary: IHtmlElements = {
     [HtmlTags.WBR]: 'wbr',
 }
 
+// This wrapper is necessary 
+export function resolveTag(tagId: HtmlTags, wrapper: WrapperType): string{
+    return wrapper + htmlTagDictionary[tagId] + wrapper;
+}
+
+/*
 export function isApplicable(tag: HtmlTags, attrib: string): boolean {
     const tagDict = htmlElementDictionary;
     const attribDict = htmlAttributeDictionary;
@@ -1075,3 +1081,4 @@ export function isApplicable(tag: HtmlTags, attrib: string): boolean {
     }
     return found;
 }
+*/

@@ -3,9 +3,9 @@ import { initIdentFragment, newIdentFragment } from "./forms/newIdentFragment";
 import { Settings } from "src/settings/Settings";
 import { projectPageContent } from "./scripts/dataview_project";
 import { createFolder } from "src/utils/utils";
-import { Ident, identTags } from "./types/types";
+import { Ident, identTags, WrapperType, emptyString } from "./types/types";
 import { ProjectIndexCard } from "./indexcards/projectindexcard";
-import { MessageId, wrapMessage } from "./types/types";
+import { FormFieldId, resolveField } from "./webbuilder/formFieldTypes";
 
 export class ProjectsModal extends Modal {
     private _settings: Settings;
@@ -25,14 +25,14 @@ export class ProjectsModal extends Modal {
         initIdentFragment(Ident.PROJECT, this._settings, this.app);
 
         // Add a handler to the 'Create' button
-        (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CREATE_BUTTON, "")) as HTMLButtonElement).onclick = async () => {
+        (document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
             const projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
-            projectIndexCard.name = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_NAME, "")) as HTMLInputElement).value;
-            projectIndexCard.categoryTag = (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CATEGORY_TAG, "")) as HTMLSelectElement).value;
-            projectIndexCard.targetDate = new Date((document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_TARGET_DATE, "")) as HTMLDataElement).value);
+            projectIndexCard.name = (document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_NAME, WrapperType.NONE)) as HTMLInputElement).value;
+            projectIndexCard.categoryTag = (document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement).value;
+            projectIndexCard.targetDate = new Date((document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_TARGET_DATE, WrapperType.NONE)) as HTMLDataElement).value);
 
             await createFolder(this._vault, this._settings.projectsFolder);
-            const file: TFile = await this._vault.create(this._settings.projectsFolder + "/" + projectIndexCard.name + ".md", "")
+            const file: TFile = await this._vault.create(this._settings.projectsFolder + "/" + projectIndexCard.name + ".md", emptyString)
             
             // Write the dataview script into the file then add the frontmatter properties. 
             await this._vault.modify(file, projectPageContent());
@@ -40,7 +40,7 @@ export class ProjectsModal extends Modal {
 
             this.close();
         }
-        (document.getElementById(wrapMessage(MessageId.ID_CF_PROJECT_CANCEL_BUTTON, "")) as HTMLButtonElement).onclick = () => {
+        (document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_CANCEL_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = () => {
             this.close();
         }
     }

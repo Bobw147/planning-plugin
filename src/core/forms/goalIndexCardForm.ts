@@ -1,68 +1,72 @@
 import { FileManager, TFile } from "obsidian";
 import { GoalIndexCard } from "../indexcards/goalIndexCard";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
-import { ElementId, IDictionary, MessageId, wrapMessage, WrapperType } from "../types/types";
+import { emptyString, WrapperType } from "../types/types";
+import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
+import { HtmlTags, resolveTag } from "../webbuilder/htmlElementTypes";
 
-const _goalIndexCardForm = '<div id='+wrapMessage(MessageId.ID_IC_GOAL_INDEX_CARD, WrapperType.QUOTE)+' style="border-width: 2px; border-style: solid; border-color: gray;"> \
+const _goalIndexCardForm = '<div id='+resolveField(FormFieldId.ID_IC_GOAL_INDEX_CARD, WrapperType.DOUBLE_QUOTE)+' style="border-width: 2px; border-style: solid; border-color: gray;"> \
     <div> \
         <label style="margin-inline: 12px">Goal :</label> \
-        <input type="text" id='+wrapMessage(MessageId.ID_IC_GOAL_NAME, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px"> \
+        <input type="text" id='+resolveField(FormFieldId.ID_IC_GOAL_NAME, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
     </div> \
     <div> \
         <label style="margin-inline: 12px">Category :</label> \
-        <input type="text" id='+wrapMessage(MessageId.ID_IC_GOAL_CATEGORY_TAG, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px"> \
+        <input type="text" id='+resolveField(FormFieldId.ID_IC_GOAL_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
    </div> \
     <div style="display:none"> \
         <label style="margin-inline: 12px">Ident :</label> \
-        <input type="text" id='+wrapMessage(MessageId.ID_IC_GOAL_IDENT_TAG, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px"> \
+        <input type="text" id='+resolveField(FormFieldId.ID_IC_GOAL_IDENT_TAG, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
    </div> \
     <div> \
         <label style="margin-inline: 12px">Status :</label> \
-        <input type="text" id='+wrapMessage(MessageId.ID_IC_GOAL_STATUS_TAG, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px"> \
+        <input type="text" id='+resolveField(FormFieldId.ID_IC_GOAL_STATUS_TAG, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
    </div> \
     <div> \
         <label style="margin-inline: 12px">Target Date</label> \
-        <input type="date" id='+wrapMessage(MessageId.ID_IC_GOAL_TARGET_DATE, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px""> \
+        <input type="date" id='+resolveField(FormFieldId.ID_IC_GOAL_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
     </div> \
     <div> \
         <label style="margin-inline: 12px">Anticipated Date</label> \
-        <input type="date" id='+wrapMessage(MessageId.ID_IC_GOAL_EXPECTED_DATE, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px""> \
+        <input type="date" id='+resolveField(FormFieldId.ID_IC_GOAL_EXPECTED_DATE, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
     </div> \
     <div> \
         <label style="margin-inline: 12px">Completed Date</label> \
-        <input type="date" id='+wrapMessage(MessageId.ID_IC_GOAL_COMPLETED_DATE, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px""> \
+        <input type="date" id='+resolveField(FormFieldId.ID_IC_GOAL_COMPLETED_DATE, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
     </div> \
     <div> \
         <label style="margin-inline: 12px">User Tags</label> \
-        <input type="input" id='+wrapMessage(MessageId.ID_IC_GOAL_USER_TAGS, WrapperType.QUOTE)+' readonly style="margin-bottom: 12px""> \
+        <input type="input" id='+resolveField(FormFieldId.ID_IC_GOAL_USER_TAGS, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
     </div> \
 <div>'
 
-function htmlFactory(elementId: ElementId, options: IDictionary<string>) {
+/*
+function htmlFactory(elementId: HtmlTags, options: IDictionary<string>) {
     let newElement: HTMLElement;
 
     switch (elementId) {
-        case ElementId.DIV:
+        case HtmlTags.DIV:
             newElement = document.createElement(elementId) as HTMLDivElement;
-            apply_options(, newELement, options)
+   //         apply_options(, newELement, options)
             return newElement;
             break;
 
-        case ElementId.INPUT:
+        case HtmlTags.INPUT:
             break;
 
-        case ElementId.LABEL:
+        case HtmlTags.LABEL:
             break;
 
-        case ElementId.OPTION:
+        case HtmlTags.OPTION:
             break;
 
-        case ElementId.SELECT:
+        case HtmlTags.SELECT:
             break;
     }
 
 }
-
+    */
+/*
 function applyOptions(element: HTMLElement, options: IDictionary<string>)
 {
     if (Object.entries(options).length > 0) {
@@ -72,98 +76,98 @@ function applyOptions(element: HTMLElement, options: IDictionary<string>)
         }
     });
 }
-
+*/
 function buildGoalIndexCard(parent: HTMLElement): void
 {
-//    const myElement: HTMLDivElement = htmlFactory(ElementId.DIV).i;
+//    const myElement: HTMLDivElement = htmlFactory(HtmlTags.DIV).i;
 
-    const containerDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
-    containerDiv.id = wrapMessage(MessageId.ID_IC_GOAL_INDEX_CARD, WrapperType.QUOTE);
+    const containerDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
+    containerDiv.id = resolveField(FormFieldId.ID_IC_GOAL_INDEX_CARD, WrapperType.DOUBLE_QUOTE);
 
     /*==== Create the GoalName input fragment ====*/
-    const goalNameDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
+    const goalNameDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
 
     // Input field label
-    const goalNameLabel = document.createElement(ElementId.LABEL) as HTMLLabelElement;
-    goalNameLabel.id = wrapMessage(MessageId.ID_IC_GOAL_NAME_LABEL, WrapperType.QUOTE);
+    const goalNameLabel = document.createElement(HtmlTags.LABEL) as HTMLLabelElement;
+    goalNameLabel.id = resolveField(FormFieldId.ID_IC_GOAL_NAME_LABEL, WrapperType.DOUBLE_QUOTE);
     goalNameDiv.appendChild(goalNameLabel);
 
     // Input field element
-    const goalNameInput = document.createElement(ElementId.INPUT) as HTMLInputElement;
-    goalNameInput.id = wrapMessage(MessageId.ID_IC_GOAL_NAME, WrapperType.QUOTE);
+    const goalNameInput = document.createElement(HtmlTags.INPUT) as HTMLInputElement;
+    goalNameInput.id = resolveField(FormFieldId.ID_IC_GOAL_NAME, WrapperType.DOUBLE_QUOTE);
     goalNameDiv.appendChild(goalNameInput);
  
     /*==== Create the CategoryTag fragment ====*/
-    const goalCategoryTagDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
+    const goalCategoryTagDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
 
     // Tag label field fragment
-    const goalCategoryTabLabel = document.createElement(ElementId.LABEL) as HTMLLabelElement;
+    const goalCategoryTabLabel = document.createElement(HtmlTags.LABEL) as HTMLLabelElement;
     goalCategoryTagDiv.appendChild(goalCategoryTabLabel);
 
     // CategoryTag field fragment
 
-    const goalCategoryTag = document.createElement(ElementId.SELECT) as HTMLSelectElement;
-    goalCategoryTag.id = wrapMessage(MessageId.ID_IC_GOAL_CATEGORY_TAG, WrapperType.QUOTE);
+    const goalCategoryTag = document.createElement(HtmlTags.SELECT) as HTMLSelectElement;
+    goalCategoryTag.id = resolveField(FormFieldId.ID_IC_GOAL_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE);
     goalCategoryTagDiv.appendChild(goalCategoryTag);
 
     /*==== Create the StatusTag field fragment ====*/
-    const goalStatusTagDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
+    const goalStatusTagDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
 
     // Lebel field fragment
-    const goalStatusTabLabel = document.createElement(ElementId.LABEL) as HTMLLabelElement;
+    const goalStatusTabLabel = document.createElement(HtmlTags.LABEL) as HTMLLabelElement;
     goalStatusTagDiv.appendChild(goalStatusTabLabel);
 
     // StatusTag field div
-    const goalStatusTag = document.createElement(ElementId.SELECT) as HTMLSelectElement;
-    goalStatusTag.id = wrapMessage(MessageId.ID_IC_GOAL_STATUS_TAG, WrapperType.QUOTE);
+    const goalStatusTag = document.createElement(HtmlTags.SELECT) as HTMLSelectElement;
+    goalStatusTag.id = resolveField(FormFieldId.ID_IC_GOAL_STATUS_TAG, WrapperType.DOUBLE_QUOTE);
     goalStatusTagDiv.appendChild(goalStatusTag);
 
     /*==== Create the TargetDate field fragment ====*/
-    const goalTargetDateDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
+    const goalTargetDateDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
 
     // Lebel field fragment
-    const goalTargetDateLabel = document.createElement(ElementId.LABEL) as HTMLLabelElement;
+    const goalTargetDateLabel = document.createElement(HtmlTags.LABEL) as HTMLLabelElement;
     goalTargetDateDiv.appendChild(goalTargetDateLabel);
 
     // Date field fragment
-    const goalTargetDate = document.createElement(ElementId.INPUT) as HTMLInputElement;
-    goalTargetDate.id = wrapMessage(MessageId.ID_IC_GOAL_TARGET_DATE, WrapperType.QUOTE);
+    const goalTargetDate = document.createElement(HtmlTags.INPUT) as HTMLInputElement;
+    goalTargetDate.id = resolveField(FormFieldId.ID_IC_GOAL_TARGET_DATE, WrapperType.DOUBLE_QUOTE);
     goalTargetDateDiv.appendChild(goalTargetDate);
 
     /*==== Create the ExpectedDate field fragment ====*/
-    const goalExpectedDateDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
+    const goalExpectedDateDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
 
     // Lebel field fragment
-    const goalExpectedDateLabel = document.createElement(ElementId.LABEL) as HTMLLabelElement;
+    const goalExpectedDateLabel = document.createElement(HtmlTags.LABEL) as HTMLLabelElement;
     goalTargetDateDiv.appendChild(goalExpectedDateLabel);
 
     // Date field fragment
-    const goalExpectedDate = document.createElement(ElementId.INPUT) as HTMLInputElement;
-    goalExpectedDate.id = wrapMessage(MessageId.ID_IC_GOAL_EXPECTED_DATE, WrapperType.QUOTE);
+    const goalExpectedDate = document.createElement(HtmlTags.INPUT) as HTMLInputElement;
+    goalExpectedDate.id = resolveField(FormFieldId.ID_IC_GOAL_EXPECTED_DATE, WrapperType.DOUBLE_QUOTE);
     goalExpectedDateDiv.appendChild(goalExpectedDate);
 
     /*==== Create the CompletedDate field fragment ====*/
-    const goalCompletedDateDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
+    const goalCompletedDateDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
 
     // Lebel field fragment
-    const goalCompletedDateLabel = document.createElement(ElementId.LABEL) as HTMLLabelElement;
+    const goalCompletedDateLabel = document.createElement(HtmlTags.LABEL) as HTMLLabelElement;
     goalCompletedDateDiv.appendChild(goalCompletedDateLabel);
 
     // Date field fragment
-    const goalCompletedDate = document.createElement(ElementId.INPUT) as HTMLInputElement;
-    goalCompletedDate.id = wrapMessage(MessageId.ID_IC_GOAL_COMPLETED_DATE, WrapperType.QUOTE);
+    const goalCompletedDate = document.createElement(HtmlTags.INPUT) as HTMLInputElement;
+    goalCompletedDate.id = resolveField(FormFieldId.ID_IC_GOAL_COMPLETED_DATE, WrapperType.DOUBLE_QUOTE);
     goalTargetDateDiv.appendChild(goalTargetDate);
 
     /*==== Create UserTags field fragment ====*/
-    const goalUserTagsDiv = document.createElement(ElementId.DIV) as HTMLDivElement;
+    const goalUserTagsDiv = document.createElement(HtmlTags.DIV) as HTMLDivElement;
 
     // Lebel field fragment
-    const goalUserTagsLabel = document.createElement(ElementId.LABEL) as HTMLLabelElement;
+    const goalUserTagsLabel = document.createElement(HtmlTags.LABEL) as HTMLLabelElement;
     goalUserTagsDiv.appendChild(goalUserTagsLabel);
 
     // Date field fragment
-    const goalUserTags = document.createElement(ElementId.INPUT) as HTMLInputElement;
-    goalUserTags.id = wrapMessage(MessageId.ID_IC_GOAL_USER_TAGS, WrapperType.QUOTE);
+    const goalUserTags = document.createElement(HtmlTags.INPUT) as HTMLInputElement;
+    goalUserTags.id = resolveField(FormFieldId.ID_IC_GOAL_USER_TAGS, WrapperType.DOUBLE_QUOTE);
     goalUserTagsDiv.appendChild(goalTargetDate);
 
     parent.appendChild(containerDiv);
@@ -183,12 +187,12 @@ export async function populateGoalIndexCardForm(fileManager: FileManager, file: 
     });
 
     // Populate the form fields
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_NAME, "")) as HTMLInputElement).value = goalIndexCard.name;
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_CATEGORY_TAG, "")) as HTMLInputElement).value = goalIndexCard.categoryTag;
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_IDENT_TAG, "")) as HTMLInputElement).value = goalIndexCard.identTag;
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_STATUS_TAG, "")) as HTMLInputElement).value = goalIndexCard.statusTag;
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_TARGET_DATE, "")) as HTMLInputElement).value = (goalIndexCard.targetDate != null) ? dateFormatter(goalIndexCard.targetDate) : "";
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_EXPECTED_DATE, "")) as HTMLInputElement).value = (goalIndexCard.expectedDate != null) ? dateFormatter(goalIndexCard.expectedDate) : "";
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_COMPLETED_DATE, "")) as HTMLInputElement).value = (goalIndexCard.completedDate != null) ? dateFormatter(goalIndexCard.completedDate) : "";
-    (document.getElementById(wrapMessage(MessageId.ID_IC_GOAL_USER_TAGS, "")) as HTMLInputElement).value = flattenedTags(goalIndexCard.userTags);
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_NAME, WrapperType.NONE)) as HTMLInputElement).value = goalIndexCard.name;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_CATEGORY_TAG, WrapperType.NONE)) as HTMLInputElement).value = goalIndexCard.categoryTag;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_IDENT_TAG, WrapperType.NONE)) as HTMLInputElement).value = goalIndexCard.identTag;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_STATUS_TAG, WrapperType.NONE)) as HTMLInputElement).value = goalIndexCard.statusTag;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_TARGET_DATE, WrapperType.NONE)) as HTMLInputElement).value = (goalIndexCard.targetDate != null) ? dateFormatter(goalIndexCard.targetDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_EXPECTED_DATE, WrapperType.NONE)) as HTMLInputElement).value = (goalIndexCard.expectedDate != null) ? dateFormatter(goalIndexCard.expectedDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_COMPLETED_DATE, WrapperType.NONE)) as HTMLInputElement).value = (goalIndexCard.completedDate != null) ? dateFormatter(goalIndexCard.completedDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_USER_TAGS, WrapperType.NONE)) as HTMLInputElement).value = flattenedTags(goalIndexCard.userTags);
 }

@@ -1,6 +1,6 @@
 import { App, TFile } from "obsidian";
 import { goalIndexCardForm, populateGoalIndexCardForm } from "src/core/forms/goalIndexCardForm";
-import { projectIndexCardForm, populateProjectIndexCardForm } from "src/core/forms/projecctIndexCardForm";
+import { projectIndexCardForm, populateProjectIndexCardForm } from "src/core/forms/projectIndexCardForm";
 import { taskIndexCardForm, populateTaskIndexCardForm } from "src/core/forms/taskIndexCardForm";
 
 //TODO Should I move this into the planner
