@@ -6,73 +6,73 @@ import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
 
 export const newIdentFragment  = ' \
 <div> \
-    <div id='+resolveField(FormFieldId.ID_CF_GOAL_BLOCK, WrapperType.SINGLE_QUOTE)+' class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.SINGLE_QUOTE)+'> \
+    <div id='+resolveField(FormFieldId.ID_CF_GOAL_BLOCK, WrapperType.DOUBLE_QUOTE)+' class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.DOUBLE_QUOTE)+'> \
         <div> \
             <label style="margin-inline: 12px">Enter the name of the Goal :</label> \
-            <input typ="text" id='+resolveField(FormFieldId.ID_CF_GOAL_NAME, WrapperType.SINGLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
+            <input typ="text" id='+resolveField(FormFieldId.ID_CF_GOAL_NAME, WrapperType.DOUBLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Select the Category type :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_GOAL_CATEGORY_TAG, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <select id='+resolveField(FormFieldId.ID_CF_GOAL_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
             </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Target Date</label> \
-            <input type="date" id='+resolveField(FormFieldId.ID_CF_GOAL_TARGET_DATE, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <input type="date" id='+resolveField(FormFieldId.ID_CF_GOAL_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
         </div> \
         <div> \
-            <button id='+resolveField(FormFieldId.ID_CF_GOAL_CREATE_BUTTON, WrapperType.SINGLE_QUOTE)+' type="button">Create Goal</button> \
-            <button id='+resolveField(FormFieldId.ID_CF_GOAL_CANCEL_BUTTON, WrapperType.SINGLE_QUOTE)+' type="button">Cancel</button> \
+            <button id='+resolveField(FormFieldId.ID_CF_GOAL_CREATE_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Create Goal</button> \
+            <button id='+resolveField(FormFieldId.ID_CF_GOAL_CANCEL_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Cancel</button> \
         </div> \
     </div> \
     <br> \
-    <div id='+resolveField(FormFieldId.ID_CF_PROJECT_BLOCK, WrapperType.SINGLE_QUOTE)+'class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.SINGLE_QUOTE)+'> \
+    <div id='+resolveField(FormFieldId.ID_CF_PROJECT_BLOCK, WrapperType.DOUBLE_QUOTE)+'class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.DOUBLE_QUOTE)+'> \
         <div> \
             <label style="margin-inline: 12px">Enter the name of the Project :</label> \
-            <input type="text" id='+resolveField(FormFieldId.ID_CF_PROJECT_NAME, WrapperType.SINGLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
+            <input type="text" id='+resolveField(FormFieldId.ID_CF_PROJECT_NAME, WrapperType.DOUBLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Belongs to goal :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_PROJECT_GOAL_NAME, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <select id='+resolveField(FormFieldId.ID_CF_PROJECT_GOAL_NAME, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
             </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Select the Catogory type :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_PROJECT_CATEGORY_TAG, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <select id='+resolveField(FormFieldId.ID_CF_PROJECT_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
             </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Target Date</label> \
-            <input type="date" id='+resolveField(FormFieldId.ID_CF_PROJECT_TARGET_DATE, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <input type="date" id='+resolveField(FormFieldId.ID_CF_PROJECT_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
         </div> \
         <div> \
-            <button id='+resolveField(FormFieldId.ID_CF_PROJECT_CREATE_BUTTON, WrapperType.SINGLE_QUOTE)+' type="button">Create Project</button> \
-            <button id='+resolveField(FormFieldId.ID_CF_PROJECT_CANCEL_BUTTON, WrapperType.SINGLE_QUOTE)+' type="button">Cancel</button> \
+            <button id='+resolveField(FormFieldId.ID_CF_PROJECT_CREATE_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Create Project</button> \
+            <button id='+resolveField(FormFieldId.ID_CF_PROJECT_CANCEL_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Cancel</button> \
         </div> \
     </div> \
     <br> \
-    <div id='+resolveField(FormFieldId.ID_CF_TASK_BLOCK, WrapperType.SINGLE_QUOTE)+'class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.SINGLE_QUOTE)+'> \
+    <div id='+resolveField(FormFieldId.ID_CF_TASK_BLOCK, WrapperType.DOUBLE_QUOTE)+'class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.DOUBLE_QUOTE)+'> \
         <div> \
             <label style="margin-inline: 12px">Enter the name of the Task :</label> \
-            <input type="text" id='+resolveField(FormFieldId.ID_CF_TASK_NAME, WrapperType.SINGLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
+            <input type="text" id='+resolveField(FormFieldId.ID_CF_TASK_NAME, WrapperType.DOUBLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Belongs to Project :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_TASK_PROJECT_NAME, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <select id='+resolveField(FormFieldId.ID_CF_TASK_PROJECT_NAME, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
             </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Select the Category type :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_TASK_CATEGORY_TAG, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <select id='+resolveField(FormFieldId.ID_CF_TASK_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
             </select> \
         </div> \
         <div> \
             <label style="margin-inline: 12px">Target Date</label> \
-            <input type="date" id='+resolveField(FormFieldId.ID_CF_TASK_TARGET_DATE, WrapperType.SINGLE_QUOTE)+' style="margin-bottom: 12px"> \
+            <input type="date" id='+resolveField(FormFieldId.ID_CF_TASK_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
         </div> \
         <div> \
-            <button id='+resolveField(FormFieldId.ID_CF_TASK_CREATE_BUTTON, WrapperType.SINGLE_QUOTE)+' type="button">Create Task</button> \
-            <button id='+resolveField(FormFieldId.ID_CF_TASK_CANCEL_BUTTON, WrapperType.SINGLE_QUOTE)+' type="button">Cancel</button> \
+            <button id='+resolveField(FormFieldId.ID_CF_TASK_CREATE_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Create Task</button> \
+            <button id='+resolveField(FormFieldId.ID_CF_TASK_CANCEL_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Cancel</button> \
         </div> \
     </div> \
 </div>'
