@@ -1,11 +1,12 @@
 import { App, Modal, TFile, Vault } from "obsidian";
 import { GoalIndexCard } from "./indexcards/goalIndexCard";
-import { Ident, identTags, WrapperType } from "./types/types";
+import { identTags, WrapperType } from "./types/types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
-import { initIdentFragment, newIdentFragment } from "./forms/newIdentFragment";
 import { goalPageContent } from "./scripts/dataview_goal";
 import { FormFieldId, resolveField } from "./webbuilder/formFieldTypes";
+import { buildGoalIndexCard, DisplayMode, configureForCreateMode } from "./forms/goalIndexCardForm";
+import { UserMessageId, resolveMessage } from "./i18n";
 
 export class GoalsModal extends Modal {
     private _settings: Settings;
@@ -20,22 +21,23 @@ export class GoalsModal extends Modal {
     display() {
         // Create and display the New Goal form
         this.contentEl.empty();
-        this.setTitle("Create a new Goal");
-        this.contentEl.innerHTML = newIdentFragment;
+        this.setTitle(resolveMessage(UserMessageId.CREATE_GOAL_TITLE));
+        buildGoalIndexCard(this.contentEl, DisplayMode.CREATE_MODE, this._settings);
+
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
 
         this.open();
-        initIdentFragment(Ident.GOAL, this._settings, this.app);
+        configureForCreateMode(this._settings);
 
         //  Add a handler to the 'Create' button
         (document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
             const goalIndexCard: GoalIndexCard = new GoalIndexCard();
             
             // Read the data from the form back into an index card
-            goalIndexCard.name = (document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_NAME, WrapperType.NONE)) as HTMLInputElement).value;
-            goalIndexCard.categoryTag = (document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement).value;
-            goalIndexCard.targetDate = new Date((document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_TARGET_DATE, WrapperType.NONE)) as HTMLDataElement).value);
+            goalIndexCard.name = (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_NAME, WrapperType.NONE)) as HTMLInputElement).value;
+            goalIndexCard.categoryTag = (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement).value;
+            goalIndexCard.targetDate = new Date((document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_TARGET_DATE, WrapperType.NONE)) as HTMLDataElement).value);
             
             // Make sure the target folder exists then create the file
             await createFolder(this._vault, this._settings.goalsFolder);
