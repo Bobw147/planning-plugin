@@ -20,3 +20,11 @@ export class UserTagError extends Error {
         this.name = "Bad User Tag";
     }
 }
+
+export class DOMNodeBuildError extends Error {
+    constructor(){
+        super("Attempt to create a new HTML node failed");
+        this.name = "Node Not Created";
+        Object.setPrototypeOf(this, DOMNodeBuildError);
+    }
+}
