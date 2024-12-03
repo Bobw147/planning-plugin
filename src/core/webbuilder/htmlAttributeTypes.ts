@@ -46,6 +46,7 @@ export enum HtmlAttributes {
     DIR = "dir_aattribute",
     DIRNAME = "dirname_attrib",
     DISABLED = "disabled_attrib",
+    DISPLAY = "display_property",
     DOWNLOAD = "download_attrib",
     DRAGGABLE = "draggable_attrib",
     ENCTYPE = "enctype_attrib",
@@ -69,6 +70,8 @@ export enum HtmlAttributes {
     IMAGESIZES = "imagesizes_attrib",
     IMAGESRCSET = "imagesrcset_attrib",
     INERT = "inert_attrib",
+    INNERHTML = "inner_html_property",
+    INNERTEXT = "inner_text_property",
     INPUTMODE = "inputmode_attrib",
     INTEGRITY = "integrity_attrib",
     IS = "is_attrib",
@@ -282,6 +285,7 @@ interface IHtmlAttributeType {
     [HtmlAttributes.DIR]: string;
     [HtmlAttributes.DIRNAME]: string;
     [HtmlAttributes.DISABLED]: string;
+    [HtmlAttributes.DISPLAY]: string;
     [HtmlAttributes.DOWNLOAD]: string;
     [HtmlAttributes.DRAGGABLE]: string;
     [HtmlAttributes.ENCTYPE]: string;
@@ -305,6 +309,8 @@ interface IHtmlAttributeType {
     [HtmlAttributes.IMAGESIZES]: string;
     [HtmlAttributes.IMAGESRCSET]:  string;
     [HtmlAttributes.INERT]: string;
+    [HtmlAttributes.INNERHTML]: string;
+    [HtmlAttributes.INNERTEXT]: string;
     [HtmlAttributes.INPUTMODE]: string;
     [HtmlAttributes.INTEGRITY]: string;
     [HtmlAttributes.IS]: string;
@@ -516,6 +522,7 @@ const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.DIR]: 'dir',
     [HtmlAttributes.DIRNAME]: 'dirname',
     [HtmlAttributes.DISABLED]: 'disabled',
+    [HtmlAttributes.DISPLAY]: 'display',
     [HtmlAttributes.DOWNLOAD]: 'download',
     [HtmlAttributes.DRAGGABLE]: 'draggable',
     [HtmlAttributes.ENCTYPE]: 'enctype',
@@ -539,6 +546,8 @@ const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.IMAGESIZES]: 'imagesizes',
     [HtmlAttributes.IMAGESRCSET]: 'imagesrcset',
     [HtmlAttributes.INERT]: 'inert',
+    [HtmlAttributes.INNERHTML]: 'innerHtml',
+    [HtmlAttributes.INNERTEXT]: 'innerText',
     [HtmlAttributes.INPUTMODE]: 'inputmode',
     [HtmlAttributes.INTEGRITY]: 'integrity',
     [HtmlAttributes.IS]: 'is',
@@ -708,6 +717,15 @@ const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.WRITING_SUGGESTIONS]: 'writingsuggestions'
 }
 
+
+// This wrapper is necessary 
+export function resolveAttribute(attributeId: HtmlAttributes, wrapper?: WrapperType): string{
+    if (wrapper === undefined)
+        return htmlAttributeDictionary[attributeId];
+    else
+        return wrapper + htmlAttributeDictionary[attributeId] + wrapper;
+}
+
 // Create an array of the global attributes used by all HTML Elements
 // as per https://html.spec.whatwg.org/dev/dom.html#global-attributes
 export const globalAttributes: string[] = [
@@ -813,8 +831,3 @@ export const globalAttributes: string[] = [
     htmlAttributeDictionary[HtmlAttributes.ONWAITING],
     htmlAttributeDictionary[HtmlAttributes.ONWAITING],
 ]
-
-// This wrapper is necessary 
-export function resolveAttr(tagId: HtmlAttributes, wrapper: WrapperType): string{
-    return wrapper + htmlAttributeDictionary[tagId] + wrapper;
-}
