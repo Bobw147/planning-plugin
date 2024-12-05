@@ -5,8 +5,16 @@ import { HtmlAttributes, resolveAttribute } from "./htmlAttributeTypes";
 import { DOMNodeBuildError } from "../exceptions/exceptions";
 import { UserMessageId, resolveMessage } from "../i18n";
 import { AttribSettingsId, resolveAttribSetting } from "./AtrribSettingsTypes";
+import { setIcon } from "obsidian";
+
 
 type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettingsId | string ];
+type sectionContent = [HtmlTags, attribTuple[]];
+
+enum Contents {
+    TAG_ID = 0,
+    ATTRIBS = 1.
+}
 
 export class NodeBuilder{
     // Creates the tag and passes the tag and attribs to setAttributes
@@ -21,17 +29,31 @@ export class NodeBuilder{
         return tag;
     }
 
+
+    createSection(containerTagId: HtmlTags, attribs?: attribTuple[], content?: sectionContent[]): HTMLElement | Element | undefined {
+        const container: HTMLElement | Element | undefined = this.nodeFactory(containerTagId);
+        if (container !== undefined){
+            this.setAttributes(container, attribs);
+            content?.forEach((innerContent: sectionContent) => {
+                const tag: HtmlTags = innerContent[Contents.TAG_ID];
+                const attribs = innerContent[Contents.ATTRIBS];
+                container.appendChild(this.createElement(tag, attribs));
+            });
+        }
+        return container
+    }
+
     // Recovers the target tagindicated by FormFieldId from the document and
     // passes the tag and attributes to setAttributes
     setElementAttributes(fieldId: FormFieldId, attribs: attribTuple[]): void {
 
-        const element: HTMLElement | null = document.getElementById(resolveField(fieldId, WrapperType.NONE));
-        if (element != null && attribs !== null) {
+        const element: HTMLElement | undefined | null = document.getElementById(resolveField(fieldId, WrapperType.NONE));
+        if (element !== null && element !== undefined && attribs !== null) {
             this.setAttributes(element, attribs);
         }
     }
 
-    setAttributes(tag:HTMLElement| Element | null, attribs?: attribTuple[]): void {
+    setAttributes(tag:HTMLElement| Element | undefined | null, attribs?: attribTuple[]): void {
         if (tag === null || attribs === undefined)
             return;
 
@@ -51,11 +73,11 @@ export class NodeBuilder{
         })
     }
 
-    setAttribute(element: HTMLElement | Element | null, attribId: HtmlAttributes, value: string): void {
-        if (element === null)
+    setAttribute(element: HTMLElement | Element | undefined | null, attribId: HtmlAttributes, value: string): void {
+        if (element === null || element === undefined)
             return;
 
-        // InnerHTML and innerText are properties of an element rather than attributes but it
+        //iInnerHTML and innerText are properties of an element rather than attributes but it
         // is easier to handle them in the higher level code as attributes and filter them here
         if (attribId == HtmlAttributes.INNERHTML) {
             element.innerHTML = value;
@@ -63,12 +85,15 @@ export class NodeBuilder{
         else if (attribId == HtmlAttributes.INNERTEXT){
             element.setText(value);
         }
+        else if (attribId == HtmlAttributes.ICON){
+            setIcon(element as HTMLElement, value);
+        }
         else {
             element.setAttribute(resolveAttribute(attribId), value);
         }
     }
     
-    nodeFactory(tagId: HtmlTags): HTMLElement {
+    nodeFactory(tagId: HtmlTags): HTMLElement | Element | undefined{
 
         const svgNS: string = "http://www.w3.org/2000/svg";
 
