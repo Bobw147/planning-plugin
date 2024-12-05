@@ -35,15 +35,19 @@ export enum FormFieldId {
     ID_IC_GOAL_INDEX_CARD = "id_ic_goal_index_card",
     ID_IC_GOAL_NAME_LABEL = "id_ic_goal_name_label",
     ID_IC_GOAL_NAME = "id_ic_goal_name",
+    ID_IC_GOAL_NAME_ICON = "id_ic_goal_name_icon",
     ID_IC_GOAL_CATEGORY_TAG = "id_ic_goal_category_tag",
     ID_IC_GOAL_CATEGORY_TAG_LABEL = "id_ic_goal_category_tag_label",
     ID_IC_GOAL_CATEGORY_TAG_SECTION =  "id_ic_goal_category_section",
+    ID_IC_GOAL_CATEGORY_TAG_ICON = "id_ic_goal_category_icon",
     ID_IC_GOAL_STATUS_TAG = "id_ic_goal_status_tag",
     ID_IC_GOAL_STATUS_TAG_LABEL = "id_ic_goal_status_tag_label",
-    ID_IC_GOAL_STATUS_TAG_SECTION = "id_ic_status_tag_section",
+    ID_IC_GOAL_STATUS_TAG_SECTION = "id_ic_goal_status_tag_section",
+    ID_IC_GOAL_STATUS_TAG_ICON = "id_ic_goal_status_tag_icon",
     ID_IC_GOAL_IDENT_TAG = "id_ic_goal_ident_tag",
     ID_IC_GOAL_IDENT_TAG_LABEL = "id_ic_goal_ident_tag_label",
     ID_IC_GOAL_TARGET_DATE = "id_ic_goal_target_date",
+    ID_IC_GOAL_TARGET_DATE_ICON = "id_goal_target_date_icon",
     ID_IC_GOAL_TARGET_DATE_LABEL = "id_ic_goal_target_date_label",
     ID_IC_GOAL_EXPECTED_DATE = "id_ic_goal_expected_date",
     ID_IC_GOAL_EXPECTED_DATE_LABEL = "id_ic_goal_expected_date_label",
@@ -52,6 +56,7 @@ export enum FormFieldId {
     ID_IC_GOAL_COMPLETED_DATE_LABEL = "id_ic_goal_completed_date_label",
     ID_IC_GOAL_COMPLETED_DATE_SECTION = "id_ic_goal_completed_date_section",
     ID_IC_GOAL_USER_TAGS = "id_ic_goal_user_tags",
+    ID_IC_GOAL_USER_TAGS_ICON = "id_ic_user_tags_icon",
     ID_IC_GOAL_USER_TAGS_LABEL = "id_ic_goal_user_tags_label",
 
     // Project Index Card Form
@@ -90,7 +95,7 @@ interface IFormFieldDictionaryType{
     [FormFieldId.ID_CF_GOAL_BLOCK]: string;
     [FormFieldId.ID_CF_GOAL_NAME]: string;
     [FormFieldId.ID_CF_GOAL_CATEGORY_TAG]: string;
-    [FormFieldId.ID_CF_GOAL_TARGET_DATE]: string;
+    [FormFieldId.ID_CF_GOAL_TARGET_DATE]: string;]
     [FormFieldId.ID_CF_GOAL_CREATE_BUTTON]: string;
     [FormFieldId.ID_CF_GOAL_CANCEL_BUTTON]: string;
 
@@ -115,16 +120,20 @@ interface IFormFieldDictionaryType{
     // Goal Index Card Form
     [FormFieldId.ID_IC_GOAL_INDEX_CARD]: string;
     [FormFieldId.ID_IC_GOAL_NAME]: string;
+    [FormFieldId.ID_IC_GOAL_NAME_ICON]: string;
     [FormFieldId.ID_IC_GOAL_NAME_LABEL]: string;
     [FormFieldId.ID_IC_GOAL_CATEGORY_TAG]: string;
+    [FormFieldId.ID_IC_GOAL_CATEGORY_TAG_ICON]: string;
     [FormFieldId.ID_IC_GOAL_CATEGORY_TAG_LABEL]: string;
     [FormFieldId.ID_IC_GOAL_CATEGORY_TAG_SECTION]: string;
     [FormFieldId.ID_IC_GOAL_STATUS_TAG_SECTION]: string;
     [FormFieldId.ID_IC_GOAL_STATUS_TAG]: string;
+    [FormFieldId.ID_IC_GOAL_STATUS_TAG_ICON]: string;
     [FormFieldId.ID_IC_GOAL_STATUS_TAG_LABEL]: string;
     [FormFieldId.ID_IC_GOAL_IDENT_TAG]: string;
     [FormFieldId.ID_IC_GOAL_IDENT_TAG_LABEL]: string;
     [FormFieldId.ID_IC_GOAL_TARGET_DATE]: string;
+    [FormFieldId.ID_IC_GOAL_TARGET_DATE_ICON]: string;
     [FormFieldId.ID_IC_GOAL_TARGET_DATE_LABEL]: string;
     [FormFieldId.ID_IC_GOAL_EXPECTED_DATE]: string;
     [FormFieldId.ID_IC_GOAL_EXPECTED_DATE_LABEL]: string;
@@ -133,6 +142,7 @@ interface IFormFieldDictionaryType{
     [FormFieldId.ID_IC_GOAL_COMPLETED_DATE_LABEL]: string;
     [FormFieldId.ID_IC_GOAL_COMPLETED_DATE_SECTION]: string;
     [FormFieldId.ID_IC_GOAL_USER_TAGS] : string;
+    [FormFieldId.ID_IC_GOAL_USER_TAGS_ICON]: string;
     [FormFieldId.ID_IC_GOAL_USER_TAGS_LABEL] : string;
     [FormFieldId.ID_IC_GOAL_BUTTONS]: string;
     [FormFieldId.ID_IC_GOAL_CREATE_BUTTON]: string;
@@ -196,17 +206,20 @@ const formFieldDictionary: IFormFieldDictionaryType = {
     // Goal Index Card Form
     [FormFieldId.ID_IC_GOAL_INDEX_CARD]: 'ic-goal-index-card',
     [FormFieldId.ID_IC_GOAL_NAME]: 'ic-goal-name',
+    [FormFieldId.ID_IC_GOAL_NAME_ICON]: 'ic-goal-icon',
     [FormFieldId.ID_IC_GOAL_NAME_LABEL]: 'ic-goal-name-label',
     [FormFieldId.ID_IC_GOAL_CATEGORY_TAG]: 'ic-goal-category-tag',
+    [FormFieldId.ID_IC_GOAL_CATEGORY_TAG_ICON]: 'ic-goal-category-icon',
     [FormFieldId.ID_IC_GOAL_CATEGORY_TAG_LABEL]: 'ic-goal-category-tag=label',
     [FormFieldId.ID_IC_GOAL_CATEGORY_TAG_SECTION]: 'ic-goal-catgory-section',
     [FormFieldId.ID_IC_GOAL_IDENT_TAG]: 'ic-goal-ident-tag',
     [FormFieldId.ID_IC_GOAL_IDENT_TAG_LABEL]: 'ic-goal-ident-tag=label',
     [FormFieldId.ID_IC_GOAL_STATUS_TAG]: 'ic-goal-status-tag',
-    [FormFieldId.ID_IC_GOAL_STATUS_TAG_LABEL]: 'ic-goal-status-tag=label',
-    [FormFieldId.ID_IC_GOAL_STATUS_TAG_SECTION]: 'id-ic-status-tag-section',
+    [FormFieldId.ID_IC_GOAL_STATUS_TAG_ICON]: 'ic-goal-status-icon',
+    [FormFieldId.ID_IC_GOAL_STATUS_TAG_LABEL]: 'ic-goal-status-tag-label',
+    [FormFieldId.ID_IC_GOAL_STATUS_TAG_SECTION]: 'ic-goal-status-tag-section',
     [FormFieldId.ID_IC_GOAL_TARGET_DATE]: 'ic-goal-target-date',
-    [FormFieldId.ID_IC_GOAL_TARGET_DATE_LABEL]: 'ic-goal-target-date=label',
+    [FormFieldId.ID_IC_GOAL_TARGET_DATE_ICON]: 'ic-goal-target-date-icon',
     [FormFieldId.ID_IC_GOAL_EXPECTED_DATE]: 'ic-goal-expected-date',
     [FormFieldId.ID_IC_GOAL_EXPECTED_DATE_LABEL]: 'ic-goal-expected-date-label',
     [FormFieldId.ID_IC_GOAL_EXPECTED_DATE_SECTION]: 'id-ic-expected=date-section',
@@ -214,6 +227,7 @@ const formFieldDictionary: IFormFieldDictionaryType = {
     [FormFieldId.ID_IC_GOAL_COMPLETED_DATE_LABEL]: 'ic-goal-completed-date-label',
     [FormFieldId.ID_IC_GOAL_COMPLETED_DATE_SECTION]: 'id-ic-completed-date-section',
     [FormFieldId.ID_IC_GOAL_USER_TAGS]: 'ic-goal-user-tags',
+    [FormFieldId.ID_IC_GOAL_USER_TAGS_ICON]: 'ic-goal-user-tags-icon',
     [FormFieldId.ID_IC_GOAL_USER_TAGS_LABEL]: 'ic-goal-user-tags-label',
     [FormFieldId.ID_IC_GOAL_BUTTONS]: 'id-ic-goal-buttons',
     [FormFieldId.ID_IC_GOAL_CREATE_BUTTON]: 'id-ic-goal-create-button',

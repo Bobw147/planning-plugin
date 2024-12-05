@@ -66,12 +66,13 @@ export enum HtmlAttributes {
     HREF = "href_attrib",
     HREFLANG = "hreflang_attrib",
     HTTP_EQUIV = "http_equiv_attrib",
+    ICON = "icon_attrib",               //TODO non-standard
     ID = "id_attrib",
     IMAGESIZES = "imagesizes_attrib",
     IMAGESRCSET = "imagesrcset_attrib",
     INERT = "inert_attrib",
-    INNERHTML = "inner_html_property",
-    INNERTEXT = "inner_text_property",
+    INNERHTML = "inner_html_property",  //TODO non-standard
+    INNERTEXT = "inner_text_property",  //TODO non-standard
     INPUTMODE = "inputmode_attrib",
     INTEGRITY = "integrity_attrib",
     IS = "is_attrib",
@@ -305,6 +306,7 @@ interface IHtmlAttributeType {
     [HtmlAttributes.HREF]: string;
     [HtmlAttributes.HREFLANG]: string;
     [HtmlAttributes.HTTP_EQUIV]: string;
+    [HtmlAttributes.ICON]: string;
     [HtmlAttributes.ID]: string;
     [HtmlAttributes.IMAGESIZES]: string;
     [HtmlAttributes.IMAGESRCSET]:  string;
@@ -542,6 +544,7 @@ const htmlAttributeDictionary: IHtmlAttributeType = {
     [HtmlAttributes.HREF]: 'href',
     [HtmlAttributes.HREFLANG]: 'hreflang',
     [HtmlAttributes.HTTP_EQUIV]: 'http-equiv',
+    [HtmlAttributes.ICON]: 'icon',
     [HtmlAttributes.ID]: 'id',
     [HtmlAttributes.IMAGESIZES]: 'imagesizes',
     [HtmlAttributes.IMAGESRCSET]: 'imagesrcset',
