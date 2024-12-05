@@ -55,7 +55,7 @@ import { indexCardButtonHandler } from './handlers/indexCardFormButtons';
 		});
 
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
-			indexCardButtonHandler(this.app, source, el)
+			indexCardButtonHandler(this.app, source, el, this.settings);
 		})
 	}
 
