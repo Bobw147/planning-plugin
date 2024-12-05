@@ -45,3 +45,4 @@ export const categoryLockStates = {
     HARD_LOCK: "hard lock",
     SOFT_LOCK: "Soft loack",
 }
+
