@@ -22,7 +22,7 @@ export class CreateGoalForm implements ICreateICForm {
     {
         const nodeBuilder = new NodeBuilder();
 
-    // Put all of the form together regardless of how it is being used
+        // Put all of the form together regardless of how it is being used
         try {
 /*          const containerDiv1 = nodeBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.ID_IC_GOAL_INDEX_CARD],
@@ -56,6 +56,12 @@ export class CreateGoalForm implements ICreateICForm {
                     [attrib.ID, field.ID_IC_GOAL_NAME],
                     [attrib.TYPE, AttribSettingsId.TEXT]
                 ])
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.I, [
+                    [attrib.ID, FormFieldId.ID_IC_GOAL_NAME_ICON],
+                    [attrib.ICON, AttribSettingsId.LOCK],
+                    [attrib.CLASS, FormFieldId.STYLE_DIV_HIDDEN],
+                ])
             );
             containerDiv?.appendChild(goalNameContainerDiv);
 
@@ -71,6 +77,12 @@ export class CreateGoalForm implements ICreateICForm {
             ).parentElement?.appendChild(
                 nodeBuilder.createElement(HtmlTags.SELECT, [
                     [attrib.ID, field.ID_IC_GOAL_CATEGORY_TAG]
+                ])
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.I, [
+                    [attrib.ID, FormFieldId.ID_IC_GOAL_CATEGORY_TAG_ICON],
+                    [attrib.ICON, AttribSettingsId.LOCK],
+                    [attrib.CLASS, FormFieldId.STYLE_DIV_HIDDEN],
                 ])
             );
             containerDiv?.appendChild(goalCategoryTagContainerDiv);
@@ -88,6 +100,12 @@ export class CreateGoalForm implements ICreateICForm {
                 nodeBuilder.createElement(HtmlTags.SELECT, [
                     [attrib.ID, field.ID_IC_GOAL_STATUS_TAG]
                 ])
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.I, [
+                    [attrib.ID, field.ID_IC_GOAL_STATUS_TAG_ICON],
+                    [attrib.ICON, AttribSettingsId.LOCK],
+                    [attrib.CLASS, FormFieldId.STYLE_DIV_HIDDEN],
+                ])
             );
             containerDiv?.appendChild(goalStatusTagContainerDiv);
 
@@ -102,6 +120,12 @@ export class CreateGoalForm implements ICreateICForm {
                 nodeBuilder.createElement(HtmlTags.INPUT, [
                     [attrib.ID, field.ID_IC_GOAL_TARGET_DATE],
                     [attrib.TYPE, AttribSettingsId.DATE],
+                ])
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.I, [
+                    [attrib.ID, field.ID_IC_GOAL_STATUS_TAG_ICON],
+                    [attrib.ICON, AttribSettingsId.LOCK],
+                    [attrib.CLASS, FormFieldId.STYLE_DIV_HIDDEN],
                 ])
             );
             containerDiv?.appendChild(goalTargetDateContainerDiv);
@@ -150,7 +174,14 @@ export class CreateGoalForm implements ICreateICForm {
                 nodeBuilder.createElement(HtmlTags.INPUT, [
                     [attrib.ID, field.ID_IC_GOAL_USER_TAGS],
                 ])
-            );
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.I, [
+                    [attrib.ID, field.ID_IC_GOAL_STATUS_TAG_ICON],
+                    [attrib.ICON, AttribSettingsId.LOCK],
+                    [attrib.CLASS, FormFieldId.STYLE_DIV_HIDDEN],
+                ])
+                
+            )
             containerDiv?.appendChild(goalUserTagsContainerDiv);
 
             /*==== Create the Buttons section ====*/
@@ -204,7 +235,7 @@ export class CreateGoalForm implements ICreateICForm {
 
         const completedDateSectionDiv = document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_COMPLETED_DATE_SECTION, WrapperType.NONE));
         nodeBuilder.setAttributes(completedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
-        }
+    }
     
     async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
