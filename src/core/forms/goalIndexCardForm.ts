@@ -15,42 +15,6 @@ export enum DisplayMode {
     INDEX_CARD_MODE,
     CREATE_MODE,
 }
-/*
-const _goalIndexCardForm = '<div id='+resolveField(field.ID_IC_GOAL_INDEX_CARD, WrapperType.DOUBLE_QUOTE)+' style="border-width: 2px; border-style: solid; border-color: gray;"> \
-    <div> \
-        <label style="margin-inline: 12px">Goal :</label> \
-        <input type="text" id='+resolveField(field.ID_IC_GOAL_NAME, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">Category :</label> \
-        <input type="text" id='+resolveField(field.ID_IC_GOAL_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-   </div> \
-    <div style="display:none"> \
-        <label style="margin-inline: 12px">Ident :</label> \
-        <input type="text" id='+resolveField(field.ID_IC_GOAL_IDENT_TAG, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-   </div> \
-    <div> \
-        <label style="margin-inline: 12px">Status :</label> \
-        <input type="text" id='+resolveField(field.ID_IC_GOAL_STATUS_TAG, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-   </div> \
-    <div> \
-        <label style="margin-inline: 12px">Target Date</label> \
-        <input type="date" id='+resolveField(field.ID_IC_GOAL_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">Anticipated Date</label> \
-        <input type="date" id='+resolveField(field.ID_IC_GOAL_EXPECTED_DATE, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">Completed Date</label> \
-        <input type="date" id='+resolveField(field.ID_IC_GOAL_COMPLETED_DATE, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">User Tags</label> \
-        <input type="input" id='+resolveField(field.ID_IC_GOAL_USER_TAGS, WrapperType.DOUBLE_QUOTE)+' readonly style="margin-bottom: 12px""> \
-    </div> \
-<div>'
-*/
 
 export class CreateGoalForm implements ICreateICForm {
 
