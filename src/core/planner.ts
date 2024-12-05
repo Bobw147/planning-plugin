@@ -1,10 +1,10 @@
 import PlanningPlugin from "src/main"
-import { GoalsModal } from "./goals";
+import { CreateGoalsModal } from "./goals";
 import { ProjectsModal } from "./projects";
 import { TasksModal } from "./tasks";
 
 export class Planner {
-    private goals_modal?: GoalsModal | null;
+    private goals_modal?: CreateGoalsModal | null;
     private projects_modal?: ProjectsModal | null;
     private tasks_modal?: TasksModal | null;
 
@@ -13,7 +13,7 @@ export class Planner {
     }
 
     create_goal(): void {
-        this.goals_modal = new GoalsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings);
+        this.goals_modal = new CreateGoalsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings);
         this.goals_modal.display();
     }
 
