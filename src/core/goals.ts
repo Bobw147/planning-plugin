@@ -5,33 +5,35 @@ import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { goalPageContent } from "./scripts/dataview_goal";
 import { FormFieldId, resolveField } from "./webbuilder/formFieldTypes";
-import { buildGoalIndexCard, DisplayMode, configureForCreateMode } from "./forms/goalIndexCardForm";
+import { CreateGoalForm } from "./forms/goalIndexCardForm";
 import { UserMessageId, resolveMessage } from "./i18n";
 
-export class GoalsModal extends Modal {
+export class CreateGoalsModal extends Modal {
     private _settings: Settings;
     private _vault: Vault;
+    private goalForm: CreateGoalForm;
 
     constructor(app: App, vault: Vault, settings: Settings) {
 		super(app);
         this._settings = settings;
         this._vault = vault;
+        this.goalForm = new CreateGoalForm();
     }
 
     display() {
         // Create and display the New Goal form
         this.contentEl.empty();
         this.setTitle(resolveMessage(UserMessageId.CREATE_GOAL_TITLE));
-        buildGoalIndexCard(this.contentEl, DisplayMode.CREATE_MODE, this._settings);
+        this.goalForm.buildForm(this.contentEl);
 
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
 
         this.open();
-        configureForCreateMode(this._settings);
+        this.goalForm.configureForCreateMode(this._settings);
 
         //  Add a handler to the 'Create' button
-        (document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
+        (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
             const goalIndexCard: GoalIndexCard = new GoalIndexCard();
             
             // Read the data from the form back into an index card
