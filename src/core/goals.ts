@@ -33,13 +33,13 @@ export class CreateGoalsModal extends Modal {
         this.goalForm.configureForCreateMode(this._settings);
 
         //  Add a handler to the 'Create' button
-        (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
+        (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
             const goalIndexCard: GoalIndexCard = new GoalIndexCard();
             
             // Read the data from the form back into an index card
-            goalIndexCard.name = (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_NAME, WrapperType.NONE)) as HTMLInputElement).value;
-            goalIndexCard.categoryTag = (document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement).value;
-            goalIndexCard.targetDate = new Date((document.getElementById(resolveField(FormFieldId.ID_IC_GOAL_TARGET_DATE, WrapperType.NONE)) as HTMLDataElement).value);
+            goalIndexCard.name = (document.getElementById(resolveField(FormFieldId.GF_NAME, WrapperType.NONE)) as HTMLInputElement).value;
+            goalIndexCard.categoryTag = (document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement).value;
+            goalIndexCard.targetDate = new Date((document.getElementById(resolveField(FormFieldId.GF_TARGET_DATE, WrapperType.NONE)) as HTMLDataElement).value);
             
             // Make sure the target folder exists then create the file
             await createFolder(this._vault, this._settings.goalsFolder);
@@ -53,7 +53,7 @@ export class CreateGoalsModal extends Modal {
         }
         
         // Add a handler for the cancel button
-        (document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_CANCEL_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = () => {
+        (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = () => {
             this.close();
         }
     }
