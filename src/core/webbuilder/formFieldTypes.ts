@@ -58,6 +58,9 @@ export enum FormFieldId {
     ID_IC_GOAL_USER_TAGS = "id_ic_goal_user_tags",
     ID_IC_GOAL_USER_TAGS_ICON = "id_ic_user_tags_icon",
     ID_IC_GOAL_USER_TAGS_LABEL = "id_ic_goal_user_tags_label",
+    ID_IC_GOAL_BUTTONS = "id_ic_goal_button",
+    ID_IC_GOAL_CREATE_BUTTON = "id_ic_goal_create_button",
+    ID_IC_GOAL_CANCEL_BUTTON = "id_ic_goal_cancel_button",
 
     // Project Index Card Form
     ID_IC_PROJECT_INDEX_CARD = "id_ic_project_index_card",
@@ -82,9 +85,37 @@ export enum FormFieldId {
     ID_IC_TASK_EXPECTED_DATE = "id_ic_task_expected_date",
     ID_IC_TASK_COMPLETED_DATE = "id_ic_task_completed_date",
     ID_IC_TASK_USER_TAGS = "id_ic_task_user_tags",
-    ID_IC_GOAL_BUTTONS = "id_ic_goal_buttons",
-    ID_IC_GOAL_CREATE_BUTTON = "id_ic_goal_create_button",
-    ID_IC_GOAL_CANCEL_BUTTON = "id_ic_goal_cancel_button",
+
+    // genericForm version
+    GF_INDEX_CARD = "ic_index_card",
+    GF_NAME_LABEL = "ic_name_label",
+    GF_NAME = "ic_name",
+    GF_NAME_ICON = "ic_name_icon",
+    GF_CATEGORY_TAG = "ic_category_tag",
+    GF_CATEGORY_TAG_LABEL = "ic_category_tag_label",
+    GF_CATEGORY_TAG_SECTION =  "ic_category_section",
+    GF_CATEGORY_TAG_ICON = "ic_category_icon",
+    GF_STATUS_TAG = "ic_status_tag",
+    GF_STATUS_TAG_LABEL = "ic_status_tag_label",
+    GF_STATUS_TAG_SECTION = "ic_status_tag_section",
+    GF_STATUS_TAG_ICON = "ic_status_tag_icon",
+    GF_IDENT_TAG = "ic_ident_tag",
+    GF_IDENT_TAG_LABEL = "ic_ident_tag_label",
+    GF_TARGET_DATE = "ic_target_date",
+    GF_TARGET_DATE_ICON = "ic_target_date_icon",
+    GF_TARGET_DATE_LABEL = "ic_target_date_label",
+    GF_EXPECTED_DATE = "ic_expected_date",
+    GF_EXPECTED_DATE_LABEL = "ic_expected_date_label",
+    GF_EXPECTED_DATE_SECTION = "ic_expected_date_section",
+    GF_COMPLETED_DATE = "ic_completed_date",
+    GF_COMPLETED_DATE_LABEL = "ic_completed_date_label",
+    GF_COMPLETED_DATE_SECTION = "ic_completed_date_section",
+    GF_USER_TAGS = "ic_user_tags",
+    GF_USER_TAGS_ICON = "ic_user_tags_icon",
+    GF_USER_TAGS_LABEL = "ic_user_tags_label",
+    GF_BUTTONS = "ic_buttons",
+    GF_CREATE_BUTTON = "ic_create_button",
+    GF_CANCEL_BUTTON = "ic_cancel_button",
 }
 
 interface IFormFieldDictionaryType{
@@ -95,7 +126,7 @@ interface IFormFieldDictionaryType{
     [FormFieldId.ID_CF_GOAL_BLOCK]: string;
     [FormFieldId.ID_CF_GOAL_NAME]: string;
     [FormFieldId.ID_CF_GOAL_CATEGORY_TAG]: string;
-    [FormFieldId.ID_CF_GOAL_TARGET_DATE]: string;]
+    [FormFieldId.ID_CF_GOAL_TARGET_DATE]: string;
     [FormFieldId.ID_CF_GOAL_CREATE_BUTTON]: string;
     [FormFieldId.ID_CF_GOAL_CANCEL_BUTTON]: string;
 
@@ -171,6 +202,38 @@ interface IFormFieldDictionaryType{
     [FormFieldId.ID_IC_TASK_EXPECTED_DATE]: string;
     [FormFieldId.ID_IC_TASK_COMPLETED_DATE]: string;
     [FormFieldId.ID_IC_TASK_USER_TAGS] : string;
+
+    // genericForm versions
+    [FormFieldId.GF_INDEX_CARD]: string;
+    [FormFieldId.GF_NAME]: string;
+    [FormFieldId.GF_NAME_ICON]: string;
+    [FormFieldId.GF_NAME_LABEL]: string;
+    [FormFieldId.GF_CATEGORY_TAG]: string;
+    [FormFieldId.GF_CATEGORY_TAG_ICON]: string;
+    [FormFieldId.GF_CATEGORY_TAG_LABEL]: string;
+    [FormFieldId.GF_CATEGORY_TAG_SECTION]: string;
+    [FormFieldId.GF_IDENT_TAG]: string;
+    [FormFieldId.GF_IDENT_TAG_LABEL]: string;
+    [FormFieldId.GF_STATUS_TAG]: string;
+    [FormFieldId.GF_STATUS_TAG_ICON]: string;
+    [FormFieldId.GF_STATUS_TAG_LABEL]: string;
+    [FormFieldId.GF_STATUS_TAG_SECTION]: string;
+    [FormFieldId.GF_TARGET_DATE]: string;
+    [FormFieldId.GF_TARGET_DATE_ICON]: string;
+    [FormFieldId.GF_TARGET_DATE_LABEL]: string;
+    [FormFieldId.GF_EXPECTED_DATE]: string;
+    [FormFieldId.GF_EXPECTED_DATE_LABEL]: string;
+    [FormFieldId.GF_EXPECTED_DATE_SECTION]: string;
+    [FormFieldId.GF_COMPLETED_DATE]: string;
+    [FormFieldId.GF_COMPLETED_DATE_LABEL]: string;
+    [FormFieldId.GF_COMPLETED_DATE_SECTION]: string;
+    [FormFieldId.GF_USER_TAGS]: string;
+    [FormFieldId.GF_USER_TAGS_ICON]: string;
+    [FormFieldId.GF_USER_TAGS_LABEL]: string;
+    [FormFieldId.GF_BUTTONS]: string;
+    [FormFieldId.GF_CREATE_BUTTON]: string;
+    [FormFieldId.GF_CANCEL_BUTTON]: string;    
+
 }
 
 const formFieldDictionary: IFormFieldDictionaryType = {
@@ -219,6 +282,7 @@ const formFieldDictionary: IFormFieldDictionaryType = {
     [FormFieldId.ID_IC_GOAL_STATUS_TAG_LABEL]: 'ic-goal-status-tag-label',
     [FormFieldId.ID_IC_GOAL_STATUS_TAG_SECTION]: 'ic-goal-status-tag-section',
     [FormFieldId.ID_IC_GOAL_TARGET_DATE]: 'ic-goal-target-date',
+    [FormFieldId.ID_IC_GOAL_TARGET_DATE_LABEL]: 'ic-goal-target-date-label',
     [FormFieldId.ID_IC_GOAL_TARGET_DATE_ICON]: 'ic-goal-target-date-icon',
     [FormFieldId.ID_IC_GOAL_EXPECTED_DATE]: 'ic-goal-expected-date',
     [FormFieldId.ID_IC_GOAL_EXPECTED_DATE_LABEL]: 'ic-goal-expected-date-label',
@@ -231,7 +295,7 @@ const formFieldDictionary: IFormFieldDictionaryType = {
     [FormFieldId.ID_IC_GOAL_USER_TAGS_LABEL]: 'ic-goal-user-tags-label',
     [FormFieldId.ID_IC_GOAL_BUTTONS]: 'id-ic-goal-buttons',
     [FormFieldId.ID_IC_GOAL_CREATE_BUTTON]: 'id-ic-goal-create-button',
-    [FormFieldId.ID_IC_GOAL_CANCEL_BUTTON]: 'id=ic=goal-cancel-button',
+    [FormFieldId.ID_IC_GOAL_CANCEL_BUTTON]: 'id-ic-cancel-button',
 
     // Project Index Card Form
     [FormFieldId.ID_IC_PROJECT_INDEX_CARD]: 'ic-project-index-card',
@@ -257,6 +321,36 @@ const formFieldDictionary: IFormFieldDictionaryType = {
     [FormFieldId.ID_IC_TASK_COMPLETED_DATE]: 'ic-task-completed-date',
     [FormFieldId.ID_IC_TASK_USER_TAGS]: 'ic-task-user-tags',
 
+        // genericForm
+    [FormFieldId.GF_INDEX_CARD]: 'ic-index-card',
+    [FormFieldId.GF_NAME]: 'ic-name',
+    [FormFieldId.GF_NAME_ICON]: 'ic-icon',
+    [FormFieldId.GF_NAME_LABEL]: 'ic-name-label',
+    [FormFieldId.GF_CATEGORY_TAG]: 'ic-category-tag',
+    [FormFieldId.GF_CATEGORY_TAG_ICON]: 'ic-category-icon',
+    [FormFieldId.GF_CATEGORY_TAG_LABEL]: 'ic-category-tag=label',
+    [FormFieldId.GF_CATEGORY_TAG_SECTION]: 'ic-catgory-section',
+    [FormFieldId.GF_IDENT_TAG]: 'ic-ident-tag',
+    [FormFieldId.GF_IDENT_TAG_LABEL]: 'ic-ident-tag=label',
+    [FormFieldId.GF_STATUS_TAG]: 'ic-status-tag',
+    [FormFieldId.GF_STATUS_TAG_ICON]: 'ic-status-icon',
+    [FormFieldId.GF_STATUS_TAG_LABEL]: 'ic-status-tag-label',
+    [FormFieldId.GF_STATUS_TAG_SECTION]: 'ic-status-tag-section',
+    [FormFieldId.GF_TARGET_DATE]: 'ic-target-date',
+    [FormFieldId.GF_TARGET_DATE_ICON]: 'ic-target-date-icon',
+    [FormFieldId.GF_TARGET_DATE_LABEL]: 'ic-target-date-label',
+    [FormFieldId.GF_EXPECTED_DATE]: 'ic-expected-date',
+    [FormFieldId.GF_EXPECTED_DATE_LABEL]: 'ic-expected-date-label',
+    [FormFieldId.GF_EXPECTED_DATE_SECTION]: 'id-ic-expected=date-section',
+    [FormFieldId.GF_COMPLETED_DATE]: 'ic-completed-date',
+    [FormFieldId.GF_COMPLETED_DATE_LABEL]: 'ic-completed-date-label',
+    [FormFieldId.GF_COMPLETED_DATE_SECTION]: 'id-ic-completed-date-section',
+    [FormFieldId.GF_USER_TAGS]: 'ic-user-tags',
+    [FormFieldId.GF_USER_TAGS_ICON]: 'ic-user-tags-icon',
+    [FormFieldId.GF_USER_TAGS_LABEL]: 'ic-user-tags-label',
+    [FormFieldId.GF_BUTTONS]: 'id-ic-buttons',
+    [FormFieldId.GF_CREATE_BUTTON]: 'id-ic-create-button',
+    [FormFieldId.GF_CANCEL_BUTTON]: 'ic-cancel-button',    
 }
 
 // This wrapper is necessary 
