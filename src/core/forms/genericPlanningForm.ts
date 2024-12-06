@@ -6,6 +6,7 @@ import { HtmlAttributes as attrib } from "../webbuilder/htmlAttributeTypes";
 import { FormFieldId as field } from "../webbuilder/formFieldTypes";
 import { UserMessageId } from "../i18n";
 import { AttribSettingsId } from "../webbuilder/AtrribSettingsTypes";
+import { IPlanningIndexCard } from "../indexcards/indexcard";
 
 export enum DisplayMode {
     INDEX_CARD_MODE,
@@ -18,6 +19,7 @@ export interface IPlanningForm {
     buildForm(parent: HTMLElement) : void;
     configureForCreateMode(settings: Settings): void
     configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void>;
+    updateIndexCard(indexCard: IPlanningIndexCard): void;
 }
 
 

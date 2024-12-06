@@ -2,6 +2,7 @@ import PlanningPlugin from "src/main"
 import { CreateGoalsModal } from "./goals";
 import { ProjectsModal } from "./projects";
 import { TasksModal } from "./tasks";
+import { GoalIndexCard } from "./indexcards/goalIndexCard";
 
 export class Planner {
     private goals_modal?: CreateGoalsModal | null;
@@ -13,14 +14,10 @@ export class Planner {
     }
 
     create_goal(): void {
-        this.goals_modal = new CreateGoalsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings);
+        this.goals_modal = new CreateGoalsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings, new GoalIndexCard());
         this.goals_modal.display();
     }
 
-    showGoalIndexCard(): void {
-
-    }
-    
     create_project(): void {
       this.projects_modal = new ProjectsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings);
       this.projects_modal.display();

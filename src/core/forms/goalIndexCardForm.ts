@@ -26,7 +26,7 @@ export class CreateGoalForm extends GenericPlanningForm implements ICreateICForm
         settings.categoryTags.forEach(
             (tag: string) => {
                 const element = nodeBuilder.createElement(HtmlTags.OPTION, [
-                        [HtmlAttributes.INNERTEXT, tag],
+                    [HtmlAttributes.INNERTEXT, tag],
                 ]) as HTMLOptionElement;
                 goalCategoryTag.appendChild(element);
             }
@@ -42,17 +42,17 @@ export class CreateGoalForm extends GenericPlanningForm implements ICreateICForm
         const completedDateSectionDiv = document.getElementById(resolveField(FormFieldId.GF_COMPLETED_DATE_SECTION, WrapperType.NONE));
         nodeBuilder.setAttributes(completedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
     }
-    
+
     async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
         const goalIndexCard = new GoalIndexCard();
- 
+
         // Add the CategoryTag options
         const goalCategoryTag: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
         settings.categoryTags.forEach(
             (tag: string) => {
                 const element = nodeBuilder.createElement(HtmlTags.OPTION, [
-                        [HtmlAttributes.INNERTEXT, tag],
+                    [HtmlAttributes.INNERTEXT, tag],
                 ]) as HTMLOptionElement;
                 goalCategoryTag.appendChild(element);
             }
@@ -63,14 +63,14 @@ export class CreateGoalForm extends GenericPlanningForm implements ICreateICForm
         settings.statusTags.forEach(
             (tag: string) => {
                 const element = nodeBuilder.createElement(HtmlTags.OPTION, [
-                        [HtmlAttributes.INNERTEXT, tag],
+                    [HtmlAttributes.INNERTEXT, tag],
                 ]) as HTMLOptionElement;
                 goalStatusTag.appendChild(element);
             }
         )
 
         // Hide the Create and Cancel buttons
-        nodeBuilder.setElementAttributes(FormFieldId.GF_BUTTONS, [[HtmlAttributes.CLASS,  FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_BUTTONS, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
         // Populate the goal index card
         await fileManager.processFrontMatter(file, (frontmatter) => {
