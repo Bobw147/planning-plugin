@@ -6,13 +6,13 @@ import { FormFieldId as field, FormFieldId, resolveField } from "../formbuilder/
 import { HtmlTags } from "../formbuilder/htmlElementTypes";
 import { NodeBuilder } from "../formbuilder/nodebuilder";
 import { HtmlAttributes } from "../formbuilder/htmlAttributeTypes";
-import { ICreateICForm } from "../types/interfaces";
+import { DisplayMode, IPlanningForm } from "../baseclasses/genericPlanningForm";
 import { AttribSettingsId } from "../formbuilder/AtrribSettingsTypes";
 import { Settings } from "src/settings/Settings";
 import { GenericPlanningForm } from "../baseclasses/genericPlanningForm";
 import { assignTagOptions } from "src/utils/utils";
 
-export class GoalFormBuilder extends GenericPlanningForm implements ICreateICForm {
+export class GoalFormBuilder extends GenericPlanningForm implements IPlanningForm {
 
     buildForm(parent: HTMLElement): void {
         super.buildForm(parent);
@@ -90,10 +90,12 @@ export class GoalFormBuilder extends GenericPlanningForm implements ICreateICFor
         ]);
     }
 
-    updateIndexCard(goalIndexCard: GoalIndexCard): void {
+    updateIndexCard(goalIndexCard: GoalIndexCard, displayMode: DisplayMode): void {
         goalIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
         goalIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
         goalIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
-        goalIndexCard.expectedDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE));
+        if (displayMode == DisplayMode.INDEX_CARD_MODE) {
+
+        }
     }
 }
