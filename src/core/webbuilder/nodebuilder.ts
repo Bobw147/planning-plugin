@@ -1,9 +1,9 @@
 import { HtmlTags, resolveTag } from "./htmlElementTypes";
-import { WrapperType } from "../types/types";
+import { emptyString, WrapperType } from "../types/types";
 import { FormFieldId, resolveField } from "./formFieldTypes";
 import { HtmlAttributes, resolveAttribute } from "./htmlAttributeTypes";
 import { DOMNodeBuildError } from "../exceptions/exceptions";
-import { UserMessageId, resolveMessage } from "../i18n";
+import { UserMessageId, resolveMessage } from "./i18n";
 import { AttribSettingsId, resolveAttribSetting } from "./AtrribSettingsTypes";
 import { setIcon } from "obsidian";
 
@@ -13,7 +13,7 @@ type sectionContent = [HtmlTags, attribTuple[]];
 
 enum Contents {
     TAG_ID = 0,
-    ATTRIBS = 1.
+    ATTRIBS = 1,
 }
 
 export class NodeBuilder{
@@ -41,6 +41,24 @@ export class NodeBuilder{
             });
         }
         return container
+    }
+
+    static getElementInfo(elementType: HtmlTags, fieldId:FormFieldId, attribId: HtmlAttributes): string {
+        let value: string | null = emptyString;
+        const attrib: string = resolveAttribute(attribId);
+
+        /* eslint-disable no-case-declarations */
+        switch (elementType) {
+            case HtmlTags.INPUT:
+                value = (document.getElementById(resolveField(fieldId, WrapperType.NONE)) as HTMLInputElement).getAttribute(attrib);
+                break;
+            
+            case HtmlTags.SELECT:
+                value = (document.getElementById(resolveField(fieldId, WrapperType.NONE)) as HTMLSelectElement).getAttribute(attrib);
+                break;
+        }
+        return value === null ? emptyString : value;
+        /* eslint-enable no-case-declarations */
     }
 
     // Recovers the target tagindicated by FormFieldId from the document and
