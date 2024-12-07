@@ -1,6 +1,6 @@
 import { IPlanningIndexCard, PlanningIndexCard } from "../baseclasses/indexcard";
 import { FileManager, FrontMatterCache, TFile } from "obsidian";
-
+import { identTags } from "../types/types";
 
 const projectFieldNames = {
     PARENT_GOAL: "pparentGoal:"
@@ -19,6 +19,7 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
     constructor() {
         super();
         this._parentGoal = "";
+        this._identTag = identTags.PLANNING_PROJECT;
     }
 
     async load(frontmatter: FrontMatterCache): Promise<void> {
