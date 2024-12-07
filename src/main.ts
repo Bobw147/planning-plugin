@@ -3,6 +3,7 @@ import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Se
 import { CommandHandler } from './handlers/command_handlers';
 import { Planner } from './core/planner';
 import { indexCardButtonHandler } from './handlers/indexCardFormButtons';
+import { DisplayMode } from './core/baseclasses/genericPlanningForm';
 
   export default class PlanningPlugin extends Plugin {
 	public settings: Settings;
@@ -23,7 +24,7 @@ import { indexCardButtonHandler } from './handlers/indexCardFormButtons';
 		// This creates an icon in the left ribbon.
 		const ribbonGoalIconEl = this.addRibbonIcon('goal', 'Goal', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_goal();
+			this.planner.create_goal(DisplayMode.CREATE_MODE);
 		});
 		const ribbonProjectIconEl = this.addRibbonIcon('target', 'Project', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
@@ -55,7 +56,7 @@ import { indexCardButtonHandler } from './handlers/indexCardFormButtons';
 		});
 
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
-			indexCardButtonHandler(this.app, source, el, this.settings);
+			indexCardButtonHandler(this.app, source, el, this.settings, this.planner);
 		})
 	}
 
