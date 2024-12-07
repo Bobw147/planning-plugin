@@ -5,7 +5,7 @@ import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { Ident, WrapperType } from "../types/types";
 //import { ProjectIndexCard } from "./projectindexcard";
-import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
+import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
 
 export class ProjectsModal extends Modal {
     private _settings: Settings;

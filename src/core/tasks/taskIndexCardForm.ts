@@ -1,5 +1,5 @@
 import { FileManager, TFile } from "obsidian";
-import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
+import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { TaskIndexCard } from "./taskIndexCard";
 import { emptyString, WrapperType } from "../types/types";

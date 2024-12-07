@@ -5,7 +5,7 @@ import { createFolder } from "src/utils/utils";
 import { taskPageContent } from "../scripts/dataview_task";
 import { TaskIndexCard } from "./taskIndexCard";
 import { initIdentFragment, newIdentFragment } from "../newIdentFragment";
-import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
+import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
 
 export class TasksModal extends Modal {
     private _settings: Settings;

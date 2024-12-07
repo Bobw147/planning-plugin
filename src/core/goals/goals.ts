@@ -3,9 +3,9 @@ import { identTags, WrapperType } from "../types/types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { goalPageContent } from "../scripts/dataview_goal";
-import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
+import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
 import { CreateGoalForm } from "./goalIndexCardForm";
-import { UserMessageId, resolveMessage } from "../webbuilder/i18n";
+import { UserMessageId, resolveMessage } from "../formbuilder/i18n";
 import { DisplayMode } from "../baseclasses/genericPlanningForm";
 import { GoalIndexCard } from "./goalIndexCard";
 

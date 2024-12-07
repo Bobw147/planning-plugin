@@ -2,12 +2,12 @@ import { FileManager, TFile } from "obsidian";
 import { GoalIndexCard } from "../goals/goalIndexCard";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { emptyString, WrapperType } from "../types/types";
-import { FormFieldId as field, FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
-import { HtmlTags } from "../webbuilder/htmlElementTypes";
-import { NodeBuilder } from "../webbuilder/nodebuilder";
-import { HtmlAttributes } from "../webbuilder/htmlAttributeTypes";
+import { FormFieldId as field, FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
+import { HtmlTags } from "../formbuilder/htmlElementTypes";
+import { NodeBuilder } from "../formbuilder/nodebuilder";
+import { HtmlAttributes } from "../formbuilder/htmlAttributeTypes";
 import { ICreateICForm } from "../types/interfaces";
-import { AttribSettingsId } from "../webbuilder/AtrribSettingsTypes";
+import { AttribSettingsId } from "../formbuilder/AtrribSettingsTypes";
 import { Settings } from "src/settings/Settings";
 import { GenericPlanningForm } from "../baseclasses/genericPlanningForm";
 

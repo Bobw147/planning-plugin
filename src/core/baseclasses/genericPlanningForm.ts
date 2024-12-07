@@ -1,11 +1,11 @@
 import { Settings } from "src/settings/Settings";
 import { FileManager, TFile } from "obsidian";
-import { HtmlTags } from "../webbuilder/htmlElementTypes";
-import { NodeBuilder } from "../webbuilder/nodebuilder";
-import { HtmlAttributes as attrib } from "../webbuilder/htmlAttributeTypes";
-import { FormFieldId as field } from "../webbuilder/formFieldTypes";
-import { UserMessageId } from "../webbuilder/i18n";
-import { AttribSettingsId } from "../webbuilder/AtrribSettingsTypes";
+import { HtmlTags } from "../formbuilder/htmlElementTypes";
+import { NodeBuilder } from "../formbuilder/nodebuilder";
+import { HtmlAttributes as attrib } from "../formbuilder/htmlAttributeTypes";
+import { FormFieldId as field } from "../formbuilder/formFieldTypes";
+import { UserMessageId } from "../formbuilder/i18n";
+import { AttribSettingsId } from "../formbuilder/AtrribSettingsTypes";
 import { IPlanningIndexCard } from "./indexcard";
 
 /* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */
