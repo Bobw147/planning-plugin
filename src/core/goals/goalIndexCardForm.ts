@@ -1,16 +1,15 @@
 import { FileManager, TFile } from "obsidian";
-import { GoalIndexCard } from "../indexcards/goalIndexCard";
+import { GoalIndexCard } from "../goals/goalIndexCard";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { emptyString, WrapperType } from "../types/types";
 import { FormFieldId as field, FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
 import { HtmlTags } from "../webbuilder/htmlElementTypes";
 import { NodeBuilder } from "../webbuilder/nodebuilder";
-import { HtmlAttributes as attrib, HtmlAttributes } from "../webbuilder/htmlAttributeTypes";
-import { UserMessageId } from "../i18n";
+import { HtmlAttributes } from "../webbuilder/htmlAttributeTypes";
 import { ICreateICForm } from "../types/interfaces";
 import { AttribSettingsId } from "../webbuilder/AtrribSettingsTypes";
 import { Settings } from "src/settings/Settings";
-import { GenericPlanningForm } from "./genericPlanningForm";
+import { GenericPlanningForm } from "../baseclasses/genericPlanningForm";
 
 export class CreateGoalForm extends GenericPlanningForm implements ICreateICForm {
 
@@ -106,5 +105,12 @@ export class CreateGoalForm extends GenericPlanningForm implements ICreateICForm
             [HtmlAttributes.VALUE, flattenedTags(goalIndexCard.userTags)],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
+    }
+
+    updateIndexCard(goalIndexCard: GoalIndexCard): void {
+        goalIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
+        goalIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
+        goalIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
+        goalIndexCard.expectedDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE));
     }
 }
