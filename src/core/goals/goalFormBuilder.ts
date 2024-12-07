@@ -1,5 +1,5 @@
 import { FileManager, TFile } from "obsidian";
-import { GoalIndexCard } from "../goals/goalIndexCard";
+import { GoalIndexCard } from "./goalIndexCard";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { emptyString, WrapperType } from "../types/types";
 import { FormFieldId as field, FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
