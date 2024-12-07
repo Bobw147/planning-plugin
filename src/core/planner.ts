@@ -1,9 +1,9 @@
 import PlanningPlugin from "src/main"
-import { CreateGoalsModal } from "./goals";
-import { ProjectsModal } from "./projects";
-import { TasksModal } from "./tasks";
-import { GoalIndexCard } from "./indexcards/goalIndexCard";
-
+import { CreateGoalsModal } from "./goals/goals";
+import { ProjectsModal } from "./projects/projects";
+import { TasksModal } from "./tasks/tasks";
+import { GoalIndexCard } from "./goals/goalIndexCard";
+import { DisplayMode } from "./baseclasses/genericPlanningForm";
 export class Planner {
     private goals_modal?: CreateGoalsModal | null;
     private projects_modal?: ProjectsModal | null;
@@ -13,8 +13,8 @@ export class Planner {
       this.plugin = plugin;
     }
 
-    create_goal(): void {
-        this.goals_modal = new CreateGoalsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings, new GoalIndexCard());
+    create_goal(displayMode: DisplayMode): void {
+        this.goals_modal = new CreateGoalsModal(this.plugin.app, this.plugin.app.vault, this.plugin.settings, new GoalIndexCard(), displayMode);
         this.goals_modal.display();
     }
 
