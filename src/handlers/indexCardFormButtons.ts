@@ -1,11 +1,14 @@
-import { App, TFile, Settings } from "obsidian";
-import { CreateGoalForm } from "src/core/forms/goalIndexCardForm";
-import { projectIndexCardForm, populateProjectIndexCardForm } from "src/core/forms/projectIndexCardForm";
-import { taskIndexCardForm, populateTaskIndexCardForm } from "src/core/forms/taskIndexCardForm";
+import { App, TFile } from "obsidian";
+import { Settings } from "src/settings/Settings";
+import { CreateGoalForm } from "src/core/goals/goalIndexCardForm";
+import { projectIndexCardForm, populateProjectIndexCardForm } from "src/core/projects/projectIndexCardForm";
+import { taskIndexCardForm, populateTaskIndexCardForm } from "src/core/tasks/taskIndexCardForm";
 import { ICreateICForm } from "src/core/types/interfaces";
+import { Planner } from "src/core/planner";
+import { DisplayMode } from "src/core/baseclasses/genericPlanningForm"; //TODO move DisplayMode to types.ts?
 
 //TODO Should I move this into the planner
-export function indexCardButtonHandler(app: App, source: string, el: HTMLElement, settings: Settings): void {
+export function indexCardButtonHandler(app: App, source: string, el: HTMLElement, settings: Settings, planner: Planner): void {
 
     // Create the button element along with a div element that will contain the form
 	// when the button is pressed
@@ -27,12 +30,13 @@ export function indexCardButtonHandler(app: App, source: string, el: HTMLElement
             button.textContent = "Hide Index Card"
 
             const file = app.workspace.getActiveFile();
-            let goalForm: ICreateICForm;
+//            let goalForm: ICreateICForm;
             switch (source.trim()) {
                 case "Goal" : // Display the form and then add the index card data
-                    goalForm = new CreateGoalForm();
-                    goalForm.buildForm(div);
-                    await goalForm.configureForIndexCardMode(settings, app.fileManager, file as TFile);
+                    planner.create_goal(DisplayMode.INDEX_CARD_MODE);    
+//                    goalForm = new CreateGoalForm();
+//                    goalForm.buildForm(div);
+//                    await goalForm.configureForIndexCardMode(settings, app.fileManager, file as TFile);
                     break;
 
                 case "Project":
