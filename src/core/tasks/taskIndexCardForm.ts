@@ -1,7 +1,7 @@
 import { FileManager, TFile } from "obsidian";
 import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
-import { TaskIndexCard } from "../indexcards/taskIndexCard";
+import { TaskIndexCard } from "./taskIndexCard";
 import { emptyString, WrapperType } from "../types/types";
 
 const _taskIndexCardForm = '<div id='+resolveField(FormFieldId.ID_IC_TASK_INDEX_CARD, WrapperType.SINGLE_QUOTE)+' style="border-width: 2px; border-style: solid; border-color: gray;"> \
