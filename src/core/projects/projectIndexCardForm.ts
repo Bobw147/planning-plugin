@@ -1,7 +1,7 @@
 import { FileManager, TFile } from "obsidian";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { FormFieldId, resolveField } from "../webbuilder/formFieldTypes";
-import { ProjectIndexCard } from "../indexcards/projectindexcard";
+import { ProjectIndexCard } from "../projects/projectindexcard";
 import { emptyString, WrapperType } from "../types/types";
 
 const _projectIndexCardForm = '<div id='+resolveField(FormFieldId.ID_IC_PROJECT_INDEX_CARD, WrapperType.SINGLE_QUOTE)+' style="border-width: 2px; border-style: solid; border-color: gray;"> \
@@ -51,6 +51,7 @@ export async function populateProjectIndexCardForm(fileManager: FileManager, fil
         projectIndexCard.load(frontmatter);
     });
     // Populate the form fields
+/*
     (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_NAME, WrapperType.NONE)) as HTMLInputElement).value = projectIndexCard.name;
     (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_CATEGORY_TAG, WrapperType.NONE)) as HTMLInputElement).value = projectIndexCard.categoryTag;
     (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_IDENT_TAG, WrapperType.NONE)) as HTMLInputElement).value = projectIndexCard.identTag;
@@ -59,4 +60,5 @@ export async function populateProjectIndexCardForm(fileManager: FileManager, fil
     (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_EXPECTED_DATE, WrapperType.NONE)) as HTMLInputElement).value = (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString;
     (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_COMPLETED_DATE, WrapperType.NONE)) as HTMLInputElement).value = (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString;
     (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_USER_TAGS, WrapperType.NONE)) as HTMLInputElement).value = flattenedTags(projectIndexCard.userTags);
+*/
 }
