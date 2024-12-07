@@ -4,7 +4,7 @@ import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { goalPageContent } from "../scripts/dataview_goal";
 import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
-import { CreateGoalForm } from "./goalIndexCardForm";
+import { GoalFormBuilder } from "./goalFormBuilder";
 import { UserMessageId, resolveMessage } from "../formbuilder/i18n";
 import { DisplayMode } from "../baseclasses/genericPlanningForm";
 import { GoalIndexCard } from "./goalIndexCard";
@@ -12,7 +12,7 @@ import { GoalIndexCard } from "./goalIndexCard";
 export class GoalsModal extends Modal {
     private _settings: Settings;
     private _vault: Vault;
-    private goalForm: CreateGoalForm;
+    private goalForm: GoalFormBuilder;
     private goalIndexCard: GoalIndexCard;
     private displayMode: DisplayMode;
 
@@ -21,7 +21,7 @@ export class GoalsModal extends Modal {
         this._settings = settings;
         this._vault = vault;
         this.displayMode = displayMode;
-        this.goalForm = new CreateGoalForm();
+        this.goalForm = new GoalFormBilder();
         this.goalIndexCard = goalIndexCard;
     }
 
