@@ -11,7 +11,7 @@ import { AttribSettingsId } from "../formbuilder/AtrribSettingsTypes";
 import { Settings } from "src/settings/Settings";
 import { GenericPlanningForm } from "../baseclasses/genericPlanningForm";
 
-export class CreateGoalForm extends GenericPlanningForm implements ICreateICForm {
+export class GoalForm extends GenericPlanningForm implements ICreateICForm {
 
     buildForm(parent: HTMLElement): void {
         super.buildForm(parent);

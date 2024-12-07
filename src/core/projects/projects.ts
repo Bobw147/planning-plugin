@@ -12,6 +12,7 @@ export class ProjectsModal extends Modal {
     private _settings: Settings;
     private _vault: Vault;
     private displayMode:DisplayMode;
+    private projectForm: ProjectForm;
     private projectIndexCard: ProjectIndexCard;
  
     constructor(app: App, vault: Vault, settings: Settings, projectIndexCard: ProjectIndexCard, displayMode: DisplayMode) {
@@ -19,16 +20,16 @@ export class ProjectsModal extends Modal {
         this._settings = settings;
         this._vault = vault;
         this.displayMode = displayMode;
+        this.projectForm = new ProjectForm()
         this.projectIndexCard = projectIndexCard;
     }
 
     display(): void{
         this.contentEl.empty();
         this.setTitle("Create a new Project");
-        this.contentEl.innerHTML = newIdentFragment;
+        this.projectForm.buildForm()
         this.open();
-        initIdentFragment(Ident.PROJECT, this._settings, this.app);
-
+ 
         // Add a handler to the 'Create' button
         (document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
 //            const projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
