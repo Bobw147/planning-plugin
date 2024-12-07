@@ -10,6 +10,7 @@ import { ICreateICForm } from "../types/interfaces";
 import { AttribSettingsId } from "../formbuilder/AtrribSettingsTypes";
 import { Settings } from "src/settings/Settings";
 import { GenericPlanningForm } from "../baseclasses/genericPlanningForm";
+import { assignTagOptions } from "src/utils/utils";
 
 export class GoalFormBuilder extends GenericPlanningForm implements ICreateICForm {
 
@@ -20,18 +21,14 @@ export class GoalFormBuilder extends GenericPlanningForm implements ICreateICFor
     configureForCreateMode(settings: Settings): void {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
-        // Add the CategoryTag options
-        const goalCategoryTag: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
-        settings.categoryTags.forEach(
-            (tag: string) => {
-                const element = nodeBuilder.createElement(HtmlTags.OPTION, [
-                    [HtmlAttributes.INNERTEXT, tag],
-                ]) as HTMLOptionElement;
-                goalCategoryTag.appendChild(element);
-            }
-        )
+        // Populate the Category & Status selectors with options the list contained in the plugin settings
+        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        assignTagOptions(categorySelect, settings.categoryTags)
 
-        // Hide the Status Tag section
+        // Hide the unused sections
+        const memberOfDiv = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_SECTION, WrapperType.NONE));
+        nodeBuilder.setAttributes(memberOfDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+
         const statusTagsDiv = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG_SECTION, WrapperType.NONE));
         nodeBuilder.setAttributes(statusTagsDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
@@ -47,26 +44,12 @@ export class GoalFormBuilder extends GenericPlanningForm implements ICreateICFor
         const goalIndexCard = new GoalIndexCard();
 
         // Add the CategoryTag options
-        const goalCategoryTag: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
-        settings.categoryTags.forEach(
-            (tag: string) => {
-                const element = nodeBuilder.createElement(HtmlTags.OPTION, [
-                    [HtmlAttributes.INNERTEXT, tag],
-                ]) as HTMLOptionElement;
-                goalCategoryTag.appendChild(element);
-            }
-        )
-
+        const goalCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
+        assignTagOptions(goalCategorySelect, settings.categoryTags);
+    
         // Add the StatusTag options
-        const goalStatusTag: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement
-        settings.statusTags.forEach(
-            (tag: string) => {
-                const element = nodeBuilder.createElement(HtmlTags.OPTION, [
-                    [HtmlAttributes.INNERTEXT, tag],
-                ]) as HTMLOptionElement;
-                goalStatusTag.appendChild(element);
-            }
-        )
+        const goalStatusSelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement
+        assignTagOptions(goalStatusSelect, settings.statusTags);
 
         // Hide the Create and Cancel buttons
         nodeBuilder.setElementAttributes(FormFieldId.GF_BUTTONS, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
