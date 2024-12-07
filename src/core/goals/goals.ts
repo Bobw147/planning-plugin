@@ -21,7 +21,7 @@ export class GoalsModal extends Modal {
         this._settings = settings;
         this._vault = vault;
         this.displayMode = displayMode;
-        this.goalForm = new GoalFormBilder();
+        this.goalForm = new GoalFormBuilder();
         this.goalIndexCard = goalIndexCard;
     }
 
@@ -29,7 +29,7 @@ export class GoalsModal extends Modal {
         // Create and display the New Goal form
         this.contentEl.empty();
         this.setTitle(resolveMessage(UserMessageId.CREATE_GOAL_TITLE));
-        this.goalForm.buildForm(this.contentEl, );
+        this.goalForm.buildForm(this.contentEl);
 
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
@@ -66,7 +66,7 @@ export class GoalsModal extends Modal {
             }
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
-            this.goalForm.configureForIndexCardMode(settings, app.fileManager, file as TFile)
+            this.goalForm.configureForIndexCardMode(this._settings, this.app.fileManager, file as TFile)
         }
     }
 }
