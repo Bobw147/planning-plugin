@@ -13,6 +13,7 @@ export const fieldNames = {
     COMPLETED_DATE_FIELD: "pcompletedDateField",
     USER_TAGS_FIELD: "puserTags"
 }
+
 export interface IPlanningIndexCard{
     _name: string;
     _categoryTag: string;
