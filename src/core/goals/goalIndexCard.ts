@@ -1,10 +1,12 @@
-import { IPlanningIndexCard, PlanningIndexCard } from "./indexcard";
+import { IPlanningIndexCard, PlanningIndexCard } from "../baseclasses/indexcard";
 import { FrontMatterCache } from "obsidian";
 import { FileManager, TFile } from "obsidian";
+import { identTags } from "../types/types";
 
 export class GoalIndexCard extends PlanningIndexCard implements IPlanningIndexCard {
     constructor(){
         super();
+        super.identTag = identTags.PLANNING_GOAL;
     }
 
     async load(frontmatter: FrontMatterCache): Promise<void> {
