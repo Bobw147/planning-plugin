@@ -1,8 +1,31 @@
 import { FileManager, TFile } from "obsidian";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
-import { ProjectIndexCard } from "./projectindexcard";
+import { IProjectIndexCard, ProjectIndexCard } from "./projectindexcard";
 import { emptyString, WrapperType } from "../types/types";
+import { GenericPlanningForm, IPlanningForm, DisplayMode } from "../baseclasses/genericPlanningForm";
+import { Settings } from "src/settings/Settings";
+
+
+export class ProjectFormBuilder extends GenericPlanningForm implements IPlanningForm {
+
+    buildForm(parent: HTMLElement): void {
+        super.buildForm(parent);
+    }
+
+    configureForCreateMode(settings: Settings): void {
+
+    }
+
+    configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
+
+    }
+
+    updateIndexCard(project: IProjectIndexCard, displayMode: DisplayMode) {
+
+    }
+}
+
 
 const _projectIndexCardForm = '<div id='+resolveField(FormFieldId.ID_IC_PROJECT_INDEX_CARD, WrapperType.SINGLE_QUOTE)+' style="border-width: 2px; border-style: solid; border-color: gray;"> \
     <div> \
