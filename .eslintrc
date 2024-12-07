@@ -21,6 +21,7 @@
       "@typescript-eslint/no-magic-numbers": 2,
       "@typescript-eslint/no-inferrable-types": "off",
       "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/prefer-enum-initializers": "error",
       "@typescript-eslint/naming-convention": [
         "error",  
         {
