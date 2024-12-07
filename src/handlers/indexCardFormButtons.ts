@@ -1,9 +1,5 @@
-import { App, TFile } from "obsidian";
+import { App } from "obsidian";
 import { Settings } from "src/settings/Settings";
-import { CreateGoalForm } from "src/core/goals/goalIndexCardForm";
-import { projectIndexCardForm, populateProjectIndexCardForm } from "src/core/projects/projectIndexCardForm";
-import { taskIndexCardForm, populateTaskIndexCardForm } from "src/core/tasks/taskIndexCardForm";
-import { ICreateICForm } from "src/core/types/interfaces";
 import { Planner } from "src/core/planner";
 import { DisplayMode } from "src/core/baseclasses/genericPlanningForm"; //TODO move DisplayMode to types.ts?
 
@@ -29,8 +25,7 @@ export function indexCardButtonHandler(app: App, source: string, el: HTMLElement
             // Toggle the nature of the button
             button.textContent = "Hide Index Card"
 
-            const file = app.workspace.getActiveFile();
-//            let goalForm: ICreateICForm;
+//            const file: TFile = app.workspace.getActiveFile();
             switch (source.trim()) {
                 case "Goal" : // Display the form and then add the index card data
                     planner.create_goal(DisplayMode.INDEX_CARD_MODE);    
@@ -40,13 +35,15 @@ export function indexCardButtonHandler(app: App, source: string, el: HTMLElement
                     break;
 
                 case "Project":
-                    div.innerHTML = projectIndexCardForm();
-                    populateProjectIndexCardForm(app.fileManager, file as TFile);
+                    planner.create_project(DisplayMode.INDEX_CARD_MODE);
+//                    div.innerHTML = projectIndexCardForm();
+//                    populateProjectIndexCardForm(app.fileManager, file as TFile);
                     break;
 
                 case "Task":
-                    div.innerHTML = taskIndexCardForm();
-                    populateTaskIndexCardForm(app.fileManager, file as TFile);
+                    planner.create_task(DisplayMode.INDEX_CARD_MODE);
+//                    div.innerHTML = taskIndexCardForm();
+//                    populateTaskIndexCardForm(app.fileManager, file as TFile);
                     break;		    
             }
         }
