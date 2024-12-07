@@ -39,8 +39,8 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             ]);
 
             /*==== Create the GoalName section ====*/
-            const goalNameContainerDiv = nodeBuilder.createElement(HtmlTags.DIV);
-            goalNameContainerDiv.appendChild(
+            const nameContainerDiv = nodeBuilder.createElement(HtmlTags.DIV);
+            nameContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_NAME_LABEL],
                     [attrib.INNERTEXT, UserMessageId.GOAL_NAME_LABEL],
@@ -57,13 +57,33 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                     [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
-            containerDiv?.appendChild(goalNameContainerDiv);
+            containerDiv?.appendChild(nameContainerDiv);
+
+            /*==== Create the Member of section ===*/
+            const memberOfContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+                [attrib.ID, field.GF_MEMBER_OF_SECTION]
+            ]);
+            memberOfContainerDiv.appendChild(
+                nodeBuilder.createElement(HtmlTags.LABEL, [
+                    [attrib.ID, field.GF_MEMBER_OF_LABEL],
+                ])
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.SELECT,[
+                    [attrib.ID, field.GF_MEMBER_OF_NAME],
+                ])
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.I, [
+                    [attrib.ID, field.GF_MEMBER_OF_ICON],
+                    [attrib.ICON, AttribSettingsId.LOCK]
+                ])
+            );
+            containerDiv?.appendChild(memberOfContainerDiv);
 
             /*==== Create the CategoryTag section ====*/
-            const goalCategoryTagContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+            const categoryTagContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_CATEGORY_TAG_SECTION],
             ]);
-            goalCategoryTagContainerDiv.appendChild(
+            categoryTagContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_CATEGORY_TAG_LABEL],
                     [attrib.INNERTEXT, UserMessageId.CATEGORY_TAG_LABEL],
@@ -79,13 +99,13 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                     [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
-            containerDiv?.appendChild(goalCategoryTagContainerDiv);
+            containerDiv?.appendChild(categoryTagContainerDiv);
  
             /*==== Create the StatusTag section ====*/
-            const goalStatusTagContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+            const statusTagContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_STATUS_TAG_SECTION],
             ]);
-            goalStatusTagContainerDiv.appendChild(
+            statusTagContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_STATUS_TAG_LABEL],
                     [attrib.INNERTEXT, UserMessageId.STATUS_TAG_LABEL],
@@ -101,11 +121,11 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                     [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
-            containerDiv?.appendChild(goalStatusTagContainerDiv);
+            containerDiv?.appendChild(statusTagContainerDiv);
 
             /*==== Create the TargetDate section ====*/
-            const goalTargetDateContainerDiv = nodeBuilder.createElement(HtmlTags.DIV);
-            goalTargetDateContainerDiv.appendChild(
+            const targetDateContainerDiv = nodeBuilder.createElement(HtmlTags.DIV);
+            targetDateContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_TARGET_DATE_LABEL],
                     [attrib.INNERTEXT, UserMessageId.TARGET_DATE_LABEL],
@@ -122,13 +142,13 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                     [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
-            containerDiv?.appendChild(goalTargetDateContainerDiv);
+            containerDiv?.appendChild(targetDateContainerDiv);
 
             /*==== Create the ExpectedDate field fragment ====*/
-            const goalExpectedDateContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+            const expectedDateContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_EXPECTED_DATE_SECTION],
             ]);
-            goalExpectedDateContainerDiv.appendChild(
+            expectedDateContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_EXPECTED_DATE_LABEL],
                     [attrib.INNERTEXT, UserMessageId.EXPECTED_DATE_LABEL],
@@ -139,13 +159,13 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                     [attrib.TYPE, AttribSettingsId.DATE],
                 ])
             );
-            containerDiv?.appendChild(goalExpectedDateContainerDiv);
+            containerDiv?.appendChild(expectedDateContainerDiv);
 
             /*==== Create the CompletedDate field fragment ====*/
-            const goalCompletedDateContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+            const completedDateContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_COMPLETED_DATE_SECTION],
             ]);
-            goalCompletedDateContainerDiv.appendChild(
+            completedDateContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_COMPLETED_DATE_LABEL],
                     [attrib.INNERTEXT, UserMessageId.COMPLETED_DATE_LABEL],
@@ -156,11 +176,11 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                  [attrib.TYPE, AttribSettingsId.DATE],
                 ])
             );
-            containerDiv?.appendChild(goalCompletedDateContainerDiv);
+            containerDiv?.appendChild(completedDateContainerDiv);
 
             /*==== Create UserTags field section ====*/
-            const goalUserTagsContainerDiv = nodeBuilder.createElement(HtmlTags.DIV);
-            goalUserTagsContainerDiv.appendChild(
+            const userTagsContainerDiv = nodeBuilder.createElement(HtmlTags.DIV);
+            userTagsContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.INNERTEXT, UserMessageId.USER_TAGS_LABEL],
                 ])
@@ -176,13 +196,13 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 ])
                 
             )
-            containerDiv?.appendChild(goalUserTagsContainerDiv);
+            containerDiv?.appendChild(userTagsContainerDiv);
 
             /*==== Create the Buttons section ====*/
-            const goalButtonsContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+            const buttonsContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_BUTTONS]
             ]);
-            goalButtonsContainerDiv.appendChild(
+            buttonsContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.BUTTON, [
                     [attrib.ID, field.GF_CREATE_BUTTON],
                     [attrib.INNERTEXT, UserMessageId.GOAL_CREATE_BUTTON_TEXT],
@@ -193,7 +213,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                     [attrib.INNERTEXT, UserMessageId.CANCEL_BUTTON_TEXT],
                 ])
             );
-            containerDiv?.appendChild(goalButtonsContainerDiv);
+            containerDiv?.appendChild(buttonsContainerDiv);
 
             if (containerDiv !== undefined) {
             parent.appendChild(containerDiv);

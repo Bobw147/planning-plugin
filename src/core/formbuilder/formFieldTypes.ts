@@ -87,35 +87,39 @@ export enum FormFieldId {
     ID_IC_TASK_USER_TAGS = "id_ic_task_user_tags",
 
     // genericForm version
-    GF_INDEX_CARD = "ic_index_card",
-    GF_NAME_LABEL = "ic_name_label",
-    GF_NAME = "ic_name",
-    GF_NAME_ICON = "ic_name_icon",
-    GF_CATEGORY_TAG = "ic_category_tag",
+    GF_INDEX_CARD = "id_index_card",
+    GF_NAME_LABEL = "id_name_label",
+    GF_NAME = "id_name",
+    GF_NAME_ICON = "id_name_icon",
+    GF_MEMBER_OF_SECTION =  "id_member_of_section",
+    GF_MEMBER_OF_LABEL = "id_member_of_label",
+    GF_MEMBER_OF_NAME = "id_member_of_name",
+    GF_MEMBER_OF_ICON = "id_member_of_icon",
+    GF_CATEGORY_TAG = "id_category_tag",
     GF_CATEGORY_TAG_LABEL = "ic_category_tag_label",
-    GF_CATEGORY_TAG_SECTION =  "ic_category_section",
-    GF_CATEGORY_TAG_ICON = "ic_category_icon",
-    GF_STATUS_TAG = "ic_status_tag",
-    GF_STATUS_TAG_LABEL = "ic_status_tag_label",
-    GF_STATUS_TAG_SECTION = "ic_status_tag_section",
-    GF_STATUS_TAG_ICON = "ic_status_tag_icon",
-    GF_IDENT_TAG = "ic_ident_tag",
-    GF_IDENT_TAG_LABEL = "ic_ident_tag_label",
-    GF_TARGET_DATE = "ic_target_date",
-    GF_TARGET_DATE_ICON = "ic_target_date_icon",
-    GF_TARGET_DATE_LABEL = "ic_target_date_label",
-    GF_EXPECTED_DATE = "ic_expected_date",
-    GF_EXPECTED_DATE_LABEL = "ic_expected_date_label",
-    GF_EXPECTED_DATE_SECTION = "ic_expected_date_section",
-    GF_COMPLETED_DATE = "ic_completed_date",
-    GF_COMPLETED_DATE_LABEL = "ic_completed_date_label",
-    GF_COMPLETED_DATE_SECTION = "ic_completed_date_section",
-    GF_USER_TAGS = "ic_user_tags",
-    GF_USER_TAGS_ICON = "ic_user_tags_icon",
-    GF_USER_TAGS_LABEL = "ic_user_tags_label",
-    GF_BUTTONS = "ic_buttons",
-    GF_CREATE_BUTTON = "ic_create_button",
-    GF_CANCEL_BUTTON = "ic_cancel_button",
+    GF_CATEGORY_TAG_SECTION =  "id_category_section",
+    GF_CATEGORY_TAG_ICON = "id_category_icon",
+    GF_STATUS_TAG = "id_status_tag",
+    GF_STATUS_TAG_LABEL = "id_status_tag_label",
+    GF_STATUS_TAG_SECTION = "id_status_tag_section",
+    GF_STATUS_TAG_ICON = "id_status_tag_icon",
+    GF_IDENT_TAG = "id_ident_tag",
+    GF_IDENT_TAG_LABEL = "id_ident_tag_label",
+    GF_TARGET_DATE = "id_target_date",
+    GF_TARGET_DATE_ICON = "id_target_date_icon",
+    GF_TARGET_DATE_LABEL = "id_target_date_label",
+    GF_EXPECTED_DATE = "id_expected_date",
+    GF_EXPECTED_DATE_LABEL = "id_expected_date_label",
+    GF_EXPECTED_DATE_SECTION = "id_expected_date_section",
+    GF_COMPLETED_DATE = "id_completed_date",
+    GF_COMPLETED_DATE_LABEL = "id_completed_date_label",
+    GF_COMPLETED_DATE_SECTION = "id_completed_date_section",
+    GF_USER_TAGS = "id_user_tags",
+    GF_USER_TAGS_ICON = "id_user_tags_icon",
+    GF_USER_TAGS_LABEL = "id_user_tags_label",
+    GF_BUTTONS = "id_buttons",
+    GF_CREATE_BUTTON = "id_create_button",
+    GF_CANCEL_BUTTON = "id_cancel_button",
 }
 
 interface IFormFieldDictionaryType{
@@ -205,13 +209,22 @@ interface IFormFieldDictionaryType{
 
     // genericForm versions
     [FormFieldId.GF_INDEX_CARD]: string;
+
+    [FormFieldId.GF_MEMBER_OF_SECTION]: string;
+    [FormFieldId.GF_NAME_LABEL]: string;
     [FormFieldId.GF_NAME]: string;
     [FormFieldId.GF_NAME_ICON]: string;
-    [FormFieldId.GF_NAME_LABEL]: string;
+
+    [FormFieldId.GF_MEMBER_OF_SECTION]: string;
+    [FormFieldId.GF_MEMBER_OF_LABEL]: string;
+    [FormFieldId.GF_MEMBER_OF_NAME]: string;
+    [FormFieldId.GF_MEMBER_OF_ICON]: string;
+
+    [FormFieldId.GF_CATEGORY_TAG_SECTION]: string;
+    [FormFieldId.GF_CATEGORY_TAG_LABEL]: string;
     [FormFieldId.GF_CATEGORY_TAG]: string;
     [FormFieldId.GF_CATEGORY_TAG_ICON]: string;
-    [FormFieldId.GF_CATEGORY_TAG_LABEL]: string;
-    [FormFieldId.GF_CATEGORY_TAG_SECTION]: string;
+
     [FormFieldId.GF_IDENT_TAG]: string;
     [FormFieldId.GF_IDENT_TAG_LABEL]: string;
     [FormFieldId.GF_STATUS_TAG]: string;
@@ -323,31 +336,45 @@ const formFieldDictionary: IFormFieldDictionaryType = {
 
         // genericForm
     [FormFieldId.GF_INDEX_CARD]: 'ic-index-card',
+
     [FormFieldId.GF_NAME]: 'ic-name',
     [FormFieldId.GF_NAME_ICON]: 'ic-icon',
     [FormFieldId.GF_NAME_LABEL]: 'ic-name-label',
+
+    [FormFieldId.GF_MEMBER_OF_SECTION]: 'gf-member-of-section',
+    [FormFieldId.GF_MEMBER_OF_LABEL]: 'gf-member-of-label',
+    [FormFieldId.GF_MEMBER_OF_NAME]: 'gf-member-of-name',
+    [FormFieldId.GF_MEMBER_OF_ICON]: 'gf-member-of-icon',
+    
     [FormFieldId.GF_CATEGORY_TAG]: 'ic-category-tag',
     [FormFieldId.GF_CATEGORY_TAG_ICON]: 'ic-category-icon',
     [FormFieldId.GF_CATEGORY_TAG_LABEL]: 'ic-category-tag=label',
     [FormFieldId.GF_CATEGORY_TAG_SECTION]: 'ic-catgory-section',
+
     [FormFieldId.GF_IDENT_TAG]: 'ic-ident-tag',
     [FormFieldId.GF_IDENT_TAG_LABEL]: 'ic-ident-tag=label',
+
     [FormFieldId.GF_STATUS_TAG]: 'ic-status-tag',
     [FormFieldId.GF_STATUS_TAG_ICON]: 'ic-status-icon',
     [FormFieldId.GF_STATUS_TAG_LABEL]: 'ic-status-tag-label',
     [FormFieldId.GF_STATUS_TAG_SECTION]: 'ic-status-tag-section',
+
     [FormFieldId.GF_TARGET_DATE]: 'ic-target-date',
     [FormFieldId.GF_TARGET_DATE_ICON]: 'ic-target-date-icon',
     [FormFieldId.GF_TARGET_DATE_LABEL]: 'ic-target-date-label',
+
     [FormFieldId.GF_EXPECTED_DATE]: 'ic-expected-date',
     [FormFieldId.GF_EXPECTED_DATE_LABEL]: 'ic-expected-date-label',
     [FormFieldId.GF_EXPECTED_DATE_SECTION]: 'id-ic-expected=date-section',
+
     [FormFieldId.GF_COMPLETED_DATE]: 'ic-completed-date',
     [FormFieldId.GF_COMPLETED_DATE_LABEL]: 'ic-completed-date-label',
     [FormFieldId.GF_COMPLETED_DATE_SECTION]: 'id-ic-completed-date-section',
+
     [FormFieldId.GF_USER_TAGS]: 'ic-user-tags',
     [FormFieldId.GF_USER_TAGS_ICON]: 'ic-user-tags-icon',
     [FormFieldId.GF_USER_TAGS_LABEL]: 'ic-user-tags-label',
+
     [FormFieldId.GF_BUTTONS]: 'id-ic-buttons',
     [FormFieldId.GF_CREATE_BUTTON]: 'id-ic-create-button',
     [FormFieldId.GF_CANCEL_BUTTON]: 'ic-cancel-button',    

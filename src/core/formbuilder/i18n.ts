@@ -10,6 +10,7 @@ export enum Language {
 export enum UserMessageId {
     CREATE_GOAL_TITLE = "cgt",
     GOAL_NAME_LABEL = "gnl",
+    MEMBER_OF_LABEL = "mol",
     CATEGORY_TAG_LABEL = "ctl",
     STATUS_TAG_LABEL = "stl",
     TARGET_DATE_LABEL = "tdl",
@@ -25,6 +26,7 @@ export enum UserMessageId {
 interface IUserMessageDictionary {
     [UserMessageId.CREATE_GOAL_TITLE]: string[];
     [UserMessageId.GOAL_NAME_LABEL]: string[];
+    [UserMessageId.MEMBER_OF_LABEL]: string[];
     [UserMessageId.CATEGORY_TAG_LABEL]: string[];
     [UserMessageId.STATUS_TAG_LABEL]: string[];
     [UserMessageId.TARGET_DATE_LABEL]: string[];
@@ -43,6 +45,7 @@ const userMessageDictionary: IUserMessageDictionary =
 {
     [UserMessageId.CREATE_GOAL_TITLE]: ["Create a new Goal"],
     [UserMessageId.GOAL_NAME_LABEL]: ["Enter name of Goal: "],
+    [UserMessageId.MEMBER_OF_LABEL]: ["Member of Goal: "],
     [UserMessageId.CATEGORY_TAG_LABEL]: ["Category: "],
     [UserMessageId.STATUS_TAG_LABEL]: ["Status:"],
     [UserMessageId.TARGET_DATE_LABEL]: ["Target Date:"],
