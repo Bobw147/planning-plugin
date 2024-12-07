@@ -1,5 +1,5 @@
 import { App, Modal, TFile, Vault } from "obsidian";
-import { identTags, WrapperType } from "../types/types";
+import { emptyString, identTags, WrapperType } from "../types/types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { goalPageContent } from "../scripts/dataview_goal";
@@ -40,18 +40,11 @@ export class GoalsModal extends Modal {
 
             //  Add a handler to the 'Create' button
             (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
-                // We dont currently have an index card for this goal so create and populate it with
-                // the data from the form
-                
-//                this.goalIndexCard.name = (document.getElementById(resolveField(FormFieldId.GF_NAME, WrapperType.NONE)) as HTMLInputElement).value;
-//                this.goalIndexCard.categoryTag = (document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement).value;
-//                this.goalIndexCard.targetDate = new Date((document.getElementById(resolveField(FormFieldId.GF_TARGET_DATE, WrapperType.NONE)) as HTMLDataElement).value);
-            
-                this.goalForm.updateIndexCard(this.goalIndexCard);
+                this.goalForm.updateIndexCard(this.goalIndexCard, this.displayMode);
         
                 // Make sure the target folder exists then create the file
                 await createFolder(this._vault, this._settings.goalsFolder);
-                const file: TFile = await this._vault.create(this._settings.goalsFolder + "/" + this.goalIndexCard.name + ".md", WrapperType.NONE);
+                const file: TFile = await this._vault.create(this._settings.goalsFolder + "/" + this.goalIndexCard.name + ".md", emptyString);
             
                 // Write the dataview script into the file then add the frontmatter properties. 
                 await this._vault.modify(file, goalPageContent());
