@@ -44,17 +44,19 @@ export class NodeBuilder{
     }
 
     static getElementInfo(elementType: HtmlTags, fieldId:FormFieldId, attribId: HtmlAttributes): string {
+        //TODO .getAttribute('value') returns null but .value works ok. There doesn;t seem to be an elegant
+        // wrappable way of using document.getElementById.
         let value: string | null = emptyString;
-        const attrib: string = resolveAttribute(attribId);
+        const attrib: string = resolveAttribute(attribId, WrapperType.SINGLE_QUOTE);
 
         /* eslint-disable no-case-declarations */
         switch (elementType) {
             case HtmlTags.INPUT:
-                value = (document.getElementById(resolveField(fieldId, WrapperType.NONE)) as HTMLInputElement).getAttribute(attrib);
+                value = (document.getElementById(resolveField(fieldId, WrapperType.NONE)) as HTMLInputElement).value;
                 break;
             
             case HtmlTags.SELECT:
-                value = (document.getElementById(resolveField(fieldId, WrapperType.NONE)) as HTMLSelectElement).getAttribute(attrib);
+                value = (document.getElementById(resolveField(fieldId, WrapperType.NONE)) as HTMLSelectElement).value;
                 break;
         }
         return value === null ? emptyString : value;
