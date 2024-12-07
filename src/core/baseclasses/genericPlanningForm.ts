@@ -19,7 +19,7 @@ export interface IPlanningForm {
     buildForm(parent: HTMLElement) : void;
     configureForCreateMode(settings: Settings): void
     configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void>;
-    updateIndexCard(indexCard: IPlanningIndexCard): void;
+    updateIndexCard(indexCard: IPlanningIndexCard, displayMode: DisplayMode): void;
 }
 
 
@@ -235,7 +235,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
 
     }
 
-    updateIndexCard(indexCard: IPlanningIndexCard): void {
+    updateIndexCard(indexCard: IPlanningIndexCard, displayMode: DisplayMode): void {
 
     }
 }
