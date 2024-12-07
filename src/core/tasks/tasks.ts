@@ -6,15 +6,20 @@ import { taskPageContent } from "../scripts/dataview_task";
 import { TaskIndexCard } from "./taskIndexCard";
 import { initIdentFragment, newIdentFragment } from "../newIdentFragment";
 import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
+import { DisplayMode } from "../baseclasses/genericPlanningForm";
 
 export class TasksModal extends Modal {
     private _settings: Settings;
     private _vault: Vault;
+    private displayMode: DisplayMode;
+    private taskIndexCard: TaskIndexCard;
 
-    constructor(app: App, vault: Vault, settings: Settings) {
+    constructor(app: App, vault: Vault, settings: Settings, taskIndexCard: TaskIndexCard, displayMode: DisplayMode) {
 		super(app);
         this._settings = settings;
         this._vault = vault;
+        this.displayMode = displayMode;
+        this.taskIndexCard = taskIndexCard;
     }
 
     display(): void {

@@ -4,17 +4,22 @@ import { Settings } from "src/settings/Settings";
 //import { projectPageContent } from "../scripts/dataview_project";
 import { createFolder } from "src/utils/utils";
 import { Ident, WrapperType } from "../types/types";
-//import { ProjectIndexCard } from "./projectindexcard";
+import { ProjectIndexCard } from "./projectindexcard";
 import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
+import { DisplayMode } from "../baseclasses/genericPlanningForm";
 
 export class ProjectsModal extends Modal {
     private _settings: Settings;
     private _vault: Vault;
+    private displayMode:DisplayMode;
+    private projectIndexCard: ProjectIndexCard;
  
-    constructor(app: App, vault: Vault, settings: Settings) {
+    constructor(app: App, vault: Vault, settings: Settings, projectIndexCard: ProjectIndexCard, displayMode: DisplayMode) {
 		super(app);
         this._settings = settings;
         this._vault = vault;
+        this.displayMode = displayMode;
+        this.projectIndexCard = projectIndexCard;
     }
 
     display(): void{

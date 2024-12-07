@@ -9,7 +9,7 @@ import { UserMessageId, resolveMessage } from "../formbuilder/i18n";
 import { DisplayMode } from "../baseclasses/genericPlanningForm";
 import { GoalIndexCard } from "./goalIndexCard";
 
-export class CreateGoalsModal extends Modal {
+export class GoalsModal extends Modal {
     private _settings: Settings;
     private _vault: Vault;
     private goalForm: CreateGoalForm;
