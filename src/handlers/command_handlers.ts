@@ -1,3 +1,4 @@
+import { DisplayMode } from "src/core/baseclasses/genericPlanningForm";
 import PlanningPlugin from "src/main";
 
 
@@ -16,7 +17,7 @@ export class CommandHandler{
                 },
             ],
             callback: () => {
-                this.plugin.planner.create_goal();
+                this.plugin.planner.create_goal(DisplayMode.CREATE_MODE);
             },
         });
         this.plugin.addCommand({
