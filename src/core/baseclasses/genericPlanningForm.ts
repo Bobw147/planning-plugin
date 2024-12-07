@@ -4,18 +4,18 @@ import { HtmlTags } from "../webbuilder/htmlElementTypes";
 import { NodeBuilder } from "../webbuilder/nodebuilder";
 import { HtmlAttributes as attrib } from "../webbuilder/htmlAttributeTypes";
 import { FormFieldId as field } from "../webbuilder/formFieldTypes";
-import { UserMessageId } from "../i18n";
+import { UserMessageId } from "../webbuilder/i18n";
 import { AttribSettingsId } from "../webbuilder/AtrribSettingsTypes";
-import { IPlanningIndexCard } from "../indexcards/indexcard";
+import { IPlanningIndexCard } from "./indexcard";
 
+/* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */
 export enum DisplayMode {
-    INDEX_CARD_MODE,
-    CREATE_MODE,
+    INDEX_CARD_MODE = 0,
+    CREATE_MODE = 1,
 }
+/* eslint-enable no-magic-numbers, @typescript-eslint/no-magic-numbers */
 
 export interface IPlanningForm {
-    mode:DisplayMode;
-
     buildForm(parent: HTMLElement) : void;
     configureForCreateMode(settings: Settings): void
     configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void>;
@@ -24,10 +24,8 @@ export interface IPlanningForm {
 
 
 export abstract class GenericPlanningForm implements IPlanningForm {
-    mode: DisplayMode;
-
-    constructor(displayMode: DisplayMode) {
-        this.mode = displayMode;
+   
+    constructor() {
     }
     
     buildForm(parent: HTMLElement): void{
@@ -191,7 +189,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 ])
             ).parentElement?.appendChild(
                 nodeBuilder.createElement(HtmlTags.BUTTON, [
-                    [attrib.ID, field.GF_CREATE_BUTTON],
+                    [attrib.ID, field.GF_CANCEL_BUTTON],
                     [attrib.INNERTEXT, UserMessageId.CANCEL_BUTTON_TEXT],
                 ])
             );
@@ -214,6 +212,10 @@ export abstract class GenericPlanningForm implements IPlanningForm {
     }
 
     async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
+
+    }
+
+    updateIndexCard(indexCard: IPlanningIndexCard): void {
 
     }
 }
