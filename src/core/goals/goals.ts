@@ -5,7 +5,7 @@ import { createFolder } from "src/utils/utils";
 import { goalPageContent } from "../scripts/dataview_goal";
 import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
 import { GoalFormBuilder } from "./goalFormBuilder";
-import { UserMessageId, resolveMessage } from "../formbuilder/i18n";
+import { UserMessageId, lookupMessage } from "../formbuilder/i18n";
 import { DisplayMode } from "../baseclasses/genericPlanningForm";
 import { GoalIndexCard } from "./goalIndexCard";
 
@@ -28,7 +28,7 @@ export class GoalsModal extends Modal {
     display(): void {
         // Create and display the New Goal form
         this.contentEl.empty();
-        this.setTitle(resolveMessage(UserMessageId.CREATE_GOAL_TITLE));
+        this.setTitle(lookupMessage(UserMessageId.CREATE_GOAL_TITLE));
         this.goalForm.buildForm(this.contentEl);
 
         // Open the form to create the DOM so that we can manipulate the class names settings

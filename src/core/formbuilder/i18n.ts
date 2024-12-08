@@ -64,6 +64,6 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.CANCEL_BUTTON_TEXT]: ["Cancel"],
 }
 
-export function resolveMessage(userMessageId: UserMessageId): string {
+export function lookupMessage(userMessageId: UserMessageId): string {
     return userMessageDictionary[userMessageId][language];
 }

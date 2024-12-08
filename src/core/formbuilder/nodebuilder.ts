@@ -3,7 +3,7 @@ import { emptyString, WrapperType } from "../types/types";
 import { FormFieldId, resolveField } from "./formFieldTypes";
 import { HtmlAttributes, resolveAttribute } from "./htmlAttributeTypes";
 import { DOMNodeBuildError } from "../exceptions/exceptions";
-import { UserMessageId, resolveMessage } from "./i18n";
+import { UserMessageId, lookupMessage } from "./i18n";
 import { AttribSettingsId, resolveAttribSetting } from "./AtrribSettingsTypes";
 import { setIcon } from "obsidian";
 
@@ -82,7 +82,7 @@ export class NodeBuilder{
                 this.setAttribute(tag, attribId, resolveField(valueId as FormFieldId, WrapperType.NONE));
             }
             else if (Object.values(UserMessageId).includes(valueId as UserMessageId)){
-                this.setAttribute(tag, attribId, resolveMessage(valueId as UserMessageId));
+                this.setAttribute(tag, attribId, lookupMessage(valueId as UserMessageId));
             }
             else if (Object.values(AttribSettingsId).includes(valueId as AttribSettingsId)) {
                 this.setAttribute(tag, attribId, resolveAttribSetting(valueId as AttribSettingsId))

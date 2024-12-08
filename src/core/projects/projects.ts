@@ -9,6 +9,7 @@ import { DisplayMode } from "../baseclasses/genericPlanningForm";
 import { projectPageContent } from "../scripts/dataview_project";
 import { identTags } from "../types/types";
 import { UserMessageId } from "../formbuilder/i18n";
+import { lookupMessage } from "../formbuilder/i18n";
 
 export class ProjectsModal extends Modal {
     private settings: Settings;
@@ -28,7 +29,7 @@ export class ProjectsModal extends Modal {
 
     display(): void{
         this.contentEl.empty();
-        this.setTitle(UserMessageId.CREATE_PROJECT_TITLE);
+        this.setTitle(lookupMessage(UserMessageId.CREATE_PROJECT_TITLE));
         this.projectForm.buildForm(this.contentEl);
         this.open();
  
