@@ -54,7 +54,6 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 nodeBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_NAME_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
-                    [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
             containerDiv?.appendChild(nameContainerDiv);
@@ -96,7 +95,6 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 nodeBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_CATEGORY_TAG_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
-                    [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
             containerDiv?.appendChild(categoryTagContainerDiv);
@@ -118,7 +116,6 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 nodeBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_STATUS_TAG_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
-                    [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
             containerDiv?.appendChild(statusTagContainerDiv);
@@ -139,7 +136,6 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 nodeBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_STATUS_TAG_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
-                    [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
             );
             containerDiv?.appendChild(targetDateContainerDiv);
@@ -192,7 +188,6 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 nodeBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_STATUS_TAG_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
-                    [attrib.CLASS, field.STYLE_DIV_HIDDEN],
                 ])
                 
             )
