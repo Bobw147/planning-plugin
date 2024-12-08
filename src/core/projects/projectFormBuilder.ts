@@ -2,10 +2,13 @@ import { FileManager, TFile } from "obsidian";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
 import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
 import { IProjectIndexCard, ProjectIndexCard } from "./projectindexcard";
-import { emptyString, WrapperType } from "../types/types";
 import { GenericPlanningForm, IPlanningForm, DisplayMode } from "../baseclasses/genericPlanningForm";
 import { Settings } from "src/settings/Settings";
-
+import { NodeBuilder } from "../formbuilder/nodebuilder";
+import { HtmlTags } from "../formbuilder/htmlElementTypes";
+import { HtmlAttributes } from "../formbuilder/htmlAttributeTypes";
+import { assignTagOptions } from "src/utils/utils";
+import { emptyString, WrapperType } from "../types/types";
 
 export class ProjectFormBuilder extends GenericPlanningForm implements IPlanningForm {
 
@@ -14,15 +17,27 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     }
 
     configureForCreateMode(settings: Settings): void {
+        // Populate the Category and Status Tag Selects
+        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        assignTagOptions(categorySelect, settings.categoryTags)
+
+        const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        assignTagOptions(statusSelect, settings.statusTags)
 
     }
 
-    configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
 
     }
 
-    updateIndexCard(project: IProjectIndexCard, displayMode: DisplayMode) {
-
+    updateIndexCard(projectIndexCard: IProjectIndexCard, displayMode: DisplayMode) {
+        projectIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
+        projectIndexCard.parentGoal = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME, HtmlAttributes.VALUE);
+        projectIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
+        projectIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
+        if (displayMode == DisplayMode.INDEX_CARD_MODE) {
+    
+        }
     }
 }
 
