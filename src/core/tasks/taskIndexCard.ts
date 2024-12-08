@@ -1,5 +1,6 @@
 import { IPlanningIndexCard, PlanningIndexCard } from "../baseclasses/indexcard";
-import { FileManager, TFile } from "obsidian";
+import { FileManager, FrontMatterCache, TFile } from "obsidian";
+import { identTags } from "../types/types";
 
 const taskFieldNames = {
     PARENT_PROJECT: "pparentProject:"
@@ -17,13 +18,13 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
 
     constructor(){
         super();
-        this.parentProject = "";
+        super.identTag = identTags.PLANNING_TASK;
+        this._parentProject = "";
     }
 
-    async load(filemanager: FileManager, file: TFile): Promise<void> {
-        await filemanager.processFrontMatter(file, (frontmatter) => {
-            this.parentProject = frontmatter[taskFieldNames.PARENT_PROJECT];
-        });
+    async load(frontmatter:FrontMatterCache): Promise<void> {
+        super.load(frontmatter);
+        this.parentProject = frontmatter[taskFieldNames.PARENT_PROJECT];
     }
 
     async save(filemanager: FileManager, file: TFile, identTag?: typeof this.identTag) : Promise<void> {
