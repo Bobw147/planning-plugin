@@ -9,6 +9,8 @@ export enum Language {
 
 export enum UserMessageId {
     CREATE_GOAL_TITLE = "cgt",
+    CREATE_PROJECT_TITLE = "cpt",
+    CREATE_TASK_TITLE = "ctt",
     GOAL_NAME_LABEL = "gnl",
     MEMBER_OF_LABEL = "mol",
     CATEGORY_TAG_LABEL = "ctl",
@@ -25,6 +27,8 @@ export enum UserMessageId {
 
 interface IUserMessageDictionary {
     [UserMessageId.CREATE_GOAL_TITLE]: string[];
+    [UserMessageId.CREATE_PROJECT_TITLE]: string[];
+    [UserMessageId.CREATE_TASK_TITLE]: string[];
     [UserMessageId.GOAL_NAME_LABEL]: string[];
     [UserMessageId.MEMBER_OF_LABEL]: string[];
     [UserMessageId.CATEGORY_TAG_LABEL]: string[];
@@ -44,6 +48,8 @@ const language = Language.ENGLISH;
 const userMessageDictionary: IUserMessageDictionary =
 {
     [UserMessageId.CREATE_GOAL_TITLE]: ["Create a new Goal"],
+    [UserMessageId.CREATE_PROJECT_TITLE]: ["Create a new Project"],
+    [UserMessageId.CREATE_TASK_TITLE]: ["Create a new Task"],
     [UserMessageId.GOAL_NAME_LABEL]: ["Enter name of Goal: "],
     [UserMessageId.MEMBER_OF_LABEL]: ["Member of Goal: "],
     [UserMessageId.CATEGORY_TAG_LABEL]: ["Category: "],
