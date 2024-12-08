@@ -28,11 +28,11 @@ import { DisplayMode } from './core/baseclasses/genericPlanningForm';
 		});
 		const ribbonProjectIconEl = this.addRibbonIcon('target', 'Project', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_project();
+			this.planner.create_project(DisplayMode.CREATE_MODE);
 		});
 		const ribbonTaskIconEl = this.addRibbonIcon('circle-check', 'Task', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_task();
+			this.planner.create_task(DisplayMode.CREATE_MODE);
 		});
 		// Perform additional things with the ribbon
 		ribbonGoalIconEl.addClass('my-plugin-ribbon-class');
