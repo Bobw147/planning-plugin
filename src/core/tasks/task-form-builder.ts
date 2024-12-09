@@ -39,7 +39,6 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
 
     async configureForIndexCardMode(settings: Settings, taskIndexCard: TaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
-        const taskIndexCard = new TaskIndexCard();
 
         // Add the CategoryTag options
         const taskCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
