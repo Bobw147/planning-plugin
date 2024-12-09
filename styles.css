@@ -10,6 +10,10 @@ div.cf-pl-hidden {
     display: none;
 }
 
+i.cf-pl-hidden {
+    display: none;
+}
+
 div.cf-pl-visible {
     border-width: 2px;
     border-style: solid;
