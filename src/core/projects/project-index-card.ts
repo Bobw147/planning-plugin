@@ -1,15 +1,10 @@
 import { PlanningIndexCard } from "../base-classes/index-card";
-import { IPlanningIndexCard } from "../types/interfaces/i-planning-index-card";
+import { IProjectIndexCard } from "../types/interfaces/i-project-index-card";
 import { FileManager, FrontMatterCache, TFile } from "obsidian";
 import { identTags } from "../types/types";
 
 const projectFieldNames = {
     PARENT_GOAL: "plparent"
-}
-
-export interface IProjectIndexCard extends IPlanningIndexCard{
-    get parentGoal() : string;
-    set parentGoal(value: string);
 }
 
 export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndexCard {
