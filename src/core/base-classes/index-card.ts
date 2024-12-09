@@ -16,16 +16,15 @@ export const fieldNames = {
     USER_TAGS_FIELD: "puserTags"
 }
 
-
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
-    _name: string;
-    _categoryTag: string;
-    _identTag: string;
-    _statusTag: string;
-    _targetDate: Date | null;
-    _expectedDate: Date | null;
-    _completedDate: Date | null;
-    _userTags: string[];
+    private _name: string;
+    private _categoryTag: string;
+    private _identTag: string;
+    private _statusTag: string;
+    private _targetDate: Date | null;
+    private _expectedDate: Date | null;
+    private _completedDate: Date | null;
+    private _userTags: string[];
 
     constructor() {
         this._name = "";
@@ -61,7 +60,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
             frontmatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
         }
     )}
-
 
     get name(): string {
         return this._name;
