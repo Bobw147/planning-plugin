@@ -1,9 +1,10 @@
-import { IPlanningIndexCard, PlanningIndexCard } from "../base-classes/index-card";
+import { PlanningIndexCard } from "../base-classes/index-card";
+import { IPlanningIndexCard } from "../types/interfaces/i-planning-index-card";
 import { FileManager, FrontMatterCache, TFile } from "obsidian";
 import { identTags } from "../types/types";
 
 const projectFieldNames = {
-    PARENT_GOAL: "pparentGoal:"
+    PARENT_GOAL: "plparent"
 }
 
 export interface IProjectIndexCard extends IPlanningIndexCard{
@@ -30,6 +31,7 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
     async save(filemanager: FileManager, file: TFile, identTag?: typeof this.identTag) : Promise<void> {
         await super.save(filemanager, file, identTag);
         await filemanager.processFrontMatter(file, (frontmatter) => {
+            //TODO The following line isnow incorrect
             frontmatter[projectFieldNames.PARENT_GOAL] = this.parentGoal;
         });
     }
