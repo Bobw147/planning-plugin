@@ -135,7 +135,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 ])
             ).parentElement?.appendChild(
                 nodeBuilder.createElement(HtmlTags.I, [
-                    [attrib.ID, field.GF_STATUS_TAG_ICON],
+                    [attrib.ID, field.GF_TARGET_DATE_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
                 ])
             );
@@ -187,7 +187,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
                 ])
             ).parentElement?.appendChild(
                 nodeBuilder.createElement(HtmlTags.I, [
-                    [attrib.ID, field.GF_STATUS_TAG_ICON],
+                    [attrib.ID, field.GF_USER_TAGS_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
                 ])
                 
