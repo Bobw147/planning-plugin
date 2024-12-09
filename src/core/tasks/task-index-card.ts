@@ -1,14 +1,10 @@
-import { IPlanningIndexCard, PlanningIndexCard } from "../base-classes/index-card";
+import { ITaskIndexCard } from "../types/interfaces/i-task-index-card";
+import { PlanningIndexCard } from "../base-classes/index-card";
 import { FileManager, FrontMatterCache, TFile } from "obsidian";
 import { identTags } from "../types/types";
 
 const taskFieldNames = {
-    PARENT_PROJECT: "pparentProject:"
-}
-
-export interface ITaskIndexCard extends IPlanningIndexCard {
-    get parentProject(): string;
-    set parentProject(value: string);
+    PARENT_PROJECT: "plparent"
 }
 
 export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
