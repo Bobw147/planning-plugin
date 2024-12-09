@@ -1,4 +1,4 @@
-import { TaskIndexCard } from "../tasks";
+import { TaskIndexCard } from '../tasks/task-index-card';
 
 export const taskDataview = 
 "\

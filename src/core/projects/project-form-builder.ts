@@ -1,14 +1,16 @@
-import { FileManager, TFile } from "obsidian";
-import { dateFormatter, flattenedTags } from "src/utils/utils";
-import { FormFieldId, resolveField } from "../form-builder/form-field-types";
-import { IProjectIndexCard, ProjectIndexCard } from "./project-index-card";
-import { GenericPlanningForm, IPlanningForm, DisplayMode } from "../base-classes/generic-planning-form";
-import { Settings } from "src/settings/Settings";
-import { NodeBuilder } from "../form-builder/node-builder";
-import { HtmlTags } from "../form-builder/html-element-types";
-import { HtmlAttributes } from "../form-builder/html-attribute-types";
-import { assignTagOptions } from "src/utils/utils";
-import { emptyString, WrapperType } from "../types/types";
+import { FileManager, TFile } from 'obsidian';
+import { Settings } from 'src/settings/Settings';
+import { assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
+
+import {
+    DisplayMode, GenericPlanningForm, IPlanningForm
+} from '../base-classes/generic-planning-form';
+import { FormFieldId, resolveField } from '../form-builder/form-field-types';
+import { HtmlAttributes } from '../form-builder/html-attribute-types';
+import { HtmlTags } from '../form-builder/html-element-types';
+import { NodeBuilder } from '../form-builder/node-builder';
+import { emptyString, WrapperType } from '../types/types';
+import { IProjectIndexCard, ProjectIndexCard } from './project-index-card';
 
 export class ProjectFormBuilder extends GenericPlanningForm implements IPlanningForm {
 

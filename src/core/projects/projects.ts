@@ -1,15 +1,14 @@
-import { App, Modal,TFile,  Vault } from "obsidian";
-import { Settings } from "src/settings/Settings";
-import { createFolder } from "src/utils/utils";
-import { emptyString, WrapperType } from "../types/types";
-import { ProjectIndexCard } from "./project-index-card";
-import { ProjectFormBuilder } from "./project-form-builder";
-import { FormFieldId, resolveField } from "../form-builder/form-field-types";
-import { DisplayMode } from "../base-classes/generic-planning-form";
-import { projectPageContent } from "../scripts/dataview-project";
-import { identTags } from "../types/types";
-import { UserMessageId } from "../form-builder/i18n";
-import { lookupMessage } from "../form-builder/i18n";
+import { App, Modal, TFile, Vault } from 'obsidian';
+import { Settings } from 'src/settings/Settings';
+import { createFolder } from 'src/utils/utils';
+
+import { DisplayMode } from '../base-classes/generic-planning-form';
+import { FormFieldId, resolveField } from '../form-builder/form-field-types';
+import { lookupMessage, UserMessageId } from '../form-builder/i18n';
+import { projectPageContent } from '../scripts/dataview-project';
+import { emptyString, identTags, WrapperType } from '../types/types';
+import { ProjectFormBuilder } from './project-form-builder';
+import { ProjectIndexCard } from './project-index-card';
 
 export class ProjectsModal extends Modal {
     private settings: Settings;

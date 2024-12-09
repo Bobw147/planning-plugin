@@ -1,4 +1,4 @@
-import { WrapperType } from "../types/types";
+import { WrapperType } from '../types/types';
 
 export enum HtmlTags {
     A = "a_tag",

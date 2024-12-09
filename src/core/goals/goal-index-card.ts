@@ -1,8 +1,8 @@
-import { PlanningIndexCard } from "../base-classes/index-card";
-import { IPlanningIndexCard } from "../types/interfaces/i-planning-index-card";
-import { FrontMatterCache } from "obsidian";
-import { FileManager, TFile } from "obsidian";
-import { identTags } from "../types/types";
+import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+
+import { PlanningIndexCard } from '../base-classes/index-card';
+import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
+import { identTags } from '../types/types';
 
 export class GoalIndexCard extends PlanningIndexCard implements IPlanningIndexCard {
     constructor(){

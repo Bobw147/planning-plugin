@@ -1,12 +1,12 @@
-import { HtmlTags, resolveTag } from "./html-element-types";
-import { emptyString, WrapperType } from "../types/types";
-import { FormFieldId, resolveField } from "./form-field-types";
-import { HtmlAttributes, resolveAttribute } from "./html-attribute-types";
-import { DOMNodeBuildError } from "../exceptions/exceptions";
-import { UserMessageId, lookupMessage } from "./i18n";
-import { AttribSettingsId, resolveAttribSetting } from "./atrrib-settings-types";
-import { setIcon } from "obsidian";
+import { setIcon } from 'obsidian';
 
+import { DOMNodeBuildError } from '../exceptions/exceptions';
+import { emptyString, WrapperType } from '../types/types';
+import { AttribSettingsId, resolveAttribSetting } from './atrrib-settings-types';
+import { FormFieldId, resolveField } from './form-field-types';
+import { HtmlAttributes, resolveAttribute } from './html-attribute-types';
+import { HtmlTags, resolveTag } from './html-element-types';
+import { lookupMessage, UserMessageId } from './i18n';
 
 type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettingsId | string ];
 type sectionContent = [HtmlTags, attribTuple[]];

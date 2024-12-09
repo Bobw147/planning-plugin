@@ -1,12 +1,13 @@
-import { Settings } from "src/settings/Settings";
-import { FileManager, TFile } from "obsidian";
-import { HtmlTags } from "../form-builder/html-element-types";
-import { NodeBuilder } from "../form-builder/node-builder";
-import { HtmlAttributes as attrib } from "../form-builder/html-attribute-types";
-import { FormFieldId as field } from "../form-builder/form-field-types";
-import { UserMessageId } from "../form-builder/i18n";
-import { AttribSettingsId } from "../form-builder/atrrib-settings-types";
-import { IPlanningIndexCard } from "../types/interfaces/i-planning-index-card";
+import { FileManager, TFile } from 'obsidian';
+import { Settings } from 'src/settings/Settings';
+
+import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
+import { FormFieldId as field } from '../form-builder/form-field-types';
+import { HtmlAttributes as attrib } from '../form-builder/html-attribute-types';
+import { HtmlTags } from '../form-builder/html-element-types';
+import { UserMessageId } from '../form-builder/i18n';
+import { NodeBuilder } from '../form-builder/node-builder';
+import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 
 /* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */
 export enum DisplayMode {

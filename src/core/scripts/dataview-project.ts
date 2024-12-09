@@ -1,5 +1,3 @@
-import { IProjectIndexCard } from "../projects";
-
 export const projectDataview = 
 " \
 ```IndexCard\n \

@@ -1,9 +1,10 @@
 import { App, MarkdownPostProcessorContext, Plugin, PluginManifest } from 'obsidian';
-import { DEFAULT_SETTINGS, Settings, PlanningSettingsTab } from 'src/settings/Settings';
-import { CommandHandler } from './handlers/command-handlers';
-import { Planner } from './core/planner';
-import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
+import { DEFAULT_SETTINGS, PlanningSettingsTab, Settings } from 'src/settings/Settings';
+
 import { DisplayMode } from './core/base-classes/generic-planning-form';
+import { Planner } from './core/planner';
+import { CommandHandler } from './handlers/command-handlers';
+import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 
   export default class PlanningPlugin extends Plugin {
 	public settings: Settings;

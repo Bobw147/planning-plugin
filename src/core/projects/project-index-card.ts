@@ -1,7 +1,8 @@
-import { PlanningIndexCard } from "../base-classes/index-card";
-import { IProjectIndexCard } from "../types/interfaces/i-project-index-card";
-import { FileManager, FrontMatterCache, TFile } from "obsidian";
-import { identTags } from "../types/types";
+import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+
+import { PlanningIndexCard } from '../base-classes/index-card';
+import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
+import { identTags } from '../types/types';
 
 const projectFieldNames = {
     PARENT_GOAL: "plparent"

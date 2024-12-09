@@ -1,9 +1,9 @@
-import  PlanningPlugin from "src/main";
-import { PluginSettingTab, Setting }  from "obsidian";
-import { FolderSuggest } from "./suggesters/FolderSuggester";
-import { defaultStatusTags } from "src/core/types/types";
-import { defaultCategoryTags } from "src/core/types/types";
-import { arraycopy, arraymove } from "src/utils/utils";
+import { PluginSettingTab, Setting } from 'obsidian';
+import { defaultCategoryTags, defaultStatusTags } from 'src/core/types/types';
+import PlanningPlugin from 'src/main';
+import { arraycopy, arraymove } from 'src/utils/utils';
+
+import { FolderSuggest } from './suggesters/FolderSuggester';
 
 export interface Settings {
 	goalsFolder: string;

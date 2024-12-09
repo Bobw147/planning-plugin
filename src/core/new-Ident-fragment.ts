@@ -1,8 +1,9 @@
-import { Ident, identTags, WrapperType } from "./types/types"; 
-import { Settings } from "src/settings/Settings";
-import { assignTagOptions, assignNameOptions } from "src/utils/utils";
-import { App } from "obsidian";
-import { FormFieldId, resolveField } from "./form-builder/form-field-types";
+import { App } from 'obsidian';
+import { Settings } from 'src/settings/Settings';
+import { assignNameOptions, assignTagOptions } from 'src/utils/utils';
+
+import { FormFieldId, resolveField } from './form-builder/form-field-types';
+import { Ident, identTags, WrapperType } from './types/types';
 
 export const newIdentFragment  = ' \
 <div> \

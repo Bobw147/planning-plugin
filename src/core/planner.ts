@@ -1,11 +1,13 @@
-import PlanningPlugin from "src/main"
-import { GoalsModal } from "./goals/goals";
-import { ProjectsModal } from "./projects/projects";
-import { TasksModal } from "./tasks/tasks";
-import { DisplayMode } from "./base-classes/generic-planning-form";
-import { GoalIndexCard } from "./goals/goal-index-card";
-import { ProjectIndexCard } from "./projects/project-index-card";
-import { TaskIndexCard } from "./tasks/task-index-card";
+import PlanningPlugin from 'src/main';
+
+import { DisplayMode } from './base-classes/generic-planning-form';
+import { GoalIndexCard } from './goals/goal-index-card';
+import { GoalsModal } from './goals/goals';
+import { ProjectIndexCard } from './projects/project-index-card';
+import { ProjectsModal } from './projects/projects';
+import { TaskIndexCard } from './tasks/task-index-card';
+import { TasksModal } from './tasks/tasks';
+
 export class Planner {
     private goals_modal?: GoalsModal | null;
     private projects_modal?: ProjectsModal | null;

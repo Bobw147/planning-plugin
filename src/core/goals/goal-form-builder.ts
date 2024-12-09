@@ -1,16 +1,17 @@
-import { FileManager, TFile } from "obsidian";
-import { GoalIndexCard } from "./goal-index-card";
-import { dateFormatter, flattenedTags } from "src/utils/utils";
-import { emptyString, WrapperType } from "../types/types";
-import { FormFieldId as field, FormFieldId, resolveField } from "../form-builder/form-field-types";
-import { HtmlTags } from "../form-builder/html-element-types";
-import { NodeBuilder } from "../form-builder/node-builder";
-import { HtmlAttributes } from "../form-builder/html-attribute-types";
-import { DisplayMode, IPlanningForm } from "../base-classes/generic-planning-form";
-import { AttribSettingsId } from "../form-builder/atrrib-settings-types";
-import { Settings } from "src/settings/Settings";
-import { GenericPlanningForm } from "../base-classes/generic-planning-form";
-import { assignTagOptions } from "src/utils/utils";
+import { FileManager, TFile } from 'obsidian';
+import { Settings } from 'src/settings/Settings';
+import { assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
+
+import {
+    DisplayMode, GenericPlanningForm, IPlanningForm
+} from '../base-classes/generic-planning-form';
+import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
+import { FormFieldId as field, resolveField } from '../form-builder/form-field-types';
+import { HtmlAttributes } from '../form-builder/html-attribute-types';
+import { HtmlTags } from '../form-builder/html-element-types';
+import { NodeBuilder } from '../form-builder/node-builder';
+import { emptyString, WrapperType } from '../types/types';
+import { GoalIndexCard } from './goal-index-card';
 
 export class GoalFormBuilder extends GenericPlanningForm implements IPlanningForm {
 

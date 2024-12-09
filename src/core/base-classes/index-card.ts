@@ -1,8 +1,8 @@
-import { arraycopy } from "src/utils/utils";
-import { TFile, FileManager } from "obsidian";
-import { FrontMatterCache } from "obsidian";
-import { UserTagError } from "../exceptions/exceptions";
-import { IPlanningIndexCard } from "../types/interfaces/i-planning-index-card";
+import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { arraycopy } from 'src/utils/utils';
+
+import { UserTagError } from '../exceptions/exceptions';
+import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 
 export const fieldNames = {
     NAME_FIELD: "plname",

@@ -3,7 +3,7 @@
 //
 // Create an enum for each attribute. The right hand value will become the
 // lookup key in the typechecked and interfaced dictionary below. 
-import { WrapperType } from "../types/types";
+import { WrapperType } from '../types/types';
 
 export enum HtmlAttributes {
     ABBR = "abbbr_attrib",

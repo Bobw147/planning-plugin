@@ -1,4 +1,4 @@
-import { FileManager, FrontMatterCache, TFile } from "obsidian";
+import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 
 export interface IPlanningIndexCard{
 

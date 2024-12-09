@@ -1,8 +1,9 @@
 // Credits go to Liam's Periodic Notes Plugin: https://github.com/liamcain/obsidian-periodic-notes
 // via SilentVoid13's Templater PlugIn: https://github.com/SilentVoid13/Templater
 
-import { App, TAbstractFile, TFolder } from "obsidian";
-import { TextInputSuggest } from "./suggest";
+import { App, TAbstractFile, TFolder } from 'obsidian';
+
+import { TextInputSuggest } from './suggest';
 
 export class FolderSuggest extends TextInputSuggest<TFolder> {
     constructor(app: App, inputEl: HTMLInputElement | HTMLTextAreaElement) {
