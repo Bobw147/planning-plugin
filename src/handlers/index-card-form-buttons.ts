@@ -1,7 +1,7 @@
 import { App } from "obsidian";
 import { Settings } from "src/settings/Settings";
 import { Planner } from "src/core/planner";
-import { DisplayMode } from "src/core/baseclasses/genericPlanningForm"; //TODO move DisplayMode to types.ts?
+import { DisplayMode } from "src/core/base-classes/generic-planning-form"; //TODO move DisplayMode to types.ts?
 
 //TODO Should I move this into the planner
 export function indexCardButtonHandler(app: App, source: string, el: HTMLElement, settings: Settings, planner: Planner): void {

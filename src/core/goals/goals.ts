@@ -2,12 +2,12 @@ import { App, Modal, TFile, Vault } from "obsidian";
 import { emptyString, identTags, WrapperType } from "../types/types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
-import { goalPageContent } from "../scripts/dataview_goal";
-import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
-import { GoalFormBuilder } from "./goalFormBuilder";
-import { UserMessageId, lookupMessage } from "../formbuilder/i18n";
-import { DisplayMode } from "../baseclasses/genericPlanningForm";
-import { GoalIndexCard } from "./goalIndexCard";
+import { goalPageContent } from "../scripts/dataview-goal";
+import { FormFieldId, resolveField } from "../form-builder/form-field-types";
+import { GoalFormBuilder } from "./goal-form-builder";
+import { UserMessageId, lookupMessage } from "../form-builder/i18n";
+import { DisplayMode } from "../base-classes/generic-planning-form";
+import { GoalIndexCard } from "./goal-index-card";
 
 export class GoalsModal extends Modal {
     private _settings: Settings;

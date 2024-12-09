@@ -1,10 +1,10 @@
-import { HtmlTags, resolveTag } from "./htmlElementTypes";
+import { HtmlTags, resolveTag } from "./html-element-types";
 import { emptyString, WrapperType } from "../types/types";
-import { FormFieldId, resolveField } from "./formFieldTypes";
-import { HtmlAttributes, resolveAttribute } from "./htmlAttributeTypes";
+import { FormFieldId, resolveField } from "./form-field-types";
+import { HtmlAttributes, resolveAttribute } from "./html-attribute-types";
 import { DOMNodeBuildError } from "../exceptions/exceptions";
 import { UserMessageId, lookupMessage } from "./i18n";
-import { AttribSettingsId, resolveAttribSetting } from "./AtrribSettingsTypes";
+import { AttribSettingsId, resolveAttribSetting } from "./atrrib-settings-types";
 import { setIcon } from "obsidian";
 
 

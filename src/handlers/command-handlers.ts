@@ -1,4 +1,4 @@
-import { DisplayMode } from "src/core/baseclasses/genericPlanningForm";
+import { DisplayMode } from "src/core/base-classes/generic-planning-form";
 import PlanningPlugin from "src/main";
 
 

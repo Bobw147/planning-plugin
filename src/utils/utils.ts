@@ -1,7 +1,7 @@
 // Credits go to SilentVoid13's Templater PlugIn: https://github.com/SilentVoid13/Templater
 
 import { App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault } from "obsidian";
-import { fieldNames } from "src/core/baseclasses/indexcard";
+import { fieldNames } from "src/core/base-classes/index-card";
 import { IDictionary } from "src/core/types/types";
 
 export function arraymove<T>(

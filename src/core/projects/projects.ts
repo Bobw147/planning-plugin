@@ -2,14 +2,14 @@ import { App, Modal,TFile,  Vault } from "obsidian";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
 import { emptyString, WrapperType } from "../types/types";
-import { ProjectIndexCard } from "./projectindexcard";
-import { ProjectFormBuilder } from "./projectFormBuilder";
-import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
-import { DisplayMode } from "../baseclasses/genericPlanningForm";
-import { projectPageContent } from "../scripts/dataview_project";
+import { ProjectIndexCard } from "./project-index-card";
+import { ProjectFormBuilder } from "./project-form-builder";
+import { FormFieldId, resolveField } from "../form-builder/form-field-types";
+import { DisplayMode } from "../base-classes/generic-planning-form";
+import { projectPageContent } from "../scripts/dataview-project";
 import { identTags } from "../types/types";
-import { UserMessageId } from "../formbuilder/i18n";
-import { lookupMessage } from "../formbuilder/i18n";
+import { UserMessageId } from "../form-builder/i18n";
+import { lookupMessage } from "../form-builder/i18n";
 
 export class ProjectsModal extends Modal {
     private settings: Settings;

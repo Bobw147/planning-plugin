@@ -1,4 +1,4 @@
-import { IPlanningIndexCard, PlanningIndexCard } from "../baseclasses/indexcard";
+import { IPlanningIndexCard, PlanningIndexCard } from "../base-classes/index-card";
 import { FileManager, FrontMatterCache, TFile } from "obsidian";
 import { identTags } from "../types/types";
 

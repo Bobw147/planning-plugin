@@ -2,13 +2,13 @@ import { App, Modal, TFile, Vault } from "obsidian";
 import { identTags, WrapperType, emptyString } from "../types/types";
 import { Settings } from "src/settings/Settings";
 import { createFolder } from "src/utils/utils";
-import { taskPageContent } from "../scripts/dataview_task";
-import { TaskIndexCard } from "./taskIndexCard";
-import { FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
-import { DisplayMode } from "../baseclasses/genericPlanningForm";
-import { UserMessageId } from "../formbuilder/i18n";
-import { TaskFormBuilder } from "./taskFormBuilder";
-import { lookupMessage } from "../formbuilder/i18n";
+import { taskPageContent } from "../scripts/dataview-task";
+import { TaskIndexCard } from "./task-index-card";
+import { FormFieldId, resolveField } from "../form-builder/form-field-types";
+import { DisplayMode } from "../base-classes/generic-planning-form";
+import { UserMessageId } from "../form-builder/i18n";
+import { TaskFormBuilder } from "./task-form-builder";
+import { lookupMessage } from "../form-builder/i18n";
 
 export class TasksModal extends Modal {
     private settings: Settings;

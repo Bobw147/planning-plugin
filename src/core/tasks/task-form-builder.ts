@@ -1,18 +1,19 @@
 import { FileManager, TFile } from "obsidian";
-import { GoalIndexCard } from "./goalIndexCard";
+import { FormFieldId, resolveField } from "../form-builder/form-field-types";
 import { dateFormatter, flattenedTags } from "src/utils/utils";
+import { TaskIndexCard } from "./task-index-card";
 import { emptyString, WrapperType } from "../types/types";
-import { FormFieldId as field, FormFieldId, resolveField } from "../formbuilder/formFieldTypes";
-import { HtmlTags } from "../formbuilder/htmlElementTypes";
-import { NodeBuilder } from "../formbuilder/nodebuilder";
-import { HtmlAttributes } from "../formbuilder/htmlAttributeTypes";
-import { DisplayMode, IPlanningForm } from "../baseclasses/genericPlanningForm";
-import { AttribSettingsId } from "../formbuilder/AtrribSettingsTypes";
+import { GenericPlanningForm, IPlanningForm } from "../base-classes/generic-planning-form";
 import { Settings } from "src/settings/Settings";
-import { GenericPlanningForm } from "../baseclasses/genericPlanningForm";
+import { NodeBuilder } from "../form-builder/node-builder";
 import { assignTagOptions } from "src/utils/utils";
+import { HtmlAttributes } from "../form-builder/html-attribute-types";
+import { HtmlTags } from "../form-builder/html-element-types";
+import { FormFieldId as field} from "../form-builder/form-field-types";
+import { DisplayMode } from "../base-classes/generic-planning-form";
+import { AttribSettingsId } from "../form-builder/atrrib-settings-types";
 
-export class GoalFormBuilder extends GenericPlanningForm implements IPlanningForm {
+export class TaskFormBuilder extends GenericPlanningForm implements IPlanningForm {
 
     buildForm(parent: HTMLElement): void {
         super.buildForm(parent);
@@ -24,9 +25,6 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         // Populate the Category & Status selectors with options the list contained in the plugin settings
         const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags)
-
-        const statusTagsDiv = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG_SECTION, WrapperType.NONE));
-        nodeBuilder.setAttributes(statusTagsDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
         // Hide the unused sections
         const memberOfDiv = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_SECTION, WrapperType.NONE));
@@ -41,59 +39,59 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
 
     async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
-        const goalIndexCard = new GoalIndexCard();
+        const taskIndexCard = new TaskIndexCard();
 
         // Add the CategoryTag options
-        const goalCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
-        assignTagOptions(goalCategorySelect, settings.categoryTags);
+        const taskCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
+        assignTagOptions(taskCategorySelect, settings.categoryTags);
     
         // Add the StatusTag options
-        const goalStatusSelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement
-        assignTagOptions(goalStatusSelect, settings.statusTags);
+        const taskStatusSelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement
+        assignTagOptions(taskStatusSelect, settings.statusTags);
 
         // Hide the Create and Cancel buttons
         nodeBuilder.setElementAttributes(FormFieldId.GF_BUTTONS, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
-        // Populate the goal index card
+        // Populate the task index card
         await fileManager.processFrontMatter(file, (frontmatter) => {
-            goalIndexCard.load(frontmatter);
+            taskIndexCard.load(frontmatter);
         });
 
         // Populate the form fields and make them read-only
         nodeBuilder.setElementAttributes(field.GF_NAME, [
-            [HtmlAttributes.VALUE, goalIndexCard.name],
+            [HtmlAttributes.VALUE, taskIndexCard.name],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
         nodeBuilder.setElementAttributes(field.GF_CATEGORY_TAG, [
-            [HtmlAttributes.VALUE, goalIndexCard.categoryTag],
+            [HtmlAttributes.VALUE, taskIndexCard.categoryTag],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
         nodeBuilder.setElementAttributes(field.GF_STATUS_TAG, [
-            [HtmlAttributes.VALUE, goalIndexCard.statusTag],
+            [HtmlAttributes.VALUE, taskIndexCard.statusTag],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
         nodeBuilder.setElementAttributes(field.GF_TARGET_DATE, [
-            [HtmlAttributes.VALUE, (goalIndexCard.targetDate != null) ? dateFormatter(goalIndexCard.targetDate) : emptyString],
+            [HtmlAttributes.VALUE, (taskIndexCard.targetDate != null) ? dateFormatter(taskIndexCard.targetDate) : emptyString],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
         nodeBuilder.setElementAttributes(field.GF_EXPECTED_DATE, [
-            [HtmlAttributes.VALUE, (goalIndexCard.expectedDate != null) ? dateFormatter(goalIndexCard.expectedDate) : emptyString],
+            [HtmlAttributes.VALUE, (taskIndexCard.expectedDate != null) ? dateFormatter(taskIndexCard.expectedDate) : emptyString],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
         nodeBuilder.setElementAttributes(field.GF_COMPLETED_DATE, [
-            [HtmlAttributes.VALUE, (goalIndexCard.completedDate != null) ? dateFormatter(goalIndexCard.completedDate) : emptyString],
+            [HtmlAttributes.VALUE, (taskIndexCard.completedDate != null) ? dateFormatter(taskIndexCard.completedDate) : emptyString],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
         nodeBuilder.setElementAttributes(field.GF_USER_TAGS, [
-            [HtmlAttributes.VALUE, flattenedTags(goalIndexCard.userTags)],
+            [HtmlAttributes.VALUE, flattenedTags(taskIndexCard.userTags)],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
     }
 
-    updateIndexCard(goalIndexCard: GoalIndexCard, displayMode: DisplayMode): void {
-        goalIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
-        goalIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
-        goalIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
+    updateIndexCard(taskIndexCard: TaskIndexCard, displayMode: DisplayMode): void {
+        taskIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
+        taskIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
+        taskIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
         if (displayMode == DisplayMode.INDEX_CARD_MODE) {
 
         }

@@ -2,55 +2,20 @@ import { arraycopy } from "src/utils/utils";
 import { TFile, FileManager } from "obsidian";
 import { FrontMatterCache } from "obsidian";
 import { UserTagError } from "../exceptions/exceptions";
+import { IPlanningIndexCard } from "./i-planning-index-card";
 
 export const fieldNames = {
-    NAME_FIELD: "pname",
-    CATEGORY_TAG_FIELD: "pcategory",
-    IDENT_TAG_FIELD: "pidentTag",
-    STATUS_TAG_FIELD: "pstatusTagField",
-    TARGET_DATE_FIELD: "ptargetDate",
-    EXPECTED_DATE_FIELD: "pexpectedDateField",
-    COMPLETED_DATE_FIELD: "pcompletedDateField",
+    NAME_FIELD: "plname",
+    PARENT_FIELD: "plparent",
+    CATEGORY_TAG_FIELD: "plcategory",
+    IDENT_TAG_FIELD: "plidentTag",
+    STATUS_TAG_FIELD: "plstatusTagField",
+    TARGET_DATE_FIELD: "pltargetDate",
+    EXPECTED_DATE_FIELD: "plexpectedDateField",
+    COMPLETED_DATE_FIELD: "plcompletedDateField",
     USER_TAGS_FIELD: "puserTags"
 }
 
-export interface IPlanningIndexCard{
-    _name: string;
-    _categoryTag: string;
-    _identTag: string;
-    _statusTag: string;
-    _targetDate: Date | null;
-    _expectedDate: Date | null;
-    _completedDate: Date | null;
-    _userTags: string[];
-
-    load(frontmatter: FrontMatterCache): void;
-    save(filemanager: FileManager, file: TFile): void;
-
-    get name(): string;
-    set name(value: string);
-
-    get categoryTag(): string;
-    set categoryTag(value: string);
-
-    get identTag(): string;
-    set identTag(value: string);
-
-    get statusTag(): string;
-    set statusTag(value: string);
-
-    get targetDate(): Date | null;
-    set targetDate(value: Date | null);
-
-    get expectedDate(): Date | null;
-    set expectedDate(value: Date | null);
-
-    get completedDate(): Date | null;
-    set completedDate(value: Date | null);
-
-    get userTags(): string[];
-    set userTags(value: string[]);
-}
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
     _name: string;
