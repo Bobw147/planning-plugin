@@ -1,6 +1,7 @@
 export enum AttribSettingsId {
     DATE = 'attrib_setting_date',
     FALSE = 'attrib_setting_false',
+    NONE = 'attrib_setting_none',
     TEXT = 'attrib_setting_text',
     TRUE = 'attrib_setting_true',
     LOCK = 'attrib_setting_lock',
@@ -10,16 +11,19 @@ export enum AttribSettingsId {
 interface IAttribSettingTypes {
     [AttribSettingsId.DATE]: string;
     [AttribSettingsId.FALSE]: string;
+    [AttribSettingsId.NONE]: string;
     [AttribSettingsId.TEXT]: string;
     [AttribSettingsId.TRUE]: string;
     [AttribSettingsId.LOCK]: string;
     [AttribSettingsId.UNLOCK]: string;
+
 }
 
 const attributeSettingsDictionary: IAttribSettingTypes = {
     [AttribSettingsId.DATE]: 'date',
     [AttribSettingsId.FALSE]: 'false',
     [AttribSettingsId.TEXT]: 'text',
+    [AttribSettingsId.NONE]: 'none',
     [AttribSettingsId.TRUE]: 'true',
     [AttribSettingsId.LOCK]: 'lock',
     [AttribSettingsId.UNLOCK]: 'lock-open',
