@@ -4,6 +4,7 @@ export enum FormFieldId {
     // Style class names
     STYLE_DIV_VISIBLE = "style_div_visible",
     STYLE_DIV_HIDDEN = "style_div_hidden",
+    STYLE_ICON_HIDDEN = "style_icon_hidden",
 
     // Goal Creation Form
     ID_CF_GOAL_BLOCK = "id_cf_goal_block",
@@ -125,7 +126,7 @@ export enum FormFieldId {
 interface IFormFieldDictionaryType{
     [FormFieldId.STYLE_DIV_VISIBLE]: string;
     [FormFieldId.STYLE_DIV_HIDDEN]: string;
-
+    [FormFieldId.STYLE_ICON_HIDDEN]: string;
     // Goal Creation Form
     [FormFieldId.ID_CF_GOAL_BLOCK]: string;
     [FormFieldId.ID_CF_GOAL_NAME]: string;
@@ -252,6 +253,7 @@ interface IFormFieldDictionaryType{
 const formFieldDictionary: IFormFieldDictionaryType = {
     [FormFieldId.STYLE_DIV_VISIBLE]: 'cf-pl-visible',
     [FormFieldId.STYLE_DIV_HIDDEN]: 'cf-pl-hidden',
+    [FormFieldId.STYLE_ICON_HIDDEN]: 'cf-pl-hidden',
 
     // Goal Rreation Form
     [FormFieldId.ID_CF_GOAL_BLOCK]: 'cf-goal-block',
