@@ -39,9 +39,8 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         nodeBuilder.setAttributes(completedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
     }
 
-    async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(settings: Settings, goalIndexCard: GoalIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
-        const goalIndexCard = new GoalIndexCard();
 
         // Add the CategoryTag options
         const goalCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement

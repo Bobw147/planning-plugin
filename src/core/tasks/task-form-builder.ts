@@ -37,7 +37,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         nodeBuilder.setAttributes(completedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
     }
 
-    async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(settings: Settings, taskIndexCard: TaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
         const taskIndexCard = new TaskIndexCard();
 

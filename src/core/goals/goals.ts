@@ -59,7 +59,7 @@ export class GoalsModal extends Modal {
             }
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
-            this.goalForm.configureForIndexCardMode(this._settings, this.app.fileManager, file as TFile)
+            this.goalForm.configureForIndexCardMode(this._settings, this.goalIndexCard, this.app.fileManager, this.app.workspace.getActiveFile() as TFile)
         }
     }
 }

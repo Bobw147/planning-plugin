@@ -26,7 +26,7 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
 
     }
 
-    async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(settings: Settings, projectIndexCard: ProjectIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
 
     }
 

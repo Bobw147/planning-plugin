@@ -6,7 +6,7 @@ import { HtmlAttributes as attrib } from "../form-builder/html-attribute-types";
 import { FormFieldId as field } from "../form-builder/form-field-types";
 import { UserMessageId } from "../form-builder/i18n";
 import { AttribSettingsId } from "../form-builder/atrrib-settings-types";
-import { IPlanningIndexCard } from "./i-planning-index-card";
+import { IPlanningIndexCard } from "../types/interfaces/i-planning-index-card";
 
 /* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */
 export enum DisplayMode {
@@ -18,7 +18,7 @@ export enum DisplayMode {
 export interface IPlanningForm {
     buildForm(parent: HTMLElement) : void;
     configureForCreateMode(settings: Settings): void
-    configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void>;
+    configureForIndexCardMode(settings: Settings, indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void>;
     updateIndexCard(indexCard: IPlanningIndexCard, displayMode: DisplayMode): void;
 }
 
@@ -226,7 +226,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
 
     }
 
-    async configureForIndexCardMode(settings: Settings, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(settings: Settings, indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
 
     }
 
