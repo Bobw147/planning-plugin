@@ -1,14 +1,6 @@
 import { FileManager, FrontMatterCache, TFile } from "obsidian";
 
 export interface IPlanningIndexCard{
-    _name: string;
-    _categoryTag: string;
-    _identTag: string;
-    _statusTag: string;
-    _targetDate: Date | null;
-    _expectedDate: Date | null;
-    _completedDate: Date | null;
-    _userTags: string[];
 
     load(frontmatter: FrontMatterCache): void;
     save(filemanager: FileManager, file: TFile): void;
