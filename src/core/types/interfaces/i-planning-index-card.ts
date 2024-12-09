@@ -12,7 +12,6 @@ export interface IPlanningIndexCard{
     set categoryTag(value: string);
 
     get identTag(): string;
-    set identTag(value: string);
 
     get statusTag(): string;
     set statusTag(value: string);
