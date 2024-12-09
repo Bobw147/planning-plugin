@@ -34,7 +34,15 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         nodeBuilder.setAttributes(expectedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
         const completedDateSectionDiv = document.getElementById(resolveField(FormFieldId.GF_COMPLETED_DATE_SECTION, WrapperType.NONE));
+
+        // Hide the icons
         nodeBuilder.setAttributes(completedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_CATEGORY_TAG_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_STATUS_TAG_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
     }
 
     async configureForIndexCardMode(settings: Settings, taskIndexCard: TaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {

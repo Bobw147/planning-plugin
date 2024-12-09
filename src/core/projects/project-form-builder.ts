@@ -19,12 +19,22 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     }
 
     configureForCreateMode(settings: Settings): void {
+        const nodeBuilder = new NodeBuilder();
+
         // Populate the Category and Status Tag Selects
         const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags)
 
         const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags)
+
+        // Hide the icons
+        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_CATEGORY_TAG_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_STATUS_TAG_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
 
     }
 
