@@ -7,18 +7,15 @@ const taskFieldNames = {
 }
 
 export interface ITaskIndexCard extends IPlanningIndexCard {
-    _parentProject: string;
-
     get parentProject(): string;
     set parentProject(value: string);
 }
 
 export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
-    _parentProject: string;
+    private _parentProject: string;
 
     constructor(){
-        super();
-        super.identTag = identTags.PLANNING_TASK;
+        super(identTags.PLANNING_TASK);
         this._parentProject = "";
     }
 

@@ -8,19 +8,16 @@ const projectFieldNames = {
 }
 
 export interface IProjectIndexCard extends IPlanningIndexCard{
-    _parentGoal: string;
-
     get parentGoal() : string;
     set parentGoal(value: string);
 }
 
 export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndexCard {
-    _parentGoal: string;
+    private _parentGoal: string;
     
     constructor() {
-        super();
+        super(identTags.PLANNING_GOAL);
         this._parentGoal = "";
-        this._identTag = identTags.PLANNING_PROJECT;
     }
 
     async load(frontmatter: FrontMatterCache): Promise<void> {

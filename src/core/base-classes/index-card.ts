@@ -26,10 +26,10 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _completedDate: Date | null;
     private _userTags: string[];
 
-    constructor() {
+    constructor(identTag: string) {
         this._name = "";
         this._categoryTag = "";
-        this._identTag = "";
+        this._identTag = identTag;
         this._statusTag = "";
         this._targetDate = null;
         this._expectedDate = null;
@@ -81,8 +81,8 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         return this._identTag;
     }
 
-    set identTag(value: string) {
-        this._identTag = (this._validateTag(value, "#status/")) ? value : "";
+    protected set identTag(value: string) {
+        this._identTag = (this._validateTag(value, "#planning/")) ? value : "";
     }
 
     get statusTag(): string {
