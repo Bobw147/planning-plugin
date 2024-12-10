@@ -73,6 +73,12 @@ export class NodeBuilder{
         }
     }
 
+    setElementsAttributes(fieldIds: FormFieldId[], attribs: attribTuple[]): void {
+        fieldIds?.forEach((fieldId) => {
+            this.setElementAttributes(fieldId, attribs);
+        });
+    }
+
     setAttributes(tag:HTMLElement| Element | undefined | null, attribs?: attribTuple[]): void {
         if (tag === null || attribs === undefined)
             return;
