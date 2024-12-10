@@ -12,6 +12,7 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
+import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString, WrapperType } from '../types/types';
 import { TaskIndexCard } from './task-index-card';
 
@@ -31,17 +32,14 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags);
 
+        // Set the label for the Member Of field
+        nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL]]);
+
         // Hide the unused sections
-        const memberOfDiv = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_SECTION, WrapperType.NONE));
-        nodeBuilder.setAttributes(memberOfDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
-
-        const expectedDateSectionDiv = document.getElementById(resolveField(FormFieldId.GF_EXPECTED_DATE_SECTION, WrapperType.NONE));
-        nodeBuilder.setAttributes(expectedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
-
-        const completedDateSectionDiv = document.getElementById(resolveField(FormFieldId.GF_COMPLETED_DATE_SECTION, WrapperType.NONE));
+        nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
         // Hide the icons
-        nodeBuilder.setAttributes(completedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
         nodeBuilder.setElementAttributes(FormFieldId.GF_CATEGORY_TAG_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
@@ -100,7 +98,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         ]);
     }
 
-    updateIndexCard(taskIndexCard: TaskIndexCard, displayMode: DisplayMode): void {
+    updateIndexCard(taskIndexCard: ITaskIndexCard, displayMode: DisplayMode): void {
         taskIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
         taskIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
         taskIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));

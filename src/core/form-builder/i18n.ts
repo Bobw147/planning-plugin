@@ -24,6 +24,9 @@ export enum UserMessageId {
     PROJECT_CREATE_BUTTON_TEXT = "pcbt",
     TASK_CREATE_BUTTON_TEXT = "tcbt",
     CANCEL_BUTTON_TEXT = "cbt",
+    PARENT_GOAL_LABEL = "spg",
+    PARENT_PROJECT_LABEL = "spp",
+    PARENT_TASK_LABEL = "spt",
 }
 
 interface IUserMessageDictionary {
@@ -43,6 +46,9 @@ interface IUserMessageDictionary {
     [UserMessageId.PROJECT_CREATE_BUTTON_TEXT]: string[];
     [UserMessageId.TASK_CREATE_BUTTON_TEXT]: string[];
     [UserMessageId.CANCEL_BUTTON_TEXT]: string[];
+    [UserMessageId.PARENT_GOAL_LABEL]: string[];
+    [UserMessageId.PARENT_PROJECT_LABEL]: string[];
+    [UserMessageId.PARENT_TASK_LABEL]: string[];
 }
 
 const language = Language.ENGLISH;
@@ -54,7 +60,7 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.CREATE_TASK_TITLE]: ["Create a new Task"],
     [UserMessageId.GOAL_NAME_LABEL]: ["Enter name of Goal: "],
     [UserMessageId.SUBTASK_CHECKBOX_LABEL]: ["Create as a subtask"],
-    [UserMessageId.MEMBER_OF_LABEL]: ["Member of Goal: "],
+    [UserMessageId.MEMBER_OF_LABEL]: ["Member of Goal "],
     [UserMessageId.CATEGORY_TAG_LABEL]: ["Category: "], 
     [UserMessageId.STATUS_TAG_LABEL]: ["Status:"],
     [UserMessageId.TARGET_DATE_LABEL]: ["Target Date:"],
@@ -65,6 +71,9 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.PROJECT_CREATE_BUTTON_TEXT]: ["Create Project"],
     [UserMessageId.TASK_CREATE_BUTTON_TEXT]: ["Create Task"],
     [UserMessageId.CANCEL_BUTTON_TEXT]: ["Cancel"],
+    [UserMessageId.PARENT_GOAL_LABEL]: ["Select parent Goal"],
+    [UserMessageId.PARENT_PROJECT_LABEL]: ["Select parent Project"],
+    [UserMessageId.PARENT_TASK_LABEL]: ["Select parent Task"],
 }
 
 export function lookupMessage(userMessageId: UserMessageId): string {
