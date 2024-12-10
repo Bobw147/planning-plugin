@@ -12,6 +12,7 @@ export enum UserMessageId {
     CREATE_PROJECT_TITLE = "cpt",
     CREATE_TASK_TITLE = "ctt",
     GOAL_NAME_LABEL = "gnl",
+    SUBTASK_CHECKBOX_LABEL = "scl",
     MEMBER_OF_LABEL = "mol",
     CATEGORY_TAG_LABEL = "ctl",
     STATUS_TAG_LABEL = "stl",
@@ -30,6 +31,7 @@ interface IUserMessageDictionary {
     [UserMessageId.CREATE_PROJECT_TITLE]: string[];
     [UserMessageId.CREATE_TASK_TITLE]: string[];
     [UserMessageId.GOAL_NAME_LABEL]: string[];
+    [UserMessageId.SUBTASK_CHECKBOX_LABEL]: string[];
     [UserMessageId.MEMBER_OF_LABEL]: string[];
     [UserMessageId.CATEGORY_TAG_LABEL]: string[];
     [UserMessageId.STATUS_TAG_LABEL]: string[];
@@ -51,8 +53,9 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.CREATE_PROJECT_TITLE]: ["Create a new Project"],
     [UserMessageId.CREATE_TASK_TITLE]: ["Create a new Task"],
     [UserMessageId.GOAL_NAME_LABEL]: ["Enter name of Goal: "],
+    [UserMessageId.SUBTASK_CHECKBOX_LABEL]: ["Create as a subtask"],
     [UserMessageId.MEMBER_OF_LABEL]: ["Member of Goal: "],
-    [UserMessageId.CATEGORY_TAG_LABEL]: ["Category: "],
+    [UserMessageId.CATEGORY_TAG_LABEL]: ["Category: "], 
     [UserMessageId.STATUS_TAG_LABEL]: ["Status:"],
     [UserMessageId.TARGET_DATE_LABEL]: ["Target Date:"],
     [UserMessageId.EXPECTED_DATE_LABEL]: ["Expected Date:"],

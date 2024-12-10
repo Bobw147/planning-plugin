@@ -1,4 +1,4 @@
-import { FileManager, TFile } from 'obsidian';
+import { AbstractTextComponent, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
@@ -40,7 +40,9 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             ]);
 
             /*==== Create the GoalName section ====*/
-            const nameContainerDiv = nodeBuilder.createElement(HtmlTags.DIV);
+            const nameContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+                [attrib.ID, field.GF_NAME_SECTION],
+            ]);
             nameContainerDiv.appendChild(
                 nodeBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_NAME_LABEL],
@@ -59,7 +61,23 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             );
             containerDiv?.appendChild(nameContainerDiv);
 
-            /*==== Create the Member of section ===*/
+            /*==== Create the subtask checkbox section ====*/
+            const subtaskCheckboxDiv = nodeBuilder.createElement(HtmlTags.DIV, [
+                [attrib.ID, field.GF_SUBTASK_CHECKBOX_SECTION],
+            ])
+            subtaskCheckboxDiv.appendChild(
+                nodeBuilder.createElement(HtmlTags.LABEL, [
+                    [attrib.INNERTEXT, UserMessageId.SUBTASK_CHECKBOX_LABEL],
+                ])
+            ).parentElement?.appendChild(
+                nodeBuilder.createElement(HtmlTags.INPUT, [
+                    [attrib.ID, field.GF_SUBTASK_CHECKBOX],
+                    [attrib.TYPE, AttribSettingsId.CHECKBOX],
+                ])
+            );
+            containerDiv.appendChild(subtaskCheckboxDiv);
+
+            /*==== Create the Member of section ====*/
             const memberOfContainerDiv = nodeBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_MEMBER_OF_SECTION]
             ]);

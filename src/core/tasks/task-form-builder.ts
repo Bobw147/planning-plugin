@@ -5,10 +5,12 @@ import { assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils'
 import {
     DisplayMode, GenericPlanningForm, IPlanningForm
 } from '../base-classes/generic-planning-form';
+import { fieldNames } from '../base-classes/index-card';
 import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
 import { FormFieldId, resolveField } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
+import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { emptyString, WrapperType } from '../types/types';
 import { TaskIndexCard } from './task-index-card';
@@ -24,7 +26,10 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
 
         // Populate the Category & Status selectors with options the list contained in the plugin settings
         const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
-        assignTagOptions(categorySelect, settings.categoryTags)
+        assignTagOptions(categorySelect, settings.categoryTags);
+
+        const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        assignTagOptions(statusSelect, settings.statusTags);
 
         // Hide the unused sections
         const memberOfDiv = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_SECTION, WrapperType.NONE));

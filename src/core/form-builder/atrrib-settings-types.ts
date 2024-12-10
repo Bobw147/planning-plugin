@@ -1,4 +1,6 @@
 export enum AttribSettingsId {
+    
+    CHECKBOX = 'attrib_setting_checkbox',
     DATE = 'attrib_setting_date',
     FALSE = 'attrib_setting_false',
     NONE = 'attrib_setting_none',
@@ -9,6 +11,7 @@ export enum AttribSettingsId {
 }
 
 interface IAttribSettingTypes {
+    [AttribSettingsId.CHECKBOX]: string;
     [AttribSettingsId.DATE]: string;
     [AttribSettingsId.FALSE]: string;
     [AttribSettingsId.NONE]: string;
@@ -20,6 +23,7 @@ interface IAttribSettingTypes {
 }
 
 const attributeSettingsDictionary: IAttribSettingTypes = {
+    [AttribSettingsId.CHECKBOX]: 'checkbox',
     [AttribSettingsId.DATE]: 'date',
     [AttribSettingsId.FALSE]: 'false',
     [AttribSettingsId.TEXT]: 'text',
