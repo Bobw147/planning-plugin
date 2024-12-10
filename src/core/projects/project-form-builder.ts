@@ -32,6 +32,11 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         // Set the label for the Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_GOAL_LABEL]]);
 
+        // Hide the irrelevanrt fields
+        nodeBuilder.setElementAttributes(FormFieldId.GF_STATUS_TAG_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+
         // Hide the subtask checkbox
         nodeBuilder.setElementAttributes(FormFieldId.GF_SUBTASK_CHECKBOX_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
