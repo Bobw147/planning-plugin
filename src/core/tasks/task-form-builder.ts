@@ -36,16 +36,21 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL]]);
 
         // Hide the unused sections
-        nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementsAttributes([
+            FormFieldId.GF_EXPECTED_DATE_SECTION,
+            FormFieldId.GF_COMPLETED_DATE_SECTION, [HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]
+        ]);
 
         // Hide the icons
-        nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
-        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
-        nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
-        nodeBuilder.setElementAttributes(FormFieldId.GF_CATEGORY_TAG_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
-        nodeBuilder.setElementAttributes(FormFieldId.GF_STATUS_TAG_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
-        nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
-        nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
+        nodeBuilder.setElementsAttributes([
+            FormFieldId.GF_COMPLETED_DATE_SECTION,
+            FormFieldId.GF_NAME_ICON,
+            FormFieldId.GF_MEMBER_OF_ICON,
+            FormFieldId.GF_CATEGORY_TAG_ICON,
+            FormFieldId.GF_STATUS_TAG_ICON,
+            FormFieldId.GF_TARGET_DATE_ICON,
+            FormFieldId.GF_USER_TAGS_ICON,         
+        ], [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
     }
 
     async configureForIndexCardMode(settings: Settings, taskIndexCard: TaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {

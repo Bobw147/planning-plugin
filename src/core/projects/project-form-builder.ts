@@ -40,7 +40,6 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
             FormFieldId.GF_NAME_ICON,
             FormFieldId.GF_MEMBER_OF_ICON,
             FormFieldId.GF_CATEGORY_TAG_ICON,
-            FormFieldId.GF_STATUS_TAG_ICON,
             FormFieldId.GF_TARGET_DATE_ICON,
             FormFieldId.GF_USER_TAGS_ICON,
            ],[[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]])
