@@ -28,6 +28,9 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags)
 
+        // Hide the subtask checkbox
+        nodeBuilder.setElementAttributes(FormFieldId.GF_SUBTASK_CHECKBOX_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+
         // Hide the icons
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);

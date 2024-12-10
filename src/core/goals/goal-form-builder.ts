@@ -30,14 +30,10 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         nodeBuilder.setAttributes(statusTagsDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
         // Hide the unused sections
-        const memberOfDiv = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_SECTION, WrapperType.NONE));
-        nodeBuilder.setAttributes(memberOfDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
-
-        const expectedDateSectionDiv = document.getElementById(resolveField(FormFieldId.GF_EXPECTED_DATE_SECTION, WrapperType.NONE));
-        nodeBuilder.setAttributes(expectedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
-
-        const completedDateSectionDiv = document.getElementById(resolveField(FormFieldId.GF_COMPLETED_DATE_SECTION, WrapperType.NONE));
-        nodeBuilder.setAttributes(completedDateSectionDiv, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_SUBTASK_CHECKBOX_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+        nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE_SECTION, [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
         // Hide the icons
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_ICON, [[HtmlAttributes.CLASS, FormFieldId.STYLE_ICON_HIDDEN]]);
