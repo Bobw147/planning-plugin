@@ -1,4 +1,4 @@
-import { FileManager, TFile } from 'obsidian';
+import { App, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 import { assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
 
@@ -19,7 +19,7 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         super.buildForm(parent);
     }
 
-    configureForCreateMode(settings: Settings): void {
+    configureForCreateMode(app: App, settings: Settings): void {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Category & Status selectors with options the list contained in the plugin settings

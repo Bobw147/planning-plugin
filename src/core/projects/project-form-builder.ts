@@ -1,6 +1,6 @@
-import { FileManager, TFile } from 'obsidian';
+import { App, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
+import { assignNameOptions, assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
 
 import {
     DisplayMode, GenericPlanningForm, IPlanningForm
@@ -10,7 +10,7 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
-import { emptyString, WrapperType } from '../types/types';
+import { emptyString, identTags, WrapperType } from '../types/types';
 import { IProjectIndexCard, ProjectIndexCard } from './project-index-card';
 
 export class ProjectFormBuilder extends GenericPlanningForm implements IPlanningForm {
@@ -19,7 +19,7 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         super.buildForm(parent);
     }
 
-    configureForCreateMode(settings: Settings): void {
+    configureForCreateMode(app: App, settings: Settings): void {
         const nodeBuilder = new NodeBuilder();
 
         // Populate the Category and Status Tag Selects
@@ -29,8 +29,17 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags)
 
-        // Set the label for the Member Of field
+        const memberOf = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_NAME, WrapperType.NONE)) as HTMLSelectElement;
+        assignNameOptions(memberOf, app, settings.goalsFolder, identTags.PLANNING_GOAL);
+
+        // Set the label for the Name and Member Of field
+        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_NAME_LABEL]])
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_GOAL_LABEL]]);
+
+        // Set the prompt on the Create button
+        nodeBuilder.setElementAttributes(FormFieldId.GF_CREATE_BUTTON, [
+            [HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_CREATE_BUTTON_TEXT],
+        ]);
 
         nodeBuilder.setElementsAttributes([
             FormFieldId.GF_STATUS_TAG_SECTION,

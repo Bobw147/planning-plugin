@@ -1,4 +1,4 @@
-import { AbstractTextComponent, FileManager, TFile } from 'obsidian';
+import { App, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
@@ -18,7 +18,7 @@ export enum DisplayMode {
 
 export interface IPlanningForm {
     buildForm(parent: HTMLElement) : void;
-    configureForCreateMode(settings: Settings): void
+    configureForCreateMode(app: App, settings: Settings): void
     configureForIndexCardMode(settings: Settings, indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void>;
     updateIndexCard(indexCard: IPlanningIndexCard, displayMode: DisplayMode): void;
 }
@@ -241,7 +241,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
 
     }
     
-    configureForCreateMode(settings: Settings): void {
+    configureForCreateMode(app: App, settings: Settings): void {
 
     }
 
