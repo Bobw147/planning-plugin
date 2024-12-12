@@ -27,6 +27,8 @@ export enum UserMessageId {
     PARENT_GOAL_LABEL = "spg",
     PARENT_PROJECT_LABEL = "spp",
     PARENT_TASK_LABEL = "spt",
+    PROJECT_NAME_LABEL = "pnl",
+    TASK_NAME_LABEL = "tnl",
 }
 
 interface IUserMessageDictionary {
@@ -49,6 +51,8 @@ interface IUserMessageDictionary {
     [UserMessageId.PARENT_GOAL_LABEL]: string[];
     [UserMessageId.PARENT_PROJECT_LABEL]: string[];
     [UserMessageId.PARENT_TASK_LABEL]: string[];
+    [UserMessageId.PROJECT_NAME_LABEL]: string[];
+    [UserMessageId.TASK_NAME_LABEL]: string[];
 }
 
 const language = Language.ENGLISH;
@@ -74,6 +78,8 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.PARENT_GOAL_LABEL]: ["Select parent Goal"],
     [UserMessageId.PARENT_PROJECT_LABEL]: ["Select parent Project"],
     [UserMessageId.PARENT_TASK_LABEL]: ["Select parent Task"],
+    [UserMessageId.PROJECT_NAME_LABEL]: ["Enter project name"],
+    [UserMessageId.TASK_NAME_LABEL]: ["Enter task name"],
 }
 
 export function lookupMessage(userMessageId: UserMessageId): string {
