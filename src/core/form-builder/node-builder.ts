@@ -11,12 +11,23 @@ import { lookupMessage, UserMessageId } from './i18n';
 type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettingsId | string ];
 type sectionContent = [HtmlTags, attribTuple[]];
 
+/* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */
 enum Contents {
     TAG_ID = 0,
     ATTRIBS = 1,
 }
 
+const empty = 0;
+const start = 0;
 export class NodeBuilder{
+
+    clearOptions(tagId: FormFieldId) {
+        const selectElement = document.getElementById(resolveField(tagId, WrapperType.NONE)) as HTMLSelectElement;
+        while (selectElement.length > empty) {
+            selectElement.remove(start);
+        }
+    }
+
     // Creates the tag and passes the tag and attribs to setAttributes
     createElement(tagId: HtmlTags, attribs?: attribTuple[]): HTMLElement | Element {
         // Create the node
