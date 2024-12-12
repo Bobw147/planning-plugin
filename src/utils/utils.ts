@@ -6,6 +6,7 @@ import {
 import { fieldNames } from 'src/core/base-classes/index-card';
 import { IDictionary } from 'src/core/types/types';
 
+/* Arraye helpers */
 export function arraymove<T>(
     arr: T[],
     fromIndex: number,
@@ -23,6 +24,7 @@ export function arraycopy<T>(source: T): T {
     return JSON.parse(JSON.stringify(source)) as typeof source
 }
 
+/* Folder helpers */
 export async function createFolder(vault: Vault, path: string){
     let vaultFolder = "";
 
@@ -35,11 +37,13 @@ export async function createFolder(vault: Vault, path: string){
     });
 }
 
+/* Date helpers */
 export function dateFormatter(date: Date): string {
     const splitDate: string = date.toISOString().split("T")[0];
     return (splitDate != "1970-01-01") ? splitDate : "";
 } 
 
+/* Tag helpers */
 export function flattenedTags(userTags: string[]) : string {
     const testArray: string[] = ["#mytag", "#region", "#endregion" ];
     const flattened: string =  testArray.flat().join(", ");
