@@ -37,7 +37,7 @@ export class GoalsModal extends Modal {
 
         this.open();
         if (this.displayMode == DisplayMode.CREATE_MODE) {
-            this.goalForm.configureForCreateMode(this._settings);
+            this.goalForm.configureForCreateMode(this.app, this._settings);
 
             //  Add a handler to the 'Create' button
             (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
