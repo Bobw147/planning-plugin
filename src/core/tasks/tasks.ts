@@ -36,7 +36,7 @@ export class TasksModal extends Modal {
         this.open();
 
         if (this.displayMode == DisplayMode.CREATE_MODE) {
-            this.taskForm.configureForCreateMode(this.settings);
+            this.taskForm.configureForCreateMode(this.app, this.settings);
             
             (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
                 this.taskForm.updateIndexCard(this.taskIndexCard, this.displayMode);
