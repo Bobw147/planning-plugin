@@ -1,6 +1,6 @@
-import { FileManager, TFile } from 'obsidian';
+import { App, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
+import { assignNameOptions, assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
 
 import {
     DisplayMode, GenericPlanningForm, IPlanningForm
@@ -13,7 +13,7 @@ import { HtmlTags } from '../form-builder/html-element-types';
 import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { emptyString, WrapperType } from '../types/types';
+import { emptyString, identTags, WrapperType } from '../types/types';
 import { TaskIndexCard } from './task-index-card';
 
 export class TaskFormBuilder extends GenericPlanningForm implements IPlanningForm {
@@ -22,7 +22,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         super.buildForm(parent);
     }
 
-    configureForCreateMode(settings: Settings): void {
+    configureForCreateMode(app: App, settings: Settings): void {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Category & Status selectors with options the list contained in the plugin settings
@@ -32,17 +32,23 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags);
 
+        // Set the label for the name field
+        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.TASK_NAME_LABEL]]);
+
         // Set the label for the Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL]]);
 
-        // Hide the unused sections
-        nodeBuilder.setElementsAttributes([
-            FormFieldId.GF_EXPECTED_DATE_SECTION,
-            FormFieldId.GF_COMPLETED_DATE_SECTION, [HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]
+        const memberOf = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_NAME, WrapperType.NONE)) as HTMLSelectElement;
+        assignNameOptions(memberOf, app, settings.projectsFolder, identTags.PLANNING_PROJECT);
+
+        // Set the prompt on the Create button
+        nodeBuilder.setElementAttributes(FormFieldId.GF_CREATE_BUTTON, [
+            [HtmlAttributes.INNERTEXT, UserMessageId.TASK_CREATE_BUTTON_TEXT],
         ]);
 
-        // Hide the icons
+        // Hide the unused sections & icons
         nodeBuilder.setElementsAttributes([
+            FormFieldId.GF_EXPECTED_DATE_SECTION,
             FormFieldId.GF_COMPLETED_DATE_SECTION,
             FormFieldId.GF_NAME_ICON,
             FormFieldId.GF_MEMBER_OF_ICON,
@@ -51,6 +57,19 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
             FormFieldId.GF_TARGET_DATE_ICON,
             FormFieldId.GF_USER_TAGS_ICON,         
         ], [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
+
+        const checkbox = document.getElementById(resolveField(FormFieldId.GF_SUBTASK_CHECKBOX, WrapperType.NONE)) as HTMLInputElement;
+            checkbox.addEventListener('click', () => {
+            nodeBuilder.clearOptions(FormFieldId.GF_MEMBER_OF_NAME)
+            if (checkbox.checked) {
+                assignNameOptions(memberOf, app, settings.tasksFolder, identTags.PLANNING_TASK);
+                nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_TASK_LABEL]])
+            }
+            else {
+                assignNameOptions(memberOf, app, settings.projectsFolder, identTags.PLANNING_PROJECT);
+                nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL]])
+            }
+        })
     }
 
     async configureForIndexCardMode(settings: Settings, taskIndexCard: TaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
@@ -73,31 +92,31 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         });
 
         // Populate the form fields and make them read-only
-        nodeBuilder.setElementAttributes(field.GF_NAME, [
+        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME, [
             [HtmlAttributes.VALUE, taskIndexCard.name],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
-        nodeBuilder.setElementAttributes(field.GF_CATEGORY_TAG, [
+        nodeBuilder.setElementAttributes(FormFieldId.GF_CATEGORY_TAG, [
             [HtmlAttributes.VALUE, taskIndexCard.categoryTag],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
-        nodeBuilder.setElementAttributes(field.GF_STATUS_TAG, [
+        nodeBuilder.setElementAttributes(FormFieldId.GF_STATUS_TAG, [
             [HtmlAttributes.VALUE, taskIndexCard.statusTag],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
-        nodeBuilder.setElementAttributes(field.GF_TARGET_DATE, [
+        nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.targetDate != null) ? dateFormatter(taskIndexCard.targetDate) : emptyString],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
-        nodeBuilder.setElementAttributes(field.GF_EXPECTED_DATE, [
+        nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.expectedDate != null) ? dateFormatter(taskIndexCard.expectedDate) : emptyString],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
-        nodeBuilder.setElementAttributes(field.GF_COMPLETED_DATE, [
+        nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.completedDate != null) ? dateFormatter(taskIndexCard.completedDate) : emptyString],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
-        nodeBuilder.setElementAttributes(field.GF_USER_TAGS, [
+        nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
             [HtmlAttributes.VALUE, flattenedTags(taskIndexCard.userTags)],
             [HtmlAttributes.DISABLED, AttribSettingsId.TRUE],
         ]);
