@@ -9,6 +9,7 @@ export interface Settings {
 	goalsFolder: string;
 	projectsFolder: string;
 	tasksFolder: string;
+    subtasksFolder: string;
     statusTags: typeof defaultStatusTags;
     categoryTags: typeof defaultCategoryTags;
 }
@@ -17,6 +18,7 @@ export const DEFAULT_SETTINGS: Settings = {
 	goalsFolder: 'Goals',
 	projectsFolder: 'Projects',
 	tasksFolder: 'Tasks',
+    subtasksFolder: 'Subtasks',
     statusTags: defaultStatusTags,
     categoryTags: defaultCategoryTags,
 }
@@ -27,12 +29,13 @@ export class PlanningSettingsTab extends PluginSettingTab {
     }
 
 	display(): void {
-		const {containerEl} = this;
+//		const {containerEl} = this;
 
 		this.containerEl.empty();
         this.add_goals_folder_setting();
         this.add_projects_folder_setting();
         this.add_tasks_folder_setting();
+        this.add_subtasks_folder_setting();
         this.add_status_settings();
         this.add_mode_settings();
     }
@@ -71,7 +74,6 @@ export class PlanningSettingsTab extends PluginSettingTab {
             });
 	}
 
-
     add_tasks_folder_setting() : void {
 		new Setting(this.containerEl)
 			.setName('Tasks folder location')
@@ -87,7 +89,24 @@ export class PlanningSettingsTab extends PluginSettingTab {
                 // @ts-ignore
                 cb.containerEl.addClass("planning_search");
             });
-	}
+    }
+
+    add_subtasks_folder_setting() : void {
+        new Setting(this.containerEl)
+            .setName('Subtasks folder location')
+            .setDesc('Folder in which to store Subtasks')
+            .addSearch((cb) => {
+                new FolderSuggest(this.app, cb.inputEl);
+                cb.setPlaceholder("Example: folder1/folder2")
+                    .setValue(this.plugin.settings.subtasksFolder)
+                    .onChange((new_folder) => {
+                        this.plugin.settings.subtasksFolder = new_folder;
+                        this.plugin.save_settings();
+                    });
+                // @ts-ignore
+                cb.containerEl.addClass("planning_search");
+        })
+    }
 
     _add_mode_setting(mode_entry:string, index:number): void {
         new Setting(this.containerEl)
