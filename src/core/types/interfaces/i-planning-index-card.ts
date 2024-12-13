@@ -3,7 +3,7 @@ import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 export interface IPlanningIndexCard{
 
     load(frontmatter: FrontMatterCache): void;
-    save(filemanager: FileManager, file: TFile): void;
+    save(filemanager: FileManager, file: TFile, identTag: string): void;
 
     get name(): string;
     set name(value: string);
