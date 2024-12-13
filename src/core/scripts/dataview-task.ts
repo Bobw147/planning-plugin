@@ -23,7 +23,7 @@ UserTagsPlaceholder\n \
 export function taskPageContent(indexCard: ITaskIndexCard | ISubtaskIndexCard) : string {
 
 	return taskDataview.replace("NamePlaceholder", "Name:: " + indexCard.name)
-					.replace("ModePlaceholder", "ModeTag:: " + indexCard.modeTag)
+					.replace("ModePlaceholder", "ModeTag:: " + indexCard.categoryTag)
 					.replace("IdentTagPlaceholder", "IdentTag:: " + indexCard.identTag)
 					.replace("StatusTagPlaceholder", "StatusTag::")
 					.replace("TargetDatePlaceholder", "TargetDate:: " + indexCard.targetDate?.toLocaleDateString())
