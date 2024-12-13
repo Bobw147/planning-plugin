@@ -3,14 +3,14 @@ import PlanningPlugin from 'src/main';
 import { createFolder } from 'src/utils/utils';
 
 import { DisplayMode } from './base-classes/generic-planning-form';
-import { GoalsModal } from './goals/goals';
-import { ProjectsModal } from './projects/projects';
+import { GoalsModal } from './goals/goals-modal';
+import { ProjectsModal } from './projects/projects-modal';
 import { goalPageContent } from './scripts/dataview-goal';
 import { projectPageContent } from './scripts/dataview-project';
 import { taskPageContent } from './scripts/dataview-task';
 import { SubtaskIndexCard } from './tasks/subtask-index-card';
 import { TaskIndexCard } from './tasks/task-index-card';
-import { TasksModal } from './tasks/tasks';
+import { TasksModal } from './tasks/tasks-modal';
 import { IGoalIndexCard } from './types/interfaces/i-goal-index-card';
 import { IPlanningIndexCard } from './types/interfaces/i-planning-index-card';
 import { IProjectIndexCard } from './types/interfaces/i-project-index-card';
