@@ -1,4 +1,5 @@
-import { TaskIndexCard } from '../tasks/task-index-card';
+import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
+import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 
 export const taskDataview = 
 "\
@@ -19,7 +20,7 @@ UserTagsPlaceholder\n \
 \n\
 "
 
-export function taskPageContent(indexCard: TaskIndexCard) : string {
+export function taskPageContent(indexCard: ITaskIndexCard | ISubtaskIndexCard) : string {
 
 	return taskDataview.replace("NamePlaceholder", "Name:: " + indexCard.name)
 					.replace("ModePlaceholder", "ModeTag:: " + indexCard.modeTag)
