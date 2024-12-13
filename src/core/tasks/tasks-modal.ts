@@ -32,14 +32,14 @@ export class TasksModal extends Modal {
         this.onSubmit = onSubmit;
     }
 
-    display(): void {
+    open(): void {
         this.contentEl.empty();
         this.setTitle(lookupMessage(UserMessageId.CREATE_TASK_TITLE));
         this.taskForm.buildForm(this.contentEl);
 
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Task part of the form
-        this.open();
+        super.open();
 
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.taskForm.configureForCreateMode(this.app, this.settings);

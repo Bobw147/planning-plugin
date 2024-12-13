@@ -47,7 +47,7 @@ export class Planner {
                     await goalIndexCard.save(this.plugin.app.fileManager, file, identTags.PLANNING_GOAL);
                 }
         });
-        this.goalsModal.display();
+        this.goalsModal.open();
     }
 
     create_project(displayMode: DisplayMode): void {
@@ -62,7 +62,7 @@ export class Planner {
                     await projectIndexCard.save(this.plugin.app.fileManager, file, identTags.PLANNING_PROJECT);
                 }
         });
-        this.projects_modal.display();
+        this.projects_modal.open();
     }
 
     create_task(displayMode: DisplayMode): void{
@@ -88,7 +88,7 @@ export class Planner {
                     await subtaskIndexCard.save(this.plugin.app.fileManager, file, identTags.PLANNING_TASK);
                 }
         }); 
-        this.tasks_modal.display();
+        this.tasks_modal.open();
     }
 
     show_index_card(indexCard: IPlanningIndexCard): void{

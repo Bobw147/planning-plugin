@@ -30,12 +30,12 @@ export class ProjectsModal extends Modal {
         this._onSubmit = onSubmit;
     }
 
-    display(): void{
+    open(): void{
         this.contentEl.empty();
         this.setTitle(lookupMessage(UserMessageId.CREATE_PROJECT_TITLE));
         this.projectForm.buildForm(this.contentEl);
 
-        this.open();
+        super.open();
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.projectForm.configureForCreateMode(this.app, this.settings);
 

@@ -29,7 +29,7 @@ export class GoalsModal extends Modal {
         this._onSubmit = onSubmit
     }
 
-    display(): void {
+    open(): void {
         // Create and display the New Goal form
         this.contentEl.empty();
         this.setTitle(lookupMessage(UserMessageId.CREATE_GOAL_TITLE));
@@ -37,8 +37,7 @@ export class GoalsModal extends Modal {
 
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
-
-        this.open();
+        super.open()
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.goalForm.configureForCreateMode(this.app, this._settings);
 
