@@ -7,7 +7,7 @@ export const Language = {
    ITALIAN:  4 ,
 } as const;
 
-type Language = typeof Language[keyof typeof Language];
+export type Language = typeof Language[keyof typeof Language];
 const selectedLanguage: Language = Language.ENGLISH;
 
 export enum UserMessageId {

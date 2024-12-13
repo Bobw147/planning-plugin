@@ -2,20 +2,13 @@ import { setIcon } from 'obsidian';
 
 import { DOMNodeBuildError } from '../exceptions/exceptions';
 import { emptyString } from '../types/types';
-import { AttribSettingsId, resolveAttribSetting } from './atrrib-settings-types';
+import { AttribSettingsId } from './atrrib-settings-types';
 import { FormFieldId, resolveField } from './form-field-types';
 import { HtmlAttributes, resolveAttribute } from './html-attribute-types';
 import { HtmlTags, resolveTag } from './html-element-types';
 import { lookupMessage, UserMessageId } from './i18n';
 
 type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettingsId | string ];
-type sectionContent = [HtmlTags, attribTuple[]];
-
-/* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */
-enum Contents {
-    TAG_ID = 0,
-    ATTRIBS = 1,
-}
 
 const empty = 0;
 const start = 0;
@@ -58,8 +51,7 @@ export class NodeBuilder{
         //TODO .getAttribute('value') returns null but .value works ok. There doesn;t seem to be an elegant
         // wrappable way of using document.getElementById.
         let value: string | null = emptyString;
-        const attrib: string = resolveAttribute(attribId);
-
+ 
         /* eslint-disable no-case-declarations */
         switch (elementType) {
             case HtmlTags.INPUT:
@@ -100,9 +92,6 @@ export class NodeBuilder{
             }
             else if (Object.values(UserMessageId).includes(valueId as UserMessageId)){
                 this.setAttribute(tag, attribId, lookupMessage(valueId as UserMessageId));
-            }
-            else if (Object.values(AttribSettingsId).includes(valueId as AttribSettingsId)) {
-                this.setAttribute(tag, attribId, resolveAttribSetting(valueId as AttribSettingsId))
             }
             else {
                 this.setAttribute(tag, attribId, valueId);
