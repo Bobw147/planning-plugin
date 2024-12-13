@@ -21,7 +21,7 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
         this.parentGoal = frontmatter[projectFieldNames.PARENT_GOAL];
     }
 
-    async save(filemanager: FileManager, file: TFile, identTag?: typeof this.identTag) : Promise<void> {
+    async save(filemanager: FileManager, file: TFile, identTag?: string) : Promise<void> {
         await super.save(filemanager, file, identTag);
         await filemanager.processFrontMatter(file, (frontmatter) => {
             //TODO The following line isnow incorrect

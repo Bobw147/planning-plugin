@@ -12,11 +12,18 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
+import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString, identTags, WrapperType } from '../types/types';
+import { SubtaskIndexCard } from './subtask-index-card';
 import { TaskIndexCard } from './task-index-card';
 
 export class TaskFormBuilder extends GenericPlanningForm implements IPlanningForm {
+    private subtaskIsChecked: boolean = false;
+
+    get isSubtask() : boolean {
+        return this.subtaskIsChecked;
+    }
 
     buildForm(parent: HTMLElement): void {
         super.buildForm(parent);
@@ -62,10 +69,12 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
             checkbox.addEventListener('click', () => {
             nodeBuilder.clearOptions(FormFieldId.GF_MEMBER_OF_NAME)
             if (checkbox.checked) {
+                this.subtaskIsChecked = true; 
                 assignNameOptions(memberOf, app, settings.tasksFolder, identTags.PLANNING_TASK);
                 nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_TASK_LABEL]])
             }
             else {
+                this.subtaskIsChecked = false;
                 assignNameOptions(memberOf, app, settings.projectsFolder, identTags.PLANNING_PROJECT);
                 nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL]])
             }
@@ -122,10 +131,15 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         ]);
     }
 
-    updateIndexCard(taskIndexCard: ITaskIndexCard, displayMode: DisplayMode): void {
-        taskIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
-        taskIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
-        taskIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
+    updateIndexCard(indexCard: ITaskIndexCard | ISubtaskIndexCard, displayMode: DisplayMode): void {
+        if (indexCard instanceof TaskIndexCard) 
+            (indexCard as TaskIndexCard).parentProject = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
+        else
+            (indexCard as SubtaskIndexCard).parentTask = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
+
+        indexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
+        indexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
+        indexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
         if (displayMode == DisplayMode.INDEX_CARD_MODE) {
 
         }

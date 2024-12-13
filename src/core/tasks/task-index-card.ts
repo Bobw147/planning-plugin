@@ -21,7 +21,7 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
         this.parentProject = frontmatter[taskFieldNames.PARENT_PROJECT];
     }
 
-    async save(filemanager: FileManager, file: TFile, identTag?: typeof this.identTag) : Promise<void> {
+    async save(filemanager: FileManager, file: TFile, identTag?: string) : Promise<void> {
         await super.save(filemanager, file, identTag);
         await filemanager.processFrontMatter(file, (frontmatter) => {
             frontmatter[taskFieldNames.PARENT_PROJECT] = this.parentProject;
