@@ -1,4 +1,3 @@
-import { WrapperType } from '../types/types';
 
 export enum HtmlTags {
     A = "a_tag",
@@ -361,8 +360,8 @@ const htmlTagDictionary: IHtmlTags = {
 }
 
 // This wrapper is necessary 
-export function resolveTag(tagId: HtmlTags, wrapper: WrapperType): string{
-    return wrapper + htmlTagDictionary[tagId] + wrapper;
+export function resolveTag(tagId: HtmlTags): string{
+    return htmlTagDictionary[tagId];
 }
 
 /*

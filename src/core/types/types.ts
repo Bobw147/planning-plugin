@@ -11,12 +11,6 @@ export enum Ident {
 
 export const emptyString: string = "";
 
-export enum WrapperType {
-    NONE = '',   //  "\"\"",      // Reduces via """" to ""
-    SINGLE_QUOTE = '\'', //   '\'\\\'\'',      // Reduces via '('\'')' to '\'' ...brackets are forclarification only
-    DOUBLE_QUOTE = "\"", //"\"\\\"\"",      // Reduces via "("\"")" to "\"" ...brackets are for clarfication only
-}
-
 export const defaultStatusTags: Array<string> = [
     "#status/inbox",
     "#status/next",

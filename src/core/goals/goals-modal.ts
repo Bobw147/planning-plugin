@@ -7,7 +7,7 @@ import { FormFieldId, resolveField } from '../form-builder/form-field-types';
 import { lookupMessage, UserMessageId } from '../form-builder/i18n';
 import { goalPageContent } from '../scripts/dataview-goal';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
-import { emptyString, identTags, WrapperType } from '../types/types';
+import { emptyString, identTags } from '../types/types';
 import { GoalFormBuilder } from './goal-form-builder';
 import { GoalIndexCard } from './goal-index-card';
 
@@ -42,14 +42,14 @@ export class GoalsModal extends Modal {
             this.goalForm.configureForCreateMode(this.app, this._settings);
 
             //  Add a handler to the 'Create' button
-            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
+            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON)) as HTMLButtonElement).onclick = async () => {
                 this.goalForm.updateIndexCard(this.goalIndexCard, this.displayMode);
                 this.close();
                 this._onSubmit(this.goalIndexCard);
             }
         
             // Add a handler for the cancel button
-            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = () => {
+            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON)) as HTMLButtonElement).onclick = () => {
                 this.close();
                 this._onSubmit(null);
             }

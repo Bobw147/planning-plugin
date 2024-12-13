@@ -3,121 +3,48 @@ import { Settings } from 'src/settings/Settings';
 import { assignNameOptions, assignTagOptions } from 'src/utils/utils';
 
 import { FormFieldId, resolveField } from './form-builder/form-field-types';
-import { Ident, identTags, WrapperType } from './types/types';
-
-export const newIdentFragment  = ' \
-<div> \
-    <div id='+resolveField(FormFieldId.ID_CF_GOAL_BLOCK, WrapperType.DOUBLE_QUOTE)+' class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.DOUBLE_QUOTE)+'> \
-        <div> \
-            <label style="margin-inline: 12px">Enter the name of the Goal :</label> \
-            <input typ="text" id='+resolveField(FormFieldId.ID_CF_GOAL_NAME, WrapperType.DOUBLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Select the Category type :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_GOAL_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-            </select> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Target Date</label> \
-            <input type="date" id='+resolveField(FormFieldId.ID_CF_GOAL_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-        </div> \
-        <div> \
-            <button id='+resolveField(FormFieldId.ID_CF_GOAL_CREATE_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Create Goal</button> \
-            <button id='+resolveField(FormFieldId.ID_CF_GOAL_CANCEL_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Cancel</button> \
-        </div> \
-    </div> \
-    <br> \
-    <div id='+resolveField(FormFieldId.ID_CF_PROJECT_BLOCK, WrapperType.DOUBLE_QUOTE)+'class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.DOUBLE_QUOTE)+'> \
-        <div> \
-            <label style="margin-inline: 12px">Enter the name of the Project :</label> \
-            <input type="text" id='+resolveField(FormFieldId.ID_CF_PROJECT_NAME, WrapperType.DOUBLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Belongs to goal :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_PROJECT_GOAL_NAME, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-            </select> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Select the Catogory type :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_PROJECT_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-            </select> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Target Date</label> \
-            <input type="date" id='+resolveField(FormFieldId.ID_CF_PROJECT_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-        </div> \
-        <div> \
-            <button id='+resolveField(FormFieldId.ID_CF_PROJECT_CREATE_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Create Project</button> \
-            <button id='+resolveField(FormFieldId.ID_CF_PROJECT_CANCEL_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Cancel</button> \
-        </div> \
-    </div> \
-    <br> \
-    <div id='+resolveField(FormFieldId.ID_CF_TASK_BLOCK, WrapperType.DOUBLE_QUOTE)+'class='+resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.DOUBLE_QUOTE)+'> \
-        <div> \
-            <label style="margin-inline: 12px">Enter the name of the Task :</label> \
-            <input type="text" id='+resolveField(FormFieldId.ID_CF_TASK_NAME, WrapperType.DOUBLE_QUOTE)+' autofocus style="margin-bottom: 12px"> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Belongs to Project :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_TASK_PROJECT_NAME, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-            </select> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Select the Category type :</label> \
-            <select id='+resolveField(FormFieldId.ID_CF_TASK_CATEGORY_TAG, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-            </select> \
-        </div> \
-        <div> \
-            <label style="margin-inline: 12px">Target Date</label> \
-            <input type="date" id='+resolveField(FormFieldId.ID_CF_TASK_TARGET_DATE, WrapperType.DOUBLE_QUOTE)+' style="margin-bottom: 12px"> \
-        </div> \
-        <div> \
-            <button id='+resolveField(FormFieldId.ID_CF_TASK_CREATE_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Create Task</button> \
-            <button id='+resolveField(FormFieldId.ID_CF_TASK_CANCEL_BUTTON, WrapperType.DOUBLE_QUOTE)+' type="button">Cancel</button> \
-        </div> \
-    </div> \
-</div>'
+import { Ident, identTags } from './types/types';
 
 export function initIdentFragment(target: Ident, settings: Settings, app: App) {
     let targetSelect: HTMLSelectElement | null = null;
-    const goalDiv: HTMLDivElement = document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_BLOCK, WrapperType.NONE)) as HTMLDivElement;
-    const projectDiv: HTMLDivElement = document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_BLOCK, WrapperType.NONE)) as HTMLDivElement;
-    const taskDiv: HTMLDivElement = document.getElementById(resolveField(FormFieldId.ID_CF_TASK_BLOCK, WrapperType.NONE)) as HTMLDivElement;
+    const goalDiv: HTMLDivElement = document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_BLOCK)) as HTMLDivElement;
+    const projectDiv: HTMLDivElement = document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_BLOCK)) as HTMLDivElement;
+    const taskDiv: HTMLDivElement = document.getElementById(resolveField(FormFieldId.ID_CF_TASK_BLOCK)) as HTMLDivElement;
 
     switch (target) {
         case Ident.GOAL:
-            goalDiv.className = resolveField(FormFieldId.STYLE_DIV_VISIBLE, WrapperType.NONE);
-            projectDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.NONE);
-            taskDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.NONE);
+            goalDiv.className = resolveField(FormFieldId.STYLE_DIV_VISIBLE);
+            projectDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN);
+            taskDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN);
 
             // Populate the Category & Status selectors with options the list contained in the plugin settings
-            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_GOAL_CATEGORY_TAG)) as HTMLSelectElement;           
             assignTagOptions(targetSelect, settings.categoryTags)
             break;
 
         case Ident.PROJECT:
-            goalDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.NONE);
-            projectDiv.className = resolveField(FormFieldId.STYLE_DIV_VISIBLE, WrapperType.NONE);
-            taskDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.NONE);
+            goalDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN);
+            projectDiv.className = resolveField(FormFieldId.STYLE_DIV_VISIBLE);
+            taskDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN);
 
             // Populate the Category & Status selectors with options the list contained in the plugin settings
-            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_CATEGORY_TAG)) as HTMLSelectElement;           
             assignTagOptions(targetSelect, settings.categoryTags)
 
-            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_GOAL_NAME, WrapperType.NONE)) as HTMLSelectElement;
+            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_PROJECT_GOAL_NAME)) as HTMLSelectElement;
             assignNameOptions(targetSelect, app, settings.goalsFolder, identTags.PLANNING_GOAL);
             break;
 
         case Ident.TASK:
-            goalDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.NONE);
-            projectDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN, WrapperType.NONE);
-            taskDiv.className = resolveField(FormFieldId.STYLE_DIV_VISIBLE, WrapperType.NONE);
+            goalDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN);
+            projectDiv.className = resolveField(FormFieldId.STYLE_DIV_HIDDEN);
+            taskDiv.className = resolveField(FormFieldId.STYLE_DIV_VISIBLE);
 
             // Populate the Category & Status selectors with options the list contained in the plugin settings
-            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_TASK_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_TASK_CATEGORY_TAG)) as HTMLSelectElement;           
             assignTagOptions(targetSelect, settings.categoryTags)
 
-            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_TASK_PROJECT_NAME, WrapperType.NONE)) as HTMLSelectElement;
+            targetSelect = document.getElementById(resolveField(FormFieldId.ID_CF_TASK_PROJECT_NAME)) as HTMLSelectElement;
             assignNameOptions(targetSelect, app, settings.projectsFolder, identTags.PLANNING_PROJECT);
             break;
     }

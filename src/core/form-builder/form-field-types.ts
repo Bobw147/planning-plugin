@@ -1,5 +1,3 @@
-import { WrapperType } from '../types/types';
-
 export enum FormFieldId {
     // Style class names
     STYLE_DIV_VISIBLE = "style_div_visible",
@@ -138,7 +136,7 @@ export enum FormFieldId {
     GF_CANCEL_BUTTON = "id_cancel_button",
 }
 
-interface IFormFieldDgftionaryType{
+interface IFormFieldDictionaryType{
     [FormFieldId.STYLE_DIV_VISIBLE]: string;
     [FormFieldId.STYLE_DIV_HIDDEN]: string;
     [FormFieldId.STYLE_ICON_HIDDEN]: string;
@@ -276,7 +274,7 @@ interface IFormFieldDgftionaryType{
 
 }
 
-const formFieldDgftionary: IFormFieldDgftionaryType = {
+const formFieldDictionary: IFormFieldDictionaryType = {
     [FormFieldId.STYLE_DIV_VISIBLE]: 'cf-pl-visible',
     [FormFieldId.STYLE_DIV_HIDDEN]: 'cf-pl-hidden',
     [FormFieldId.STYLE_ICON_HIDDEN]: 'cf-pl-hidden',
@@ -413,6 +411,6 @@ const formFieldDgftionary: IFormFieldDgftionaryType = {
 }
 
 // This wrapper is necessary 
-export function resolveField(fieldId: FormFieldId, wrapper: WrapperType): string{
-    return wrapper + formFieldDgftionary[fieldId] + wrapper;
+export function resolveField(fieldId: FormFieldId): string{
+    return formFieldDictionary[fieldId];
 }

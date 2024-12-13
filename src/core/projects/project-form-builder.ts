@@ -10,7 +10,7 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
-import { emptyString, identTags, WrapperType } from '../types/types';
+import { emptyString, identTags } from '../types/types';
 import { IProjectIndexCard, ProjectIndexCard } from './project-index-card';
 
 export class ProjectFormBuilder extends GenericPlanningForm implements IPlanningForm {
@@ -23,13 +23,13 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         const nodeBuilder = new NodeBuilder();
 
         // Populate the Category and Status Tag Selects
-        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags)
 
-        const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG)) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags)
 
-        const memberOf = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_NAME, WrapperType.NONE)) as HTMLSelectElement;
+        const memberOf = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_NAME)) as HTMLSelectElement;
         assignNameOptions(memberOf, app, settings.goalsFolder, identTags.PLANNING_GOAL);
 
         // Set the label for the Name and Member Of field
@@ -69,46 +69,6 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     }
 }
 
-
-const _projectIndexCardForm = '<div id='+resolveField(FormFieldId.ID_IC_PROJECT_INDEX_CARD, WrapperType.SINGLE_QUOTE)+' style="border-width: 2px; border-style: solid; border-color: gray;"> \
-    <div> \
-        <label style="margin-inline: 12px">Project :</label> \
-        <input type="text" id='+resolveField(FormFieldId.ID_IC_PROJECT_NAME, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">Category :</label> \
-        <input type="text" id='+resolveField(FormFieldId.ID_IC_PROJECT_CATEGORY_TAG, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-   </div> \
-    <div style="display:none"> \
-        <label style="margin-inline: 12px">Ident :</label> \
-        <input type="text" id='+resolveField(FormFieldId.ID_IC_PROJECT_IDENT_TAG, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-   </div> \
-    <div> \
-        <label style="margin-inline: 12px">Status :</label> \
-        <input type="text" id='+resolveField(FormFieldId.ID_IC_PROJECT_STATUS_TAG, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-   </div> \
-    <div> \
-        <label style="margin-inline: 12px">Target Date</label> \
-        <input type="date" id='+resolveField(FormFieldId.ID_IC_PROJECT_TARGET_DATE, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">Anticipated Date</label> \
-        <input type="date" id='+resolveField(FormFieldId.ID_IC_PROJECT_EXPECTED_DATE, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">Completed Date</label> \
-        <input type="date" id='+resolveField(FormFieldId.ID_IC_PROJECT_COMPLETED_DATE, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-    </div> \
-    <div> \
-        <label style="margin-inline: 12px">User Tags</label> \
-        <input type="input" id='+resolveField(FormFieldId.ID_IC_PROJECT_USER_TAGS, WrapperType.SINGLE_QUOTE)+' readonly style="margin-bottom: 12px"> \
-    </div> \
-<div>'
-
-export function projectIndexCardForm() : string {
-    return _projectIndexCardForm;
-}
-
 export async function populateProjectIndexCardForm(fileManager: FileManager, file: TFile): Promise<void> {
     const projectIndexCard = new ProjectIndexCard();
 
@@ -118,13 +78,13 @@ export async function populateProjectIndexCardForm(fileManager: FileManager, fil
     });
     // Populate the form fields
 /*
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_NAME, WrapperType.NONE)) as HTMLInputElement).value = projectIndexCard.name;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_CATEGORY_TAG, WrapperType.NONE)) as HTMLInputElement).value = projectIndexCard.categoryTag;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_IDENT_TAG, WrapperType.NONE)) as HTMLInputElement).value = projectIndexCard.identTag;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_STATUS_TAG, WrapperType.NONE)) as HTMLInputElement).value = projectIndexCard.statusTag;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_TARGET_DATE, WrapperType.NONE)) as HTMLInputElement).value = (projectIndexCard.targetDate != null) ? dateFormatter(projectIndexCard.targetDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_EXPECTED_DATE, WrapperType.NONE)) as HTMLInputElement).value = (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_COMPLETED_DATE, WrapperType.NONE)) as HTMLInputElement).value = (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_USER_TAGS, WrapperType.NONE)) as HTMLInputElement).value = flattenedTags(projectIndexCard.userTags);
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_NAME)) as HTMLInputElement).value = projectIndexCard.name;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_CATEGORY_TAG)) as HTMLInputElement).value = projectIndexCard.categoryTag;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_IDENT_TAG)) as HTMLInputElement).value = projectIndexCard.identTag;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_STATUS_TAG)) as HTMLInputElement).value = projectIndexCard.statusTag;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_TARGET_DATE)) as HTMLInputElement).value = (projectIndexCard.targetDate != null) ? dateFormatter(projectIndexCard.targetDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_EXPECTED_DATE)) as HTMLInputElement).value = (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_COMPLETED_DATE)) as HTMLInputElement).value = (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_USER_TAGS)) as HTMLInputElement).value = flattenedTags(projectIndexCard.userTags);
 */
 }

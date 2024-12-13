@@ -14,7 +14,7 @@ import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { emptyString, identTags, WrapperType } from '../types/types';
+import { emptyString, identTags } from '../types/types';
 import { SubtaskIndexCard } from './subtask-index-card';
 import { TaskIndexCard } from './task-index-card';
 
@@ -33,10 +33,10 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags);
 
-        const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG)) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags);
 
         // Set the label for the name field
@@ -45,7 +45,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         // Set the label for the Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL]]);
 
-        const memberOf = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_NAME, WrapperType.NONE)) as HTMLSelectElement;
+        const memberOf = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_NAME)) as HTMLSelectElement;
         assignNameOptions(memberOf, app, settings.projectsFolder, identTags.PLANNING_PROJECT);
 
         // Set the prompt on the Create button
@@ -66,7 +66,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
             FormFieldId.GF_USER_TAGS_ICON,         
         ], [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]);
 
-        const checkbox = document.getElementById(resolveField(FormFieldId.GF_SUBTASK_CHECKBOX, WrapperType.NONE)) as HTMLInputElement;
+        const checkbox = document.getElementById(resolveField(FormFieldId.GF_SUBTASK_CHECKBOX)) as HTMLInputElement;
             checkbox.addEventListener('click', () => {
             nodeBuilder.clearOptions(FormFieldId.GF_MEMBER_OF_NAME)
             if (checkbox.checked) {
@@ -86,11 +86,11 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Add the CategoryTag options
-        const taskCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
+        const taskCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement
         assignTagOptions(taskCategorySelect, settings.categoryTags);
     
         // Add the StatusTag options
-        const taskStatusSelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG, WrapperType.NONE)) as HTMLSelectElement
+        const taskStatusSelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG)) as HTMLSelectElement
         assignTagOptions(taskStatusSelect, settings.statusTags);
 
         // Hide the Create and Cancel buttons

@@ -9,7 +9,7 @@ import { taskPageContent } from '../scripts/dataview-task';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { emptyString, identTags, WrapperType } from '../types/types';
+import { emptyString, identTags } from '../types/types';
 import { SubtaskIndexCard } from './subtask-index-card';
 import { TaskFormBuilder } from './task-form-builder';
 import { TaskIndexCard } from './task-index-card';
@@ -44,13 +44,13 @@ export class TasksModal extends Modal {
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.taskForm.configureForCreateMode(this.app, this.settings);
             
-            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
+            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON)) as HTMLButtonElement).onclick = async () => {
                 this.indexCard = (this.taskForm.isSubtask) ? new SubtaskIndexCard() : new TaskIndexCard();
                 this.taskForm.updateIndexCard(this.indexCard, this.displayMode);              
                 this.close();
                 this.onSubmit(this.indexCard);
             }
-            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = () => {
+            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON)) as HTMLButtonElement).onclick = () => {
                 this.close();
                 this.onSubmit(null);
             }

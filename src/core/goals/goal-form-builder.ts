@@ -10,7 +10,7 @@ import { FormFieldId, resolveField } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { NodeBuilder } from '../form-builder/node-builder';
-import { emptyString, WrapperType } from '../types/types';
+import { emptyString } from '../types/types';
 import { GoalIndexCard } from './goal-index-card';
 
 export class GoalFormBuilder extends GenericPlanningForm implements IPlanningForm {
@@ -23,7 +23,7 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Category & Status selectors with options the list contained in the plugin settings
-        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
+        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags)
 
         nodeBuilder.setElementsAttributes([
@@ -44,7 +44,7 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Add the CategoryTag options
-        const goalCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement
+        const goalCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement
         assignTagOptions(goalCategorySelect, settings.categoryTags);
     
         // Hide the Create and Cancel buttons

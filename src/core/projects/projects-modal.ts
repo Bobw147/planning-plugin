@@ -8,7 +8,7 @@ import { FormFieldId, resolveField } from '../form-builder/form-field-types';
 import { lookupMessage, UserMessageId } from '../form-builder/i18n';
 import { projectPageContent } from '../scripts/dataview-project';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
-import { emptyString, identTags, WrapperType } from '../types/types';
+import { emptyString, identTags } from '../types/types';
 import { ProjectFormBuilder } from './project-form-builder';
 import { ProjectIndexCard } from './project-index-card';
 
@@ -40,12 +40,12 @@ export class ProjectsModal extends Modal {
             this.projectForm.configureForCreateMode(this.app, this.settings);
 
             // Add a handler to the 'Create' button
-            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = async () => {
+            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON)) as HTMLButtonElement).onclick = async () => {
                 this.projectForm.updateIndexCard(this.projectIndexCard, this.displayMode);
                 this.close();
                 this._onSubmit(this.projectIndexCard)
             }
-            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON, WrapperType.NONE)) as HTMLButtonElement).onclick = () => {
+            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON)) as HTMLButtonElement).onclick = () => {
                 this.close();
                 this._onSubmit(null);
             }

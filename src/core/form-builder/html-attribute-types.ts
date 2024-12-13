@@ -3,7 +3,6 @@
 //
 // Create an enum for each attribute. The right hand value will become the
 // lookup key in the typechecked and interfaced dictionary below. 
-import { WrapperType } from '../types/types';
 
 export enum HtmlAttributes {
     ABBR = "abbbr_attrib",
@@ -722,11 +721,8 @@ const htmlAttributeDictionary: IHtmlAttributeType = {
 
 
 // This wrapper is necessary 
-export function resolveAttribute(attributeId: HtmlAttributes, wrapper?: WrapperType): string{
-    if (wrapper === undefined)
-        return htmlAttributeDictionary[attributeId];
-    else
-        return wrapper + htmlAttributeDictionary[attributeId] + wrapper;
+export function resolveAttribute(attributeId: HtmlAttributes): string{
+    return htmlAttributeDictionary[attributeId];
 }
 
 // Create an array of the global attributes used by all HTML Elements
