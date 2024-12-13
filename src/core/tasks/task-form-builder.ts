@@ -32,7 +32,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
     configureForCreateMode(app: App, settings: Settings): void {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
-        // Populate the Category & Status selectors with options the list contained in the plugin settings
+        // Populate the Status selector options with the list contained in the plugin settings
         const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG, WrapperType.NONE)) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags);
 
@@ -55,6 +55,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
 
         // Hide the unused sections & icons
         nodeBuilder.setElementsAttributes([
+            FormFieldId.GF_CATEGORY_TAG_SECTION,
             FormFieldId.GF_EXPECTED_DATE_SECTION,
             FormFieldId.GF_COMPLETED_DATE_SECTION,
             FormFieldId.GF_NAME_ICON,
@@ -138,7 +139,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
             (indexCard as SubtaskIndexCard).parentTask = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
 
         indexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
-        indexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
+        indexCard.statusTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_STATUS_TAG, HtmlAttributes.VALUE);
         indexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
         if (displayMode == DisplayMode.INDEX_CARD_MODE) {
 
