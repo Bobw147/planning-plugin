@@ -1,11 +1,14 @@
 
-export enum Language {
-   ENGLISH,
-   FRENCH,
-   GERMAN,
-   SPANISH,
-   ITALIAN 
-}
+export const Language = {
+   ENGLISH: 0,
+   FRENCH: 1,
+   GERMAN: 2,
+   SPANISH: 3,
+   ITALIAN:  4 ,
+} as const;
+
+type Language = typeof Language[keyof typeof Language];
+const selectedLanguage: Language = Language.ENGLISH;
 
 export enum UserMessageId {
     CREATE_GOAL_TITLE = "cgt",
@@ -55,8 +58,6 @@ interface IUserMessageDictionary {
     [UserMessageId.TASK_NAME_LABEL]: string[];
 }
 
-const language = Language.ENGLISH;
-
 const userMessageDictionary: IUserMessageDictionary =
 {
     [UserMessageId.CREATE_GOAL_TITLE]: ["Create a new Goal"],
@@ -83,5 +84,5 @@ const userMessageDictionary: IUserMessageDictionary =
 }
 
 export function lookupMessage(userMessageId: UserMessageId): string {
-    return userMessageDictionary[userMessageId][language];
+    return userMessageDictionary[userMessageId][selectedLanguage];
 }
