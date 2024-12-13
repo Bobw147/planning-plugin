@@ -29,8 +29,12 @@
           "format": ["PascalCase"]
         },
         {
-          "selector": ["function", "variable"],
+          "selector": ["function"],
           "format": ["camelCase"]
+        },
+        {
+            "selector": ["variable"],
+            "format": ["camelCase", "PascalCase"],
         },
         {
           "selector": "enumMember",
