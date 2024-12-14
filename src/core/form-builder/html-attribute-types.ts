@@ -1,8 +1,6 @@
 // Part of common web package library. Copyright R. Bellchambers-Wilson 2024
 // Repurposed for Obisidian Planning Plugin
 //
-// Create an enum for each attribute. The right hand value will become the
-// lookup key in the typechecked and interfaced dictionary below. 
 
 
 export const HtmlAttributes = {
