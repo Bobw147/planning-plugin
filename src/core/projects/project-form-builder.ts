@@ -79,11 +79,11 @@ export async function populateProjectIndexCardForm(fileManager: FileManager, fil
     });
     // Populate the form fields
 
-    (document.getElementById(resolveField(FormFieldId.GF_NAME)) as HTMLInputElement).value = projectIndexCard.name;
-    (document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLInputElement).value = projectIndexCard.categoryTag;
-    (document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG)) as HTMLInputElement).value = projectIndexCard.statusTag;
-    (document.getElementById(resolveField(FormFieldId.GF_TARGET_DATE)) as HTMLInputElement).value = (projectIndexCard.targetDate != null) ? dateFormatter(projectIndexCard.targetDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.GF_EXPECTED_DATE)) as HTMLInputElement).value = (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.GF_COMPLETED_DATE)) as HTMLInputElement).value = (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.GF_USER_TAGS)) as HTMLInputElement).value = flattenedTags(projectIndexCard.userTags);
+    (document.getElementById(FormFieldId.GF_NAME) as HTMLInputElement).value = projectIndexCard.name;
+    (document.getElementById(FormFieldId.GF_CATEGORY_TAG) as HTMLInputElement).value = projectIndexCard.categoryTag;
+    (document.getElementById(FormFieldId.GF_STATUS_TAG) as HTMLInputElement).value = projectIndexCard.statusTag;
+    (document.getElementById(FormFieldId.GF_TARGET_DATE) as HTMLInputElement).value = (projectIndexCard.targetDate != null) ? dateFormatter(projectIndexCard.targetDate) : emptyString;
+    (document.getElementById(FormFieldId.GF_EXPECTED_DATE) as HTMLInputElement).value = (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString;
+    (document.getElementById(FormFieldId.GF_COMPLETED_DATE) as HTMLInputElement).value = (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString;
+    (document.getElementById(FormFieldId.GF_USER_TAGS) as HTMLInputElement).value = flattenedTags(projectIndexCard.userTags);
 }
