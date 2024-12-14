@@ -37,20 +37,6 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
                 FormFieldId.GF_TARGET_DATE_ICON,
                 FormFieldId.GF_USER_TAGS_ICON,
             ]);
-
-/*
-        nodeBuilder.setElementsAttributes([
-                FormFieldId.GF_STATUS_TAG_SECTION,                
-                FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
-                FormFieldId.GF_MEMBER_OF_SECTION,
-                FormFieldId.GF_EXPECTED_DATE_SECTION,
-                FormFieldId.GF_COMPLETED_DATE_SECTION,
-                FormFieldId.GF_NAME_ICON,
-                FormFieldId.GF_CATEGORY_TAG_ICON,
-                FormFieldId.GF_TARGET_DATE_ICON,
-                FormFieldId.GF_USER_TAGS_ICON,
-            ], [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]
-*/
     }
 
     async configureForIndexCardMode(settings: Settings, goalIndexCard: GoalIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
