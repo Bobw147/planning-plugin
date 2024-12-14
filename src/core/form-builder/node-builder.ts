@@ -4,7 +4,7 @@ import { DOMNodeBuildError } from '../exceptions/exceptions';
 import { emptyString } from '../types/types';
 import { AttribSettingsId } from './atrrib-settings-types';
 import { FormFieldId } from './form-field-types';
-import { HtmlAttributes, resolveAttribute } from './html-attribute-types';
+import { HtmlAttributes } from './html-attribute-types';
 import { HtmlTags, resolveTag } from './html-element-types';
 import { lookupMessage, UserMessageId } from './i18n';
 
@@ -71,7 +71,6 @@ export class NodeBuilder{
     }
 
     setElementsAttributes(fieldIds: FormFieldId[], attribs: attribTuple[]): void {
-        debugger;
         fieldIds?.forEach((fieldId) => {
             this.setElementAttributes(fieldId, attribs);
         });
@@ -110,7 +109,7 @@ export class NodeBuilder{
             setIcon(element as HTMLElement, value);
         }
         else {
-            element.setAttribute(resolveAttribute(attribId), value);
+            element.setAttribute(attribId, value);
         }
     }
     
