@@ -5,7 +5,7 @@ import { emptyString } from '../types/types';
 import { AttribSettingsId } from './atrrib-settings-types';
 import { FormFieldId } from './form-field-types';
 import { HtmlAttributes } from './html-attribute-types';
-import { HtmlTags, resolveTag } from './html-element-types';
+import { HtmlTags } from './html-element-types';
 import { lookupMessage, UserMessageId } from './i18n';
 
 type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettingsId | string ];
@@ -119,122 +119,122 @@ export class NodeBuilder{
 
         switch (tagId) {
             case HtmlTags.A:
-                return document.createElement(resolveTag(tagId)) as HTMLAnchorElement;
+                return document.createElement(tagId) as HTMLAnchorElement;
             
             case HtmlTags.ABBR:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.ADDRESS:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.AREA:
-                return document.createElement(resolveTag(tagId)) as HTMLAreaElement;
+                return document.createElement(tagId) as HTMLAreaElement;
             
             case HtmlTags.ARTICLE:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.ASIDE:                
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.AUDIO:
-                return document.createElement(resolveTag(tagId)) as HTMLAudioElement;
+                return document.createElement(tagId) as HTMLAudioElement;
 
             case HtmlTags.B:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.BASE:
-                return document.createElement(resolveTag(tagId)) as HTMLBaseElement;
+                return document.createElement(tagId) as HTMLBaseElement;
             
             case HtmlTags.BDI:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.BDO:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
             
             case HtmlTags.BLOCKQUOTE:
-                return document.createElement(resolveTag(tagId)) as HTMLQuoteElement;
+                return document.createElement(tagId) as HTMLQuoteElement;
 
             case HtmlTags.BODY:
-                return document.createElement(resolveTag(tagId)) as HTMLBodyElement;
+                return document.createElement(tagId) as HTMLBodyElement;
 
             case HtmlTags.BR:
-                return document.createElement(resolveTag(tagId)) as HTMLBRElement;
+                return document.createElement(tagId) as HTMLBRElement;
 
             case HtmlTags.BUTTON:
-                return document.createElement(resolveTag(tagId)) as HTMLButtonElement;
+                return document.createElement(tagId) as HTMLButtonElement;
 
             case HtmlTags.CANVAS:
-                return document.createElement(resolveTag(tagId)) as HTMLCanvasElement;
+                return document.createElement(tagId) as HTMLCanvasElement;
 
             case HtmlTags.CAPTION:
-                return document.createElement(resolveTag(tagId)) as HTMLTableCaptionElement;
+                return document.createElement(tagId) as HTMLTableCaptionElement;
 
             case HtmlTags.CITE:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.CODE:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.COL:
             case HtmlTags.COLGROUP:
-                return document.createElement(resolveTag(tagId)) as HTMLTableColElement;
+                return document.createElement(tagId) as HTMLTableColElement;
 
             case HtmlTags.COMMENT:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.DATA:
-                return document.createElement(resolveTag(tagId)) as HTMLDataElement;
+                return document.createElement(tagId) as HTMLDataElement;
 
             case HtmlTags.DATALIST:
-                return document.createElement(resolveTag(tagId)) as HTMLDataListElement;
+                return document.createElement(tagId) as HTMLDataListElement;
 
             case HtmlTags.DD:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.DEL:
-                return document.createElement(resolveTag(tagId)) as HTMLModElement;
+                return document.createElement(tagId) as HTMLModElement;
 
             case HtmlTags.DETAILS:
-                return document.createElement(resolveTag(tagId)) as HTMLDetailsElement;
+                return document.createElement(tagId) as HTMLDetailsElement;
 
             case HtmlTags.DFN:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.DIALOG:
-                return document.createElement(resolveTag(tagId)) as HTMLDialogElement;
+                return document.createElement(tagId) as HTMLDialogElement;
         
             case HtmlTags.DIV:
-                return document.createElement(resolveTag(tagId)) as HTMLDivElement;
+                return document.createElement(tagId) as HTMLDivElement;
 
             case HtmlTags.DL:
-                return document.createElement(resolveTag(tagId)) as HTMLDListElement;
+                return document.createElement(tagId) as HTMLDListElement;
 
             case HtmlTags.DOCTYPE:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.DT:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.EM:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.EMBED:
-                return document.createElement(resolveTag(tagId)) as HTMLEmbedElement;
+                return document.createElement(tagId) as HTMLEmbedElement;
 
             case HtmlTags.FIELDSET:
-                return document.createElement(resolveTag(tagId)) as HTMLFieldSetElement;
+                return document.createElement(tagId) as HTMLFieldSetElement;
 
             case HtmlTags.FIGCAPTION:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.FIGURE:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.FOOTER:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.FORM:
-                return document.createElement(resolveTag(tagId)) as HTMLFormElement;
+                return document.createElement(tagId) as HTMLFormElement;
 
             case HtmlTags.H1:
             case HtmlTags.H2:
@@ -242,218 +242,218 @@ export class NodeBuilder{
             case HtmlTags.H4:
             case HtmlTags.H5:
             case HtmlTags.H6:
-                return document.createElement(resolveTag(tagId)) as HTMLHeadingElement;
+                return document.createElement(tagId) as HTMLHeadingElement;
 
             case HtmlTags.HEAD:
-                return document.createElement(resolveTag(tagId)) as HTMLHeadElement;
+                return document.createElement(tagId) as HTMLHeadElement;
 
             case HtmlTags.HEADER:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.HGROUP:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.HR:
-                return document.createElement(resolveTag(tagId)) as HTMLHRElement;
+                return document.createElement(tagId) as HTMLHRElement;
 
             case HtmlTags.HTML:
-                return document.createElement(resolveTag(tagId)) as HTMLHtmlElement;
+                return document.createElement(tagId) as HTMLHtmlElement;
 
             case HtmlTags.I:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.IFRAME:
-                return document.createElement(resolveTag(tagId)) as HTMLIFrameElement;
+                return document.createElement(tagId) as HTMLIFrameElement;
 
             case HtmlTags.IMG:
-                return document.createElement(resolveTag(tagId)) as HTMLImageElement;
+                return document.createElement(tagId) as HTMLImageElement;
 
             case HtmlTags.INPUT:
-                return document.createElement(resolveTag(tagId)) as HTMLInputElement;
+                return document.createElement(tagId) as HTMLInputElement;
 
             case HtmlTags.INS:
-                return document.createElement(resolveTag(tagId)) as HTMLModElement;
+                return document.createElement(tagId) as HTMLModElement;
 
             case HtmlTags.KBD:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.LABEL:
-                return document.createElement(resolveTag(tagId)) as HTMLLabelElement;
+                return document.createElement(tagId) as HTMLLabelElement;
 
             case HtmlTags.LEGEND:
-                return document.createElement(resolveTag(tagId)) as HTMLLegendElement;
+                return document.createElement(tagId) as HTMLLegendElement;
             
             case HtmlTags.LI:
-                return document.createElement(resolveTag(tagId)) as HTMLLIElement;
+                return document.createElement(tagId) as HTMLLIElement;
 
             case HtmlTags.LINK:
-                return document.createElement(resolveTag(tagId)) as HTMLLinkElement;
+                return document.createElement(tagId) as HTMLLinkElement;
 
             case HtmlTags.MAIN:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.MAP:
-                return document.createElement(resolveTag(tagId)) as HTMLMapElement;
+                return document.createElement(tagId) as HTMLMapElement;
 
             case HtmlTags.MARK:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.MATH:
             case HtmlTags.MATHML:
-                return document.createElement(resolveTag(HtmlTags.MATH)) as Element;
+                return document.createElement(HtmlTags.MATH) as Element;
 
             case HtmlTags.MENU:
-                return document.createElement(resolveTag(tagId)) as HTMLMenuElement;
+                return document.createElement(tagId) as HTMLMenuElement;
 
             case HtmlTags.META:
-                return document.createElement(resolveTag(tagId)) as HTMLMetaElement;
+                return document.createElement(tagId) as HTMLMetaElement;
 
             case HtmlTags.METER:
-                return document.createElement(resolveTag(tagId)) as HTMLMeterElement;
+                return document.createElement(tagId) as HTMLMeterElement;
 
             case HtmlTags.NAV:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.NOSCRIPT:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.OBJECT:
-                return document.createElement(resolveTag(tagId)) as HTMLObjectElement;
+                return document.createElement(tagId) as HTMLObjectElement;
 
             case HtmlTags.OL:
-                return document.createElement(resolveTag(tagId)) as HTMLOListElement;
+                return document.createElement(tagId) as HTMLOListElement;
 
             case HtmlTags.OPTGROUP:
-                return document.createElement(resolveTag(tagId)) as HTMLOptGroupElement;
+                return document.createElement(tagId) as HTMLOptGroupElement;
 
             case HtmlTags.OPTION:
-                return document.createElement(resolveTag(tagId)) as HTMLOptionElement;
+                return document.createElement(tagId) as HTMLOptionElement;
 
             case HtmlTags.OUTPUT:
-                return document.createElement(resolveTag(tagId)) as HTMLOutputElement;
+                return document.createElement(tagId) as HTMLOutputElement;
 
             case HtmlTags.P:
-                return document.createElement(resolveTag(tagId)) as HTMLParagraphElement;
+                return document.createElement(tagId) as HTMLParagraphElement;
 
             case HtmlTags.PICTURE:
-                return document.createElement(resolveTag(tagId)) as HTMLPictureElement;
+                return document.createElement(tagId) as HTMLPictureElement;
 
             case HtmlTags.PRE:
-                return document.createElement(resolveTag(tagId)) as HTMLPreElement;
+                return document.createElement(tagId) as HTMLPreElement;
 
             case HtmlTags.PROGRESS:
-                return document.createElement(resolveTag(tagId)) as HTMLProgressElement;
+                return document.createElement(tagId) as HTMLProgressElement;
 
             case HtmlTags.Q:
-                return document.createElement(resolveTag(tagId)) as HTMLQuoteElement;
+                return document.createElement(tagId) as HTMLQuoteElement;
 
             case HtmlTags.RP:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.RT:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
             
             case HtmlTags.RUBY:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.S:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SAMP:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SCRIPT:
-                return document.createElement(resolveTag(tagId)) as HTMLScriptElement;
+                return document.createElement(tagId) as HTMLScriptElement;
 
             case HtmlTags.SEARCH:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SECTION:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SELECT:
-                return document.createElement(resolveTag(tagId)) as HTMLSelectElement;
+                return document.createElement(tagId) as HTMLSelectElement;
 
             case HtmlTags.SLOT:
-                return document.createElement(resolveTag(tagId)) as HTMLSlotElement;
+                return document.createElement(tagId) as HTMLSlotElement;
 
             case HtmlTags.SMALL:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SOURCE:
-                return document.createElement(resolveTag(tagId)) as HTMLSourceElement;
+                return document.createElement(tagId) as HTMLSourceElement;
         
             case HtmlTags.SPAN:
-                return document.createElement(resolveTag(tagId)) as HTMLSpanElement;
+                return document.createElement(tagId) as HTMLSpanElement;
 
             case HtmlTags.STRONG:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.STYLE:
-                return document.createElement(resolveTag(tagId)) as HTMLStyleElement;
+                return document.createElement(tagId) as HTMLStyleElement;
 
             case HtmlTags.SUB:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SUMMARY:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SUP:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.SVG:
-                return document.createElementNS(svgNS, resolveTag(tagId)) as Element;
+                return document.createElementNS(svgNS, tagId) as Element;
 
             case HtmlTags.TABLE:
-                return document.createElement(resolveTag(tagId)) as HTMLTableElement;
+                return document.createElement(tagId) as HTMLTableElement;
             
             case HtmlTags.TBODY:
-                return document.createElement(resolveTag(tagId)) as HTMLTableSectionElement;
+                return document.createElement(tagId) as HTMLTableSectionElement;
 
             case HtmlTags.TD:
-                return document.createElement(resolveTag(tagId)) as HTMLTableCellElement;
+                return document.createElement(tagId) as HTMLTableCellElement;
 
             case HtmlTags.TEMPLATE:
-                return document.createElement(resolveTag(tagId)) as HTMLTemplateElement;
+                return document.createElement(tagId) as HTMLTemplateElement;
 
             case HtmlTags.TEXTAREA:
-                return document.createElement(resolveTag(tagId)) as HTMLTextAreaElement;
+                return document.createElement(tagId) as HTMLTextAreaElement;
 
             case HtmlTags.TFOOT:
-                return document.createElement(resolveTag(tagId)) as HTMLTableSectionElement;
+                return document.createElement(tagId) as HTMLTableSectionElement;
 
             case HtmlTags.TH:
-                return document.createElement(resolveTag(tagId)) as HTMLTableCellElement;
+                return document.createElement(tagId) as HTMLTableCellElement;
 
             case HtmlTags.THEAD:
-                return document.createElement(resolveTag(tagId)) as HTMLTableSectionElement;
+                return document.createElement(tagId) as HTMLTableSectionElement;
 
             case HtmlTags.TIME:
-                return document.createElement(resolveTag(tagId)) as HTMLTimeElement;
+                return document.createElement(tagId) as HTMLTimeElement;
             
             case HtmlTags.TITLE:
-                return document.createElement(resolveTag(tagId)) as HTMLTitleElement;
+                return document.createElement(tagId) as HTMLTitleElement;
 
             case HtmlTags.TR:
-                return document.createElement(resolveTag(tagId)) as HTMLTableRowElement;
+                return document.createElement(tagId) as HTMLTableRowElement;
 
             case HtmlTags.TRACK:
-                return document.createElement(resolveTag(tagId)) as HTMLTrackElement;
+                return document.createElement(tagId) as HTMLTrackElement;
 
             case HtmlTags.U:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.UL:
-                return document.createElement(resolveTag(tagId)) as HTMLUListElement;
+                return document.createElement(tagId) as HTMLUListElement;
 
             case HtmlTags.VAR:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
 
             case HtmlTags.VIDEO:
-                return document.createElement(resolveTag(tagId)) as HTMLVideoElement;
+                return document.createElement(tagId) as HTMLVideoElement;
 
             case HtmlTags.WBR:
-                return document.createElement(resolveTag(tagId)) as HTMLElement;
+                return document.createElement(tagId) as HTMLElement;
            
             default:
                 return undefined;
