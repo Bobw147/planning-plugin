@@ -2,13 +2,15 @@ export interface IDictionary<T> {
     [key: string]: T;
 }
 
-export enum Ident {
-    GOAL,
-    PROJECT,
-    TASK,
-    SUBTASK
-}
+export const Ident = {
+    GOAL: 0,
+    PROJECT: 1,
+    TASK: 2,
+    SUBTASK: 3
+} as const;
+;
 
+export type Ident = typeof Ident[keyof typeof Ident]
 export const emptyString: string = "";
 
 export const defaultStatusTags: Array<string> = [
