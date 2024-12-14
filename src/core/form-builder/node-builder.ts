@@ -6,7 +6,7 @@ import { AttribSettingsId } from './atrrib-settings-types';
 import { FormFieldId } from './form-field-types';
 import { HtmlAttributes } from './html-attribute-types';
 import { HtmlTags } from './html-element-types';
-import { lookupMessage, UserMessageId } from './i18n';
+import { translate, UserMessageId } from './i18n';
 
 type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettingsId | string ];
 
@@ -85,7 +85,7 @@ export class NodeBuilder{
                 this.setAttribute(tag, attribId, valueId);
             }
             else if (Object.values(UserMessageId).includes(valueId as UserMessageId)){
-                this.setAttribute(tag, attribId, lookupMessage(valueId as UserMessageId));
+                this.setAttribute(tag, attribId, translate(valueId as UserMessageId));
             }
             else {
                 this.setAttribute(tag, attribId, valueId);

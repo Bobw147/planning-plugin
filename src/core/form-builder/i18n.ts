@@ -83,6 +83,6 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.TASK_NAME_LABEL]: ["Enter task name"],
 }
 
-export function lookupMessage(userMessageId: UserMessageId): string {
+export function translate(userMessageId: UserMessageId): string {
     return userMessageDictionary[userMessageId][selectedLanguage];
 }

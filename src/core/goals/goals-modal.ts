@@ -3,7 +3,7 @@ import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
 import { FormFieldId } from '../form-builder/form-field-types';
-import { lookupMessage, UserMessageId } from '../form-builder/i18n';
+import { translate, UserMessageId } from '../form-builder/i18n';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { GoalFormBuilder } from './goal-form-builder';
 import { GoalIndexCard } from './goal-index-card';
@@ -29,7 +29,7 @@ export class GoalsModal extends Modal {
     open(): void {
         // Create and display the New Goal form
         this.contentEl.empty();
-        this.setTitle(lookupMessage(UserMessageId.CREATE_GOAL_TITLE));
+        this.setTitle(translate(UserMessageId.CREATE_GOAL_TITLE));
         super.open()
         this.goalForm.buildForm(this.contentEl);
 

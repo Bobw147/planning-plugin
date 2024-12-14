@@ -3,7 +3,7 @@ import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
 import { FormFieldId } from '../form-builder/form-field-types';
-import { lookupMessage, UserMessageId } from '../form-builder/i18n';
+import { translate, UserMessageId } from '../form-builder/i18n';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { ProjectFormBuilder } from './project-form-builder';
 import { ProjectIndexCard } from './project-index-card';
@@ -28,7 +28,7 @@ export class ProjectsModal extends Modal {
 
     open(): void{
         this.contentEl.empty();
-        this.setTitle(lookupMessage(UserMessageId.CREATE_PROJECT_TITLE));
+        this.setTitle(translate(UserMessageId.CREATE_PROJECT_TITLE));
         this.projectForm.buildForm(this.contentEl);
 
         super.open();

@@ -3,7 +3,7 @@ import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
 import { FormFieldId } from '../form-builder/form-field-types';
-import { lookupMessage, UserMessageId } from '../form-builder/i18n';
+import { translate, UserMessageId } from '../form-builder/i18n';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { SubtaskIndexCard } from './subtask-index-card';
@@ -30,7 +30,7 @@ export class TasksModal extends Modal {
 
     open(): void {
         this.contentEl.empty();
-        this.setTitle(lookupMessage(UserMessageId.CREATE_TASK_TITLE));
+        this.setTitle(translate(UserMessageId.CREATE_TASK_TITLE));
         this.taskForm.buildForm(this.contentEl);
 
         // Open the form to create the DOM so that we can manipulate the class names settings
