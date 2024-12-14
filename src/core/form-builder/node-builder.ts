@@ -3,7 +3,7 @@ import { setIcon } from 'obsidian';
 import { DOMNodeBuildError } from '../exceptions/exceptions';
 import { emptyString } from '../types/types';
 import { AttribSettingsId } from './atrrib-settings-types';
-import { FormFieldId, resolveField } from './form-field-types';
+import { FormFieldId } from './form-field-types';
 import { HtmlAttributes, resolveAttribute } from './html-attribute-types';
 import { HtmlTags, resolveTag } from './html-element-types';
 import { lookupMessage, UserMessageId } from './i18n';
@@ -15,7 +15,7 @@ const start = 0;
 export class NodeBuilder{
 
     clearOptions(tagId: FormFieldId) {
-        const selectElement = document.getElementById(resolveField(tagId)) as HTMLSelectElement;
+        const selectElement = document.getElementById(tagId) as HTMLSelectElement;
         while (selectElement.length > empty) {
             selectElement.remove(start);
         }
@@ -33,20 +33,6 @@ export class NodeBuilder{
         return tag;
     }
 
-/*
-    createSection(containerTagId: HtmlTags, attribs?: attribTuple[], content?: sectionContent[]): HTMLElement | Element | undefined {
-        const container: HTMLElement | Element | undefined = this.nodeFactory(containerTagId);
-        if (container !== undefined){
-            this.setAttributes(container, attribs);
-            content?.forEach((innerContent: sectionContent) => {
-                const tag: HtmlTags = innerContent[Contents.TAG_ID];
-                const attribs = innerContent[Contents.ATTRIBS];
-                container.appendChild(this.createElement(tag, attribs));
-            });
-        }
-        return container
-    }
-*/
     static getElementInfo(elementType: HtmlTags, fieldId:FormFieldId, attribId: HtmlAttributes): string {
         //TODO .getAttribute('value') returns null but .value works ok. There doesn;t seem to be an elegant
         // wrappable way of using document.getElementById.
@@ -55,28 +41,37 @@ export class NodeBuilder{
         /* eslint-disable no-case-declarations */
         switch (elementType) {
             case HtmlTags.INPUT:
-                value = (document.getElementById(resolveField(fieldId)) as HTMLInputElement).value;
+                value = (document.getElementById(fieldId) as HTMLInputElement).value;
                 break;
             
             case HtmlTags.SELECT:
-                value = (document.getElementById(resolveField(fieldId)) as HTMLSelectElement).value;
+                value = (document.getElementById(fieldId) as HTMLSelectElement).value;
                 break;
         }
         return value === null ? emptyString : value;
         /* eslint-enable no-case-declarations */
     }
 
+    // Obsidian DOM friedly
+    hide(elements: FormFieldId[])
+    {
+        elements.forEach((elementId) => {
+            const element: HTMLElement | null = document.getElementById(elementId);
+            element?.hide();
+        })
+    }
     // Recovers the target tagindicated by FormFieldId from the document and
     // passes the tag and attributes to setAttributes
     setElementAttributes(fieldId: FormFieldId, attribs: attribTuple[]): void {
 
-        const element: HTMLElement | undefined | null = document.getElementById(resolveField(fieldId));
+        const element: HTMLElement | undefined | null = document.getElementById(fieldId);
         if (element !== null && element !== undefined && attribs !== null) {
             this.setAttributes(element, attribs);
         }
     }
 
     setElementsAttributes(fieldIds: FormFieldId[], attribs: attribTuple[]): void {
+        debugger;
         fieldIds?.forEach((fieldId) => {
             this.setElementAttributes(fieldId, attribs);
         });
@@ -88,7 +83,7 @@ export class NodeBuilder{
 
         attribs?.forEach(([attribId, valueId]) => {
             if (Object.values(FormFieldId).includes(valueId as FormFieldId)) {
-                this.setAttribute(tag, attribId, resolveField(valueId as FormFieldId));
+                this.setAttribute(tag, attribId, valueId);
             }
             else if (Object.values(UserMessageId).includes(valueId as UserMessageId)){
                 this.setAttribute(tag, attribId, lookupMessage(valueId as UserMessageId));
