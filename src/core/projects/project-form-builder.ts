@@ -5,13 +5,14 @@ import { assignNameOptions, assignTagOptions, dateFormatter, flattenedTags } fro
 import {
     DisplayMode, GenericPlanningForm, IPlanningForm
 } from '../base-classes/generic-planning-form';
-import { FormFieldId, resolveField } from '../form-builder/form-field-types';
+import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
+import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { emptyString, identTags } from '../types/types';
-import { IProjectIndexCard, ProjectIndexCard } from './project-index-card';
+import { ProjectIndexCard } from './project-index-card';
 
 export class ProjectFormBuilder extends GenericPlanningForm implements IPlanningForm {
 
@@ -23,13 +24,13 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         const nodeBuilder = new NodeBuilder();
 
         // Populate the Category and Status Tag Selects
-        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement;           
+        const categorySelect = document.getElementById(FormFieldId.GF_CATEGORY_TAG) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags)
 
-        const statusSelect = document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG)) as HTMLSelectElement;           
+        const statusSelect = document.getElementById(FormFieldId.GF_STATUS_TAG) as HTMLSelectElement;           
         assignTagOptions(statusSelect, settings.statusTags)
 
-        const memberOf = document.getElementById(resolveField(FormFieldId.GF_MEMBER_OF_NAME)) as HTMLSelectElement;
+        const memberOf = document.getElementById(FormFieldId.GF_MEMBER_OF_NAME) as HTMLSelectElement;
         assignNameOptions(memberOf, app, settings.goalsFolder, identTags.PLANNING_GOAL);
 
         // Set the label for the Name and Member Of field
@@ -41,7 +42,7 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
             [HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_CREATE_BUTTON_TEXT],
         ]);
 
-        nodeBuilder.setElementsAttributes([
+        nodeBuilder.hide([
             FormFieldId.GF_STATUS_TAG_SECTION,
             FormFieldId.GF_EXPECTED_DATE_SECTION,
             FormFieldId.GF_COMPLETED_DATE_SECTION,
@@ -51,7 +52,7 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
             FormFieldId.GF_CATEGORY_TAG_ICON,
             FormFieldId.GF_TARGET_DATE_ICON,
             FormFieldId.GF_USER_TAGS_ICON,
-           ],[[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]])
+        ]);
     }
 
     async configureForIndexCardMode(settings: Settings, projectIndexCard: IProjectIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
@@ -77,14 +78,12 @@ export async function populateProjectIndexCardForm(fileManager: FileManager, fil
         projectIndexCard.load(frontmatter);
     });
     // Populate the form fields
-/*
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_NAME)) as HTMLInputElement).value = projectIndexCard.name;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_CATEGORY_TAG)) as HTMLInputElement).value = projectIndexCard.categoryTag;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_IDENT_TAG)) as HTMLInputElement).value = projectIndexCard.identTag;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_STATUS_TAG)) as HTMLInputElement).value = projectIndexCard.statusTag;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_TARGET_DATE)) as HTMLInputElement).value = (projectIndexCard.targetDate != null) ? dateFormatter(projectIndexCard.targetDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_EXPECTED_DATE)) as HTMLInputElement).value = (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_COMPLETED_DATE)) as HTMLInputElement).value = (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString;
-    (document.getElementById(resolveField(FormFieldId.ID_IC_PROJECT_USER_TAGS)) as HTMLInputElement).value = flattenedTags(projectIndexCard.userTags);
-*/
+
+    (document.getElementById(resolveField(FormFieldId.GF_NAME)) as HTMLInputElement).value = projectIndexCard.name;
+    (document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLInputElement).value = projectIndexCard.categoryTag;
+    (document.getElementById(resolveField(FormFieldId.GF_STATUS_TAG)) as HTMLInputElement).value = projectIndexCard.statusTag;
+    (document.getElementById(resolveField(FormFieldId.GF_TARGET_DATE)) as HTMLInputElement).value = (projectIndexCard.targetDate != null) ? dateFormatter(projectIndexCard.targetDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.GF_EXPECTED_DATE)) as HTMLInputElement).value = (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.GF_COMPLETED_DATE)) as HTMLInputElement).value = (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString;
+    (document.getElementById(resolveField(FormFieldId.GF_USER_TAGS)) as HTMLInputElement).value = flattenedTags(projectIndexCard.userTags);
 }

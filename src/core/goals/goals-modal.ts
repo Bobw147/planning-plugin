@@ -1,13 +1,10 @@
 import { App, Modal, TFile, Vault } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { createFolder } from 'src/utils/utils';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
-import { FormFieldId, resolveField } from '../form-builder/form-field-types';
+import { FormFieldId } from '../form-builder/form-field-types';
 import { lookupMessage, UserMessageId } from '../form-builder/i18n';
-import { goalPageContent } from '../scripts/dataview-goal';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
-import { emptyString, identTags } from '../types/types';
 import { GoalFormBuilder } from './goal-form-builder';
 import { GoalIndexCard } from './goal-index-card';
 
@@ -33,23 +30,23 @@ export class GoalsModal extends Modal {
         // Create and display the New Goal form
         this.contentEl.empty();
         this.setTitle(lookupMessage(UserMessageId.CREATE_GOAL_TITLE));
+        super.open()
         this.goalForm.buildForm(this.contentEl);
 
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
-        super.open()
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.goalForm.configureForCreateMode(this.app, this._settings);
 
             //  Add a handler to the 'Create' button
-            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON)) as HTMLButtonElement).onclick = async () => {
+            (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
                 this.goalForm.updateIndexCard(this.goalIndexCard, this.displayMode);
                 this.close();
                 this._onSubmit(this.goalIndexCard);
             }
         
             // Add a handler for the cancel button
-            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON)) as HTMLButtonElement).onclick = () => {
+            (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement).onclick = () => {
                 this.close();
                 this._onSubmit(null);
             }

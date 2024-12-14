@@ -1,15 +1,11 @@
-import { App, Modal, TFile, Vault } from 'obsidian';
+import { App, Modal, Vault } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { createFolder } from 'src/utils/utils';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
-import { FormFieldId, resolveField } from '../form-builder/form-field-types';
+import { FormFieldId } from '../form-builder/form-field-types';
 import { lookupMessage, UserMessageId } from '../form-builder/i18n';
-import { taskPageContent } from '../scripts/dataview-task';
-import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { emptyString, identTags } from '../types/types';
 import { SubtaskIndexCard } from './subtask-index-card';
 import { TaskFormBuilder } from './task-form-builder';
 import { TaskIndexCard } from './task-index-card';
@@ -44,13 +40,13 @@ export class TasksModal extends Modal {
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.taskForm.configureForCreateMode(this.app, this.settings);
             
-            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON)) as HTMLButtonElement).onclick = async () => {
+            (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
                 this.indexCard = (this.taskForm.isSubtask) ? new SubtaskIndexCard() : new TaskIndexCard();
                 this.taskForm.updateIndexCard(this.indexCard, this.displayMode);              
                 this.close();
                 this.onSubmit(this.indexCard);
             }
-            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON)) as HTMLButtonElement).onclick = () => {
+            (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement).onclick = () => {
                 this.close();
                 this.onSubmit(null);
             }

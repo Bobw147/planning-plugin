@@ -1,14 +1,10 @@
-import { App, CachedMetadata, Modal, TFile, Vault } from 'obsidian';
+import { App, Modal, Vault } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { createFolder } from 'src/utils/utils';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
-import { fieldNames } from '../base-classes/index-card';
-import { FormFieldId, resolveField } from '../form-builder/form-field-types';
+import { FormFieldId } from '../form-builder/form-field-types';
 import { lookupMessage, UserMessageId } from '../form-builder/i18n';
-import { projectPageContent } from '../scripts/dataview-project';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
-import { emptyString, identTags } from '../types/types';
 import { ProjectFormBuilder } from './project-form-builder';
 import { ProjectIndexCard } from './project-index-card';
 
@@ -40,12 +36,12 @@ export class ProjectsModal extends Modal {
             this.projectForm.configureForCreateMode(this.app, this.settings);
 
             // Add a handler to the 'Create' button
-            (document.getElementById(resolveField(FormFieldId.GF_CREATE_BUTTON)) as HTMLButtonElement).onclick = async () => {
+            (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
                 this.projectForm.updateIndexCard(this.projectIndexCard, this.displayMode);
                 this.close();
                 this._onSubmit(this.projectIndexCard)
             }
-            (document.getElementById(resolveField(FormFieldId.GF_CANCEL_BUTTON)) as HTMLButtonElement).onclick = () => {
+            (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement).onclick = () => {
                 this.close();
                 this._onSubmit(null);
             }

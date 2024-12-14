@@ -6,7 +6,7 @@ import {
     DisplayMode, GenericPlanningForm, IPlanningForm
 } from '../base-classes/generic-planning-form';
 import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
-import { FormFieldId, resolveField } from '../form-builder/form-field-types';
+import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { NodeBuilder } from '../form-builder/node-builder';
@@ -23,9 +23,22 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Category & Status selectors with options the list contained in the plugin settings
-        const categorySelect = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement;           
+        const categorySelect = document.getElementById(FormFieldId.GF_CATEGORY_TAG) as HTMLSelectElement;           
         assignTagOptions(categorySelect, settings.categoryTags)
 
+        nodeBuilder.hide([
+                FormFieldId.GF_STATUS_TAG_SECTION,                
+                FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
+                FormFieldId.GF_MEMBER_OF_SECTION,
+                FormFieldId.GF_EXPECTED_DATE_SECTION,
+                FormFieldId.GF_COMPLETED_DATE_SECTION,
+                FormFieldId.GF_NAME_ICON,
+                FormFieldId.GF_CATEGORY_TAG_ICON,
+                FormFieldId.GF_TARGET_DATE_ICON,
+                FormFieldId.GF_USER_TAGS_ICON,
+            ]);
+
+/*
         nodeBuilder.setElementsAttributes([
                 FormFieldId.GF_STATUS_TAG_SECTION,                
                 FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
@@ -37,14 +50,14 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
                 FormFieldId.GF_TARGET_DATE_ICON,
                 FormFieldId.GF_USER_TAGS_ICON,
             ], [[HtmlAttributes.CLASS, FormFieldId.STYLE_DIV_HIDDEN]]
-        );
+*/
     }
 
     async configureForIndexCardMode(settings: Settings, goalIndexCard: GoalIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Add the CategoryTag options
-        const goalCategorySelect: HTMLSelectElement = document.getElementById(resolveField(FormFieldId.GF_CATEGORY_TAG)) as HTMLSelectElement
+        const goalCategorySelect: HTMLSelectElement = document.getElementById(FormFieldId.GF_CATEGORY_TAG) as HTMLSelectElement
         assignTagOptions(goalCategorySelect, settings.categoryTags);
     
         // Hide the Create and Cancel buttons
