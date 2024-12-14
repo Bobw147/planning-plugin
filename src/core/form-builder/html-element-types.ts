@@ -1,368 +1,125 @@
 
-export enum HtmlTags {
-    A = "a_tag",
-    ABBR = "abbr_tag",
-    ADDRESS = "address_tag",
-    AREA = "area_tag",
-    ARTICLE = "article_tag",
-    ASIDE = "aside_tag",
-    AUDIO = "audio_tag",
-    B = "b_tag",
-    BASE = "base_tag",
-    BDI = "bdi_tag",
-    BDO = "bdo_tag",
-    BLOCKQUOTE = "blockquote_tag",
-    BODY = "body_tag",
-    BR = "br_tag",
-    BUTTON = "button_tag",
-    CANVAS = "canvas_tag",
-    CAPTION = "caption_tag",
-    CITE = "cite_tag",
-    CODE = "code_tag",
-    COL = "col-tag",
-    COLGROUP = "colgroup_tag",
-    COMMENT = "comment_tag",
-    DATA = "data_tag",
-    DATALIST = "datalist_tag",
-    DD = "dd_tag",
-    DEL = "del_tag",
-    DETAILS = "details_tag",
-    DFN = "dfn_tag",
-    DIALOG = "dialog_tag",
-    DIV = "div_tag",
-    DL = "dl_tag",
-    DOCTYPE = "doctype_tag",
-    DT = "dt_tag",
-    EM = "em_tag",
-    EMBED = "embed_tag",
-    FIELDSET = "fieldset_tag",
-    FIGCAPTION = "figcaption",
-    FIGURE = "figure",
-    FOOTER = "footer",
-    FORM = "form_tag",
-    H1 = "h1_tag",
-    H2 = "h2_tag",
-    H3 = "h3_tag",
-    H4 = "h4_tag",
-    H5 = "h5_tag",
-    H6 = "h6_tag",
-    HEAD = "head_tag",
-    HEADER = "header_tag",
-    HGROUP = "hgroup_tag",
-    HR = "hr_tag",
-    HTML = "html_tag",
-    I = "i_tag",
-    IFRAME = "iframe_tag",
-    IMG = "img_tag",
-    INPUT = "input_tag",
-    INS = "ins_tag",
-    KBD = "kbd_tag",
-    LABEL = "label_tag",
-    LEGEND = "legend_tag",
-    LI = "li_tag",
-    LINK = "link_tag",
-    MAIN = "main_tag",
-    MAP = "map_tag",
-    MARK = "mark_tag",
-    MATH = "math_tag",
-    MATHML = "MathML_tag",
-    MENU = "menu_tag",
-    META = "meta_tag",
-    METER = "meter_tag",
-    NAV = "nav_tag",
-    NOSCRIPT = "noscript_tag",
-    OBJECT = "object_tag",
-    OL = "ol_tag",
-    OPTGROUP = "optgroup_tag",
-    OPTION = "option_tag",
-    OUTPUT = "output_tag",
-    P = "p_tag",
-    PICTURE = "picture_tag",
-    PRE = "pre_tag",
-    PROGRESS = "progress_tag",
-    Q = "q_tag",
-    RP = "rp_tag",
-    RT = "rt_tag",
-    RUBY = "ruby_tag",
-    S = "s_tag",
-    SAMP = "samp_tag",
-    SCRIPT = "script_tag",
-    SEARCH = "search_tag",
-    SECTION = "section_tag",
-    SELECT = "select_tag",
-    SLOT = "slot_tag",
-    SMALL = "small_tag",
-    SOURCE = "source_tag",
-    SPAN = "span_tag",
-    STRONG = "strong_tag",
-    STYLE = "style_tag",
-    SUB = "sub_tag",
-    SUMMARY = "summary_tag",
-    SUP = "sup_tag",
-    SVG = "svg_tag",
-    TABLE = "table_tag",
-    TBODY = "tbody_tag",
-    TD = "td_tag",
-    TEMPLATE = "template_tag",
-    TEXTAREA = "textarea_tag",
-    TFOOT = "tfoot_tag",
-    TH = "th_tag",
-    THEAD = "thead_tag",
-    TIME = "time_tag",
-    TITLE = "title_tag",
-    TR = "tr_tag",
-    TRACK = "track_tag",
-    U = "u_tag",
-    UL = "ul_tag",
-    VAR = "var_tag",
-    VIDEO = "video_tag",
-    WBR = "wbr_tag"
-}
+export const HtmlTags = {
+    A: 'a',
+    ABBR: 'abbr',
+    ADDRESS: 'address',
+    AREA: 'area',
+    ARTICLE: 'article',
+    ASIDE: 'aside',
+    AUDIO: 'audio',
+    B: 'b',
+    BASE: 'base',
+    BDI: 'bdi',
+    BDO: 'bdo',
+    BLOCKQUOTE: 'blockquote',
+    BODY: 'body',
+    BR: 'br',
+    BUTTON: 'button',
+    CANVAS: 'canvas',
+    CAPTION: 'caption',
+    CITE: 'cite',
+    CODE: 'code',
+    COL: 'col',
+    COLGROUP: 'colgroup',
+    COMMENT: '<!-- -->',
+    DATA: 'data',
+    DATALIST: 'datalist',
+    DD: 'dd',
+    DEL: 'del',
+    DETAILS: 'details',
+    DFN: 'dfn',
+    DIALOG: 'dialog',
+    DIV: 'div',
+    DL: 'dl',
+    DOCTYPE: 'doctype',
+    DT: 'dt',
+    EM: 'em',
+    EMBED: 'em',
+    FIELDSET: 'fieldset',
+    FIGCAPTION: 'figcaption',
+    FIGURE: 'figure',
+    FOOTER: 'footer',
+    FORM: 'form',
+    H1: 'h1',
+    H2: 'h2',
+    H3: 'h3',
+    H4: 'h4',
+    H5: 'h5',
+    H6: 'h6',
+    HEAD: 'head',
+    HEADER: 'header',
+    HGROUP: 'hgroup',
+    HR: 'hr',
+    HTML: 'html',
+    I: 'i',
+    IFRAME: 'iframe',
+    IMG: 'img',
+    INPUT: 'input',
+    INS: 'ins',
+    KBD: 'kbd',
+    LABEL: 'label',
+    LEGEND: 'legend',
+    LI: 'li',
+    LINK: 'link',
+    MAIN: 'main',
+    MAP: 'map',
+    MARK: 'mark',
+    MATH: 'math',
+    MATHML: 'math',
+    MENU: 'menu',
+    META: 'meta',
+    METER: 'meter',
+    NAV: 'nav',
+    NOSCRIPT: 'noscript',
+    OBJECT: 'object',
+    OL: 'ol',
+    OPTGROUP: 'optgroup',
+    OPTION: 'option',
+    OUTPUT: 'output',
+    P: 'p',
+    PICTURE: 'picture',
+    PRE: 'pre',
+    PROGRESS: 'progress',
+    Q: 'q',
+    RP: 'rp',
+    RT: 'rt',
+    RUBY: 'ruby',
+    S: 's',
+    SAMP: 'samp',
+    SCRIPT: 'script',
+    SEARCH: 'search',
+    SECTION: 'section',
+    SELECT: 'select',
+    SLOT: 'slot',
+    SMALL: 'small',
+    SOURCE: 'source',
+    SPAN: 'span',
+    STRONG: 'strong',
+    STYLE: 'style',
+    SUB: 'sub',
+    SUMMARY: 'summary',
+    SUP: 'sup',
+    SVG: 'svg',
+    TABLE: 'table',
+    TBODY: 'tbody',
+    TD: 'string',
+    TEMPLATE: 'template',
+    TEXTAREA: 'textarea',
+    TFOOT: 'tfoot',
+    TH: 'th',
+    THEAD: 'thead',
+    TIME: 'time',
+    TITLE: 'title',
+    TR: 'tr',
+    TRACK: 'track',
+    U: 'u',
+    UL: 'ul',
+    VAR: 'var',
+    VIDEO: 'video',
+    WBR: 'wbr',
+} as const;
 
-interface IHtmlTags {
-    [HtmlTags.A]: string;
-    [HtmlTags.ABBR]: string;
-    [HtmlTags.ADDRESS]: string;
-    [HtmlTags.AREA]: string;
-    [HtmlTags.ARTICLE]: string;
-    [HtmlTags.ASIDE]: string;
-    [HtmlTags.AUDIO]: string;
-    [HtmlTags.B]: string;
-    [HtmlTags.BASE]: string;
-    [HtmlTags.BDI]: string;
-    [HtmlTags.BDO]: string;
-    [HtmlTags.BLOCKQUOTE]: string;
-    [HtmlTags.BODY]: string;
-    [HtmlTags.BR]: string;
-    [HtmlTags.BUTTON]: string;
-    [HtmlTags.CANVAS]: string;
-    [HtmlTags.CAPTION]: string;
-    [HtmlTags.CITE]: string;
-    [HtmlTags.CODE]: string;
-    [HtmlTags.COL]: string;
-    [HtmlTags.COLGROUP]: string;
-    [HtmlTags.COMMENT]: string;
-    [HtmlTags.DATA]: string;
-    [HtmlTags.DATALIST]: string;
-    [HtmlTags.DD]: string;
-    [HtmlTags.DEL]: string;
-    [HtmlTags.DETAILS]: string;
-    [HtmlTags.DFN]: string;
-    [HtmlTags.DIALOG]: string;
-    [HtmlTags.DIV]: string;
-    [HtmlTags.DL]: string;
-    [HtmlTags.DOCTYPE]: string;
-    [HtmlTags.DT]: string;
-    [HtmlTags.EM]: string;
-    [HtmlTags.EMBED]: string;
-    [HtmlTags.FIELDSET]: string;
-    [HtmlTags.FIGCAPTION]: string;
-    [HtmlTags.FIGURE]: string;
-    [HtmlTags.FOOTER]: string;
-    [HtmlTags.FORM]: string;
-    [HtmlTags.H1]: string;
-    [HtmlTags.H2]: string;
-    [HtmlTags.H3]: string;
-    [HtmlTags.H4]: string;
-    [HtmlTags.H5]: string;
-    [HtmlTags.H6]: string;
-    [HtmlTags.HEAD]: string;
-    [HtmlTags.HEADER]: string;
-    [HtmlTags.HGROUP]: string;
-    [HtmlTags.HR]: string;
-    [HtmlTags.HTML]: string;
-    [HtmlTags.I]: string;
-    [HtmlTags.IFRAME]: string;
-    [HtmlTags.IMG]: string;
-    [HtmlTags.INPUT]: string;
-    [HtmlTags.INS]: string;
-    [HtmlTags.KBD]: string;
-    [HtmlTags.LABEL]: string;
-    [HtmlTags.LEGEND]: string;
-    [HtmlTags.LI]: string;
-    [HtmlTags.LINK]: string;
-    [HtmlTags.MAIN]: string;
-    [HtmlTags.MAP]: string;
-    [HtmlTags.MARK]: string;
-    [HtmlTags.MATH]: string;
-    [HtmlTags.MATHML]: string;
-    [HtmlTags.MENU]: string;
-    [HtmlTags.META]: string;
-    [HtmlTags.METER]: string;
-    [HtmlTags.NAV]: string;
-    [HtmlTags.NOSCRIPT]: string;
-    [HtmlTags.OBJECT]: string;
-    [HtmlTags.OL]: string;
-    [HtmlTags.OPTGROUP]: string;
-    [HtmlTags.OPTION]: string;
-    [HtmlTags.OUTPUT]: string;
-    [HtmlTags.P]: string;
-    [HtmlTags.PICTURE]: string;
-    [HtmlTags.PRE]: string;
-    [HtmlTags.PROGRESS]: string;
-    [HtmlTags.Q]: string;
-    [HtmlTags.RP]: string;
-    [HtmlTags.RT]: string;
-    [HtmlTags.RUBY]: string;
-    [HtmlTags.S]: string;
-    [HtmlTags.SAMP]: string;
-    [HtmlTags.SCRIPT]: string;
-    [HtmlTags.SEARCH]: string;
-    [HtmlTags.SECTION]: string;
-    [HtmlTags.SELECT]: string;
-    [HtmlTags.SLOT]: string;
-    [HtmlTags.SMALL]: string;
-    [HtmlTags.SOURCE]: string;
-    [HtmlTags.SPAN]: string;
-    [HtmlTags.STRONG]: string;
-    [HtmlTags.STYLE]: string;
-    [HtmlTags.SUB]: string;
-    [HtmlTags.SUMMARY]: string;
-    [HtmlTags.SUP]: string;
-    [HtmlTags.SVG]: string;
-    [HtmlTags.TABLE]: string;
-    [HtmlTags.TBODY]: string;
-    [HtmlTags.TD]: string;
-    [HtmlTags.TEMPLATE]: string;
-    [HtmlTags.TEXTAREA]: string;
-    [HtmlTags.TFOOT]: string;
-    [HtmlTags.TH]: string;
-    [HtmlTags.THEAD]: string;
-    [HtmlTags.TIME]: string;
-    [HtmlTags.TITLE]: string;
-    [HtmlTags.TR]: string;
-    [HtmlTags.TRACK]: string;
-    [HtmlTags.U]: string;
-    [HtmlTags.UL]: string;
-    [HtmlTags.VAR]: string;
-    [HtmlTags.VIDEO]: string;
-    [HtmlTags.WBR]: string;
-}
-
-const htmlTagDictionary: IHtmlTags = {
-    [HtmlTags.A]: 'a',
-    [HtmlTags.ABBR]: 'abbr',
-    [HtmlTags.ADDRESS]: 'address',
-    [HtmlTags.AREA]: 'area',
-    [HtmlTags.ARTICLE]: 'article',
-    [HtmlTags.ASIDE]: 'aside',
-    [HtmlTags.AUDIO]: 'audio',
-    [HtmlTags.B]: 'b',
-    [HtmlTags.BASE]: 'base',
-    [HtmlTags.BDI]: 'bdi',
-    [HtmlTags.BDO]: 'bdo',
-    [HtmlTags.BLOCKQUOTE]: 'blockquote',
-    [HtmlTags.BODY]: 'body',
-    [HtmlTags.BR]: 'br',
-    [HtmlTags.BUTTON]: 'button',
-    [HtmlTags.CANVAS]: 'canvas',
-    [HtmlTags.CAPTION]: 'caption',
-    [HtmlTags.CITE]: 'cite',
-    [HtmlTags.CODE]: 'code',
-    [HtmlTags.COL]: 'col',
-    [HtmlTags.COLGROUP]: 'colgroup',
-    [HtmlTags.COMMENT]: '<!-- -->',
-    [HtmlTags.DATA]: 'data',
-    [HtmlTags.DATALIST]: 'datalist',
-    [HtmlTags.DD]: 'dd',
-    [HtmlTags.DEL]: 'del',
-    [HtmlTags.DETAILS]: 'details',
-    [HtmlTags.DFN]: 'dfn',
-    [HtmlTags.DIALOG]: 'dialog',
-    [HtmlTags.DIV]: 'div',
-    [HtmlTags.DL]: 'dl',
-    [HtmlTags.DOCTYPE]: 'doctype',
-    [HtmlTags.DT]: 'dt',
-    [HtmlTags.EM]: 'em',
-    [HtmlTags.EMBED]: 'em',
-    [HtmlTags.FIELDSET]: 'fieldset',
-    [HtmlTags.FIGCAPTION]: 'figcaption',
-    [HtmlTags.FIGURE]: 'figure',
-    [HtmlTags.FOOTER]: 'footer',
-    [HtmlTags.FORM]: 'form',
-    [HtmlTags.H1]: 'h1',
-    [HtmlTags.H2]: 'h2',
-    [HtmlTags.H3]: 'h3',
-    [HtmlTags.H4]: 'h4',
-    [HtmlTags.H5]: 'h5',
-    [HtmlTags.H6]: 'h6',
-    [HtmlTags.HEAD]: 'head',
-    [HtmlTags.HEADER]: 'header',
-    [HtmlTags.HGROUP]: 'hgroup',
-    [HtmlTags.HR]: 'hr',
-    [HtmlTags.HTML]: 'html',
-    [HtmlTags.I]: 'i',
-    [HtmlTags.IFRAME]: 'iframe',
-    [HtmlTags.IMG]: 'img',
-    [HtmlTags.INPUT]: 'input',
-    [HtmlTags.INS]: 'ins',
-    [HtmlTags.KBD]: 'kbd',
-    [HtmlTags.LABEL]: 'label',
-    [HtmlTags.LEGEND]: 'legend',
-    [HtmlTags.LI]: 'li',
-    [HtmlTags.LINK]: 'link',
-    [HtmlTags.MAIN]: 'main',
-    [HtmlTags.MAP]: 'map',
-    [HtmlTags.MARK]: 'mark',
-    [HtmlTags.MATH]: 'math',
-    [HtmlTags.MATHML]: 'math',
-    [HtmlTags.MENU]: 'menu',
-    [HtmlTags.META]: 'meta',
-    [HtmlTags.METER]: 'meter',
-    [HtmlTags.NAV]: 'nav',
-    [HtmlTags.NOSCRIPT]: 'noscript',
-    [HtmlTags.OBJECT]: 'object',
-    [HtmlTags.OL]: 'ol',
-    [HtmlTags.OPTGROUP]: 'optgroup',
-    [HtmlTags.OPTION]: 'option',
-    [HtmlTags.OUTPUT]: 'output',
-    [HtmlTags.P]: 'p',
-    [HtmlTags.PICTURE]: 'picture',
-    [HtmlTags.PRE]: 'pre',
-    [HtmlTags.PROGRESS]: 'progress',
-    [HtmlTags.Q]: 'q',
-    [HtmlTags.RP]: 'rp',
-    [HtmlTags.RT]: 'rt',
-    [HtmlTags.RUBY]: 'ruby',
-    [HtmlTags.S]: 's',
-    [HtmlTags.SAMP]: 'samp',
-    [HtmlTags.SCRIPT]: 'script',
-    [HtmlTags.SEARCH]: 'search',
-    [HtmlTags.SECTION]: 'section',
-    [HtmlTags.SELECT]: 'select',
-    [HtmlTags.SLOT]: 'slot',
-    [HtmlTags.SMALL]: 'small',
-    [HtmlTags.SOURCE]: 'source',
-    [HtmlTags.SPAN]: 'span',
-    [HtmlTags.STRONG]: 'strong',
-    [HtmlTags.STYLE]: 'style',
-    [HtmlTags.SUB]: 'sub',
-    [HtmlTags.SUMMARY]: 'summary',
-    [HtmlTags.SUP]: 'sup',
-    [HtmlTags.SVG]: 'svg',
-    [HtmlTags.TABLE]: 'table',
-    [HtmlTags.TBODY]: 'tbody',
-    [HtmlTags.TD]: 'string',
-    [HtmlTags.TEMPLATE]: 'template',
-    [HtmlTags.TEXTAREA]: 'textarea',
-    [HtmlTags.TFOOT]: 'tfoot',
-    [HtmlTags.TH]: 'th',
-    [HtmlTags.THEAD]: 'thead',
-    [HtmlTags.TIME]: 'time',
-    [HtmlTags.TITLE]: 'title',
-    [HtmlTags.TR]: 'tr',
-    [HtmlTags.TRACK]: 'track',
-    [HtmlTags.U]: 'u',
-    [HtmlTags.UL]: 'ul',
-    [HtmlTags.VAR]: 'var',
-    [HtmlTags.VIDEO]: 'video',
-    [HtmlTags.WBR]: 'wbr',
-}
-
-// This wrapper is necessary 
-export function resolveTag(tagId: HtmlTags): string{
-    return htmlTagDictionary[tagId];
-}
+export type HtmlTags = typeof HtmlTags[keyof typeof HtmlTags];
 
 /*
 export function isApplicable(tag: HtmlTags, attrib: string): boolean {
