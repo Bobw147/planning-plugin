@@ -1,10 +1,13 @@
+import { randomUUID, UUID } from 'crypto';
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { rawListeners } from 'process';
 import { arraycopy } from 'src/utils/utils';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 
 export const fieldNames = {
+    REF_ID: "plrefId",
     NAME_FIELD: "plname",
     PARENT_FIELD: "plparent",
     CATEGORY_TAG_FIELD: "plcategory",
@@ -17,6 +20,8 @@ export const fieldNames = {
 }
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
+    
+    private _refId: UUID | null;
     private _name: string;
     private _parent: string;
     private _categoryTag: string;
@@ -28,6 +33,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _userTags: string[];
 
     constructor(identTag: string) {
+        this._refId = randomUUID();
         this._name = "";
         this._parent = "";
         this._categoryTag = "";
@@ -42,6 +48,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     async load(fileManager: FileManager, file: TFile): Promise<void> {
         await fileManager.processFrontMatter(file, (frontMatter: FrontMatterCache) => {
             if (frontMatter) {
+                this._refId = frontMatter[fieldNames.REF_ID];
                 this.name = frontMatter[fieldNames.NAME_FIELD];
                 this.parent = frontMatter[fieldNames.PARENT_FIELD];
                 this.categoryTag = frontMatter[fieldNames.CATEGORY_TAG_FIELD];
@@ -58,6 +65,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     {
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter) {
+                frontMatter[fieldNames.REF_ID] = this.refId;
                 frontMatter[fieldNames.NAME_FIELD] = this.name;
                 frontMatter[fieldNames.PARENT_FIELD] = this.parent;
                 frontMatter[fieldNames.IDENT_TAG_FIELD] = this.identTag;
@@ -69,6 +77,10 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
                 frontMatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
             }
         });
+    }
+
+    get refId() : UUID {
+        return this._refId as UUID;
     }
 
     get name(): string {
