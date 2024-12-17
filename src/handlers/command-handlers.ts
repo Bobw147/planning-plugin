@@ -16,7 +16,7 @@ export class CommandHandler{
                 },
             ],
             callback: () => {
-                this.plugin.planner.create_goal(DisplayMode.CREATE_MODE);
+                this.plugin.planner.createGoal(DisplayMode.CREATE_MODE);
             },
         });
         this.plugin.addCommand({
@@ -30,7 +30,7 @@ export class CommandHandler{
                 },
             ],
             callback: () => {
-                this.plugin.planner.create_project(DisplayMode.CREATE_MODE);
+                this.plugin.planner.createProject(DisplayMode.CREATE_MODE);
             },
         });
         this.plugin.addCommand({
@@ -44,7 +44,7 @@ export class CommandHandler{
                 },
             ],
             callback: () => {
-                this.plugin.planner.create_task(DisplayMode.CREATE_MODE);
+                this.plugin.planner.createTask(DisplayMode.CREATE_MODE);
             },
         });
         return this
