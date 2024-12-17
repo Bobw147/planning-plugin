@@ -1,10 +1,7 @@
-import { App } from 'obsidian';
-import { DisplayMode } from 'src/core/base-classes/generic-planning-form'; //TODO move DisplayMode to types.ts?
 import { Planner } from 'src/core/planner';
-import { Settings } from 'src/settings/Settings';
 
 //TODO Should I move this into the planner
-export function indexCardButtonHandler(app: App, source: string, el: HTMLElement, settings: Settings, planner: Planner): void {
+export function indexCardButtonHandler(source: string, el: HTMLElement, planner: Planner): void {
 
     // Create the button element along with a div element that will contain the form
 	// when the button is pressed
@@ -25,26 +22,22 @@ export function indexCardButtonHandler(app: App, source: string, el: HTMLElement
             // Toggle the nature of the button
             button.textContent = "Hide Index Card"
 
-//            const file: TFile = app.workspace.getActiveFile();
             switch (source.trim()) {
                 case "Goal" : // Display the form and then add the index card data
-                    planner.create_goal(DisplayMode.INDEX_CARD_MODE);    
-//                    goalForm = new CreateGoalForm();
-//                    goalForm.buildForm(div);
-//                    await goalForm.configureForIndexCardMode(settings, app.fileManager, file as TFile);
+                    planner.showGoalIndexCard();    
                     break;
 
                 case "Project":
-                    planner.create_project(DisplayMode.INDEX_CARD_MODE);
-//                    div.innerHTML = projectIndexCardForm();
-//                    populateProjectIndexCardForm(app.fileManager, file as TFile);
+                    planner.showProjectIndexCard();
                     break;
 
                 case "Task":
-                    planner.create_task(DisplayMode.INDEX_CARD_MODE);
-//                    div.innerHTML = taskIndexCardForm();
-//                    populateTaskIndexCardForm(app.fileManager, file as TFile);
-                    break;		    
+                    planner.showTaskIndexCard();
+                    break;
+                    
+                case "Subtask":
+                    planner.showSubtaskIndexCard();
+                    break;
             }
         }
         else {
