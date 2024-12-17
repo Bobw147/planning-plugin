@@ -3,7 +3,7 @@
 import {
     App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault
 } from 'obsidian';
-import { fieldNames } from 'src/core/base-classes/index-card';
+import { fieldNames } from 'src/core/base-classes/planning-index-card';
 import { IDictionary } from 'src/core/types/types';
 
 /* Arraye helpers */
