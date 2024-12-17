@@ -1,6 +1,6 @@
 import { App, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { assignNameOptions, assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
+import { dateFormatter, flattenedTags, getNameOptions } from 'src/utils/utils';
 
 import {
     DisplayMode, GenericPlanningForm, IPlanningForm
@@ -23,15 +23,10 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     configureForCreateMode(app: App, settings: Settings): void {
         const nodeBuilder = new NodeBuilder();
 
-        // Populate the Category and Status Tag Selects
-        const categorySelect = document.getElementById(FormFieldId.GF_CATEGORY_TAG) as HTMLSelectElement;           
-        assignTagOptions(categorySelect, settings.categoryTags)
-
-        const statusSelect = document.getElementById(FormFieldId.GF_STATUS_TAG) as HTMLSelectElement;           
-        assignTagOptions(statusSelect, settings.statusTags)
-
-        const memberOf = document.getElementById(FormFieldId.GF_MEMBER_OF_NAME) as HTMLSelectElement;
-        assignNameOptions(memberOf, app, settings.goalsFolder, identTags.PLANNING_GOAL);
+        // Populate the Status selector options with the list contained in the plugin settings
+        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, settings.categoryTags, emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, settings.statusTags, emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(app, settings.goalsFolder, identTags.PLANNING_GOAL), emptyString, false)
 
         // Set the label for the Name and Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_NAME_LABEL]])

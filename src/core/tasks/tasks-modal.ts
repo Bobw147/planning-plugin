@@ -18,7 +18,8 @@ export class TasksModal extends Modal {
     private indexCard: ITaskIndexCard | ISubtaskIndexCard | null;
     private onSubmit;
 
-    constructor(app: App, vault: Vault, settings: Settings, displayMode: DisplayMode, onSubmit: (result: ITaskIndexCard | ISubtaskIndexCard | null) => void) {
+    constructor(app: App, vault: Vault, settings: Settings, displayMode: DisplayMode, 
+        onSubmit: (result: ITaskIndexCard | ISubtaskIndexCard | null, app: App, settings: Settings) => void) {
 		super(app);
         this.settings = settings;
         this.vault = vault;
@@ -44,11 +45,11 @@ export class TasksModal extends Modal {
                 this.indexCard = (this.taskForm.isSubtask) ? new SubtaskIndexCard() : new TaskIndexCard();
                 this.taskForm.updateIndexCard(this.indexCard, this.displayMode);              
                 this.close();
-                this.onSubmit(this.indexCard);
+                this.onSubmit(this.indexCard, this.app, this.settings);
             }
             (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement).onclick = () => {
                 this.close();
-                this.onSubmit(null);
+                this.onSubmit(null, this.app, this.settings);
             }
         }
     }

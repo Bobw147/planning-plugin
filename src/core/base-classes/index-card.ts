@@ -18,6 +18,7 @@ export const fieldNames = {
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _name: string;
+    private _parent: string;
     private _categoryTag: string;
     private _identTag: string;
     private _statusTag: string;
@@ -28,6 +29,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     constructor(identTag: string) {
         this._name = "";
+        this._parent = "";
         this._categoryTag = "";
         this._identTag = identTag;
         this._statusTag = "";
@@ -37,29 +39,37 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._userTags = [];
     }
 
-    load(frontmatter: FrontMatterCache): void {
-        this.name = frontmatter[fieldNames.NAME_FIELD];
-        this.categoryTag = frontmatter[fieldNames.CATEGORY_TAG_FIELD];
-        this.statusTag = frontmatter[fieldNames.STATUS_TAG_FIELD];
-        this.targetDate = new Date(frontmatter[fieldNames.TARGET_DATE_FIELD]);
-        this.expectedDate = new Date(frontmatter[fieldNames.EXPECTED_DATE_FIELD]);
-        this.completedDate = new Date(frontmatter[fieldNames.COMPLETED_DATE_FIELD]);
-        this.userTags = frontmatter[fieldNames.USER_TAGS_FIELD];
+    async load(fileManager: FileManager, file: TFile): Promise<void> {
+        await fileManager.processFrontMatter(file, (frontMatter: FrontMatterCache) => {
+            if (frontMatter) {
+                this.name = frontMatter[fieldNames.NAME_FIELD];
+                this.parent = frontMatter[fieldNames.PARENT_FIELD];
+                this.categoryTag = frontMatter[fieldNames.CATEGORY_TAG_FIELD];
+                this.statusTag = frontMatter[fieldNames.STATUS_TAG_FIELD];
+                this.targetDate = new Date(frontMatter[fieldNames.TARGET_DATE_FIELD]);
+                this.expectedDate = new Date(frontMatter[fieldNames.EXPECTED_DATE_FIELD]);
+                this.completedDate = new Date(frontMatter[fieldNames.COMPLETED_DATE_FIELD]);
+                this.userTags = frontMatter[fieldNames.USER_TAGS_FIELD]; 
+            }
+        });
     }
 
-    async save(filemanager: FileManager, file: TFile, identTag?: typeof this.identTag): Promise<void>
+    async save(fileManager: FileManager, file: TFile): Promise<void>
     {
-        await filemanager.processFrontMatter(file, (frontmatter) => {
-            frontmatter[fieldNames.NAME_FIELD] = this.name;
-            frontmatter[fieldNames.IDENT_TAG_FIELD] = (identTag != null) ? identTag : null;
-            frontmatter[fieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;
-            frontmatter[fieldNames.STATUS_TAG_FIELD] = this.statusTag;
-            frontmatter[fieldNames.TARGET_DATE_FIELD] = this.targetDate;
-            frontmatter[fieldNames.EXPECTED_DATE_FIELD] = this.expectedDate;
-            frontmatter[fieldNames.COMPLETED_DATE_FIELD] = this.completedDate;
-            frontmatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
-        }
-    )}
+        await fileManager.processFrontMatter(file, (frontMatter) => {
+            if (frontMatter) {
+                frontMatter[fieldNames.NAME_FIELD] = this.name;
+                frontMatter[fieldNames.PARENT_FIELD] = this.parent;
+                frontMatter[fieldNames.IDENT_TAG_FIELD] = this.identTag;
+                frontMatter[fieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;
+                frontMatter[fieldNames.STATUS_TAG_FIELD] = this.statusTag;
+                frontMatter[fieldNames.TARGET_DATE_FIELD] = this.targetDate;
+                frontMatter[fieldNames.EXPECTED_DATE_FIELD] = this.expectedDate;
+                frontMatter[fieldNames.COMPLETED_DATE_FIELD] = this.completedDate;
+                frontMatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
+            }
+        });
+    }
 
     get name(): string {
         return this._name;
@@ -67,6 +77,14 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     set name(value: string) {
         this._name = value;
+    }
+
+    get parent(): string{
+        return this._parent;
+    }
+
+    set parent(value: string) {
+        this._parent= value;
     }
 
     get categoryTag(): string {
@@ -80,7 +98,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     get identTag(): string {
         return this._identTag;
     }
-
+   
     protected set identTag(value: string) {
         this._identTag = (this._validateTag(value, "#planning/")) ? value : "";
     }

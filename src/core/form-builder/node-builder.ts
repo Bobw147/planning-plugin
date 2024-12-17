@@ -1,4 +1,6 @@
 import { setIcon } from 'obsidian';
+import { debugPort } from 'process';
+import { Settings } from 'src/settings/Settings';
 
 import { DOMNodeBuildError } from '../exceptions/exceptions';
 import { emptyString } from '../types/types';
@@ -13,6 +15,26 @@ type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettings
 const empty = 0;
 const start = 0;
 export class NodeBuilder{
+
+    addOptions(elementId: FormFieldId, optionList: string[], selectedOption: string, clearFirst: boolean):void {
+        if (clearFirst)
+            this.clearOptions(elementId);
+
+        const selectElement: HTMLSelectElement | null = document.getElementById(elementId) as HTMLSelectElement;
+        if (selectElement == null)
+            return;
+
+        let index: number = 0;
+        optionList.forEach((option) => {
+            const optionElement = document.createElement('option') as HTMLOptionElement;
+            optionElement.text = option;
+            selectElement.add(optionElement);
+
+            if (option == selectedOption)
+                selectElement.selectedIndex = index;
+            index++;
+        });
+    }
 
     clearOptions(tagId: FormFieldId) {
         const selectElement = document.getElementById(tagId) as HTMLSelectElement;
@@ -31,6 +53,13 @@ export class NodeBuilder{
         // Add any given attribute
         this.setAttributes(tag, attribs);
         return tag;
+    }
+
+    disable(fields: FormFieldId[]): void {
+        fields.forEach((field: string) =>{
+            const element: HTMLElement | null = document.getElementById(field);
+            this.setAttribute(element, HtmlAttributes.DISABLED, AttribSettingsId.TRUE);
+        })
     }
 
     static getElementInfo(elementType: HtmlTags, fieldId:FormFieldId, attribId: HtmlAttributes): string {
@@ -113,6 +142,22 @@ export class NodeBuilder{
         }
     }
     
+    setSelectedOption(elementId: FormFieldId, tagList: string[], selectorTag: string): void{
+        // For some reason setting the selected option in a select element using the value attribute
+        // does not work. Instead the following code sets the selectedIndex attribute instead after
+        // determingthe index of the required option in the option array
+        const selectElement: HTMLSelectElement | null = document.getElementById(elementId) as HTMLSelectElement;
+        if (selectElement !== null) {
+            let index = 0;
+            for (let tag of tagList) {
+                if (tag == selectorTag)
+                    break;
+                index++;
+                selectElement.selectedIndex = index;;
+            }
+        }
+    }
+
     nodeFactory(tagId: HtmlTags): HTMLElement | Element | undefined{
 
         const svgNS: string = "http://www.w3.org/2000/svg";

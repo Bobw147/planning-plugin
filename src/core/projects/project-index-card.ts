@@ -1,4 +1,4 @@
-import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { FileManager, TFile } from 'obsidian';
 
 import { PlanningIndexCard } from '../base-classes/index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
@@ -16,16 +16,19 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
         this._parentGoal = "";
     }
 
-    async load(frontmatter: FrontMatterCache): Promise<void> {
-        super.load(frontmatter);
-        this.parentGoal = frontmatter[projectFieldNames.PARENT_GOAL];
+    async load(fileManager: FileManager, file: TFile): Promise<void> {
+        super.load(fileManager, file);
+        await fileManager.processFrontMatter(file, (frontMatter) => {
+            if (frontMatter)
+                this.parentGoal = frontMatter[projectFieldNames.PARENT_GOAL];
+        });
     }
 
-    async save(filemanager: FileManager, file: TFile, identTag?: string) : Promise<void> {
-        await super.save(filemanager, file, identTag);
-        await filemanager.processFrontMatter(file, (frontmatter) => {
-            //TODO The following line isnow incorrect
-            frontmatter[projectFieldNames.PARENT_GOAL] = this.parentGoal;
+    async save(fileManager: FileManager, file: TFile) : Promise<void> {
+        await super.save(fileManager, file);
+        await fileManager.processFrontMatter(file, (frontMatter) => {
+            if (frontMatter)
+                frontMatter[projectFieldNames.PARENT_GOAL] = this.parentGoal;
         });
     }
 

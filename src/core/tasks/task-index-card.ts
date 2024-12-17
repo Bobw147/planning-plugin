@@ -1,4 +1,4 @@
-import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { FileManager, TFile } from 'obsidian';
 
 import { PlanningIndexCard } from '../base-classes/index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
@@ -16,15 +16,20 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
         this._parentProject = "";
     }
 
-    async load(frontmatter:FrontMatterCache): Promise<void> {
-        super.load(frontmatter);
-        this.parentProject = frontmatter[taskFieldNames.PARENT_PROJECT];
+    async load(fileManager: FileManager, file: TFile): Promise<void> {
+        super.load(fileManager, file);
+        await fileManager.processFrontMatter(file, (frontMatter) => {
+            if (frontMatter) {
+                this.parentProject = frontMatter[taskFieldNames.PARENT_PROJECT];
+            }
+        })
     }
 
-    async save(filemanager: FileManager, file: TFile, identTag?: string) : Promise<void> {
-        await super.save(filemanager, file, identTag);
-        await filemanager.processFrontMatter(file, (frontmatter) => {
-            frontmatter[taskFieldNames.PARENT_PROJECT] = this.parentProject;
+    async save(fileManager: FileManager, file: TFile) : Promise<void> {
+        await super.save(fileManager, file);
+        await fileManager.processFrontMatter(file, (frontMatter) => {
+            if (frontMatter)
+                frontMatter[taskFieldNames.PARENT_PROJECT] = this.parentProject;
         })
     }
 

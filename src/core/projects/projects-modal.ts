@@ -16,7 +16,8 @@ export class ProjectsModal extends Modal {
     private projectIndexCard: ProjectIndexCard;
     private _onSubmit;
  
-    constructor(app: App, vault: Vault, settings: Settings, displayMode: DisplayMode, onSubmit: (result: IProjectIndexCard | null) => void) {
+    constructor(app: App, vault: Vault, settings: Settings, displayMode: DisplayMode, 
+        onSubmit: (result: IProjectIndexCard | null, app: App, settings: Settings) => void) {
 		super(app);
         this.settings = settings;
         this.vault = vault;
@@ -39,11 +40,11 @@ export class ProjectsModal extends Modal {
             (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
                 this.projectForm.updateIndexCard(this.projectIndexCard, this.displayMode);
                 this.close();
-                this._onSubmit(this.projectIndexCard)
+                this._onSubmit(this.projectIndexCard, this.app, this.settings)
             }
             (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement).onclick = () => {
                 this.close();
-                this._onSubmit(null);
+                this._onSubmit(null, this.app, this.settings);
             }
         }
     }

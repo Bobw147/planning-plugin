@@ -1,6 +1,6 @@
 import { App, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { assignNameOptions, assignTagOptions, dateFormatter, flattenedTags } from 'src/utils/utils';
+import { dateFormatter, flattenedTags, getNameOptions } from 'src/utils/utils';
 
 import {
     DisplayMode, GenericPlanningForm, IPlanningForm
@@ -32,11 +32,8 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        const categorySelect = document.getElementById(FormFieldId.GF_CATEGORY_TAG) as HTMLSelectElement;           
-        assignTagOptions(categorySelect, settings.categoryTags);
-
-        const statusSelect = document.getElementById(FormFieldId.GF_STATUS_TAG) as HTMLSelectElement;           
-        assignTagOptions(statusSelect, settings.statusTags);
+        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, settings.categoryTags, emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, settings.statusTags, emptyString, false);
 
         // Set the label for the name field
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.TASK_NAME_LABEL]]);
@@ -44,8 +41,7 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         // Set the label for the Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL]]);
 
-        const memberOf = document.getElementById(FormFieldId.GF_MEMBER_OF_NAME) as HTMLSelectElement;
-        assignNameOptions(memberOf, app, settings.projectsFolder, identTags.PLANNING_PROJECT);
+        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(app, settings.projectsFolder, identTags.PLANNING_PROJECT), emptyString, false)
 
         // Set the prompt on the Create button
         nodeBuilder.setElementAttributes(FormFieldId.GF_CREATE_BUTTON, [
