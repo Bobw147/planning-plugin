@@ -1,3 +1,4 @@
+import { UUID } from 'crypto';
 import { FileManager, TFile } from 'obsidian';
 
 export interface IPlanningIndexCard{
@@ -5,6 +6,8 @@ export interface IPlanningIndexCard{
     load(fileManager: FileManager, file: TFile): Promise<void>;
     save(fileManager: FileManager, file: TFile): Promise<void>;
 
+    get refId(): UUID;
+ 
     get name(): string;
     set name(value: string);
 
