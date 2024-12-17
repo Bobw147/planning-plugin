@@ -23,7 +23,6 @@ export interface IPlanningForm {
     updateIndexCard(indexCard: IPlanningIndexCard, displayMode: DisplayMode): void;
 }
 
-
 export abstract class GenericPlanningForm implements IPlanningForm {
    
     constructor() {
