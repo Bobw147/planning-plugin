@@ -1,6 +1,6 @@
 import { FileManager, TFile } from 'obsidian';
 
-import { PlanningIndexCard } from '../base-classes/index-card';
+import { PlanningIndexCard } from '../base-classes/planning-index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { identTags } from '../types/types';
 
