@@ -50,33 +50,23 @@ export function flattenedTags(userTags: string[]) : string {
     return flattened;
 }
 
-export function assignTagOptions(selector: HTMLSelectElement, options: string[]){
-    options.forEach((option) => {
-        const optionElement = document.createElement('option') as HTMLOptionElement;
-        optionElement.text = option;
-        selector.add(optionElement);
-    })
-}
-
-export function assignNameOptions(selector: HTMLSelectElement, app: App, rootPath: string, searchTag: string): void {
+export function getNameOptions(app: App, rootPath: string, searchTag: string): string[] {
+    const options: string[] = [];
     const rootFolder: TFolder | null = app.vault.getFolderByPath(rootPath);
     
     if (rootFolder == null)
-        return;
+        return options;
     
     Vault.recurseChildren(rootFolder, (child:TAbstractFile) => {
-        // Make sure what we have is a file and not a folder
-        if (child instanceof TFolder)
-            return;
+        // Make sure what we have is a file and not a folder. The latter is ignored
         if (child instanceof TFile) {
             // Get the frontmatter for the file
             const cache: CachedMetadata | null = app.metadataCache.getCache((child.path));
             const frontmatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
             if (frontmatter[fieldNames.IDENT_TAG_FIELD] == searchTag) {
-                const option = document.createElement('option');
-                option.text = frontmatter[fieldNames.NAME_FIELD];
-                selector.add(option);
+                options.push(frontmatter[fieldNames.NAME_FIELD]);
             }
         }
     });
+    return options;
 }
