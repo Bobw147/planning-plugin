@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { App, TFile } from 'obsidian';
 import PlanningPlugin from 'src/main';
 import { Settings } from 'src/settings/Settings';
@@ -18,7 +19,7 @@ import { IPlanningIndexCard } from './types/interfaces/i-planning-index-card';
 import { IProjectIndexCard } from './types/interfaces/i-project-index-card';
 import { ISubtaskIndexCard } from './types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from './types/interfaces/i-task-index-card';
-import { emptyString, Ident } from './types/types';
+import { emptyString } from './types/types';
 
 export interface IPlanner {
 
@@ -34,19 +35,19 @@ export class Planner {
     private tasks_modal?: TasksModal | null;
     private app: App;
     private settings: Settings;
-    private goalIndexCards: IGoalIndexCard[];
-    private projectIndexCards: IProjectIndexCard[];
-    private taskIndexCards: ITaskIndexCard[];
-    private subtaskIndexCards: ISubtaskIndexCard[];
+    private goalIndexCards:  { [id: string]: IGoalIndexCard};
+    private projectIndexCards: { [id: string]: IProjectIndexCard};
+    private taskIndexCards: { [id: string]: ITaskIndexCard};
+    private subtaskIndexCards: { [id: string]: ISubtaskIndexCard};
 
     constructor(private plugin: PlanningPlugin){
         this.plugin = plugin;
         this.app = this.plugin.app;
         this.settings = this.plugin.settings;
-        this.goalIndexCards = [];
-        this.projectIndexCards = [];
-        this.taskIndexCards = [];
-        this.subtaskIndexCards = [];
+        this.goalIndexCards = {};
+        this.projectIndexCards = {};
+        this.taskIndexCards = {};
+        this.subtaskIndexCards = {};
     }
 
     createGoal(displayMode: DisplayMode): void {
@@ -61,6 +62,7 @@ export class Planner {
                 // Write the dataview script into the file then add the frontmatter properties. 
                 await app.vault.modify(file, goalPageContent());
                 await goalIndexCard.save(app.fileManager, file);
+                this.goalIndexCards[goalIndexCard.name] = goalIndexCard;
                 this.goalsModal?.close();
                 this.goalsModal = null;
             }
@@ -78,6 +80,7 @@ export class Planner {
                     // Write the dataview script into the file then add the frontmatter properties. 
                     await app.vault.modify(file, projectPageContent());
                     await projectIndexCard.save(app.fileManager, file);
+                    this.projectIndexCards[projectIndexCard.name] = projectIndexCard;
                 }
         });
         this.projects_modal.open();
@@ -95,6 +98,7 @@ export class Planner {
                     // Save the data from the form into the files frontmatter then write the dataviw script
                     await app.vault.modify(file, taskPageContent(taskIndexCard))
                     await taskIndexCard.save(app.fileManager, file);
+                    this.taskIndexCards[taskIndexCard.name] = taskIndexCard;
                 }
                 else if (indexCard instanceof SubtaskIndexCard) {
                     const subtaskIndexCard = indexCard as SubtaskIndexCard;
@@ -104,6 +108,7 @@ export class Planner {
                     // Save the data from the form into the files frontmatter then write the dataviw script
                     await app.vault.modify(file, taskPageContent(subtaskIndexCard))
                     await subtaskIndexCard.save(app.fileManager, file);
+                    this.subtaskIndexCards[subtaskIndexCard.name] = subtaskIndexCard;
                 }
         }); 
         this.tasks_modal.open();
