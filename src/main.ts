@@ -25,15 +25,15 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 		// This creates an icon in the left ribbon.
 		const ribbonGoalIconEl = this.addRibbonIcon('goal', 'Goal', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_goal(DisplayMode.CREATE_MODE);
+			this.planner.createGoal(DisplayMode.CREATE_MODE);
 		});
 		const ribbonProjectIconEl = this.addRibbonIcon('target', 'Project', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_project(DisplayMode.CREATE_MODE);
+			this.planner.createProject(DisplayMode.CREATE_MODE);
 		});
 		const ribbonTaskIconEl = this.addRibbonIcon('circle-check', 'Task', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.create_task(DisplayMode.CREATE_MODE);
+			this.planner.createTask(DisplayMode.CREATE_MODE);
 		});
 		// Perform additional things with the ribbon
 		ribbonGoalIconEl.addClass('my-plugin-ribbon-class');
@@ -56,8 +56,10 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 			console.log('click', evt);
 		});
 
+        this.planner = new Planner(this);
+
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
-			indexCardButtonHandler(this.app, source, el, this.settings, this.planner);
+			indexCardButtonHandler(source, el, this.planner);
 		})
 	}
 
