@@ -1,17 +1,21 @@
-import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { FileManager, TFile } from 'obsidian';
 
 export interface IPlanningIndexCard{
 
-    load(frontmatter: FrontMatterCache): void;
-    save(filemanager: FileManager, file: TFile, identTag: string): void;
+    load(fileManager: FileManager, file: TFile): Promise<void>;
+    save(fileManager: FileManager, file: TFile): Promise<void>;
 
     get name(): string;
     set name(value: string);
+
+    get parent(): string;
+    set parent(value: string);
 
     get categoryTag(): string;
     set categoryTag(value: string);
 
     get identTag(): string;
+    set identTag(value: string);
 
     get statusTag(): string;
     set statusTag(value: string);
