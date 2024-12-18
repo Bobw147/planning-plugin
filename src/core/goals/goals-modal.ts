@@ -24,7 +24,7 @@ export class GoalsModal extends Modal {
         this._settings = settings;
         this._vault = vault;
         this.displayMode = displayMode;
-        this.goalForm = new GoalFormBuilder();
+        this.goalForm = new GoalFormBuilder(app, settings);
         this.goalIndexCard = goalIndexCard;
         this._onSubmit = onSubmit
     }
@@ -32,14 +32,14 @@ export class GoalsModal extends Modal {
     open(): void {
         // Create and display the New Goal form
         this.contentEl.empty();
-        this.setTitle(translate(UserMessageId.CREATE_GOAL_TITLE));
         super.open()
         this.goalForm.buildForm(this.contentEl);
 
         // Open the form to create the DOM so that we can manipulate the class names settings
         // to just show the Goal part of the form
         if (this.displayMode == DisplayMode.CREATE_MODE) {
-            this.goalForm.configureForCreateMode(this.app, this._settings);
+            this.setTitle(translate(UserMessageId.CREATE_GOAL_TITLE));
+            this.goalForm.configureForCreateMode();
 
             //  Add a handler to the 'Create' button
             (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
@@ -53,7 +53,8 @@ export class GoalsModal extends Modal {
             }
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
-            this.goalForm.configureForIndexCardMode(this._settings, this.goalIndexCard, this.app.fileManager, this.app.workspace.getActiveFile() as TFile)
+            this.setTitle(translate(UserMessageId.GOAL_INDEX_CARD_TITLE));
+            this.goalForm.configureForIndexCardMode(this.goalIndexCard, this.app.fileManager, this.app.workspace.getActiveFile() as TFile)
         }
     }
 

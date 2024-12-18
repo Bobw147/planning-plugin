@@ -1,18 +1,12 @@
-import { App, FileManager, TFile } from 'obsidian';
-import { Settings } from 'src/settings/Settings';
+import { FileManager, TFile } from 'obsidian';
 import { dateFormatter, flattenedTags } from 'src/utils/utils';
 
-import {
-    DisplayMode, GenericPlanningForm, IPlanningForm
-} from '../base-classes/generic-planning-form';
-import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
+import { GenericPlanningForm, IPlanningForm } from '../base-classes/generic-planning-form';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
-import { HtmlTags } from '../form-builder/html-element-types';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { emptyString } from '../types/types';
-import { GoalIndexCard } from './goal-index-card';
 
 export class GoalFormBuilder extends GenericPlanningForm implements IPlanningForm {
 
@@ -20,11 +14,11 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         super.buildForm(parent);
     }
 
-    configureForCreateMode(app: App, settings: Settings): void {
+    configureForCreateMode(): void {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, settings.categoryTags, emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, emptyString, false);
 
         nodeBuilder.hide([
                 FormFieldId.GF_STATUS_TAG_SECTION,                
@@ -39,12 +33,12 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
             ]);
     }
 
-    async configureForIndexCardMode(settings: Settings, goalIndexCard: IGoalIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(goalIndexCard: IGoalIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
        // Populate the Status selector options with the list contained in the plugin settings
-       nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, settings.categoryTags, goalIndexCard.categoryTag, true);
-       nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, settings.statusTags, goalIndexCard.statusTag, true);
+       nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.categoryTag, true);
+       nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, goalIndexCard.statusTag, true);
    
         // Hide unwanted items
         nodeBuilder.hide([
