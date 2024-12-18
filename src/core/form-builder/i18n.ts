@@ -14,6 +14,10 @@ export enum UserMessageId {
     CREATE_GOAL_TITLE = "cgt",
     CREATE_PROJECT_TITLE = "cpt",
     CREATE_TASK_TITLE = "ctt",
+    GOAL_INDEX_CARD_TITLE = "git",
+    PROJECT_INDEX_CARD_TITLE = "pit",
+    TASK_INDEX_CARD_TITLE = "tit",
+    SUBTASK_INDEX_CARD_TITLE = "sict",
     GOAL_NAME_LABEL = "gnl",
     SUBTASK_CHECKBOX_LABEL = "scl",
     MEMBER_OF_LABEL = "mol",
@@ -38,6 +42,10 @@ interface IUserMessageDictionary {
     [UserMessageId.CREATE_GOAL_TITLE]: string[];
     [UserMessageId.CREATE_PROJECT_TITLE]: string[];
     [UserMessageId.CREATE_TASK_TITLE]: string[];
+    [UserMessageId.GOAL_INDEX_CARD_TITLE]: string[];
+    [UserMessageId.PROJECT_INDEX_CARD_TITLE]: string[];
+    [UserMessageId.TASK_INDEX_CARD_TITLE]: string[];
+    [UserMessageId.SUBTASK_INDEX_CARD_TITLE]: string[];
     [UserMessageId.GOAL_NAME_LABEL]: string[];
     [UserMessageId.SUBTASK_CHECKBOX_LABEL]: string[];
     [UserMessageId.MEMBER_OF_LABEL]: string[];
@@ -63,6 +71,10 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.CREATE_GOAL_TITLE]: ["Create a new Goal"],
     [UserMessageId.CREATE_PROJECT_TITLE]: ["Create a new Project"],
     [UserMessageId.CREATE_TASK_TITLE]: ["Create a new Task"],
+    [UserMessageId.GOAL_INDEX_CARD_TITLE]: ["Goal index card"],
+    [UserMessageId.PROJECT_INDEX_CARD_TITLE]: ["Project index card"],
+    [UserMessageId.TASK_INDEX_CARD_TITLE]: ["Task index card"],
+    [UserMessageId.SUBTASK_INDEX_CARD_TITLE]: ["Subtaskin index card"],
     [UserMessageId.GOAL_NAME_LABEL]: ["Enter name of Goal: "],
     [UserMessageId.SUBTASK_CHECKBOX_LABEL]: ["Create as a subtask"],
     [UserMessageId.MEMBER_OF_LABEL]: ["Member of Goal "],
