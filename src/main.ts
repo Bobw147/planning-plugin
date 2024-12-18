@@ -2,7 +2,7 @@ import { App, MarkdownPostProcessorContext, Plugin, PluginManifest } from 'obsid
 import { DEFAULT_SETTINGS, PlanningSettingsTab, Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from './core/base-classes/generic-planning-form';
-import { Planner } from './core/planner';
+import { Planner } from './core/planner/planner';
 import { CommandHandler } from './handlers/command-handlers';
 import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 
@@ -55,7 +55,6 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
 			console.log('click', evt);
 		});
-
         this.planner = new Planner(this);
 
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {

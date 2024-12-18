@@ -1,4 +1,4 @@
-import { Planner } from 'src/core/planner';
+import { Planner } from 'src/core/planner/planner';
 
 //TODO Should I move this into the planner
 export function indexCardButtonHandler(source: string, el: HTMLElement, planner: Planner): void {
