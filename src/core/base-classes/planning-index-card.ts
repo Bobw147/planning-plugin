@@ -45,7 +45,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     }
 
     async load(fileManager: FileManager, file: TFile): Promise<void> {
-        debugger;
         await fileManager.processFrontMatter(file, (frontMatter: FrontMatterCache) => {
             if (frontMatter) {
                 this._refId = frontMatter[fieldNames.REF_ID_FIELD];
@@ -63,7 +62,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     async save(fileManager: FileManager, file: TFile): Promise<void>
     {
-        debugger;
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter) {
                 frontMatter[fieldNames.REF_ID_FIELD] = this.refId;
