@@ -18,14 +18,18 @@ export enum DisplayMode {
 
 export interface IPlanningForm {
     buildForm(parent: HTMLElement) : void;
-    configureForCreateMode(app: App, settings: Settings): void
-    configureForIndexCardMode(settings: Settings, indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void>;
+    configureForCreateMode(): void
+    configureForIndexCardMode(indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void>;
     updateIndexCard(indexCard: IPlanningIndexCard, displayMode: DisplayMode): void;
 }
 
 export abstract class GenericPlanningForm implements IPlanningForm {
-   
-    constructor() {
+    protected app: App;
+    protected settings: Settings;
+
+    constructor(app: App, settings: Settings) {
+        this.app = app;
+        this.settings = settings;
     }
     
     buildForm(parent: HTMLElement): void{
@@ -240,11 +244,11 @@ export abstract class GenericPlanningForm implements IPlanningForm {
 
     }
     
-    configureForCreateMode(app: App, settings: Settings): void {
+    configureForCreateMode(): void {
 
     }
 
-    async configureForIndexCardMode(settings: Settings, indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
 
     }
 
