@@ -8,7 +8,6 @@ import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 export const fieldNames = {
     REF_ID_FIELD: "plrefId",
     NAME_FIELD: "plname",
-    PARENT_FIELD: "plparent",
     CATEGORY_TAG_FIELD: "plcategory",
     IDENT_TAG_FIELD: "plidentTag",
     STATUS_TAG_FIELD: "plstatusTagField",
@@ -22,7 +21,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     
     private _refId: UUID | null;
     private _name: string;
-    private _parent: string;
     private _categoryTag: string;
     private _identTag: string;
     private _statusTag: string;
@@ -34,7 +32,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     constructor(identTag: string) {
         this._refId = randomUUID();
         this._name = "";
-        this._parent = "";
         this._categoryTag = "";
         this._identTag = identTag;
         this._statusTag = "";
@@ -49,7 +46,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
             if (frontMatter) {
                 this._refId = frontMatter[fieldNames.REF_ID_FIELD];
                 this.name = frontMatter[fieldNames.NAME_FIELD];
-                this.parent = frontMatter[fieldNames.PARENT_FIELD];
                 this.categoryTag = frontMatter[fieldNames.CATEGORY_TAG_FIELD];
                 this.statusTag = frontMatter[fieldNames.STATUS_TAG_FIELD];
                 this.targetDate = new Date(frontMatter[fieldNames.TARGET_DATE_FIELD]);
@@ -66,7 +62,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
             if (frontMatter) {
                 frontMatter[fieldNames.REF_ID_FIELD] = this.refId;
                 frontMatter[fieldNames.NAME_FIELD] = this.name;
-                frontMatter[fieldNames.PARENT_FIELD] = this.parent;
                 frontMatter[fieldNames.IDENT_TAG_FIELD] = this.identTag;
                 frontMatter[fieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;
                 frontMatter[fieldNames.STATUS_TAG_FIELD] = this.statusTag;
