@@ -5,7 +5,7 @@
 	"minAppVersion": "0.15.0",
 	"description": "A Goals,Project,Tasks based planning system",
 	"author": "Bob Wilson",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"authorUrl": "https://github.com/bobw147/planning-plugin",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
