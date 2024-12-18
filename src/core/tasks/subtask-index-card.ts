@@ -13,7 +13,7 @@ export class SubtaskIndexCard extends PlanningIndexCard implements ISubtaskIndex
     private _parentTask: string;
 
     constructor(){
-        super(identTags.PLANNING_TASK);
+        super(identTags.PLANNING_SUBTASK);
         this._parentTask = "";
     }
 
