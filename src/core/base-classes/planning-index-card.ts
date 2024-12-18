@@ -1,13 +1,12 @@
 import { randomUUID, UUID } from 'crypto';
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
-import { rawListeners } from 'process';
 import { arraycopy } from 'src/utils/utils';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 
 export const fieldNames = {
-    REF_ID: "plrefId",
+    REF_ID_FIELD: "plrefId",
     NAME_FIELD: "plname",
     PARENT_FIELD: "plparent",
     CATEGORY_TAG_FIELD: "plcategory",
@@ -46,9 +45,10 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     }
 
     async load(fileManager: FileManager, file: TFile): Promise<void> {
+        debugger;
         await fileManager.processFrontMatter(file, (frontMatter: FrontMatterCache) => {
             if (frontMatter) {
-                this._refId = frontMatter[fieldNames.REF_ID];
+                this._refId = frontMatter[fieldNames.REF_ID_FIELD];
                 this.name = frontMatter[fieldNames.NAME_FIELD];
                 this.parent = frontMatter[fieldNames.PARENT_FIELD];
                 this.categoryTag = frontMatter[fieldNames.CATEGORY_TAG_FIELD];
@@ -63,9 +63,10 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     async save(fileManager: FileManager, file: TFile): Promise<void>
     {
+        debugger;
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter) {
-                frontMatter[fieldNames.REF_ID] = this.refId;
+                frontMatter[fieldNames.REF_ID_FIELD] = this.refId;
                 frontMatter[fieldNames.NAME_FIELD] = this.name;
                 frontMatter[fieldNames.PARENT_FIELD] = this.parent;
                 frontMatter[fieldNames.IDENT_TAG_FIELD] = this.identTag;
