@@ -12,7 +12,7 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
     private _parentGoal: string;
     
     constructor() {
-        super(identTags.PLANNING_GOAL);
+        super(identTags.PLANNING_PROJECT);
         this._parentGoal = "";
     }
 
