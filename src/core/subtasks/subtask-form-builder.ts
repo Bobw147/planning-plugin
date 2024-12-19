@@ -2,20 +2,14 @@ import { FileManager, TFile } from 'obsidian';
 import { dateFormatter, flattenedTags, getNameOptions } from 'src/utils/utils';
 
 import { GenericPlanningForm, IPlanningForm } from '../base-classes/generic-planning-form';
-import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
-import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
+import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { emptyString, identTags } from '../types/types';
 
-export class TaskFormBuilder extends GenericPlanningForm implements IPlanningForm {
-    private subtaskIsChecked: boolean = false;
-
-    get isSubtask() : boolean {
-        return this.subtaskIsChecked;
-    }
+export class SubtaskFormBuilder extends GenericPlanningForm implements IPlanningForm {
 
     buildForm(parent: HTMLElement): void {
         super.buildForm(parent);
@@ -32,17 +26,17 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
 
         // Set the label for the name field
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.TASK_NAME_LABEL],
+            [HtmlAttributes.INNERTEXT, UserMessageId.SUBTASK_NAME_LABEL],
         ]);
 
         // Set the label for the Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL],
+            [HtmlAttributes.INNERTEXT, UserMessageId.PARENT_TASK_LABEL],
         ]);
 
         // Set the prompt on the Create button
         nodeBuilder.setElementAttributes(FormFieldId.GF_CREATE_BUTTON, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.TASK_CREATE_BUTTON_TEXT],
+            [HtmlAttributes.INNERTEXT, UserMessageId.SUBTASK_CREATE_BUTTON_TEXT],
         ]);
 
         // Hide the unused sections & icons
@@ -58,15 +52,15 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         ]);
     }
 
-    async configureForIndexCardMode(taskIndexCard: ITaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
+    async configureForIndexCardMode(subtaskIndexCard: ISubtaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Add the CategoryTag, statusTag and Member of options
-        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, taskIndexCard.categoryTag, false);
-        nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, taskIndexCard.statusTag, false);
+        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, subtaskIndexCard.categoryTag, false);
+        nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, subtaskIndexCard.statusTag, false);
         nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, 
                 getNameOptions(this.app, this.settings.projectsFolder, identTags.PLANNING_PROJECT),
-                taskIndexCard.parentProject, false);
+                 subtaskIndexCard.parentTask, false);
 
         // Hide the Create and Cancel buttons
         nodeBuilder.hide([
@@ -75,23 +69,23 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         ])
 
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [
-            [HtmlAttributes.INNERTEXT, translate(UserMessageId.PARENT_PROJECT_LABEL)],
+            [HtmlAttributes.INNERTEXT, translate(UserMessageId.PARENT_TASK_LABEL)],
         ]);
 
         nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
-            [HtmlAttributes.VALUE, (taskIndexCard.targetDate != null) ? dateFormatter(taskIndexCard.targetDate) : emptyString],
+            [HtmlAttributes.VALUE, (subtaskIndexCard.targetDate != null) ? dateFormatter(subtaskIndexCard.targetDate) : emptyString],
         ]);
 
         nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
-            [HtmlAttributes.VALUE, (taskIndexCard.expectedDate != null) ? dateFormatter(taskIndexCard.expectedDate) : emptyString],
+            [HtmlAttributes.VALUE, (subtaskIndexCard.expectedDate != null) ? dateFormatter(subtaskIndexCard.expectedDate) : emptyString],
         ]);
 
         nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
-            [HtmlAttributes.VALUE, (taskIndexCard.completedDate != null) ? dateFormatter(taskIndexCard.completedDate) : emptyString],
+            [HtmlAttributes.VALUE, (subtaskIndexCard.completedDate != null) ? dateFormatter(subtaskIndexCard.completedDate) : emptyString],
         ]);
 
         nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
-            [HtmlAttributes.VALUE, flattenedTags(taskIndexCard.userTags)],
+            [HtmlAttributes.VALUE, flattenedTags(subtaskIndexCard.userTags)],
         ]);
 
         nodeBuilder.disable([
