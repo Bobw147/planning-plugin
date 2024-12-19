@@ -7,11 +7,10 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
-import { SubtaskIndexCard } from '../subtasks/subtask-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
-import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { SubtaskFormBuilder } from './subtask-form-builder';
-import { TaskFormBuilder } from './task-form-builder';
+
+let thisModal: SubtasksModal;
 
 export class SubtasksModal extends Modal {
     private settings: Settings;
@@ -19,15 +18,19 @@ export class SubtasksModal extends Modal {
     private displayMode: DisplayMode;
     private subtaskIndexCard: ISubtaskIndexCard;
     private onSubmit;
+    private onSwitchToTaskMode;
 
     constructor(app: App, settings: Settings, subtaskIndexCard: ISubtaskIndexCard, displayMode: DisplayMode, 
-        onSubmit: (hasChanged: boolean, app:App, settings: Settings) => void) {
+        onSubmit: (hasChanged: boolean, app:App, settings: Settings) => void,
+        onSwitchToTaskMode: (subtaskIndexCard: ISubtaskIndexCard) => void) {
         super(app);
         this.settings = settings;
         this.vault = app.vault;
         this.displayMode = displayMode;
         this.subtaskIndexCard = subtaskIndexCard;
         this.onSubmit = onSubmit;
+        this.onSwitchToTaskMode = onSwitchToTaskMode;
+        thisModal = this;
     }
 
     open(): void {
@@ -43,12 +46,18 @@ export class SubtasksModal extends Modal {
             this.setTitle(translate(UserMessageId.CREATE_SUBTASK_TITLE));
             subtaskForm.configureForCreateMode();
             
+            (document.getElementById(FormFieldId.GF_SUBTASK_CHECKBOX) as HTMLInputElement)
+            .onclick = async () => {
+                thisModal.updateIndexCard(thisModal.subtaskIndexCard);
+                thisModal.onSwitchToTaskMode(thisModal.subtaskIndexCard);
+            };
+            
             (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
-                this.updateIndexCard(this.subtaskIndexCard);              
-                this.onSubmit(true, this.app, this.settings);
+                thisModal.updateIndexCard(thisModal.subtaskIndexCard);              
+                thisModal.onSubmit(true, thisModal.app, thisModal.settings);
             }
             (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement).onclick = () => {
-                this.onSubmit(false, this.app, this.settings);
+                thisModal.onSubmit(false, thisModal.app, thisModal.settings);
             }
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
