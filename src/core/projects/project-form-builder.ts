@@ -19,13 +19,12 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     }
 
     configureForCreateMode(): void {
-        debugger;
         const nodeBuilder = new NodeBuilder();
 
         // Populate the Status selector options with the list contained in the plugin settings
         nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, emptyString, false);
         nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, emptyString, false);
-        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.projectsFolder, identTags.PLANNING_GOAL), emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), emptyString, false);
 
         // Set the label for the Name and Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_NAME_LABEL]])
@@ -50,13 +49,12 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     }
 
     async configureForIndexCardMode(projectIndexCard: IProjectIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
-        debugger;
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Status selector options with the list contained in the plugin settings
         nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, projectIndexCard.categoryTag, true);
         nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, projectIndexCard.statusTag, true);
-        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), emptyString, false)
+        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), projectIndexCard.parentGoal, false)
     
          // Hide unwanted items
          nodeBuilder.hide([
@@ -85,7 +83,7 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         ]);
 
          nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_NAME, [
-            [HtmlAttributes.VALUE, projectIndexCard.parent],
+            [HtmlAttributes.VALUE, projectIndexCard.parentGoal],
         ]);
  
          nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
@@ -98,7 +96,6 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
  
          nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
              [HtmlAttributes.VALUE, (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString],
- 
          ]);
  
          nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
