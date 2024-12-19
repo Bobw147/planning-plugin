@@ -14,6 +14,7 @@ export enum UserMessageId {
     CREATE_GOAL_TITLE = "cgt",
     CREATE_PROJECT_TITLE = "cpt",
     CREATE_TASK_TITLE = "ctt",
+    CREATE_SUBTASK_TITLE = "cst",
     GOAL_INDEX_CARD_TITLE = "git",
     PROJECT_INDEX_CARD_TITLE = "pit",
     TASK_INDEX_CARD_TITLE = "tit",
@@ -30,18 +31,21 @@ export enum UserMessageId {
     GOAL_CREATE_BUTTON_TEXT = "gcbt",
     PROJECT_CREATE_BUTTON_TEXT = "pcbt",
     TASK_CREATE_BUTTON_TEXT = "tcbt",
+    SUBTASK_CREATE_BUTTON_TEXT = "stcb",
     CANCEL_BUTTON_TEXT = "cbt",
     PARENT_GOAL_LABEL = "spg",
     PARENT_PROJECT_LABEL = "spp",
     PARENT_TASK_LABEL = "spt",
     PROJECT_NAME_LABEL = "pnl",
     TASK_NAME_LABEL = "tnl",
+    SUBTASK_NAME_LABEL = 'snl'
 }
 
 interface IUserMessageDictionary {
     [UserMessageId.CREATE_GOAL_TITLE]: string[];
     [UserMessageId.CREATE_PROJECT_TITLE]: string[];
     [UserMessageId.CREATE_TASK_TITLE]: string[];
+    [UserMessageId.CREATE_SUBTASK_TITLE]: string[];
     [UserMessageId.GOAL_INDEX_CARD_TITLE]: string[];
     [UserMessageId.PROJECT_INDEX_CARD_TITLE]: string[];
     [UserMessageId.TASK_INDEX_CARD_TITLE]: string[];
@@ -58,12 +62,14 @@ interface IUserMessageDictionary {
     [UserMessageId.GOAL_CREATE_BUTTON_TEXT]: string[];
     [UserMessageId.PROJECT_CREATE_BUTTON_TEXT]: string[];
     [UserMessageId.TASK_CREATE_BUTTON_TEXT]: string[];
+    [UserMessageId.SUBTASK_CREATE_BUTTON_TEXT]: string[];
     [UserMessageId.CANCEL_BUTTON_TEXT]: string[];
     [UserMessageId.PARENT_GOAL_LABEL]: string[];
     [UserMessageId.PARENT_PROJECT_LABEL]: string[];
     [UserMessageId.PARENT_TASK_LABEL]: string[];
     [UserMessageId.PROJECT_NAME_LABEL]: string[];
     [UserMessageId.TASK_NAME_LABEL]: string[];
+    [UserMessageId.SUBTASK_NAME_LABEL]: string[];
 }
 
 const userMessageDictionary: IUserMessageDictionary =
@@ -71,28 +77,31 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.CREATE_GOAL_TITLE]: ["Create a new Goal"],
     [UserMessageId.CREATE_PROJECT_TITLE]: ["Create a new Project"],
     [UserMessageId.CREATE_TASK_TITLE]: ["Create a new Task"],
-    [UserMessageId.GOAL_INDEX_CARD_TITLE]: ["Goal index card"],
+    [UserMessageId.CREATE_SUBTASK_TITLE]: ["Create a new Subtask"],
+    [UserMessageId.GOAL_INDEX_CARD_TITLE]: ["Goal index card"], 
     [UserMessageId.PROJECT_INDEX_CARD_TITLE]: ["Project index card"],
     [UserMessageId.TASK_INDEX_CARD_TITLE]: ["Task index card"],
     [UserMessageId.SUBTASK_INDEX_CARD_TITLE]: ["Subtaskin index card"],
-    [UserMessageId.GOAL_NAME_LABEL]: ["Enter name of Goal: "],
+    [UserMessageId.GOAL_NAME_LABEL]: ["Enter name of Goal "],
     [UserMessageId.SUBTASK_CHECKBOX_LABEL]: ["Create as a subtask"],
     [UserMessageId.MEMBER_OF_LABEL]: ["Member of Goal "],
-    [UserMessageId.CATEGORY_TAG_LABEL]: ["Category: "], 
+    [UserMessageId.CATEGORY_TAG_LABEL]: ["Category "], 
     [UserMessageId.STATUS_TAG_LABEL]: ["Status:"],
-    [UserMessageId.TARGET_DATE_LABEL]: ["Target Date:"],
-    [UserMessageId.EXPECTED_DATE_LABEL]: ["Expected Date:"],
-    [UserMessageId.COMPLETED_DATE_LABEL]: ["Completed Date:"],
-    [UserMessageId.USER_TAGS_LABEL]: ["User Tags:"],
+    [UserMessageId.TARGET_DATE_LABEL]: ["Target Date"],
+    [UserMessageId.EXPECTED_DATE_LABEL]: ["Expected Date"],
+    [UserMessageId.COMPLETED_DATE_LABEL]: ["Completed Date"],
+    [UserMessageId.USER_TAGS_LABEL]: ["User Tags"],
     [UserMessageId.GOAL_CREATE_BUTTON_TEXT]: ["Create Goal"],
     [UserMessageId.PROJECT_CREATE_BUTTON_TEXT]: ["Create Project"],
     [UserMessageId.TASK_CREATE_BUTTON_TEXT]: ["Create Task"],
+    [UserMessageId.SUBTASK_CREATE_BUTTON_TEXT]: ["Create Subtask"],
     [UserMessageId.CANCEL_BUTTON_TEXT]: ["Cancel"],
     [UserMessageId.PARENT_GOAL_LABEL]: ["Select parent Goal"],
     [UserMessageId.PARENT_PROJECT_LABEL]: ["Select parent Project"],
     [UserMessageId.PARENT_TASK_LABEL]: ["Select parent Task"],
     [UserMessageId.PROJECT_NAME_LABEL]: ["Enter project name"],
     [UserMessageId.TASK_NAME_LABEL]: ["Enter task name"],
+    [UserMessageId.SUBTASK_NAME_LABEL]: ["Enter subtask name"],
 }
 
 export function translate(userMessageId: UserMessageId): string {
