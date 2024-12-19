@@ -3,7 +3,7 @@ import { FileManager, TFile } from 'obsidian';
 import { PlanningIndexCard } from '../base-classes/planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { identTags } from '../types/types';
+import { emptyString, identTags } from '../types/types';
 
 const taskFieldNames = {
     PARENT_PROJECT: "plparent"
@@ -44,9 +44,9 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
 
     copyInto(subtaskIndexCard: ISubtaskIndexCard): void {
         subtaskIndexCard.name = this.name;
-        subtaskIndexCard.parentTask = "";
-        subtaskIndexCard.categoryTag  = this.categoryTag;
-        subtaskIndexCard.statusTag = this.statusTag;
+        subtaskIndexCard.parentTask = emptyString;
+        subtaskIndexCard.categoryTag = emptyString;
+        subtaskIndexCard.statusTag = emptyString;
         subtaskIndexCard.targetDate = this.targetDate;
         subtaskIndexCard.expectedDate = this.expectedDate;
         subtaskIndexCard.completedDate = this.completedDate;
