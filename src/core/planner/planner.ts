@@ -195,7 +195,7 @@ export class Planner {
             this.tasksModal = new TasksModal(this.app, this.settings, taskIndexCard, DisplayMode.INDEX_CARD_MODE, 
                 async (hasChanged: boolean, app: App, settings: Settings) => {
                     // This callback occurs when the modal is closing.
-                    if (hasChanged && taskIndexCard != null) {
+                    if (hasChanged) {
                         thisModal.tasksModal?.updateIndexCard(taskIndexCard);
                     }
                     thisModal.tasksModal?.close();
@@ -223,7 +223,7 @@ export class Planner {
                 async (hasChanged: boolean, app: App, settings: Settings) => {
                     // This callback occurs when the modal is closing.
                     if (hasChanged) {
-                        thisModal.tasksModal?.updateIndexCard(taskIndexCard);
+                        thisModal.subtasksModal?.updateIndexCard(subtaskIndexCard);
                     }
                     thisModal.tasksModal?.close();
                     thisModal.tasksModal = null;
