@@ -43,7 +43,7 @@ export class GoalsModal extends Modal {
 
             //  Add a handler to the 'Create' button
             (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
-                this.updateIndexCard(this.goalIndexCard, this.displayMode);
+                this.updateIndexCard(this.goalIndexCard);
                 this._onSubmit(true, this.app, this._settings);
             }
         
@@ -58,7 +58,7 @@ export class GoalsModal extends Modal {
         }
     }
 
-    updateIndexCard(goalIndexCard: IGoalIndexCard, displayMode: DisplayMode): void {
+    updateIndexCard(goalIndexCard: IGoalIndexCard): void {
         goalIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
         goalIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
         goalIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
