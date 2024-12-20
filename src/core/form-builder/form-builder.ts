@@ -12,7 +12,7 @@ type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettings
 
 const empty = 0;
 const start = 0;
-export class NodeBuilder{
+export class FormBuilderr{
 
     addOptions(elementId: FormFieldId, optionList: string[], selectedOption: string, clearFirst: boolean):void {
         if (clearFirst)

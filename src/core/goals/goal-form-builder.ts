@@ -2,7 +2,7 @@ import { FileManager, TFile } from 'obsidian';
 import { dateFormatter, flattenedTags } from 'src/utils/utils';
 
 import { GenericPlanningForm, IPlanningForm } from '../base-classes/generic-planning-form';
-import { NodeBuilder } from '../form-builder/form-builder';
+import { FormBuilderr } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
@@ -15,12 +15,12 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
     }
 
     configureForCreateMode(goalIndexCard: IGoalIndexCard): void {
-        const nodeBuilder: NodeBuilder = new NodeBuilder();
+        const formBuilderr: FormBuilderr = new FormBuilderr();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.name, false);
+        formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.name, false);
 
-        nodeBuilder.hide([
+        formBuilderr.hide([
                 FormFieldId.GF_STATUS_TAG_SECTION,                
                 FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
                 FormFieldId.GF_MEMBER_OF_SECTION,
@@ -34,20 +34,20 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
     }
 
     async configureForIndexCardMode(goalIndexCard: IGoalIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
-        const nodeBuilder: NodeBuilder = new NodeBuilder();
+        const formBuilderr: FormBuilderr = new FormBuilderr();
 
        // Populate the Status selector options with the list contained in the plugin settings
-       nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.categoryTag, true);
-       nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, goalIndexCard.statusTag, true);
+       formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.categoryTag, true);
+       formBuilderr.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, goalIndexCard.statusTag, true);
    
         // Hide unwanted items
-        nodeBuilder.hide([
+        formBuilderr.hide([
             FormFieldId.GF_BUTTONS,
             FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
             FormFieldId.GF_MEMBER_OF_SECTION,
         ])
     
-        nodeBuilder.disable([
+        formBuilderr.disable([
             FormFieldId.GF_NAME,
             FormFieldId.GF_CATEGORY_TAG,
             FormFieldId.GF_STATUS_TAG,
@@ -58,24 +58,24 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         ])
 
         // Populate the form fields and make them read-only
-        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME, [
+        formBuilderr.setElementAttributes(FormFieldId.GF_NAME, [
             [HtmlAttributes.VALUE, goalIndexCard.name],
         ]);
 
-        nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
+        formBuilderr.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
             [HtmlAttributes.VALUE, (goalIndexCard.targetDate != null) ? dateFormatter(goalIndexCard.targetDate) : emptyString],
         ]);
 
-        nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
+        formBuilderr.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
             [HtmlAttributes.VALUE, (goalIndexCard.expectedDate != null) ? dateFormatter(goalIndexCard.expectedDate) : emptyString],
         ]);
 
-        nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
+        formBuilderr.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
             [HtmlAttributes.VALUE, (goalIndexCard.completedDate != null) ? dateFormatter(goalIndexCard.completedDate) : emptyString],
 
         ]);
 
-        nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
+        formBuilderr.setElementAttributes(FormFieldId.GF_USER_TAGS, [
             [HtmlAttributes.VALUE, flattenedTags(goalIndexCard.userTags)],
         ]);
     }

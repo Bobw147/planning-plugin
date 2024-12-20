@@ -3,7 +3,7 @@ import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
 import { PlanningModal } from '../base-classes/planning-modal';
-import { NodeBuilder } from '../form-builder/form-builder';
+import { FormBuilderr } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
@@ -70,6 +70,6 @@ export class TasksModal extends PlanningModal implements IModalForm{
 
     updateIndexCard(indexCard: ITaskIndexCard): void {
         super.updateIndexCard(indexCard);
-        indexCard.parentProject = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
+        indexCard.parentProject = FormBuilderr.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
     }
 }

@@ -1,6 +1,6 @@
 import { Modal } from 'obsidian';
 
-import { NodeBuilder } from '../form-builder/form-builder';
+import { FormBuilderr } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
@@ -15,17 +15,17 @@ export class PlanningModal extends Modal implements IModalForm {
     }
 
     updateIndexCard(indexCard: IPlanningIndexCard): void {
-        indexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
-        indexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
-        indexCard.statusTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_STATUS_TAG, HtmlAttributes.VALUE);
+        indexCard.name = FormBuilderr.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
+        indexCard.categoryTag = FormBuilderr.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
+        indexCard.statusTag = FormBuilderr.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_STATUS_TAG, HtmlAttributes.VALUE);
                 
-        const targetDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE);
+        const targetDateString: string = FormBuilderr.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE);
         indexCard.targetDate = (targetDateString !== emptyString) ? new Date(targetDateString) : null;
         
-        const expectedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE);
+        const expectedDateString: string = FormBuilderr.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE);
         indexCard.expectedDate = (expectedDateString !== emptyString) ? new Date(expectedDateString) : null;
         
-        const completedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_COMPLETED_DATE, HtmlAttributes.VALUE);
+        const completedDateString: string = FormBuilderr.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_COMPLETED_DATE, HtmlAttributes.VALUE);
         indexCard.completedDate = (completedDateString !== emptyString) ? new Date(completedDateString) : null;
     }
 }
