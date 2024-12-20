@@ -1,6 +1,4 @@
 import { setIcon } from 'obsidian';
-import { debugPort } from 'process';
-import { Settings } from 'src/settings/Settings';
 
 import { DOMNodeBuildError } from '../exceptions/exceptions';
 import { emptyString } from '../types/types';
@@ -149,11 +147,11 @@ export class NodeBuilder{
         const selectElement: HTMLSelectElement | null = document.getElementById(elementId) as HTMLSelectElement;
         if (selectElement !== null) {
             let index = 0;
-            for (let tag of tagList) {
+            for (const tag of tagList) {
                 if (tag == selectorTag)
                     break;
                 index++;
-                selectElement.selectedIndex = index;;
+                selectElement.selectedIndex = index;
             }
         }
     }
