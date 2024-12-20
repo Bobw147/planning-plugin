@@ -8,7 +8,6 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { emptyString, identTags } from '../types/types';
-import { SubtaskIndexCard } from './subtask-index-card';
 
 export class SubtaskFormBuilder extends GenericPlanningForm implements IPlanningForm {
 
