@@ -2,11 +2,11 @@ import { App, FileManager, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
+import { NodeBuilder } from '../form-builder/form-builder';
 import { FormFieldId as field } from '../form-builder/form-field-types';
 import { HtmlAttributes as attrib } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { UserMessageId } from '../form-builder/i18n';
-import { NodeBuilder } from '../form-builder/node-builder';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 
 /* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */

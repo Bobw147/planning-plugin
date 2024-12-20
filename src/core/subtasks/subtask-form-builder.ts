@@ -2,10 +2,10 @@ import { FileManager, TFile } from 'obsidian';
 import { dateFormatter, flattenedTags, getNameOptions } from 'src/utils/utils';
 
 import { GenericPlanningForm, IPlanningForm } from '../base-classes/generic-planning-form';
+import { NodeBuilder } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
-import { NodeBuilder } from '../form-builder/node-builder';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { emptyString, identTags } from '../types/types';
 import { SubtaskIndexCard } from './subtask-index-card';

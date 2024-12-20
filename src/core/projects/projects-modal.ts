@@ -3,11 +3,11 @@ import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
 import { PlanningModal } from '../base-classes/planning-modal';
+import { NodeBuilder } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
-import { NodeBuilder } from '../form-builder/node-builder';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { ProjectFormBuilder } from './project-form-builder';

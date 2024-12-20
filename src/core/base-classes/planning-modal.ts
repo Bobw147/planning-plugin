@@ -1,9 +1,9 @@
 import { Modal } from 'obsidian';
 
+import { NodeBuilder } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
-import { NodeBuilder } from '../form-builder/node-builder';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { emptyString } from '../types/types';
