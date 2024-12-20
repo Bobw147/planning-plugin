@@ -1,4 +1,4 @@
-import { App, Modal, TFile, Vault } from 'obsidian';
+import { App, Modal, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
@@ -7,23 +7,22 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
+import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { emptyString } from '../types/types';
 import { ProjectFormBuilder } from './project-form-builder';
 
-export class ProjectsModal extends Modal {
+export class ProjectsModal extends Modal implements IModalForm {
     private settings: Settings;
-    private vault: Vault;
     private displayMode:DisplayMode;
     private projectForm: ProjectFormBuilder;
     private projectIndexCard: IProjectIndexCard;
     private _onSubmit;
  
-    constructor(app: App, vault: Vault, settings: Settings, projectIndexCard: IProjectIndexCard, displayMode: DisplayMode, 
+    constructor(app: App, settings: Settings, projectIndexCard: IProjectIndexCard, displayMode: DisplayMode, 
         onSubmit: (result: boolean, app: App, settings: Settings) => void) {
 		super(app);
         this.settings = settings;
-        this.vault = vault;
         this.displayMode = displayMode;
         this.projectForm = new ProjectFormBuilder(app, settings);
         this.projectIndexCard = projectIndexCard;

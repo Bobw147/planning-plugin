@@ -16,21 +16,14 @@ import { SubtasksModal } from '../subtasks/subtasks-modal';
 import { TaskIndexCard } from '../tasks/task-index-card';
 import { TasksModal } from '../tasks/tasks-modal';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
-import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
+import { IPlanner } from '../types/interfaces/i-planner';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString } from '../types/types';
 import { IndexCardManager } from './index-card-manager';
 
-export interface IPlanner {
-    createGoal(displyMode: DisplayMode): void;
-    createProject(displayMode: DisplayMode): void;
-    createTask(displayMode: DisplayMode): void;
-    show_index_card(indexCard: IPlanningIndexCard): void;
-}
-
-var thisModal: Planner;
+let thisModal: Planner;
 
 export type taskToSubtaskModeSwitcher = (taskIndexCard: ITaskIndexCard) => void;
 
@@ -53,40 +46,42 @@ export class Planner implements IPlanner {
 
     createGoal(): void {
         const goalIndexCard: IGoalIndexCard = new GoalIndexCard();
-        this.goalsModal = new GoalsModal(this.app, this.app.vault, this.settings, 
-            goalIndexCard, DisplayMode.CREATE_MODE, async (hasChanged: boolean, app, settings: Settings) => {
-            if (hasChanged) {
-                // Make sure the target folder exists then create the file
-                await createFolder(app.vault, settings.goalsFolder);
-                const file: TFile = await app.vault.create(settings.goalsFolder + "/" + goalIndexCard.name + ".md", emptyString);
+        this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.CREATE_MODE, 
+            async (hasChanged: boolean, app, settings: Settings) => {
+                if (hasChanged) {
+                    // Make sure the target folder exists then create the file
+                    await createFolder(app.vault, settings.goalsFolder);
+                    const file: TFile = await app.vault.create(settings.goalsFolder + "/" + goalIndexCard.name + ".md", emptyString);
             
-                // Write the dataview script into the file then add the frontmatter properties. 
-                await app.vault.modify(file, goalPageContent());
-                await goalIndexCard.save(app.fileManager, file);
-                this.indexCardManager.add(goalIndexCard);
-                this.goalsModal?.close();
-                this.goalsModal = null;
+                    // Write the dataview script into the file then add the frontmatter properties. 
+                    await app.vault.modify(file, goalPageContent());
+                    await goalIndexCard.save(app.fileManager, file);
+                    this.indexCardManager.add(goalIndexCard);
+                    this.goalsModal?.close();
+                    this.goalsModal = null;
+                }
             }
-        });
+        );
         this.goalsModal.open();
     }
 
     createProject(): void {
         const projectIndexCard: IProjectIndexCard = new ProjectIndexCard();
-        this.projectsModal = new ProjectsModal(this.app, this.app.vault, this.settings,
-            projectIndexCard, DisplayMode.CREATE_MODE, async (hasChanged: boolean, app: App, settings: Settings) => {
-            if (hasChanged) {
-                await createFolder(app.vault, settings.projectsFolder);
-                const file: TFile = await app.vault.create(settings.projectsFolder + "/" + projectIndexCard.name + ".md", emptyString);
+        this.projectsModal = new ProjectsModal(this.app, this.settings, projectIndexCard, DisplayMode.CREATE_MODE, 
+            async (hasChanged: boolean, app: App, settings: Settings) => {
+             if (hasChanged) {
+                    await createFolder(app.vault, settings.projectsFolder);
+                    const file: TFile = await app.vault.create(settings.projectsFolder + "/" + projectIndexCard.name + ".md", emptyString);
             
-                // Write the dataview script into the file then add the frontmatter properties. 
-                await app.vault.modify(file, projectPageContent());
-                await projectIndexCard.save(app.fileManager, file);
-                this.indexCardManager.add(projectIndexCard);
-                this.projectsModal?.close();
-                this.projectsModal = null;
+                    // Write the dataview script into the file then add the frontmatter properties. 
+                    await app.vault.modify(file, projectPageContent());
+                    await projectIndexCard.save(app.fileManager, file);
+                    this.indexCardManager.add(projectIndexCard);
+                    this.projectsModal?.close();
+                    this.projectsModal = null;
+                }
             }
-        });
+        );
         this.projectsModal.open();
     }
 
@@ -114,12 +109,12 @@ export class Planner implements IPlanner {
             taskIndexCard.copyInto(subtaskIndexCard);
             this.tasksModal?.close();
             this.tasksModal = null;
-            this.createSubtask(subtaskIndexCard, DisplayMode.CREATE_MODE);
+            this.createSubtask(subtaskIndexCard);
         });
         this.tasksModal.open();
     }
 
-    createSubtask(givenSubtaskIndexCard?: ISubtaskIndexCard, displayMode: DisplayMode): void{
+    createSubtask(givenSubtaskIndexCard?: ISubtaskIndexCard): void{
         const subtaskIndexCard = (typeof givenSubtaskIndexCard === 'undefined') ? new SubtaskIndexCard : givenSubtaskIndexCard
 
         this.subtasksModal = new SubtasksModal(this.app, this.settings, subtaskIndexCard, DisplayMode.CREATE_MODE, 
@@ -152,15 +147,16 @@ export class Planner implements IPlanner {
         if (activeFile !== null) {
             const goalIndexCard: GoalIndexCard = new GoalIndexCard()
             await goalIndexCard.load(this.app.fileManager, activeFile);
-            this.goalsModal = new GoalsModal(this.app, this.app.vault, this.settings, 
-                goalIndexCard, DisplayMode.INDEX_CARD_MODE, async (hasChanged: boolean, app: App, settings: Settings) => {
-                // This callback occurs when the modal is closing.
-                if (hasChanged) {
-                    this.goalsModal?.updateIndexCard(goalIndexCard);
+            this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.INDEX_CARD_MODE, 
+                async (hasChanged: boolean, app: App, settings: Settings) => {
+                    // This callback occurs when the modal is closing.
+                    if (hasChanged) {
+                        this.goalsModal?.updateIndexCard(goalIndexCard);
+                    }
+                    this.goalsModal?.close();
+                    this.goalsModal = null;
                 }
-                this.goalsModal?.close();
-                this.goalsModal = null;
-            });
+            );
             this.goalsModal.open();
         }
     }
@@ -170,15 +166,16 @@ export class Planner implements IPlanner {
         if (activeFile !== null) {
             const projectIndexCard: IProjectIndexCard = new ProjectIndexCard()
             await projectIndexCard.load(this.app.fileManager, activeFile);
-            this.projectsModal = new ProjectsModal(this.app, this.app.vault, this.settings, 
-                projectIndexCard, DisplayMode.INDEX_CARD_MODE, async (hasChanged: boolean, app: App, settings: Settings) => {
-                // This callback occurs when the modal is closing.
-                if (hasChanged) {
-                    this.projectsModal?.updateIndexCard(projectIndexCard);
+            this.projectsModal = new ProjectsModal(this.app, this.settings, projectIndexCard, DisplayMode.INDEX_CARD_MODE,
+                async (hasChanged: boolean, app: App, settings: Settings) => {
+                    // This callback occurs when the modal is closing.
+                    if (hasChanged) {
+                        this.projectsModal?.updateIndexCard(projectIndexCard);
+                    }
+                    this.projectsModal?.close();
+                    this.projectsModal = null;
                 }
-                this.projectsModal?.close();
-                this.projectsModal = null;
-            });
+            );
             this.projectsModal.open();
         }
     }

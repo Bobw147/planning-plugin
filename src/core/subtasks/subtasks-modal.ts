@@ -1,4 +1,4 @@
-import { App, Modal, TFile, Vault } from 'obsidian';
+import { App, Modal, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
@@ -7,15 +7,15 @@ import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
+import { IModalForm } from '../types/interfaces/i-modal-form';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { emptyString } from '../types/types';
 import { SubtaskFormBuilder } from './subtask-form-builder';
 
 let thisModal: SubtasksModal;
 
-export class SubtasksModal extends Modal {
+export class SubtasksModal extends Modal implements IModalForm {
     private settings: Settings;
-    private vault: Vault;
     private displayMode: DisplayMode;
     private subtaskIndexCard: ISubtaskIndexCard;
     private onSubmit;
@@ -26,7 +26,6 @@ export class SubtasksModal extends Modal {
         onSwitchToTaskMode: (subtaskIndexCard: ISubtaskIndexCard) => void) {
         super(app);
         this.settings = settings;
-        this.vault = app.vault;
         this.displayMode = displayMode;
         this.subtaskIndexCard = subtaskIndexCard;
         this.onSubmit = onSubmit;

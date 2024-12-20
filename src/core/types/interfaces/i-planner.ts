@@ -11,4 +11,4 @@ export interface IPlanner {
     showProjectIndexCard(): Promise<void>;
     showSubtaskIndexCard(subtaskIndexCard?: ISubtaskIndexCard): Promise<void>;
     showTaskIndexCard(taskIndexCard?: ITaskIndexCard): Promise<void>;
-};
+}

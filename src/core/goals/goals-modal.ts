@@ -1,4 +1,4 @@
-import { App, Modal, TFile, Vault } from 'obsidian';
+import { App, Modal, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
@@ -8,22 +8,21 @@ import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
+import { IModalForm } from '../types/interfaces/i-modal-form';
 import { emptyString } from '../types/types';
 import { GoalFormBuilder } from './goal-form-builder';
 
-export class GoalsModal extends Modal {
-    private _settings: Settings;
-    private _vault: Vault;
+export class GoalsModal extends Modal implements IModalForm {
+    private settings: Settings;
     private goalForm: GoalFormBuilder;
     private goalIndexCard: IGoalIndexCard;
     private displayMode: DisplayMode;
     private _onSubmit;
 
-    constructor(app: App, vault: Vault, settings: Settings, goalIndexCard: IGoalIndexCard,
+    constructor(app: App, settings: Settings, goalIndexCard: IGoalIndexCard,
         displayMode: DisplayMode,  onSubmit: (result: boolean, app: App, settings: Settings) => void) {
 		super(app);
-        this._settings = settings;
-        this._vault = vault;
+        this.settings = settings;
         this.displayMode = displayMode;
         this.goalForm = new GoalFormBuilder(app, settings);
         this.goalIndexCard = goalIndexCard;
@@ -45,12 +44,12 @@ export class GoalsModal extends Modal {
             //  Add a handler to the 'Create' button
             (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
                 this.updateIndexCard(this.goalIndexCard);
-                this._onSubmit(true, this.app, this._settings);
+                this._onSubmit(true, this.app, this.settings);
             }
         
             // Add a handler for the cancel button
             (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement).onclick = () => {
-                this._onSubmit(false, this.app, this._settings);
+                this._onSubmit(false, this.app, this.settings);
             }
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
