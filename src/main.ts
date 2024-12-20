@@ -1,7 +1,6 @@
 import { App, MarkdownPostProcessorContext, Plugin, PluginManifest } from 'obsidian';
 import { DEFAULT_SETTINGS, PlanningSettingsTab, Settings } from 'src/settings/Settings';
 
-import { DisplayMode } from './core/base-classes/generic-planning-form';
 import { Planner } from './core/planner/planner';
 import { CommandHandler } from './handlers/command-handlers';
 import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
@@ -50,12 +49,10 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new PlanningSettingsTab(this));
 
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});
-        this.planner = new Planner(this);
+        this.app.workspace.onLayoutReady(async () => {
+            this.planner = new Planner(this);
+            await this.planner.loadIndexCards();
+        });
 
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
 			indexCardButtonHandler(source, el, this.planner);
