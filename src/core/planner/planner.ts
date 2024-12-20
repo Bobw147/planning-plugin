@@ -104,7 +104,6 @@ export class Planner implements IPlanner {
             }
         },
         (taskIndexCard: ITaskIndexCard) => {
-            debugger;
             const subtaskIndexCard: ISubtaskIndexCard = new SubtaskIndexCard();
             taskIndexCard.copyInto(subtaskIndexCard);
             this.tasksModal?.close();

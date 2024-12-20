@@ -1,7 +1,8 @@
-import { App, Modal, TFile } from 'obsidian';
+import { App, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
+import { PlanningModal } from '../base-classes/planning-modal';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
@@ -9,12 +10,11 @@ import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
-import { emptyString } from '../types/types';
 import { SubtaskFormBuilder } from './subtask-form-builder';
 
 let thisModal: SubtasksModal;
 
-export class SubtasksModal extends Modal implements IModalForm {
+export class SubtasksModal extends PlanningModal implements IModalForm {
     private settings: Settings;
     private displayMode: DisplayMode;
     private subtaskIndexCard: ISubtaskIndexCard;
@@ -67,18 +67,7 @@ export class SubtasksModal extends Modal implements IModalForm {
     }
 
     updateIndexCard(indexCard: ISubtaskIndexCard): void {
-        indexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
+        super.updateIndexCard(indexCard);
         indexCard.parentTask = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
-        indexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
-        indexCard.statusTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_STATUS_TAG, HtmlAttributes.VALUE);
-        
-        const targetDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE);
-        indexCard.targetDate = (targetDateString !== emptyString) ? new Date(targetDateString) : null;
-
-        const expectedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE);
-        indexCard.expectedDate = (expectedDateString !== emptyString) ? new Date(expectedDateString) : null;
-
-        const completedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_COMPLETED_DATE, HtmlAttributes.VALUE);
-        indexCard.completedDate = (completedDateString !== emptyString) ? new Date(completedDateString) : null;
     }
 }
