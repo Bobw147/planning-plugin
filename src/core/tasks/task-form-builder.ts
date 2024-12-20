@@ -5,7 +5,7 @@ import { GenericPlanningForm, IPlanningForm } from '../base-classes/generic-plan
 import { FormBuilderr } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
-import { translate, UserMessageId } from '../form-builder/i18n';
+import { UserMessageId } from '../form-builder/i18n';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString, identTags } from '../types/types';
 
@@ -21,50 +21,41 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
     }
 
     configureForCreateMode(taskIndexCard: ITaskIndexCard): void {
-        const formBuilderr: FormBuilderr = new FormBuilderr();
+        const formBuilder: FormBuilderr = new FormBuilderr();
 
         // Populate the selector options with the list contained in the plugin settings
-        formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, taskIndexCard.categoryTag, false);
-        formBuilderr.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, taskIndexCard.statusTag, false);
-        formBuilderr.addOptions(FormFieldId.GF_MEMBER_OF_NAME, 
+        formBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, taskIndexCard.categoryTag, false);
+        formBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, taskIndexCard.statusTag, false);
+        formBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, 
             getNameOptions(this.app, this.settings.projectsFolder, identTags.PLANNING_PROJECT), emptyString, false);
 
         // Set the label for the name field
-        formBuilderr.setElementAttributes(FormFieldId.GF_NAME_LABEL, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.TASK_NAME_LABEL],
-        ]);
+        formBuilder.setInnerText(FormFieldId.GF_NAME_LABEL, UserMessageId.TASK_NAME_LABEL);
+        formBuilder.setInnerText(FormFieldId.GF_MEMBER_OF_LABEL, UserMessageId.PARENT_PROJECT_LABEL);
+        formBuilder.setInnerText(FormFieldId.GF_CREATE_BUTTON, UserMessageId.TASK_CREATE_BUTTON_TEXT);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_NAME, [
+        formBuilder.setElementAttributes(FormFieldId.GF_NAME, [
             [HtmlAttributes.VALUE, taskIndexCard.name],
         ])
-        formBuilderr.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
+
+        formBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.targetDate != null) ? dateFormatter(taskIndexCard.targetDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.expectedDate != null) ? dateFormatter(taskIndexCard.expectedDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.completedDate != null) ? dateFormatter(taskIndexCard.completedDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_USER_TAGS, [
+        formBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
             [HtmlAttributes.VALUE, flattenedTags(taskIndexCard.userTags)],
         ]);
 
-        // Set the label for the Member Of field
-        formBuilderr.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.PARENT_PROJECT_LABEL],
-        ]);
-
-        // Set the prompt on the Create button
-        formBuilderr.setElementAttributes(FormFieldId.GF_CREATE_BUTTON, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.TASK_CREATE_BUTTON_TEXT],
-        ]);
-
         // Hide the unused sections & icons
-        formBuilderr.hide([
+        formBuilder.hide([
             FormFieldId.GF_CATEGORY_TAG_SECTION,
             FormFieldId.GF_COMPLETED_DATE_SECTION,
             FormFieldId.GF_NAME_ICON,
@@ -77,46 +68,44 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
     }
 
     async configureForIndexCardMode(taskIndexCard: ITaskIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
-        const formBuilderr: FormBuilderr = new FormBuilderr();
+        const formBuilder: FormBuilderr = new FormBuilderr();
 
         // Add the CategoryTag, statusTag and Member of options
-        formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, taskIndexCard.categoryTag, false);
-        formBuilderr.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, taskIndexCard.statusTag, false);
-        formBuilderr.addOptions(FormFieldId.GF_MEMBER_OF_NAME, 
+        formBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, taskIndexCard.categoryTag, false);
+        formBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, taskIndexCard.statusTag, false);
+        formBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, 
                 getNameOptions(this.app, this.settings.projectsFolder, identTags.PLANNING_PROJECT),
                 taskIndexCard.parentProject, false);
 
         // Hide the Create and Cancel buttons
-        formBuilderr.hide([
+        formBuilder.hide([
             FormFieldId.GF_BUTTONS,
             FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
         ])
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_NAME, [
+        formBuilder.setElementAttributes(FormFieldId.GF_NAME, [
             [HtmlAttributes.VALUE, taskIndexCard.name],
         ])
         
-        formBuilderr.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [
-            [HtmlAttributes.INNERTEXT, translate(UserMessageId.PARENT_PROJECT_LABEL)],
-        ]);
+        formBuilder.setInnerText(FormFieldId.GF_MEMBER_OF_LABEL, UserMessageId.PARENT_PROJECT_LABEL);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.targetDate != null) ? dateFormatter(taskIndexCard.targetDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.expectedDate != null) ? dateFormatter(taskIndexCard.expectedDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
             [HtmlAttributes.VALUE, (taskIndexCard.completedDate != null) ? dateFormatter(taskIndexCard.completedDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_USER_TAGS, [
+        formBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
             [HtmlAttributes.VALUE, flattenedTags(taskIndexCard.userTags)],
         ]);
 
-        formBuilderr.disable([
+        formBuilder.disable([
             FormFieldId.GF_NAME,
             FormFieldId.GF_CATEGORY_TAG,
             FormFieldId.GF_STATUS_TAG,

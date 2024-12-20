@@ -15,12 +15,12 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
     }
 
     configureForCreateMode(goalIndexCard: IGoalIndexCard): void {
-        const formBuilderr: FormBuilderr = new FormBuilderr();
+        const formBuilder: FormBuilderr = new FormBuilderr();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.name, false);
+        formBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.name, false);
 
-        formBuilderr.hide([
+        formBuilder.hide([
                 FormFieldId.GF_STATUS_TAG_SECTION,                
                 FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
                 FormFieldId.GF_MEMBER_OF_SECTION,
@@ -34,20 +34,20 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
     }
 
     async configureForIndexCardMode(goalIndexCard: IGoalIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
-        const formBuilderr: FormBuilderr = new FormBuilderr();
+        const formBuilder: FormBuilderr = new FormBuilderr();
 
        // Populate the Status selector options with the list contained in the plugin settings
-       formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.categoryTag, true);
-       formBuilderr.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, goalIndexCard.statusTag, true);
+       formBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.categoryTag, true);
+       formBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, goalIndexCard.statusTag, true);
    
         // Hide unwanted items
-        formBuilderr.hide([
+        formBuilder.hide([
             FormFieldId.GF_BUTTONS,
             FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
             FormFieldId.GF_MEMBER_OF_SECTION,
         ])
     
-        formBuilderr.disable([
+        formBuilder.disable([
             FormFieldId.GF_NAME,
             FormFieldId.GF_CATEGORY_TAG,
             FormFieldId.GF_STATUS_TAG,
@@ -58,24 +58,24 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         ])
 
         // Populate the form fields and make them read-only
-        formBuilderr.setElementAttributes(FormFieldId.GF_NAME, [
+        formBuilder.setElementAttributes(FormFieldId.GF_NAME, [
             [HtmlAttributes.VALUE, goalIndexCard.name],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
             [HtmlAttributes.VALUE, (goalIndexCard.targetDate != null) ? dateFormatter(goalIndexCard.targetDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
             [HtmlAttributes.VALUE, (goalIndexCard.expectedDate != null) ? dateFormatter(goalIndexCard.expectedDate) : emptyString],
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
+        formBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
             [HtmlAttributes.VALUE, (goalIndexCard.completedDate != null) ? dateFormatter(goalIndexCard.completedDate) : emptyString],
 
         ]);
 
-        formBuilderr.setElementAttributes(FormFieldId.GF_USER_TAGS, [
+        formBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
             [HtmlAttributes.VALUE, flattenedTags(goalIndexCard.userTags)],
         ]);
     }

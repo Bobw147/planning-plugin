@@ -33,31 +33,31 @@ export abstract class GenericPlanningForm implements IPlanningForm {
     }
     
     buildForm(parent: HTMLElement): void{
-        const formBuilderr = new FormBuilderr();
+        const formBuilder = new FormBuilderr();
 
         // Put all of the form together regardless of how it is being used
         try {
 
-            const containerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const containerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_INDEX_CARD],
             ]);
 
             /*==== Create the GoalName section ====*/
-            const nameContainerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const nameContainerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_NAME_SECTION],
             ]);
             nameContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_NAME_LABEL],
                     [attrib.INNERTEXT, UserMessageId.GOAL_NAME_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.INPUT, [
+                formBuilder.createElement(HtmlTags.INPUT, [
                     [attrib.ID, field.GF_NAME],
                     [attrib.TYPE, AttribSettingsId.TEXT]
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.I, [
+                formBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_NAME_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
                 ])
@@ -65,15 +65,15 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(nameContainerDiv);
 
             /*==== Create the subtask checkbox section ====*/
-            const subtaskCheckboxDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const subtaskCheckboxDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_SUBTASK_CHECKBOX_SECTION],
             ])
             subtaskCheckboxDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.INNERTEXT, UserMessageId.SUBTASK_CHECKBOX_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.INPUT, [
+                formBuilder.createElement(HtmlTags.INPUT, [
                     [attrib.ID, field.GF_SUBTASK_CHECKBOX],
                     [attrib.TYPE, AttribSettingsId.CHECKBOX],
                 ])
@@ -81,19 +81,19 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv.appendChild(subtaskCheckboxDiv);
 
             /*==== Create the Member of section ====*/
-            const memberOfContainerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const memberOfContainerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_MEMBER_OF_SECTION]
             ]);
             memberOfContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_MEMBER_OF_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.SELECT,[
+                formBuilder.createElement(HtmlTags.SELECT,[
                     [attrib.ID, field.GF_MEMBER_OF_NAME],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.I, [
+                formBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_MEMBER_OF_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK]
                 ])
@@ -101,20 +101,20 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(memberOfContainerDiv);
 
             /*==== Create the CategoryTag section ====*/
-            const categoryTagContainerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const categoryTagContainerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_CATEGORY_TAG_SECTION],
             ]);
             categoryTagContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_CATEGORY_TAG_LABEL],
                     [attrib.INNERTEXT, UserMessageId.CATEGORY_TAG_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.SELECT, [
+                formBuilder.createElement(HtmlTags.SELECT, [
                     [attrib.ID, field.GF_CATEGORY_TAG]
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.I, [
+                formBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_CATEGORY_TAG_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
                 ])
@@ -122,20 +122,20 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(categoryTagContainerDiv);
  
             /*==== Create the StatusTag section ====*/
-            const statusTagContainerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const statusTagContainerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_STATUS_TAG_SECTION],
             ]);
             statusTagContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_STATUS_TAG_LABEL],
                     [attrib.INNERTEXT, UserMessageId.STATUS_TAG_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.SELECT, [
+                formBuilder.createElement(HtmlTags.SELECT, [
                     [attrib.ID, field.GF_STATUS_TAG]
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.I, [
+                formBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_STATUS_TAG_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
                 ])
@@ -143,19 +143,19 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(statusTagContainerDiv);
 
             /*==== Create the TargetDate section ====*/
-            const targetDateContainerDiv = formBuilderr.createElement(HtmlTags.DIV);
+            const targetDateContainerDiv = formBuilder.createElement(HtmlTags.DIV);
             targetDateContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_TARGET_DATE_LABEL],
                     [attrib.INNERTEXT, UserMessageId.TARGET_DATE_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.INPUT, [
+                formBuilder.createElement(HtmlTags.INPUT, [
                     [attrib.ID, field.GF_TARGET_DATE],
                     [attrib.TYPE, AttribSettingsId.DATE],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.I, [
+                formBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_TARGET_DATE_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
                 ])
@@ -163,16 +163,16 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(targetDateContainerDiv);
 
             /*==== Create the ExpectedDate field fragment ====*/
-            const expectedDateContainerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const expectedDateContainerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_EXPECTED_DATE_SECTION],
             ]);
             expectedDateContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_EXPECTED_DATE_LABEL],
                     [attrib.INNERTEXT, UserMessageId.EXPECTED_DATE_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.INPUT, [
+                formBuilder.createElement(HtmlTags.INPUT, [
                     [attrib.ID, field.GF_EXPECTED_DATE],
                     [attrib.TYPE, AttribSettingsId.DATE],
                 ])
@@ -180,16 +180,16 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(expectedDateContainerDiv);
 
             /*==== Create the CompletedDate field fragment ====*/
-            const completedDateContainerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const completedDateContainerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_COMPLETED_DATE_SECTION],
             ]);
             completedDateContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.ID, field.GF_COMPLETED_DATE_LABEL],
                     [attrib.INNERTEXT, UserMessageId.COMPLETED_DATE_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.INPUT, [
+                formBuilder.createElement(HtmlTags.INPUT, [
                  [attrib.ID, field.GF_COMPLETED_DATE],
                  [attrib.TYPE, AttribSettingsId.DATE],
                 ])
@@ -197,17 +197,17 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(completedDateContainerDiv);
 
             /*==== Create UserTags field section ====*/
-            const userTagsContainerDiv = formBuilderr.createElement(HtmlTags.DIV);
+            const userTagsContainerDiv = formBuilder.createElement(HtmlTags.DIV);
             userTagsContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.LABEL, [
+                formBuilder.createElement(HtmlTags.LABEL, [
                     [attrib.INNERTEXT, UserMessageId.USER_TAGS_LABEL],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.INPUT, [
+                formBuilder.createElement(HtmlTags.INPUT, [
                     [attrib.ID, field.GF_USER_TAGS],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.I, [
+                formBuilder.createElement(HtmlTags.I, [
                     [attrib.ID, field.GF_USER_TAGS_ICON],
                     [attrib.ICON, AttribSettingsId.LOCK],
                 ])
@@ -216,16 +216,16 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             containerDiv?.appendChild(userTagsContainerDiv);
 
             /*==== Create the Buttons section ====*/
-            const buttonsContainerDiv = formBuilderr.createElement(HtmlTags.DIV, [
+            const buttonsContainerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_BUTTONS]
             ]);
             buttonsContainerDiv.appendChild(
-                formBuilderr.createElement(HtmlTags.BUTTON, [
+                formBuilder.createElement(HtmlTags.BUTTON, [
                     [attrib.ID, field.GF_CREATE_BUTTON],
                     [attrib.INNERTEXT, UserMessageId.GOAL_CREATE_BUTTON_TEXT],
                 ])
             ).parentElement?.appendChild(
-                formBuilderr.createElement(HtmlTags.BUTTON, [
+                formBuilder.createElement(HtmlTags.BUTTON, [
                     [attrib.ID, field.GF_CANCEL_BUTTON],
                     [attrib.INNERTEXT, UserMessageId.CANCEL_BUTTON_TEXT],
                 ])

@@ -140,6 +140,10 @@ export class FormBuilderr{
         }
     }
     
+    setInnerText(elementId: FormFieldId, userMessage: UserMessageId): void {
+        (document.getElementById(elementId) as HTMLElement).setText(translate(userMessage));
+    }
+
     setSelectedOption(elementId: FormFieldId, tagList: string[], selectorTag: string): void{
         // For some reason setting the selected option in a select element using the value attribute
         // does not work. Instead the following code sets the selectedIndex attribute instead after

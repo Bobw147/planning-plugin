@@ -16,23 +16,19 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     }
 
     configureForCreateMode(projectIndexCard: IProjectIndexCard): void {
-        const formBuilderr = new FormBuilderr();
+        const formBuilder = new FormBuilderr();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, emptyString, false);
-        formBuilderr.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, emptyString, false);
-        formBuilderr.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), projectIndexCard.name, false);
+        formBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, emptyString, false);
+        formBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, emptyString, false);
+        formBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), projectIndexCard.name, false);
 
         // Set the label for the Name and Member Of field
-        formBuilderr.setElementAttributes(FormFieldId.GF_NAME_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_NAME_LABEL]])
-        formBuilderr.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PARENT_GOAL_LABEL]]);
-
-        // Set the prompt on the Create button
-        formBuilderr.setElementAttributes(FormFieldId.GF_CREATE_BUTTON, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_CREATE_BUTTON_TEXT],
-        ]);
-
-        formBuilderr.hide([
+        formBuilder.setInnerText(FormFieldId.GF_NAME_LABEL, UserMessageId.PROJECT_NAME_LABEL);
+        formBuilder.setInnerText(FormFieldId.GF_MEMBER_OF_LABEL, UserMessageId.PARENT_GOAL_LABEL);
+        formBuilder.setInnerText(FormFieldId.GF_CREATE_BUTTON, UserMessageId.PROJECT_CREATE_BUTTON_TEXT);
+        
+        formBuilder.hide([
             FormFieldId.GF_STATUS_TAG_SECTION,
             FormFieldId.GF_EXPECTED_DATE_SECTION,
             FormFieldId.GF_COMPLETED_DATE_SECTION,
@@ -46,20 +42,20 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
     }
 
     async configureForIndexCardMode(projectIndexCard: IProjectIndexCard, fileManager: FileManager, file: TFile): Promise<void> {
-        const formBuilderr: FormBuilderr = new FormBuilderr();
+        const formBuilder: FormBuilderr = new FormBuilderr();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        formBuilderr.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, projectIndexCard.categoryTag, true);
-        formBuilderr.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, projectIndexCard.statusTag, true);
-        formBuilderr.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), projectIndexCard.parentGoal, false)
+        formBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, projectIndexCard.categoryTag, true);
+        formBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, projectIndexCard.statusTag, true);
+        formBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), projectIndexCard.parentGoal, false)
     
          // Hide unwanted items
-         formBuilderr.hide([
+         formBuilder.hide([
              FormFieldId.GF_BUTTONS,
              FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
          ])
      
-         formBuilderr.disable([
+         formBuilder.disable([
              FormFieldId.GF_NAME,
              FormFieldId.GF_MEMBER_OF_NAME,
              FormFieldId.GF_CATEGORY_TAG,
@@ -71,31 +67,29 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
          ])
  
          // Populate the form fields and make them read-only
-         formBuilderr.setElementAttributes(FormFieldId.GF_NAME, [
+         formBuilder.setElementAttributes(FormFieldId.GF_NAME, [
              [HtmlAttributes.VALUE, projectIndexCard.name],
          ]);
          
-         formBuilderr.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [
-            [HtmlAttributes.INNERTEXT, UserMessageId.PARENT_GOAL_LABEL],
-        ]);
+         formBuilder.setInnerText(FormFieldId.GF_MEMBER_OF_LABEL, UserMessageId.PARENT_GOAL_LABEL);
 
-         formBuilderr.setElementAttributes(FormFieldId.GF_MEMBER_OF_NAME, [
+         formBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_NAME, [
             [HtmlAttributes.VALUE, projectIndexCard.parentGoal],
         ]);
  
-         formBuilderr.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
+         formBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
              [HtmlAttributes.VALUE, (projectIndexCard.targetDate != null) ? dateFormatter(projectIndexCard.targetDate) : emptyString],
          ]);
  
-         formBuilderr.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
+         formBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
              [HtmlAttributes.VALUE, (projectIndexCard.expectedDate != null) ? dateFormatter(projectIndexCard.expectedDate) : emptyString],
          ]);
  
-         formBuilderr.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
+         formBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
              [HtmlAttributes.VALUE, (projectIndexCard.completedDate != null) ? dateFormatter(projectIndexCard.completedDate) : emptyString],
          ]);
  
-         formBuilderr.setElementAttributes(FormFieldId.GF_USER_TAGS, [
+         formBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
              [HtmlAttributes.VALUE, flattenedTags(projectIndexCard.userTags)],
          ]);
     }
