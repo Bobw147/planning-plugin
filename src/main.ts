@@ -25,15 +25,15 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 		// This creates an icon in the left ribbon.
 		const ribbonGoalIconEl = this.addRibbonIcon('goal', 'Goal', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.createGoal(DisplayMode.CREATE_MODE);
+			this.planner.createGoal();
 		});
 		const ribbonProjectIconEl = this.addRibbonIcon('target', 'Project', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.createProject(DisplayMode.CREATE_MODE);
+			this.planner.createProject();
 		});
 		const ribbonTaskIconEl = this.addRibbonIcon('circle-check', 'Task', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.createTask(null);
+			this.planner.createTask();
 		});
 		// Perform additional things with the ribbon
 		ribbonGoalIconEl.addClass('my-plugin-ribbon-class');

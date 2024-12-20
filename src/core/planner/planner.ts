@@ -34,11 +34,11 @@ var thisModal: Planner;
 
 export type taskToSubtaskModeSwitcher = (taskIndexCard: ITaskIndexCard) => void;
 
-export class Planner {
+export class Planner implements IPlanner {
     private goalsModal?: GoalsModal | null;
     private projectsModal?: ProjectsModal | null;
     private tasksModal?: TasksModal | null;
-    private subtasksModal : SubtasksModal | null;
+    private subtasksModal? : SubtasksModal | null;
     private app: App;
     private settings: Settings;
     private indexCardManager;
@@ -51,10 +51,10 @@ export class Planner {
         thisModal = this;
     }
 
-    createGoal(displayMode: DisplayMode): void {
+    createGoal(): void {
         const goalIndexCard: IGoalIndexCard = new GoalIndexCard();
         this.goalsModal = new GoalsModal(this.app, this.app.vault, this.settings, 
-            goalIndexCard, displayMode, async (hasChanged: boolean, app, settings: Settings) => {
+            goalIndexCard, DisplayMode.CREATE_MODE, async (hasChanged: boolean, app, settings: Settings) => {
             if (hasChanged) {
                 // Make sure the target folder exists then create the file
                 await createFolder(app.vault, settings.goalsFolder);
@@ -71,10 +71,10 @@ export class Planner {
         this.goalsModal.open();
     }
 
-    createProject(displayMode: DisplayMode): void {
+    createProject(): void {
         const projectIndexCard: IProjectIndexCard = new ProjectIndexCard();
         this.projectsModal = new ProjectsModal(this.app, this.app.vault, this.settings,
-            projectIndexCard, displayMode, async (hasChanged: boolean, app: App, settings: Settings) => {
+            projectIndexCard, DisplayMode.CREATE_MODE, async (hasChanged: boolean, app: App, settings: Settings) => {
             if (hasChanged) {
                 await createFolder(app.vault, settings.projectsFolder);
                 const file: TFile = await app.vault.create(settings.projectsFolder + "/" + projectIndexCard.name + ".md", emptyString);
@@ -90,9 +90,9 @@ export class Planner {
         this.projectsModal.open();
     }
 
-    createTask(giventaskIndexCard: ITaskIndexCard | null): void{
+    createTask(giventaskIndexCard?: ITaskIndexCard): void{
         // Make sure there is a valid taskINdexCard im play
-        const taskIndexCard: ITaskIndexCard = (giventaskIndexCard === null) ? new TaskIndexCard() : giventaskIndexCard;
+        const taskIndexCard: ITaskIndexCard = (typeof giventaskIndexCard === 'undefined') ? new TaskIndexCard() : giventaskIndexCard;
  
         this.tasksModal = new TasksModal(this.app, this.settings, taskIndexCard, DisplayMode.CREATE_MODE, 
         async (hasChanged: boolean, app: App, settings: Settings) => {
@@ -119,8 +119,8 @@ export class Planner {
         this.tasksModal.open();
     }
 
-    createSubtask(givenSubtaskIndexCard: ISubtaskIndexCard, displayMode: DisplayMode): void{
-        const subtaskIndexCard = (givenSubtaskIndexCard === null) ? new SubtaskIndexCard : givenSubtaskIndexCard
+    createSubtask(givenSubtaskIndexCard?: ISubtaskIndexCard, displayMode: DisplayMode): void{
+        const subtaskIndexCard = (typeof givenSubtaskIndexCard === 'undefined') ? new SubtaskIndexCard : givenSubtaskIndexCard
 
         this.subtasksModal = new SubtasksModal(this.app, this.settings, subtaskIndexCard, DisplayMode.CREATE_MODE, 
         async (hasChanged: boolean, app: App, settings: Settings) => {
