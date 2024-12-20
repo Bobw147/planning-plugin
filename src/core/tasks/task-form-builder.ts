@@ -21,18 +21,37 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
         super.buildForm(parent);
     }
 
-    configureForCreateMode(): void {
+    configureForCreateMode(taskIndexCard: ITaskIndexCard): void {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the selector options with the list contained in the plugin settings
-        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, emptyString, false);
-        nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, taskIndexCard.categoryTag, false);
+        nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, taskIndexCard.statusTag, false);
         nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, 
             getNameOptions(this.app, this.settings.projectsFolder, identTags.PLANNING_PROJECT), emptyString, false);
 
         // Set the label for the name field
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [
             [HtmlAttributes.INNERTEXT, UserMessageId.TASK_NAME_LABEL],
+        ]);
+
+        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME, [
+            [HtmlAttributes.VALUE, taskIndexCard.name],
+        ])
+        nodeBuilder.setElementAttributes(FormFieldId.GF_TARGET_DATE, [
+            [HtmlAttributes.VALUE, (taskIndexCard.targetDate != null) ? dateFormatter(taskIndexCard.targetDate) : emptyString],
+        ]);
+
+        nodeBuilder.setElementAttributes(FormFieldId.GF_EXPECTED_DATE, [
+            [HtmlAttributes.VALUE, (taskIndexCard.expectedDate != null) ? dateFormatter(taskIndexCard.expectedDate) : emptyString],
+        ]);
+
+        nodeBuilder.setElementAttributes(FormFieldId.GF_COMPLETED_DATE, [
+            [HtmlAttributes.VALUE, (taskIndexCard.completedDate != null) ? dateFormatter(taskIndexCard.completedDate) : emptyString],
+        ]);
+
+        nodeBuilder.setElementAttributes(FormFieldId.GF_USER_TAGS, [
+            [HtmlAttributes.VALUE, flattenedTags(taskIndexCard.userTags)],
         ]);
 
         // Set the label for the Member Of field
@@ -74,6 +93,10 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
             FormFieldId.GF_SUBTASK_CHECKBOX_SECTION,
         ])
 
+        nodeBuilder.setElementAttributes(FormFieldId.GF_NAME, [
+            [HtmlAttributes.VALUE, taskIndexCard.name],
+        ])
+        
         nodeBuilder.setElementAttributes(FormFieldId.GF_MEMBER_OF_LABEL, [
             [HtmlAttributes.INNERTEXT, translate(UserMessageId.PARENT_PROJECT_LABEL)],
         ]);

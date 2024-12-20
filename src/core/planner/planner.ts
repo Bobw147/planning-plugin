@@ -90,10 +90,9 @@ export class Planner {
         this.projectsModal.open();
     }
 
-    createTask(displayMode: DisplayMode): void{
+    createTask(giventaskIndexCard: ITaskIndexCard | null): void{
         // Make sure there is a valid taskINdexCard im play
-        debugger;
-        const taskIndexCard: ITaskIndexCard = new TaskIndexCard();
+        const taskIndexCard: ITaskIndexCard = (giventaskIndexCard === null) ? new TaskIndexCard() : giventaskIndexCard;
  
         this.tasksModal = new TasksModal(this.app, this.settings, taskIndexCard, DisplayMode.CREATE_MODE, 
         async (hasChanged: boolean, app: App, settings: Settings) => {
@@ -120,8 +119,8 @@ export class Planner {
         this.tasksModal.open();
     }
 
-    createSubtask(displayMode: DisplayMode): void{
-        const subtaskIndexCard = new SubtaskIndexCard;
+    createSubtask(givenSubtaskIndexCard: ISubtaskIndexCard, displayMode: DisplayMode): void{
+        const subtaskIndexCard = (givenSubtaskIndexCard === null) ? new SubtaskIndexCard : givenSubtaskIndexCard
 
         this.subtasksModal = new SubtasksModal(this.app, this.settings, subtaskIndexCard, DisplayMode.CREATE_MODE, 
         async (hasChanged: boolean, app: App, settings: Settings) => {
@@ -139,7 +138,6 @@ export class Planner {
             }
         },
         (subtaskIndexCard: ISubtaskIndexCard) => {
-            debugger;
             const taskIndexCard: ITaskIndexCard = new TaskIndexCard();
             subtaskIndexCard.copyInto(taskIndexCard);
             this.subtasksModal?.close();
@@ -185,11 +183,12 @@ export class Planner {
         }
     }
 
-    async showTaskIndexCard(): Promise<void> {
+    async showTaskIndexCard(givenTaskIndexCard?: ITaskIndexCard): Promise<void> {
         const activeFile: TFile | null = this.app.workspace.getActiveFile();
         if (activeFile !== null) {
             // Make sure we have the correct typwe ofindex card loaded
-            const taskIndexCard: ITaskIndexCard = new TaskIndexCard()
+            const taskIndexCard: ITaskIndexCard = (typeof givenTaskIndexCard === 'undefined')
+            ? new TaskIndexCard() : givenTaskIndexCard;
             await taskIndexCard.load(this.app.fileManager, activeFile);
 
             this.tasksModal = new TasksModal(this.app, this.settings, taskIndexCard, DisplayMode.INDEX_CARD_MODE, 
@@ -199,24 +198,26 @@ export class Planner {
                         thisModal.tasksModal?.updateIndexCard(taskIndexCard);
                     }
                     thisModal.tasksModal?.close();
+                    thisModal.tasksModal = null;
                  },
-                async (indexCard: ITaskIndexCard) => {
+                async (taskIndexCard: ITaskIndexCard) => {
                     const subtaskIndexCard: ISubtaskIndexCard = new SubtaskIndexCard();
-                    subtaskIndexCard.copyInto(taskIndexCard);
+                    taskIndexCard.copyInto(subtaskIndexCard);
                     thisModal.tasksModal?.close();
                     thisModal.tasksModal = null;
-                    this.createSubtask(DisplayMode.CREATE_MODE);
+                    this.showSubtaskIndexCard(subtaskIndexCard);
                 }
             )
             this.tasksModal.open();
         }
     }
 
-    async showSubtaskIndexCard(): Promise<void> {
+    async showSubtaskIndexCard(givenSubtaskIndexCard?: ISubtaskIndexCard): Promise<void> {
         const activeFile: TFile | null = this.app.workspace.getActiveFile();
         if (activeFile !== null) {
             // Make sure we have the correct typwe ofindex card loaded
-            const subtaskIndexCard: ISubtaskIndexCard = new SubtaskIndexCard()
+            const subtaskIndexCard: ISubtaskIndexCard = (typeof givenSubtaskIndexCard === 'undefined') 
+            ? new SubtaskIndexCard() : givenSubtaskIndexCard;
             await subtaskIndexCard.load(this.app.fileManager, activeFile);
 
             this.subtasksModal = new SubtasksModal(this.app, this.settings, subtaskIndexCard, DisplayMode.INDEX_CARD_MODE, 
@@ -233,7 +234,7 @@ export class Planner {
                     subtaskIndexCard.copyInto(taskIndexCard);
                     this.subtasksModal?.close();
                     this.subtasksModal = null;
-                    this.createTask(DisplayMode.CREATE_MODE);
+                    this.createTask(taskIndexCard);
                 }
             );
             this.subtasksModal.open();

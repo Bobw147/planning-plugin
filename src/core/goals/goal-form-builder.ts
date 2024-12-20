@@ -14,11 +14,11 @@ export class GoalFormBuilder extends GenericPlanningForm implements IPlanningFor
         super.buildForm(parent);
     }
 
-    configureForCreateMode(): void {
+    configureForCreateMode(goalIndexCard: IGoalIndexCard): void {
         const nodeBuilder: NodeBuilder = new NodeBuilder();
 
         // Populate the Status selector options with the list contained in the plugin settings
-        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, goalIndexCard.name, false);
 
         nodeBuilder.hide([
                 FormFieldId.GF_STATUS_TAG_SECTION,                

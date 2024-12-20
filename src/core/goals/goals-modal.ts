@@ -8,6 +8,7 @@ import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
+import { emptyString } from '../types/types';
 import { GoalFormBuilder } from './goal-form-builder';
 
 export class GoalsModal extends Modal {
@@ -39,7 +40,7 @@ export class GoalsModal extends Modal {
         // to just show the Goal part of the form
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.setTitle(translate(UserMessageId.CREATE_GOAL_TITLE));
-            this.goalForm.configureForCreateMode();
+            this.goalForm.configureForCreateMode(this.goalIndexCard);
 
             //  Add a handler to the 'Create' button
             (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement).onclick = async () => {
@@ -58,12 +59,18 @@ export class GoalsModal extends Modal {
         }
     }
 
-    updateIndexCard(goalIndexCard: IGoalIndexCard): void {
-        goalIndexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
-        goalIndexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
-        goalIndexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
-        goalIndexCard.statusTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_STATUS_TAG, HtmlAttributes.VALUE);
-        goalIndexCard.expectedDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE));
-        goalIndexCard.completedDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_COMPLETED_DATE, HtmlAttributes.VALUE));
+    updateIndexCard(indexCard: IGoalIndexCard): void {
+        indexCard.name = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_NAME, HtmlAttributes.VALUE);
+        indexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
+        indexCard.statusTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_STATUS_TAG, HtmlAttributes.VALUE);
+        
+        const targetDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE);
+        indexCard.targetDate = (targetDateString !== emptyString) ? new Date(targetDateString) : null;
+
+        const expectedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE);
+        indexCard.expectedDate = (expectedDateString !== emptyString) ? new Date(expectedDateString) : null;
+
+        const completedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_COMPLETED_DATE, HtmlAttributes.VALUE);
+        indexCard.completedDate = (completedDateString !== emptyString) ? new Date(completedDateString) : null;
     }
 }

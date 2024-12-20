@@ -11,9 +11,6 @@ export interface IPlanningIndexCard{
     get name(): string;
     set name(value: string);
 
-    get parent(): string;
-    set parent(value: string);
-
     get categoryTag(): string;
     set categoryTag(value: string);
 

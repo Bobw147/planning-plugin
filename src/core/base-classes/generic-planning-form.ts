@@ -18,7 +18,7 @@ export enum DisplayMode {
 
 export interface IPlanningForm {
     buildForm(parent: HTMLElement) : void;
-    configureForCreateMode(): void
+    configureForCreateMode(indexCard: IPlanningIndexCard): void;
     configureForIndexCardMode(indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void>;
     updateIndexCard(indexCard: IPlanningIndexCard, displayMode: DisplayMode): void;
 }
@@ -244,7 +244,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
 
     }
     
-    configureForCreateMode(): void {
+    configureForCreateMode(indexCard: IPlanningIndexCard): void {
 
     }
 

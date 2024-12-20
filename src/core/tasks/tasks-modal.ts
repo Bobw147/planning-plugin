@@ -8,6 +8,7 @@ import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { NodeBuilder } from '../form-builder/node-builder';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
+import { emptyString } from '../types/types';
 import { TaskFormBuilder } from './task-form-builder';
 
 let thisModal: TasksModal;
@@ -43,11 +44,10 @@ export class TasksModal extends Modal {
 
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.setTitle(translate(UserMessageId.CREATE_TASK_TITLE));
-            taskForm.configureForCreateMode();
+            taskForm.configureForCreateMode(this.taskIndexCard);
             
             (document.getElementById(FormFieldId.GF_SUBTASK_CHECKBOX) as HTMLInputElement)
             .onclick = async () => {
-                debugger;
                 thisModal.updateIndexCard(thisModal.taskIndexCard);
                 thisModal.onSwitchToSubtaskMode(thisModal.taskIndexCard);
             };
@@ -74,8 +74,14 @@ export class TasksModal extends Modal {
         indexCard.parentProject = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
         indexCard.categoryTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_CATEGORY_TAG, HtmlAttributes.VALUE);
         indexCard.statusTag = NodeBuilder.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_STATUS_TAG, HtmlAttributes.VALUE);
-        indexCard.targetDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE));
-        indexCard.expectedDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE))
-        indexCard.completedDate = new Date(NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_COMPLETED_DATE, HtmlAttributes.VALUE))
+        
+        const targetDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_TARGET_DATE, HtmlAttributes.VALUE);
+        indexCard.targetDate = (targetDateString !== emptyString) ? new Date(targetDateString) : null;
+
+        const expectedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_EXPECTED_DATE, HtmlAttributes.VALUE);
+        indexCard.expectedDate = (expectedDateString !== emptyString) ? new Date(expectedDateString) : null;
+
+        const completedDateString: string = NodeBuilder.getElementInfo(HtmlTags.INPUT, FormFieldId.GF_COMPLETED_DATE, HtmlAttributes.VALUE);
+        indexCard.completedDate = (completedDateString !== emptyString) ? new Date(completedDateString) : null;
     }
 }

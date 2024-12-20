@@ -45,8 +45,8 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
     copyInto(subtaskIndexCard: ISubtaskIndexCard): void {
         subtaskIndexCard.name = this.name;
         subtaskIndexCard.parentTask = emptyString;
-        subtaskIndexCard.categoryTag = emptyString;
-        subtaskIndexCard.statusTag = emptyString;
+        subtaskIndexCard.categoryTag = this.categoryTag;
+        subtaskIndexCard.statusTag = this.statusTag;
         subtaskIndexCard.targetDate = this.targetDate;
         subtaskIndexCard.expectedDate = this.expectedDate;
         subtaskIndexCard.completedDate = this.completedDate;

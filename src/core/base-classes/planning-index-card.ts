@@ -85,14 +85,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._name = value;
     }
 
-    get parent(): string{
-        return this._parent;
-    }
-
-    set parent(value: string) {
-        this._parent= value;
-    }
-
     get categoryTag(): string {
         return this._categoryTag;
     }

@@ -18,13 +18,13 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
         super.buildForm(parent);
     }
 
-    configureForCreateMode(): void {
+    configureForCreateMode(projectIndexCard: IProjectIndexCard): void {
         const nodeBuilder = new NodeBuilder();
 
         // Populate the Status selector options with the list contained in the plugin settings
         nodeBuilder.addOptions(FormFieldId.GF_CATEGORY_TAG, this.settings.categoryTags, emptyString, false);
         nodeBuilder.addOptions(FormFieldId.GF_STATUS_TAG, this.settings.statusTags, emptyString, false);
-        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), emptyString, false);
+        nodeBuilder.addOptions(FormFieldId.GF_MEMBER_OF_NAME, getNameOptions(this.app, this.settings.goalsFolder, identTags.PLANNING_GOAL), projectIndexCard.name, false);
 
         // Set the label for the Name and Member Of field
         nodeBuilder.setElementAttributes(FormFieldId.GF_NAME_LABEL, [[HtmlAttributes.INNERTEXT, UserMessageId.PROJECT_NAME_LABEL]])

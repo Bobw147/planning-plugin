@@ -33,7 +33,7 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 		});
 		const ribbonTaskIconEl = this.addRibbonIcon('circle-check', 'Task', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			this.planner.createTask(DisplayMode.CREATE_MODE);
+			this.planner.createTask(null);
 		});
 		// Perform additional things with the ribbon
 		ribbonGoalIconEl.addClass('my-plugin-ribbon-class');
