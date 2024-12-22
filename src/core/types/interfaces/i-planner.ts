@@ -7,6 +7,7 @@ export interface IPlanner {
     createProject(): void;
     createSubtask(subtaskIndexCard?: ISubtaskIndexCard): void;
     createTask(taskIndexCard?: ITaskIndexCard): void;
+    loadIndexCards(): void;
     showGoalIndexCard(): Promise<void>;
     showProjectIndexCard(): Promise<void>;
     showSubtaskIndexCard(subtaskIndexCard?: ISubtaskIndexCard): Promise<void>;

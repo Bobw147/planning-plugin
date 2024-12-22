@@ -8,7 +8,6 @@ export const Ident = {
     TASK: 2,
     SUBTASK: 3
 } as const;
-;
 
 export type Ident = typeof Ident[keyof typeof Ident]
 export const emptyString: string = "";

@@ -1,4 +1,4 @@
-import { FileManager, TFile } from 'obsidian';
+import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 
 import { PlanningIndexCard } from '../base-classes/planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
@@ -17,6 +17,17 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
         this._parentProject = "";
     }
 
+    copyInto(subtaskIndexCard: ISubtaskIndexCard): void {
+        subtaskIndexCard.name = this.name;
+        subtaskIndexCard.parentTask = emptyString;
+        subtaskIndexCard.categoryTag = this.categoryTag;
+        subtaskIndexCard.statusTag = this.statusTag;
+        subtaskIndexCard.targetDate = this.targetDate;
+        subtaskIndexCard.expectedDate = this.expectedDate;
+        subtaskIndexCard.completedDate = this.completedDate;
+        subtaskIndexCard.userTags = this.userTags;
+    }
+
     async load(fileManager: FileManager, file: TFile): Promise<void> {
         super.load(fileManager, file);
         await fileManager.processFrontMatter(file, (frontMatter) => {
@@ -24,6 +35,11 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
                 this.parentProject = frontMatter[taskFieldNames.PARENT_PROJECT];
             }
         })
+    }
+
+    loadFromFrontMatter(frontMatter: FrontMatterCache): void {
+        super.loadFromFrontMatter(frontMatter);
+        this.parentProject = frontMatter[taskFieldNames.PARENT_PROJECT];
     }
 
     async save(fileManager: FileManager, file: TFile) : Promise<void> {
@@ -40,16 +56,5 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
 
     public set parentProject(value: string) {
         this._parentProject = value;
-    }
-
-    copyInto(subtaskIndexCard: ISubtaskIndexCard): void {
-        subtaskIndexCard.name = this.name;
-        subtaskIndexCard.parentTask = emptyString;
-        subtaskIndexCard.categoryTag = this.categoryTag;
-        subtaskIndexCard.statusTag = this.statusTag;
-        subtaskIndexCard.targetDate = this.targetDate;
-        subtaskIndexCard.expectedDate = this.expectedDate;
-        subtaskIndexCard.completedDate = this.completedDate;
-        subtaskIndexCard.userTags = this.userTags;
     }
 }

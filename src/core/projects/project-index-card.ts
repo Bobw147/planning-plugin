@@ -1,4 +1,4 @@
-import { FileManager, TFile } from 'obsidian';
+import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 
 import { PlanningIndexCard } from '../base-classes/planning-index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
@@ -22,6 +22,11 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
             if (frontMatter)
                 this.parentGoal = frontMatter[projectFieldNames.PARENT_GOAL];
         });
+    }
+
+    loadFromFrontMatter(frontMatter: FrontMatterCache): void {
+        super.loadFromFrontMatter(frontMatter);
+        this.parentGoal = frontMatter[projectFieldNames.PARENT_GOAL];
     }
 
     async save(fileManager: FileManager, file: TFile) : Promise<void> {

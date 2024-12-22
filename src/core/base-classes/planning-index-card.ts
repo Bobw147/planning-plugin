@@ -41,38 +41,6 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._userTags = [];
     }
 
-    async load(fileManager: FileManager, file: TFile): Promise<void> {
-        await fileManager.processFrontMatter(file, (frontMatter: FrontMatterCache) => {
-            if (frontMatter) {
-                this._refId = frontMatter[fieldNames.REF_ID_FIELD];
-                this.name = frontMatter[fieldNames.NAME_FIELD];
-                this.categoryTag = frontMatter[fieldNames.CATEGORY_TAG_FIELD];
-                this.statusTag = frontMatter[fieldNames.STATUS_TAG_FIELD];
-                this.targetDate = new Date(frontMatter[fieldNames.TARGET_DATE_FIELD]);
-                this.expectedDate = new Date(frontMatter[fieldNames.EXPECTED_DATE_FIELD]);
-                this.completedDate = new Date(frontMatter[fieldNames.COMPLETED_DATE_FIELD]);
-                this.userTags = frontMatter[fieldNames.USER_TAGS_FIELD]; 
-            }
-        });
-    }
-
-    async save(fileManager: FileManager, file: TFile): Promise<void>
-    {
-        await fileManager.processFrontMatter(file, (frontMatter) => {
-            if (frontMatter) {
-                frontMatter[fieldNames.REF_ID_FIELD] = this.refId;
-                frontMatter[fieldNames.NAME_FIELD] = this.name;
-                frontMatter[fieldNames.IDENT_TAG_FIELD] = this.identTag;
-                frontMatter[fieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;
-                frontMatter[fieldNames.STATUS_TAG_FIELD] = this.statusTag;
-                frontMatter[fieldNames.TARGET_DATE_FIELD] = this.targetDate;
-                frontMatter[fieldNames.EXPECTED_DATE_FIELD] = this.expectedDate;
-                frontMatter[fieldNames.COMPLETED_DATE_FIELD] = this.completedDate;
-                frontMatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
-            }
-        });
-    }
-
     get refId() : UUID {
         return this._refId as UUID;
     }
@@ -148,6 +116,42 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
             }
         });
         this._userTags = arraycopy(value);
+    }
+
+    async load(fileManager: FileManager, file: TFile): Promise<void> {
+        await fileManager.processFrontMatter(file, (frontMatter: FrontMatterCache) => {
+            this.loadFromFrontMatter(frontMatter);
+        });
+    }
+
+    loadFromFrontMatter(frontMatter: FrontMatterCache): void {
+        if (frontMatter) {
+            this._refId = frontMatter[fieldNames.REF_ID_FIELD];
+            this.name = frontMatter[fieldNames.NAME_FIELD];
+            this.categoryTag = frontMatter[fieldNames.CATEGORY_TAG_FIELD];
+            this.statusTag = frontMatter[fieldNames.STATUS_TAG_FIELD];
+            this.targetDate = new Date(frontMatter[fieldNames.TARGET_DATE_FIELD]);
+            this.expectedDate = new Date(frontMatter[fieldNames.EXPECTED_DATE_FIELD]);
+            this.completedDate = new Date(frontMatter[fieldNames.COMPLETED_DATE_FIELD]);
+            this.userTags = frontMatter[fieldNames.USER_TAGS_FIELD]; 
+        }
+    }
+
+    async save(fileManager: FileManager, file: TFile): Promise<void>
+    {
+        await fileManager.processFrontMatter(file, (frontMatter) => {
+            if (frontMatter) {
+                frontMatter[fieldNames.REF_ID_FIELD] = this.refId;
+                frontMatter[fieldNames.NAME_FIELD] = this.name;
+                frontMatter[fieldNames.IDENT_TAG_FIELD] = this.identTag;
+                frontMatter[fieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;
+                frontMatter[fieldNames.STATUS_TAG_FIELD] = this.statusTag;
+                frontMatter[fieldNames.TARGET_DATE_FIELD] = this.targetDate;
+                frontMatter[fieldNames.EXPECTED_DATE_FIELD] = this.expectedDate;
+                frontMatter[fieldNames.COMPLETED_DATE_FIELD] = this.completedDate;
+                frontMatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
+            }
+        });
     }
 
     _validateTag(tag:string, mustHave: string | null): boolean {

@@ -45,6 +45,8 @@ export class Planner implements IPlanner {
     }
 
     createGoal(): void {
+        debugger;
+        this.loadIndexCards();
         const goalIndexCard: IGoalIndexCard = new GoalIndexCard();
         this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.CREATE_MODE, 
             async (hasChanged: boolean, app, settings: Settings) => {
@@ -139,6 +141,10 @@ export class Planner implements IPlanner {
             this.createTask(taskIndexCard);
         });
         this.subtasksModal.open();
+    }
+
+    async loadIndexCards(): Promise<void> {
+        this.indexCardManager.loadIndexCards(this.settings)
     }
 
     async showGoalIndexCard(): Promise<void>{
