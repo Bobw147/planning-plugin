@@ -49,14 +49,14 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new PlanningSettingsTab(this));
 
+		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
+			indexCardButtonHandler(source, el, this.planner);
+		})
+
         this.app.workspace.onLayoutReady(async () => {
             this.planner = new Planner(this);
             await this.planner.loadIndexCards();
         });
-
-		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
-			indexCardButtonHandler(source, el, this.planner);
-		})
 	}
 
     async save_settings(): Promise<void> {
