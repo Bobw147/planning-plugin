@@ -1,4 +1,6 @@
-import { App, FileManager, TFile } from 'obsidian';
+import {
+    AbstractTextComponent, App, DropdownComponent, FileManager, Setting, TFile
+} from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { AttribSettingsId } from '../form-builder/atrrib-settings-types';
@@ -26,6 +28,15 @@ export interface IPlanningForm {
 export abstract class GenericPlanningForm implements IPlanningForm {
     protected app: App;
     protected settings: Settings;
+    private nameSection?: Setting;
+    private parentSection?: Setting;
+    private subtaskToggleSection?: Setting;
+    private categoryTagSection?: Setting;
+    private statusTagSection?: Setting;
+    private targetDateSection?: Setting;
+    private expectedDateSection?: Setting;
+    private completedDateSection?: Setting;
+    private userTagsSection?: Setting;
 
     constructor(app: App, settings: Settings) {
         this.app = app;
@@ -37,6 +48,67 @@ export abstract class GenericPlanningForm implements IPlanningForm {
 
         // Put all of the form together regardless of how it is being used
         try {
+            this.nameSection = new Setting(parent)
+                .setName("Enter new goal name")
+                .setDesc("Also used as the title and filename")
+                .addText(text =>
+                    text
+                );
+                this.nameSection.settingEl.id = 'pl-name-div';
+   
+            this.parentSection = new Setting(parent)
+                .setName("Select the parent goal")
+                .setDesc("Identifies the nature of the goal")
+                .addDropdown(DropdownComponent =>
+                    DropdownComponent
+                        .addOption('something', '#planning/goal')
+                );
+
+            this.subtaskToggleSection = new Setting(parent)
+                .setName("Some name or other")
+                .setDesc("This is it's description")
+                .addToggle(toggle => 
+                    toggle
+                        .setValue(true)
+                );
+                this.subtaskToggleSection.settingEl.id = 'toggle-setting';
+
+             this.categoryTagSection = new Setting(parent)
+                .setName("Select goal category")
+                .setDesc("Identifies the nature of the goal")
+                .addDropdown(DropdownComponent =>
+                    DropdownComponent
+                        .addOption('someting', '#planning/goal')
+                );
+
+            this.statusTagSection = new Setting(parent)
+                .setName("Select goal category")
+                .setDesc("Identifies the nature of the goal")
+                .addDropdown(DropdownComponent =>
+                    DropdownComponent
+                        .addOptions({'something': '#status/inbox'})
+                );
+
+            this.targetDateSection = new Setting(parent)
+                .setName("Target Date")
+                .setDesc("Date by which the Goal should be completed")
+                .addText(text => 
+                    text.inputEl.setAttr('type', 'date')
+                );
+
+            this.expectedDateSection = new Setting(parent)
+                .setName("Expected Date")
+                .setDesc("Earliest date the Goal is now expected to be completed")
+                .addText(text =>
+                    text.inputEl.setAttribute('type', 'date')
+                );
+
+            this.completedDateSection = new Setting(parent)
+                .setName("Completion Date")
+                .setDesc("The date the Goal was actually completed")
+                .addText(text =>
+                    text.inputEl.setAttribute('type', 'date')
+                );
 
             const containerDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_INDEX_CARD],
@@ -67,6 +139,7 @@ export abstract class GenericPlanningForm implements IPlanningForm {
             /*==== Create the subtask checkbox section ====*/
             const subtaskCheckboxDiv = formBuilder.createElement(HtmlTags.DIV, [
                 [attrib.ID, field.GF_SUBTASK_CHECKBOX_SECTION],
+                [attrib.CLASS, "setting-item-mod-toggle"],
             ])
             subtaskCheckboxDiv.appendChild(
                 formBuilder.createElement(HtmlTags.LABEL, [
