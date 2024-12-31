@@ -12,6 +12,7 @@ export const Ident = {
 
 export type Ident = typeof Ident[keyof typeof Ident]
 export const emptyString: string = "";
+export const zerothItem = 0;
 
 export const defaultStatusTags: Array<string> = [
     "#status/inbox",
