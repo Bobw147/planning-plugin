@@ -64,12 +64,15 @@ export class TasksModal extends PlanningModal implements IModalForm{
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
             this.setTitle(translate(UserMessageId.TASK_INDEX_CARD_TITLE));
-            taskForm.configureForIndexCardMode(this.taskIndexCard, this.app.fileManager, this.app.workspace.getActiveFile() as TFile)
-        }
-    }
 
-    updateIndexCard(indexCard: ITaskIndexCard): void {
-        super.updateIndexCard(indexCard);
-        indexCard.parentProject = FormBuilderr.getElementInfo(HtmlTags.SELECT, FormFieldId.GF_MEMBER_OF_NAME,HtmlAttributes.VALUE);
+            if (this.nameSection !== undefined) {
+                this.nameSection.setName(translate(UserMessageId.TASK_NAME_LABEL_IC));
+                this.nameSection.setDesc(translate(UserMessageId.TASK_NAME_LABEL_DESCRIPTION_IC))
+            }
+            if (this.parentSection !== undefined) {
+                this.parentSection.setName(translate(UserMessageId.TASK_PROJECT_LABEL_IC));
+                this.parentSection.setDesc(translate(UserMessageId.TASK_PROJECT_DESCRIPTION_IC))
+            }
+        }
     }
 }

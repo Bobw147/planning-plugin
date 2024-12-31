@@ -93,4 +93,9 @@ export class ProjectFormBuilder extends GenericPlanningForm implements IPlanning
              [HtmlAttributes.VALUE, flattenedTags(projectIndexCard.userTags)],
          ]);
     }
+
+    updateIndexCard(indexCard: IProjectIndexCard): void {
+        super.updateIndexCard(indexCard);
+        indexCard.parentGoal = (this.parentSection !== undefined) ? this.parentSection?.settingEl.getText() : "";
+    }
 }

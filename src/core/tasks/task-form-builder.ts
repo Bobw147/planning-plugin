@@ -115,4 +115,9 @@ export class TaskFormBuilder extends GenericPlanningForm implements IPlanningFor
             FormFieldId.GF_USER_TAGS,
         ]);
     }
+
+    updateIndexCard(indexCard: ITaskIndexCard): void {
+        super.updateIndexCard(indexCard);
+        indexCard.parentProject = (this.parentSection !== undefined) ? this.parentSection.settingEl.getText() : "";
+    }
 }
