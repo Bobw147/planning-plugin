@@ -1,20 +1,14 @@
-import { App, TFile } from 'obsidian';
+import { App, ButtonComponent, DropdownComponent } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
 import { PlanningModal } from '../base-classes/planning-modal';
-import { FormBuilderr } from '../form-builder/form-builder';
-import { FormFieldId } from '../form-builder/form-field-types';
-import { HtmlAttributes } from '../form-builder/html-attribute-types';
-import { HtmlTags } from '../form-builder/html-element-types';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { TaskFormBuilder } from './task-form-builder';
+import { emptyString, zerothItem } from '../types/types';
 
-let thisModal: TasksModal;
 export class TasksModal extends PlanningModal implements IModalForm{
-    private settings: Settings;
     private displayMode: DisplayMode;
     private taskIndexCard: ITaskIndexCard;
     private onSubmit;
@@ -23,56 +17,104 @@ export class TasksModal extends PlanningModal implements IModalForm{
     constructor(app: App, settings: Settings, taskIndexCard: ITaskIndexCard, displayMode: DisplayMode, 
         onSubmit: (hasChanged: boolean, app:App, settings: Settings) => void,
         onSwitchToSubtaskMode: (taskIndexCard: ITaskIndexCard) => void) {
-		super(app);
-        this.settings = settings;
+		super(app, settings);
         this.displayMode = displayMode;
         this.taskIndexCard = taskIndexCard;
         this.onSubmit = onSubmit;
         this.onSwitchToSubtaskMode = onSwitchToSubtaskMode;
-        thisModal = this;
     }
 
     open(): void {
-        const taskForm: TaskFormBuilder = new TaskFormBuilder(this.app, this.settings);
         this.contentEl.empty();
-        taskForm.buildForm(this.contentEl);
-
-        // Open the form to create the DOM so that we can manipulate the class names settings
-        // to just show the Task part of the form
         super.open();
+        super.buildForm(this.contentEl);
 
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.setTitle(translate(UserMessageId.CREATE_TASK_TITLE));
-            taskForm.configureForCreateMode(this.taskIndexCard);
             
-            (document.getElementById(FormFieldId.GF_SUBTASK_CHECKBOX) as HTMLInputElement)
-            .onclick = async () => {
-                thisModal.updateIndexCard(thisModal.taskIndexCard);
-                thisModal.onSwitchToSubtaskMode(thisModal.taskIndexCard);
-            };
+            this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_CREATE));
+            this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_DESCRIPTION_CREATE));
 
-            (document.getElementById(FormFieldId.GF_CREATE_BUTTON) as HTMLButtonElement)
-            .onclick = async () => {
-                thisModal.updateIndexCard(this.taskIndexCard);              
-                thisModal.onSubmit(true, thisModal.app, thisModal.settings);
-            };
+            this.parentSection?.setName(translate(UserMessageId.TASK_PROJECT_LABEL_CREATE));
+            this.parentSection?.setDesc(translate(UserMessageId.TASK_PROJECT_DESCRIPTION_CREATE));
 
-            (document.getElementById(FormFieldId.GF_CANCEL_BUTTON) as HTMLButtonElement)
-            .onclick = () => {
-                thisModal.onSubmit(false, thisModal.app, thisModal.settings);
-            };
+            this.subtaskToggleSection?.setName(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE));
+            this.subtaskToggleSection?.setDesc(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE));
+
+            this.statusTagSection?.setName(translate(UserMessageId.TASK_STATUS_LABEL_CREATE));
+            this.statusTagSection?.setDesc(translate(UserMessageId.TASK_STATUS_DESCRIPTION_CREATE));
+
+            this.targetDateSection?.setName(translate(UserMessageId.TASK_TARGET_DATE_LABEL_CREATE));
+            this.targetDateSection?.setDesc(translate(UserMessageId.TASK_TARGET_DATE_DESCRIPTION_CREATE));
+
+            this.hide([
+                this.categoryTagSection,
+                this.expectedDateSection,
+                this.completedDateSection,
+            ]);
+
+            if (this.buttonsSection !== undefined) {
+                //  Add a handler to the 'Create & Open' button
+                (this.buttonsSection.components[zerothItem] as ButtonComponent).onClick(async () => {
+                    debugger;
+                    this.updateIndexCard(this.taskIndexCard);
+                    this.onSubmit(true, this.app, this.settings);
+                });
+
+                //  Add a handler to the 'Create' button
+                (this.buttonsSection.components[1] as ButtonComponent).onClick(async () => {
+                    this.updateIndexCard(this.taskIndexCard);
+                    this.onSubmit(true, this.app, this.settings);
+                });
+                
+                //  Add a handler to the 'Cancel' button
+                (this.buttonsSection.components[2] as ButtonComponent).onClick(async () => {
+                    this.onSubmit(false, this.app, this.settings);
+                });
+            }
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
             this.setTitle(translate(UserMessageId.TASK_INDEX_CARD_TITLE));
 
-            if (this.nameSection !== undefined) {
-                this.nameSection.setName(translate(UserMessageId.TASK_NAME_LABEL_IC));
-                this.nameSection.setDesc(translate(UserMessageId.TASK_NAME_LABEL_DESCRIPTION_IC))
-            }
-            if (this.parentSection !== undefined) {
-                this.parentSection.setName(translate(UserMessageId.TASK_PROJECT_LABEL_IC));
-                this.parentSection.setDesc(translate(UserMessageId.TASK_PROJECT_DESCRIPTION_IC))
-            }
+            this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_IC));
+            this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_LABEL_DESCRIPTION_IC))
+
+            this.parentSection?.setName(translate(UserMessageId.TASK_PROJECT_LABEL_IC));
+            this.parentSection?.setDesc(translate(UserMessageId.TASK_PROJECT_DESCRIPTION_IC))
+
+            this.categoryTagSection?.setName(translate(UserMessageId.TASK_CATEGORY_LABEL_IC));
+            this.categoryTagSection?.setDesc(translate(UserMessageId.TASK_CATEGORY_DESCRIPTION_IC));
+
+            this.statusTagSection?.setName(translate(UserMessageId.TASK_STATUS_LABEL_IC));
+            this.statusTagSection?.setDesc(translate(UserMessageId.TASK_STATUS_DESCRIPTION_IC))
+
+            this.targetDateSection?.setName(translate(UserMessageId.TASK_TARGET_DATE_LABEL_IC));
+            this.targetDateSection?.setDesc(translate(UserMessageId.TASK_TARGET_DATE_DESCRIPTION_IC));
+
+            this.expectedDateSection?.setName(translate(UserMessageId.TASK_EXPECTED_DATE_LABEL_IC));
+            this.expectedDateSection?.setDesc(translate(UserMessageId.TASK_EXPECTED_DATE_DESCRIPTION_IC));
+
+            this.completedDateSection?.setName(translate(UserMessageId.TASK_COMPLETED_DATE_LABEL_IC));
+            this.completedDateSection?.setDesc(translate(UserMessageId.TASK_COMPLETED_DATE_DESCRIPTION_IC));
+    
+            this.hide([
+                this.subtaskToggleSection,
+                this.buttonsSection,
+            ])
+            this.showCurrentValues(this.taskIndexCard);
         }
+    }
+    
+    
+    showCurrentValues(indexCard: ITaskIndexCard): void {
+        super.showCurrentValues(indexCard);
+        if (this.parentSection !== undefined)
+            (this.parentSection.components[zerothItem] as DropdownComponent).setValue(indexCard.parentProject)
+    }
+    
+    updateIndexCard(indexCard: ITaskIndexCard): void {
+        super.updateIndexCard(indexCard);
+        indexCard.parentProject = (this.parentSection !== undefined)
+            ? (this.parentSection.components[zerothItem] as DropdownComponent).getValue() : emptyString;
     }
 }
