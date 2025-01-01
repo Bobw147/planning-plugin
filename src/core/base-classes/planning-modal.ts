@@ -110,14 +110,14 @@ export abstract class PlanningModal extends Modal implements IModalForm {
             );
 
         this._parentSection = new Setting(parent)
-            .addDropdown(dropdown =>
+            .addDropdown(dropdown => 
                 this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL)
             );
 
         this._subtaskToggleSection = new Setting(parent)
             .addToggle(toggle => 
                 toggle
-                    .setValue(true)
+                    .setValue(false)
         );
 
         this._categoryTagSection = new Setting(parent)
