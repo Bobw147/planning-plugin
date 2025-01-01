@@ -11,14 +11,14 @@ import { emptyString, zerothItem } from '../types/types';
 export class ProjectsModal extends PlanningModal implements IModalForm {
     private displayMode:DisplayMode;
     private projectIndexCard: IProjectIndexCard;
-    private _onSubmit;
+    private onSubmit;
  
     constructor(app: App, settings: Settings, projectIndexCard: IProjectIndexCard, displayMode: DisplayMode, 
-        onSubmit: (result: boolean, app: App, settings: Settings) => void) {
+        onSubmit: (resulthasChanged: boolean, app: App, settings: Settings) => void) {
 		super(app, settings);
         this.displayMode = displayMode;
         this.projectIndexCard = projectIndexCard;
-        this._onSubmit = onSubmit;
+        this.onSubmit = onSubmit;
     }
 
     open(): void{
@@ -50,18 +50,18 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
                 //  Add a handler to the 'Create & Open' button
                 (this.buttonsSection.components[zerothItem] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.projectIndexCard);
-                    this._onSubmit(true, this.app, this.settings);
+                    this.onSubmit(true, this.app, this.settings);
                 });
 
                 //  Add a handler to the 'Create' button
                 (this.buttonsSection.components[1] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.projectIndexCard);
-                    this._onSubmit(true, this.app, this.settings);
+                    this.onSubmit(true, this.app, this.settings);
                 });
                 
                 //  Add a handler to the 'Cancel' button
                 (this.buttonsSection.components[2] as ButtonComponent).onClick(async () => {
-                    this._onSubmit(true, this.app, this.settings);
+                    this.onSubmit(false, this.app, this.settings);
                 });
             }
         }
