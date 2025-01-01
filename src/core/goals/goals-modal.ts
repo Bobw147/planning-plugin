@@ -64,7 +64,7 @@ export class GoalsModal extends PlanningModal implements IModalForm {
                 
                 //  Add a handler to the 'Cancel' button
                 (this.buttonsSection.components[2] as ButtonComponent).onClick(async () => {
-                    this._onSubmit(true, this.app, this.settings);
+                    this._onSubmit(false, this.app, this.settings);
                 });
             }
         }
