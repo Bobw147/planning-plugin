@@ -85,12 +85,33 @@ export enum UserMessageId {
     TASK_PROJECT_LABEL_IC = "tpli",
     TASK_PROJECT_DESCRIPTION_IC = "tpdi",
 
+    TASK_SUBTASK_CHECKBOX_LABEL_CREATE = "tsclc",
+    TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE = "tscdc",
+ 
+    TASK_CATEGORY_LABEL_IC = "tcli",
+    TASK_CATEGORY_DESCRIPTION_IC = "tcdi",
+
+    TASK_STATUS_LABEL_CREATE = "tslc",
+    TASK_STATUS_DESCRIPTION_CREATE = "tsdc",
+    TASK_STATUS_LABEL_IC = "tsli",
+    TASK_STATUS_DESCRIPTION_IC = "tsdi",
+
+    TASK_TARGET_DATE_LABEL_CREATE = "ttdlc",
+    TASK_TARGET_DATE_DESCRIPTION_CREATE = "ttddc",
+    TASK_TARGET_DATE_LABEL_IC = "ttdli",
+    TASK_TARGET_DATE_DESCRIPTION_IC = "ttddi",
+
+    TASK_EXPECTED_DATE_LABEL_IC = "tedli",
+    TASK_EXPECTED_DATE_DESCRIPTION_IC = "teddi",
+
+    TASK_COMPLETED_DATE_LABEL_IC = "tcdli",
+    TASK_COMPLETED_DATE_DESCRIPTION_IC = "tcddi",
+
     // Subtask specific user messages
     CREATE_SUBTASK_TITLE = "cst",
     SUBTASK_INDEX_CARD_TITLE = "sict",
     SUBTASK_CREATE_BUTTON_TEXT = "stcb",
 
-    SUBTASK_CHECKBOX_LABEL = "scl",
     SUBTASK_CHECKBOX_DESCRIPTION = 'scd',
     SUBTASK_NAME_LABEL = 'snl',
     SUBTASK_NAME_DESCRIPTION = "snd",
@@ -179,6 +200,8 @@ interface IUserMessageDictionary {
 
     // Task specific user messages
     [UserMessageId.CREATE_TASK_TITLE]: string[];
+    [UserMessageId.TASK_INDEX_CARD_TITLE]: string[];
+
     [UserMessageId.TASK_NAME_LABEL_CREATE]: string[];
     [UserMessageId.TASK_NAME_DESCRIPTION_CREATE]: string[];
     [UserMessageId.TASK_NAME_LABEL_IC]: string[];
@@ -188,6 +211,28 @@ interface IUserMessageDictionary {
     [UserMessageId.TASK_PROJECT_DESCRIPTION_CREATE]: string[];
     [UserMessageId.TASK_PROJECT_LABEL_IC]: string[];
     [UserMessageId.TASK_PROJECT_DESCRIPTION_IC]: string[];
+
+    [UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE]: string[];
+    [UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE]: string[];
+ 
+    [UserMessageId.TASK_CATEGORY_LABEL_IC]: string[];
+    [UserMessageId.TASK_CATEGORY_DESCRIPTION_IC]: string[];
+ 
+    [UserMessageId.TASK_STATUS_LABEL_CREATE]: string[];
+    [UserMessageId.TASK_STATUS_DESCRIPTION_CREATE]: string[];
+    [UserMessageId.TASK_STATUS_LABEL_IC]: string[];
+    [UserMessageId.TASK_STATUS_DESCRIPTION_IC]: string[];
+
+    [UserMessageId.TASK_TARGET_DATE_LABEL_CREATE]: string[];
+    [UserMessageId.TASK_TARGET_DATE_DESCRIPTION_CREATE]: string[];
+    [UserMessageId.TASK_TARGET_DATE_LABEL_IC]: string[];
+    [UserMessageId.TASK_TARGET_DATE_DESCRIPTION_IC]: string[];
+
+    [UserMessageId.TASK_EXPECTED_DATE_LABEL_IC]: string[];
+    [UserMessageId.TASK_EXPECTED_DATE_DESCRIPTION_IC]: string[];
+
+    [UserMessageId.TASK_COMPLETED_DATE_LABEL_IC]: string[];
+    [UserMessageId.TASK_COMPLETED_DATE_DESCRIPTION_IC]: string[];
 
     // SUbtask specific user messages
     [UserMessageId.CREATE_SUBTASK_TITLE]: string[];
@@ -256,9 +301,9 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.PROJECT_NAME_DESCRIPTION_IC]: ["Also used as the title and filename"],
 
     [UserMessageId.PROJECT_GOAL_LABEL_CREATE]: ["Select parent Goal"],
-    [UserMessageId.PROJECT_GOAL_DESCRIPTION_CREATE]: ["The goal to which this project belongs"],
+    [UserMessageId.PROJECT_GOAL_DESCRIPTION_CREATE]: ["The goal of which this project is a member"],
     [UserMessageId.PROJECT_GOAL_LABEL_IC]: ["Belongs to Goal"],
-    [UserMessageId.PROJECT_GOAL_DESCRIPTION_IC]: ["The goal to which this project belongs"],
+    [UserMessageId.PROJECT_GOAL_DESCRIPTION_IC]: ["The goal of which this project is a member"],
 
     [UserMessageId.PROJECT_CATEGORY_LABEL_IC]: ["Project type"],
     [UserMessageId.PROJECT_CATEGORY_DESCRIPTION_IC]: ["Defined by the parent goal category setting"],
@@ -277,14 +322,8 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.PROJECT_COMPLETED_DATE_LABEL_IC]: ["Completed date"],
     [UserMessageId.PROJECT_COMPLETED_DATE_DESCRIPTION_IC]: ["Date when last task assigned to this project was completed"],
 
-    [UserMessageId.SUBTASK_INDEX_CARD_TITLE]: ["Subtask index card"],
-
-    [UserMessageId.CATEGORY_TAG_LABEL]: ["Category "], 
-    [UserMessageId.STATUS_TAG_LABEL]: ["Status"],
-    [UserMessageId.TARGET_DATE_LABEL]: ["Target Date"],
-    [UserMessageId.EXPECTED_DATE_LABEL]: ["Expected Date"],
-    [UserMessageId.COMPLETED_DATE_LABEL]: ["Completed Date"],
-    [UserMessageId.USER_TAGS_LABEL]: ["User Tags"],
+    [UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE]: ["Create as a subtask"],
+    [UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE]: ["Subtasks have a parent task rather than a parent project"],
 
     // Task specific user messages
     [UserMessageId.CREATE_TASK_TITLE]: ["Create a new Task"],
@@ -299,6 +338,30 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.TASK_PROJECT_DESCRIPTION_CREATE]: ["The project of which this task is a member"],
     [UserMessageId.TASK_PROJECT_LABEL_IC]: ["Parent project"],
     [UserMessageId.TASK_PROJECT_DESCRIPTION_IC]: ["The project of which this task is a member"],
+  
+    [UserMessageId.TASK_CATEGORY_LABEL_IC]: ["Category"],
+    [UserMessageId.TASK_CATEGORY_DESCRIPTION_IC]: ["Defined by the parent goal category setting"],
+
+    [UserMessageId.TASK_STATUS_LABEL_CREATE]: ["Status"],
+    [UserMessageId.TASK_STATUS_DESCRIPTION_CREATE]: ["Set the initial status of this task"],
+    [UserMessageId.TASK_STATUS_LABEL_IC]: ["Status"],
+    [UserMessageId.TASK_STATUS_DESCRIPTION_IC]: ["The current status of this task"],
+
+    [UserMessageId.TASK_TARGET_DATE_LABEL_CREATE]: ["Target date"],
+    [UserMessageId.TASK_TARGET_DATE_DESCRIPTION_CREATE]: ["The date initially set for the completion of this task"],
+    [UserMessageId.TASK_TARGET_DATE_LABEL_IC]: ["Target date"],
+    [UserMessageId.TASK_TARGET_DATE_DESCRIPTION_IC]: ["The date initially set for the completion of this task"],
+
+    [UserMessageId.TASK_EXPECTED_DATE_LABEL_IC]: ["Expected date"],
+    [UserMessageId.TASK_EXPECTED_DATE_DESCRIPTION_IC]: ["The current expected date completion of this task"],
+
+    [UserMessageId.TASK_COMPLETED_DATE_LABEL_IC]: ["Completed date"],
+    [UserMessageId.TASK_COMPLETED_DATE_DESCRIPTION_IC]: ["The date this task was completed"],
+
+
+    
+    // Subtask specific user messages 
+    [UserMessageId.SUBTASK_INDEX_CARD_TITLE]: ["Subtask index card"],
 
     [UserMessageId.SUBTASK_CHECKBOX_LABEL]: ["Create as a subtask"],
     [UserMessageId.SUBTASK_NAME_DESCRIPTION]: ["A description"],
@@ -310,6 +373,14 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.CREATE_AND_OPEN_BUTTON_TEXT]: ["Create and Open"],
     [UserMessageId.CREATE_ONLY_BUTTON_TEXT]: ["Create only"],
     [UserMessageId.CANCEL_BUTTON_TEXT]: ["Cancel"],
+
+
+    [UserMessageId.CATEGORY_TAG_LABEL]: ["Category "], 
+    [UserMessageId.STATUS_TAG_LABEL]: ["Status"],
+    [UserMessageId.TARGET_DATE_LABEL]: ["Target Date"],
+    [UserMessageId.EXPECTED_DATE_LABEL]: ["Expected Date"],
+    [UserMessageId.COMPLETED_DATE_LABEL]: ["Completed Date"],
+    [UserMessageId.USER_TAGS_LABEL]: ["User Tags"],
 }
 
 export function translate(userMessageId: UserMessageId): string {
