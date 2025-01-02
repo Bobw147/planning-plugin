@@ -16,7 +16,7 @@ export abstract class PlanningModal extends Modal implements IModalForm {
     protected settings: Settings;
     private _nameSection?: Setting;
     protected _parentSection?: Setting;
-    private _subtaskToggleSection?: Setting;
+    protected _subtaskToggleSection?: Setting;
     private _categoryTagSection?: Setting;
     private _statusTagSection?: Setting;
     private _targetDateSection?: Setting;
@@ -109,15 +109,12 @@ export abstract class PlanningModal extends Modal implements IModalForm {
                 text
             );
 
-        // Create a parentSection dropdown setting as a placeholder.
+        // Create a parentSection dropdown setting as a hierarchical placeholder.
         // It will be initialised as required in a derived modal 
         this._parentSection = new Setting(parent);
 
-        this._subtaskToggleSection = new Setting(parent)
-            .addToggle(toggle => 
-                toggle
-                    .setValue(false)
-        );
+        // Ditto the toggle switch
+        this._subtaskToggleSection = new Setting(parent);
 
         this._categoryTagSection = new Setting(parent)
             .addDropdown(dropdownComponent =>

@@ -8,8 +8,6 @@ import { IModalForm } from '../types/interfaces/i-modal-form';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { emptyString, identTags, zerothItem } from '../types/types';
 
-let thisModal: SubtasksModal;
-
 export class SubtasksModal extends PlanningModal implements IModalForm {
     private displayMode: DisplayMode;
     private subtaskIndexCard: ISubtaskIndexCard;
@@ -24,7 +22,6 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
         this.subtaskIndexCard = subtaskIndexCard;
         this.onSubmit = onSubmit;
         this.onSwitchToTaskMode = onSwitchToTaskMode;
-        thisModal = this;
     }
 
     open(): void {
@@ -49,6 +46,20 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                     this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK)
                 );
 
+            if (this.subtaskToggleSection !== undefined) {
+                this.subtaskToggleSection
+                    .setName(translate(UserMessageId.SUBTASK_CHECKBOX_LABEL_CREATE))
+                    .setDesc(translate(UserMessageId.SUBTASK_CHECKBOX_DESCRIPTION_CREATE))
+                    .addToggle(toggle =>
+                        toggle
+                            .setValue(true)
+                            .onChange(async () => {
+                                this.updateIndexCard(this.subtaskIndexCard);
+                                this.onSwitchToTaskMode(this.subtaskIndexCard);
+                            })
+                    )
+            }
+    
             this.subtaskToggleSection?.setName(translate(UserMessageId.SUBTASK_CHECKBOX_LABEL_CREATE));
             this.subtaskToggleSection?.setDesc(translate(UserMessageId.SUBTASK_CHECKBOX_DESCRIPTION_CREATE));
 
