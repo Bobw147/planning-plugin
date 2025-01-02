@@ -1,4 +1,4 @@
-import { App, ButtonComponent, DropdownComponent, Setting, ToggleComponent } from 'obsidian';
+import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
@@ -35,14 +35,14 @@ export class TasksModal extends PlanningModal implements IModalForm{
             this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_DESCRIPTION_CREATE));
 
-            this._parentSection = new Setting(this.contentEl)
-                .setName(translate(UserMessageId.TASK_PARENT_LABEL_CREATE))
+            const parentSetting: Setting | undefined = this._parentSection
+            parentSetting?.setName(translate(UserMessageId.TASK_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.TASK_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
-                    this.addNames(dropdown, this.settings.projectsFolder, identTags.PLANNING_TASK)
+                    this.addNames(dropdown, this.settings.projectsFolder, identTags.PLANNING_PROJECT)
                 );
 
-            this.subtaskToggleSection?.setName(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE));
+                this.subtaskToggleSection?.setName(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE));
             this.subtaskToggleSection?.setDesc(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE));
             this.subtaskToggleSection?.controlEl.onClickEvent(async () =>{
                 this.updateIndexCard(this.taskIndexCard);
@@ -86,8 +86,12 @@ export class TasksModal extends PlanningModal implements IModalForm{
             this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_IC));
             this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_LABEL_DESCRIPTION_IC))
 
-            this.parentSection?.setName(translate(UserMessageId.TASK_PARENT_LABEL_IC));
-            this.parentSection?.setDesc(translate(UserMessageId.TASK_PARENT_DESCRIPTION_IC))
+            const parentSetting: Setting | undefined = this._parentSection
+            parentSetting?.setName(translate(UserMessageId.TASK_PARENT_LABEL_IC))
+                .setDesc(translate(UserMessageId.TASK_PARENT_DESCRIPTION_IC))
+                .addDropdown(dropdown =>
+                    this.addNames(dropdown, this.settings.projectsFolder, identTags.PLANNING_PROJECT)
+                );
 
             this.categoryTagSection?.setName(translate(UserMessageId.TASK_CATEGORY_LABEL_IC));
             this.categoryTagSection?.setDesc(translate(UserMessageId.TASK_CATEGORY_DESCRIPTION_IC));
@@ -108,8 +112,8 @@ export class TasksModal extends PlanningModal implements IModalForm{
                 this.subtaskToggleSection,
                 this.buttonsSection,
             ])
-            this.showCurrentValues(this.taskIndexCard);
         }
+        this.showCurrentValues(this.taskIndexCard);
     }
         
     showCurrentValues(indexCard: ITaskIndexCard): void {
