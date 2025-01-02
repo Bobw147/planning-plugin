@@ -4,7 +4,7 @@ import {
     App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault
 } from 'obsidian';
 import { fieldNames } from 'src/core/base-classes/planning-index-card';
-import { IDictionary } from 'src/core/types/types';
+import { emptyString, IDictionary } from 'src/core/types/types';
 
 /* Arraye helpers */
 export function arraymove<T>(
@@ -37,16 +37,21 @@ export async function createFolder(vault: Vault, path: string){
     });
 }
 
+const datePart: number = 0;
+const dateTimeSeparator = "T";
+const referenceDate = "1970-01-01";
+const commaSpace = ", ";
+
 /* Date helpers */
 export function dateFormatter(date: Date): string {
-    const splitDate: string = date.toISOString().split("T")[0];
-    return (splitDate != "1970-01-01") ? splitDate : "";
+    const splitDate: string = date.toISOString().split(dateTimeSeparator)[datePart];
+    return (splitDate != referenceDate) ? splitDate : emptyString;
 } 
 
 /* Tag helpers */
 export function flattenedTags(userTags: string[]) : string {
     const testArray: string[] = ["#mytag", "#region", "#endregion" ];
-    const flattened: string =  testArray.flat().join(", ");
+    const flattened: string =  testArray.flat().join(commaSpace);
     return flattened;
 }
 

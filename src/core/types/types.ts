@@ -9,8 +9,17 @@ export const Ident = {
     SUBTASK: 3
 } as const;
 
-export type Ident = typeof Ident[keyof typeof Ident]
+export type Ident = typeof Ident[keyof typeof Ident];
+
+export const DisplayMode = {
+    CREATE_MODE: 0,
+    INDEX_CARD_MODE: 1,
+} as const;
+
+export type DisplayMode = typeof DisplayMode[keyof typeof DisplayMode];
+
 export const emptyString: string = "";
+export const zerothItem = 0;
 
 export const defaultStatusTags: Array<string> = [
     "#status/inbox",

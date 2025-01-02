@@ -1,13 +1,12 @@
-import  { NodeBuilder } from '../../src/core/webbuilder/nodebuilder'
-import  { HtmlTags } from '../../src/core/webbuilder/htmlElementTypes'
-
+import { HtmlTags } from '../../src/core/webbuilder/htmlElementTypes';
+import { FormBuilderr } from '../../src/core/webbuilder/nodebuilder';
 
 describe('testing nodeFactory', () => {
     test('Input of HtmlTags.DIV should return HTMLDivElement', () => {
         const document = new Document();
         const rootNode = document.createDiv();
-        const nodeBuilder = new NodeBuilder();
-        const newNode: HTMLElement | Element | undefined = nodeBuilder.nodeFactory(rootNode, HtmlTags.DIV);
+        const formBuilder = new FormBuilderr();
+        const newNode: HTMLElement | Element | undefined = formBuilder.nodeFactory(rootNode, HtmlTags.DIV);
         expect(newNode).toBeInstanceOf(HTMLDivElement);
     })
 })
