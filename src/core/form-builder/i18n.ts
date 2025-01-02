@@ -343,9 +343,6 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.PROJECT_COMPLETED_DATE_LABEL_IC]: ["Completed date"],
     [UserMessageId.PROJECT_COMPLETED_DATE_DESCRIPTION_IC]: ["Date when last task assigned to this project was completed"],
 
-    [UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE]: ["Create as a subtask"],
-    [UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE]: ["Subtasks have a parent task rather than a parent project"],
-
     // Task specific user messages
     [UserMessageId.CREATE_TASK_TITLE]: ["Create a new Task"],
     [UserMessageId.TASK_INDEX_CARD_TITLE]: ["Task index card"],
@@ -354,6 +351,9 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.TASK_NAME_DESCRIPTION_CREATE]:  ["Also used as the title and filename"],
     [UserMessageId.TASK_NAME_LABEL_IC]: ["Task name"],
     [UserMessageId.TASK_NAME_LABEL_DESCRIPTION_IC]: ["Also used as the title and filename"],
+
+    [UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE]: ["Create as a subtask"],
+    [UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE]: ["Subtasks have a parent task rather than a parent project"],
 
     [UserMessageId.TASK_PARENT_LABEL_CREATE]: ["Select parent project"],
     [UserMessageId.TASK_PARENT_DESCRIPTION_CREATE]: ["The project of which this task is a member"],
@@ -380,7 +380,7 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.TASK_COMPLETED_DATE_DESCRIPTION_IC]: ["The date this task was completed"],
 
     // Subtask specific user messages 
-    [UserMessageId.CREATE_SUBTASK_TITLE]: ["Create a new subtask"],
+    [UserMessageId.CREATE_SUBTASK_TITLE]: ["Create a new Subtask"],
     [UserMessageId.SUBTASK_INDEX_CARD_TITLE]: ["Subtask index card"],
 
     [UserMessageId.SUBTASK_NAME_LABEL_CREATE]: ["Enter new subtask name"],
@@ -393,8 +393,8 @@ const userMessageDictionary: IUserMessageDictionary =
     [UserMessageId.SUBTASK_PARENT_LABEL_IC]: ["Parent task"],
     [UserMessageId.SUBTASK_PARENT_DESCRIPTION_IC]: ["The task of which this subtask is a member"],
    
-    [UserMessageId.SUBTASK_CHECKBOX_LABEL_CREATE]: ["Create as a subtask"],
-    [UserMessageId.SUBTASK_CHECKBOX_DESCRIPTION_CREATE]: ["Subtasks have a task as a parent"],
+    [UserMessageId.SUBTASK_CHECKBOX_LABEL_CREATE]: ["Create as a task"],
+    [UserMessageId.SUBTASK_CHECKBOX_DESCRIPTION_CREATE]: ["Tasks have a project as a parent"],
 
     [UserMessageId.SUBTASK_CATEGORY_LABEL_IC]: ["Category"],
     [UserMessageId.SUBTASK_CATEGORY_DESCRIPTION_IC]: ["Defined by the parent goal category setting"],
