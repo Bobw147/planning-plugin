@@ -1,4 +1,4 @@
-import { App, ButtonComponent, DropdownComponent } from 'obsidian';
+import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
@@ -6,7 +6,7 @@ import { PlanningModal } from '../base-classes/planning-modal';
 import { translate, UserMessageId } from '../form-builder/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
-import { emptyString, zerothItem } from '../types/types';
+import { emptyString, identTags, zerothItem } from '../types/types';
 
 export class ProjectsModal extends PlanningModal implements IModalForm {
     private displayMode:DisplayMode;
@@ -32,8 +32,12 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
             this.nameSection?.setName(translate(UserMessageId.PROJECT_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.PROJECT_NAME_DESCRIPTION_CREATE));
 
-            this.parentSection?.setName(translate(UserMessageId.PROJECT_GOAL_LABEL_CREATE));
-            this.parentSection?.setDesc(translate(UserMessageId.PROJECT_GOAL_DESCRIPTION_CREATE));
+            this._parentSection = new Setting(this.contentEl)
+                .setName(translate(UserMessageId.PROJECT_PARENT_LABEL_CREATE))
+                .setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_CREATE))
+                .addDropdown(dropdown =>
+                    this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL)
+                );
 
             this.targetDateSection?.setName(translate(UserMessageId.PROJECT_TARGET_DATE_LABEL_CREATE));
             this.targetDateSection?.setDesc(translate(UserMessageId.PROJECT_TARGET_DATE_DESCRIPTION_CREATE));
@@ -70,8 +74,8 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
 
             this.nameSection?.setName(translate(UserMessageId.PROJECT_NAME_LABEL_IC));
 
-            this.parentSection?.setName(translate(UserMessageId.PROJECT_GOAL_LABEL_IC));
-            this.parentSection?.setDesc(translate(UserMessageId.PROJECT_GOAL_DESCRIPTION_IC));
+            this.parentSection?.setName(translate(UserMessageId.PROJECT_PARENT_LABEL_IC));
+            this.parentSection?.setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_IC));
 
             this.categoryTagSection?.setName(translate(UserMessageId.PROJECT_CATEGORY_LABEL_IC));
             this.categoryTagSection?.setDesc(translate(UserMessageId.PROJECT_CATEGORY_DESCRIPTION_IC));
