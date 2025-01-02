@@ -1,12 +1,11 @@
 import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
-import { DisplayMode } from '../base-classes/generic-planning-form';
 import { PlanningModal } from '../base-classes/planning-modal';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
-import { emptyString, identTags, zerothItem } from '../types/types';
+import { DisplayMode, emptyString, identTags, zerothItem } from '../types/types';
 
 export class SubtasksModal extends PlanningModal implements IModalForm {
     private displayMode: DisplayMode;

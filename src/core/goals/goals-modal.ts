@@ -1,12 +1,11 @@
 import { App, ButtonComponent } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
-import { DisplayMode } from '../base-classes/generic-planning-form';
 import { PlanningModal } from '../base-classes/planning-modal';
 import { translate, UserMessageId } from '../types/i18n';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { IModalForm } from '../types/interfaces/i-modal-form';
-import { zerothItem } from '../types/types';
+import { DisplayMode, zerothItem } from '../types/types';
 
 export class GoalsModal extends PlanningModal implements IModalForm {
     private goalIndexCard: IGoalIndexCard;

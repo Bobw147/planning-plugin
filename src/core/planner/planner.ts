@@ -3,7 +3,6 @@ import PlanningPlugin from 'src/main';
 import { Settings } from 'src/settings/Settings';
 import { createFolder } from 'src/utils/utils';
 
-import { DisplayMode } from '../base-classes/generic-planning-form';
 import { goalPageContent } from '../code-blocks/goal-code-block';
 import { projectPageContent } from '../code-blocks/project-code-block';
 import { taskPageContent } from '../code-blocks/task-code-block';
@@ -20,7 +19,7 @@ import { IPlanner } from '../types/interfaces/i-planner';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { emptyString } from '../types/types';
+import { DisplayMode, emptyString } from '../types/types';
 import { IndexCardManager } from './index-card-manager';
 
 let thisModal: Planner;
