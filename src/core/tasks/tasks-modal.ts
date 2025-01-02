@@ -14,7 +14,7 @@ export class TasksModal extends PlanningModal implements IModalForm{
     private onSwitchToSubtaskMode;
 
     constructor(app: App, settings: Settings, taskIndexCard: ITaskIndexCard, displayMode: DisplayMode, 
-        onSubmit: (hasChanged: boolean, app:App, settings: Settings) => void,
+        onSubmit: (hasChanged: boolean, openFile: boolean, app:App, settings: Settings) => void,
         onSwitchToSubtaskMode: (taskIndexCard: ITaskIndexCard) => void) {
 		super(app, settings);
         this.displayMode = displayMode;
@@ -71,18 +71,18 @@ export class TasksModal extends PlanningModal implements IModalForm{
                 //  Add a handler to the 'Create & Open' button
                 (this.buttonsSection.components[zerothItem] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.taskIndexCard);
-                    this.onSubmit(true, this.app, this.settings);
+                    this.onSubmit(true, true, this.app, this.settings);
                 });
 
                 //  Add a handler to the 'Create' button
                 (this.buttonsSection.components[1] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.taskIndexCard);
-                    this.onSubmit(true, this.app, this.settings);
+                    this.onSubmit(true, false, this.app, this.settings);
                 });
                 
                 //  Add a handler to the 'Cancel' button
                 (this.buttonsSection.components[2] as ButtonComponent).onClick(async () => {
-                    this.onSubmit(false, this.app, this.settings);
+                    this.onSubmit(false, false, this.app, this.settings);
                 });
             }
         }

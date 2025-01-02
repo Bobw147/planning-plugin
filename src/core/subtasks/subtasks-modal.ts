@@ -14,7 +14,7 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
     private onSwitchToTaskMode;
 
     constructor(app: App, settings: Settings, subtaskIndexCard: ISubtaskIndexCard, displayMode: DisplayMode, 
-        onSubmit: (hasChanged: boolean, app:App, settings: Settings) => void,
+        onSubmit: (hasChanged: boolean, openFile: boolean, app:App, settings: Settings) => void,
         onSwitchToTaskMode: (subtaskIndexCard: ISubtaskIndexCard) => void) {
         super(app, settings);
         this.displayMode = displayMode;
@@ -51,7 +51,7 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 .addToggle(toggle =>
                     toggle
                         .setValue(true)
-                        .onChange(async () => {
+                        .onChange(() => {
                             this.updateIndexCard(this.subtaskIndexCard);
                             this.onSwitchToTaskMode(this.subtaskIndexCard);
                         })
@@ -77,18 +77,18 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 //  Add a handler to the 'Create & Open' button
                 (this.buttonsSection.components[zerothItem] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.subtaskIndexCard);
-                    this.onSubmit(true, this.app, this.settings);
+                    this.onSubmit(true, true, this.app, this.settings);
                 });
 
                 //  Add a handler to the 'Create' button
                 (this.buttonsSection.components[1] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.subtaskIndexCard);
-                    this.onSubmit(true, this.app, this.settings);
+                    this.onSubmit(true, false, this.app, this.settings);
                 });
                 
                 //  Add a handler to the 'Cancel' button
                 (this.buttonsSection.components[2] as ButtonComponent).onClick(async () => {
-                    this.onSubmit(false, this.app, this.settings);
+                    this.onSubmit(false, false, this.app, this.settings);
                 });
             }
         }

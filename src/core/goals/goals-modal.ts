@@ -13,7 +13,7 @@ export class GoalsModal extends PlanningModal implements IModalForm {
     private _onSubmit;
 
     constructor(app: App, settings: Settings, goalIndexCard: IGoalIndexCard,
-        displayMode: DisplayMode,  onSubmit: (result: boolean, app: App, settings: Settings) => void) {
+        displayMode: DisplayMode,  onSubmit: (result: boolean, openFile: boolean, app: App, settings: Settings) => void) {
 		super(app, settings);
         this.displayMode = displayMode;
         this.goalIndexCard = goalIndexCard;
@@ -52,18 +52,19 @@ export class GoalsModal extends PlanningModal implements IModalForm {
                 //  Add a handler to the 'Create & Open' button
                 (this.buttonsSection.components[zerothItem] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.goalIndexCard);
-                    this._onSubmit(true, this.app, this.settings);
+                    this._onSubmit(true, true, this.app, this.settings);
                 });
 
                 //  Add a handler to the 'Create' button
                 (this.buttonsSection.components[1] as ButtonComponent).onClick(async () => {
                     this.updateIndexCard(this.goalIndexCard);
-                    this._onSubmit(true, this.app, this.settings);
+                    this._onSubmit(true, false, this.app, this.settings);
                 });
                 
                 //  Add a handler to the 'Cancel' button
                 (this.buttonsSection.components[2] as ButtonComponent).onClick(async () => {
-                    this._onSubmit(false, this.app, this.settings);
+                    debugger;
+                    this._onSubmit(false, false, this.app, this.settings);
                 });
             }
         }

@@ -8,7 +8,7 @@ import { dateFormatter } from 'src/utils/utils';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { emptyString, identTags, IDictionary, zerothItem } from '../types/types';
+import { emptyString, IDictionary, zerothItem } from '../types/types';
 import { fieldNames } from './planning-index-card';
 
 export abstract class PlanningModal extends Modal implements IModalForm {
