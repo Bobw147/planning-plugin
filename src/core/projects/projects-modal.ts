@@ -32,8 +32,8 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
             this.nameSection?.setName(translate(UserMessageId.PROJECT_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.PROJECT_NAME_DESCRIPTION_CREATE));
 
-            this._parentSection = new Setting(this.contentEl)
-                .setName(translate(UserMessageId.PROJECT_PARENT_LABEL_CREATE))
+            const parentSetting: Setting | undefined = this._parentSection
+            parentSetting?.setName(translate(UserMessageId.PROJECT_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL)
@@ -74,8 +74,12 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
 
             this.nameSection?.setName(translate(UserMessageId.PROJECT_NAME_LABEL_IC));
 
-            this.parentSection?.setName(translate(UserMessageId.PROJECT_PARENT_LABEL_IC));
-            this.parentSection?.setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_IC));
+            const parentSetting: Setting | undefined = this._parentSection
+            parentSetting?.setName(translate(UserMessageId.PROJECT_PARENT_LABEL_IC))
+                .setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_IC))
+                .addDropdown(dropdown =>
+                    this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL)
+                );
 
             this.categoryTagSection?.setName(translate(UserMessageId.PROJECT_CATEGORY_LABEL_IC));
             this.categoryTagSection?.setDesc(translate(UserMessageId.PROJECT_CATEGORY_DESCRIPTION_IC));
