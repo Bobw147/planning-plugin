@@ -3,7 +3,7 @@ import { Settings } from 'src/settings/Settings';
 
 import { DisplayMode } from '../base-classes/generic-planning-form';
 import { PlanningModal } from '../base-classes/planning-modal';
-import { translate, UserMessageId } from '../form-builder/i18n';
+import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { emptyString, identTags, zerothItem } from '../types/types';

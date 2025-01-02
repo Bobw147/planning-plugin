@@ -5,7 +5,7 @@ import {
 import { Settings } from 'src/settings/Settings';
 import { dateFormatter } from 'src/utils/utils';
 
-import { translate, UserMessageId } from '../form-builder/i18n';
+import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { emptyString, identTags, IDictionary, zerothItem } from '../types/types';

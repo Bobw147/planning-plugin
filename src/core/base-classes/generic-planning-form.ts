@@ -8,7 +8,7 @@ import { FormBuilderr } from '../form-builder/form-builder';
 import { FormFieldId as field } from '../form-builder/form-field-types';
 import { HtmlAttributes as attrib } from '../form-builder/html-attribute-types';
 import { HtmlTags } from '../form-builder/html-element-types';
-import { UserMessageId } from '../form-builder/i18n';
+import { UserMessageId } from '../types/i18n';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 
 /* eslint-disable no-magic-numbers, @typescript-eslint/no-magic-numbers */

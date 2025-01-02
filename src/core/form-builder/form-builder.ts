@@ -1,12 +1,12 @@
 import { setIcon } from 'obsidian';
 
 import { DOMNodeBuildError } from '../exceptions/exceptions';
+import { translate, UserMessageId } from '../types/i18n';
 import { emptyString } from '../types/types';
 import { AttribSettingsId } from './atrrib-settings-types';
 import { FormFieldId } from './form-field-types';
 import { HtmlAttributes } from './html-attribute-types';
 import { HtmlTags } from './html-element-types';
-import { translate, UserMessageId } from './i18n';
 
 type attribTuple = [HtmlAttributes, FormFieldId | UserMessageId | AttribSettingsId | string ];
 

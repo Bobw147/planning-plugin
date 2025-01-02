@@ -5,7 +5,7 @@ import { GenericPlanningForm, IPlanningForm } from '../base-classes/generic-plan
 import { FormBuilderr } from '../form-builder/form-builder';
 import { FormFieldId } from '../form-builder/form-field-types';
 import { HtmlAttributes } from '../form-builder/html-attribute-types';
-import { UserMessageId } from '../form-builder/i18n';
+import { UserMessageId } from '../types/i18n';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { emptyString, identTags } from '../types/types';
 
