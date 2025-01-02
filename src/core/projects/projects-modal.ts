@@ -32,12 +32,12 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
             this.nameSection?.setName(translate(UserMessageId.PROJECT_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.PROJECT_NAME_DESCRIPTION_CREATE));
 
-            const parentSetting: Setting | undefined = this._parentSection
-            parentSetting?.setName(translate(UserMessageId.PROJECT_PARENT_LABEL_CREATE))
+            (this.parentSection as Setting)
+                .setName(translate(UserMessageId.PROJECT_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL)
-                );
+            );
 
             this.targetDateSection?.setName(translate(UserMessageId.PROJECT_TARGET_DATE_LABEL_CREATE));
             this.targetDateSection?.setDesc(translate(UserMessageId.PROJECT_TARGET_DATE_DESCRIPTION_CREATE));

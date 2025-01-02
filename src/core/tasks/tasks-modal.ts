@@ -35,26 +35,26 @@ export class TasksModal extends PlanningModal implements IModalForm{
             this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_DESCRIPTION_CREATE));
 
-            const parentSetting: Setting | undefined = this.parentSection
-            parentSetting?.setName(translate(UserMessageId.TASK_PARENT_LABEL_CREATE))
+            (this.parentSection as Setting)
+                .setName(translate(UserMessageId.TASK_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.TASK_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.projectsFolder, identTags.PLANNING_PROJECT)
                 );
 
-            if (this.subtaskToggleSection !== undefined) {
-                this.subtaskToggleSection
-                    .setName(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE))
-                    .setDesc(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE))
-                    .addToggle(toggle =>
-                        toggle
-                            .setValue(false)
-                            .onChange(() => {
-                                this.updateIndexCard(this.taskIndexCard);
-                                this.onSwitchToSubtaskMode(this.taskIndexCard);
-                            })
-                    )
-            }
+
+            (this.subtaskToggleSection as Setting)
+                .setName(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE))
+                .setDesc(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE))
+                .addToggle(toggle =>
+                    toggle
+                        .setValue(false)
+                        .onChange(() => {
+                            this.updateIndexCard(this.taskIndexCard);
+                            this.onSwitchToSubtaskMode(this.taskIndexCard);
+                        })
+                );
+
 
             this.statusTagSection?.setName(translate(UserMessageId.TASK_STATUS_LABEL_CREATE));
             this.statusTagSection?.setDesc(translate(UserMessageId.TASK_STATUS_DESCRIPTION_CREATE));

@@ -39,26 +39,25 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
             this.nameSection?.setName(translate(UserMessageId.SUBTASK_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.SUBTASK_NAME_DESCRIPTION_CREATE));
 
-            const parentSetting: Setting | undefined = this._parentSection
-            parentSetting?.setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_CREATE))
+            (this.parentSection as Setting)
+                .setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.SUBTASK_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK)
                 );
 
-            if (this.subtaskToggleSection !== undefined) {
-                this.subtaskToggleSection
-                    .setName(translate(UserMessageId.SUBTASK_CHECKBOX_LABEL_CREATE))
-                    .setDesc(translate(UserMessageId.SUBTASK_CHECKBOX_DESCRIPTION_CREATE))
-                    .addToggle(toggle =>
-                        toggle
-                            .setValue(true)
-                            .onChange(async () => {
-                                this.updateIndexCard(this.subtaskIndexCard);
-                                this.onSwitchToTaskMode(this.subtaskIndexCard);
-                            })
-                    )
-            }
+            (this.subtaskToggleSection as Setting)
+                .setName(translate(UserMessageId.SUBTASK_CHECKBOX_LABEL_CREATE))
+                .setDesc(translate(UserMessageId.SUBTASK_CHECKBOX_DESCRIPTION_CREATE))
+                .addToggle(toggle =>
+                    toggle
+                        .setValue(true)
+                        .onChange(async () => {
+                            this.updateIndexCard(this.subtaskIndexCard);
+                            this.onSwitchToTaskMode(this.subtaskIndexCard);
+                        })
+                );
+
     
             this.subtaskToggleSection?.setName(translate(UserMessageId.SUBTASK_CHECKBOX_LABEL_CREATE));
             this.subtaskToggleSection?.setDesc(translate(UserMessageId.SUBTASK_CHECKBOX_DESCRIPTION_CREATE));
