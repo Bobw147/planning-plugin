@@ -1,7 +1,7 @@
 {
 	"id": "planning-plugin",
-	"name": "",
-	"version": "1.0.0",
+	"name": "Getting Things Done",
+	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "A Goals,Project,Tasks based planning system",
 	"author": "Bob Wilson",
