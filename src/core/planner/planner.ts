@@ -40,8 +40,7 @@ export class Planner implements IPlanner {
         this.indexCardManager = new IndexCardManager(this.app);
     }
 
-    createGoal(): void {
-        debugger;
+    createGoal(): void {       
         this.loadIndexCards();
         const goalIndexCard: IGoalIndexCard = new GoalIndexCard();
         this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.CREATE_MODE, 
