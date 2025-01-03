@@ -1,5 +1,5 @@
 {
-	"id": "planning-plugin",
+	"id": "gtd-plugin",
 	"name": "Getting Things Done",
 	"version": "0.0.3",
 	"minAppVersion": "1.8.0",
