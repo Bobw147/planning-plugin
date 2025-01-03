@@ -1,6 +1,5 @@
-import { randomUUID, UUID } from 'crypto';
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
-import { arraycopy } from 'src/utils/utils';
+import { arraycopy, generateUUID } from 'src/utils/utils';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
@@ -19,7 +18,7 @@ export const fieldNames = {
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
     
-    private _refId: UUID | null;
+    private _refId: string | null;
     private _name: string;
     private _categoryTag: string;
     private _identTag: string;
@@ -30,7 +29,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _userTags: string[];
 
     constructor(identTag: string) {
-        this._refId = randomUUID();
+        this._refId = generateUUID();
         this._name = "";
         this._categoryTag = "";
         this._identTag = identTag;

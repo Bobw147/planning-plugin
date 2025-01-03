@@ -25,6 +25,7 @@
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.8",
+		"crypto": "^1.0.1",
 		"jest-environment-jsdom": "^29.7.0",
 		"node": "^23.5.0"
 	}
