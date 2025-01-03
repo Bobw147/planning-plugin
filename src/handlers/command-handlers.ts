@@ -1,4 +1,3 @@
-import { DisplayMode } from 'src/core/base-classes/generic-planning-form';
 import PlanningPlugin from 'src/main';
 
 export class CommandHandler{
