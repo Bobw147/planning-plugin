@@ -1,7 +1,7 @@
 {
 	"id": "gtd-plugin",
 	"name": "Getting Things Done",
-    "version": "0.0.3",
+	"version": "0.0.4",
 	"minAppVersion": "1.8.0",
 	"description": "A Goals,Project,Tasks based planning system",
 	"author": "Bob Wilson",
