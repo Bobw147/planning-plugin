@@ -55,6 +55,7 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 
         this.app.workspace.onLayoutReady(async () => {
             this.planner = new Planner(this);
+            this.planner.init();
             await this.planner.loadIndexCards();
         });
 	}

@@ -10,7 +10,7 @@ import { SubtaskIndexCard } from '../subtasks/subtask-index-card';
 import { TaskIndexCard } from '../tasks/task-index-card';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { identTags, IDictionary } from '../types/types';
+import { identTags, IDictionary, UUID } from '../types/types';
 
 export class IndexCardManager {
     private app: App;
@@ -58,11 +58,6 @@ export class IndexCardManager {
                 break;
         }
     }
-
-    private isMemberOf(indexCards: Record<string, IPlanningIndexCard>, indexCardKey: string): IPlanningIndexCard | null {
-        const indexCard: IPlanningIndexCard | undefined = this.goalIndexCards[indexCardKey];
-        return (indexCard !== undefined) ? indexCard : null;
-    }
     
     loadIndexCards(settings: Settings): void {
         this.findFiles(settings.goalsFolder, identTags.PLANNING_GOAL);
@@ -71,51 +66,32 @@ export class IndexCardManager {
         this.findFiles(settings.subtasksFolder, identTags.PLANNING_SUBTASK);
     }
 
-    remove(indexCardKey: string) {
-        let indexCardName: string = "";
-        let indexCardRefId: string = "";
-        let indexCard: IPlanningIndexCard | null = null;
+    private delete(indexCardName: string, refLookup: Record<string, UUID>, 
+            indexCards: Record<UUID, IPlanningIndexCard>): boolean {
         
-        indexCard = this.isMemberOf(this.goalIndexCards, indexCardKey)
-        if (indexCard != null) {
-            indexCardName = indexCard.name;
-            indexCardRefId = indexCard.refId;
+        if (indexCardName in refLookup) {
+            if (refLookup[indexCardName] in indexCards) {
+                delete indexCards[refLookup[indexCardName]];
+            }
+            delete refLookup[indexCardName];
+            return true;
+        }
+        return false;
+    }
 
-            delete this.goalIndexCards[indexCardName];
-            delete this.goalIndexCards[indexCardRefId];
+    remove(indexCardName: string): void {
+        if (this.delete(indexCardName, this.goalRefLookup, this.goalIndexCards))
             return;
-       }
 
-       indexCard = this.isMemberOf(this.projectIndexCards, indexCardKey)
-       if (indexCard != null) {
-           indexCardName = indexCard.name;
-           indexCardRefId = indexCard.refId;
-
-           delete this.projectIndexCards[indexCardName];
-           delete this.projectIndexCards[indexCardRefId];
-           return;
-      }
-
-        indexCard = this.isMemberOf(this.taskIndexCards, indexCardKey)
-        if (indexCard != null) {
-            indexCardName = indexCard.name;
-            indexCardRefId = indexCard.refId;
-
-            delete this.taskIndexCards[indexCardName];
-            delete this.taskIndexCards[indexCardRefId];
+        if (this.delete(indexCardName, this.projectRefLookup, this.projectIndexCards))
             return;
-       }
 
-       indexCard = this.isMemberOf(this.subtaskIndexCards, indexCardKey)
-       if (indexCard != null) {
-           indexCardName = indexCard.name;
-           indexCardRefId = indexCard.refId;
+        if (this.delete(indexCardName, this.taskRefLookup, this.taskIndexCards))
+            return;
 
-           delete this.subtaskIndexCards[indexCardName];
-           delete this.subtaskIndexCards[indexCardRefId];
-           return;
-      }
-   }
+        if (this.delete(indexCardName, this.subtaskRefLookup, this.subtaskIndexCards))
+            return;
+    }
 
    private findFiles(rootPath: string, searchTag: string): void {
        const rootFolder: TFolder | null = this.app.vault.getFolderByPath(rootPath);

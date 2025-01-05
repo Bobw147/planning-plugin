@@ -1,4 +1,4 @@
-import { App, TFile } from 'obsidian';
+import { App, TAbstractFile, TFile } from 'obsidian';
 import PlanningPlugin from 'src/main';
 import { Settings } from 'src/settings/Settings';
 import { createFolder } from 'src/utils/utils';
@@ -39,6 +39,19 @@ export class Planner implements IPlanner {
         this.indexCardManager = new IndexCardManager(this.app);
     }
 
+    init(): void {
+        //  This a place to hang the event handlers for file delete and rename operations
+        this.app.vault.on('delete', (file: TAbstractFile) => {
+            if (file instanceof TFile) {
+                this.indexCardManager.remove(file.basename);
+            }
+        });
+
+        this.app.vault.on('rename', (file: TAbstractFile) => {
+
+        });
+    }
+    
     createGoal(): void {       
         const goalIndexCard: GoalIndexCard = new GoalIndexCard();
         this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.CREATE_MODE, 
