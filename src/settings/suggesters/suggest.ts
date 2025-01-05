@@ -21,6 +21,9 @@ class Suggest<T> {
         scope: Scope
     ) {
         this.owner = owner;
+        this.values = [];
+        this.suggestions = []
+        this.selectedItem = 0;
         this.containerEl = containerEl;
 
         containerEl.on(
