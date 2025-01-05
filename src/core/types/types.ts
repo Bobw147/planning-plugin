@@ -50,3 +50,4 @@ export const categoryLockStates = {
     SOFT_LOCK: "Soft loack",
 }
 
+export type UUID = string;
