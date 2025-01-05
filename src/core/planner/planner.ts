@@ -14,7 +14,6 @@ import { SubtaskIndexCard } from '../subtasks/subtask-index-card';
 import { SubtasksModal } from '../subtasks/subtasks-modal';
 import { TaskIndexCard } from '../tasks/task-index-card';
 import { TasksModal } from '../tasks/tasks-modal';
-import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { IPlanner } from '../types/interfaces/i-planner';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
@@ -41,15 +40,15 @@ export class Planner implements IPlanner {
     }
 
     createGoal(): void {       
-        this.loadIndexCards();
-        const goalIndexCard: IGoalIndexCard = new GoalIndexCard();
+        const goalIndexCard: GoalIndexCard = new GoalIndexCard();
         this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.CREATE_MODE, 
             async (hasChanged: boolean, openFile: boolean, app, settings: Settings) => {
                 if (hasChanged) {
                     // Make sure the target folder exists then create the file
                     await createFolder(app.vault, settings.goalsFolder);
                     const file: TFile = await app.vault.create(settings.goalsFolder + "/" + goalIndexCard.name + ".md", emptyString);
-            
+                    goalIndexCard.file = file;
+
                     // Write the dataview script into the file then add the frontmatter properties. 
                     await app.vault.modify(file, goalPageContent());
                     await goalIndexCard.save(app.fileManager, file);
@@ -66,13 +65,14 @@ export class Planner implements IPlanner {
     }
 
     createProject(): void {
-        const projectIndexCard: IProjectIndexCard = new ProjectIndexCard();
+        const projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
         this.projectsModal = new ProjectsModal(this.app, this.settings, projectIndexCard, DisplayMode.CREATE_MODE, 
             async (hasChanged: boolean, openFile: boolean, app: App, settings: Settings) => {
              if (hasChanged) {
                     await createFolder(app.vault, settings.projectsFolder);
                     const file: TFile = await app.vault.create(settings.projectsFolder + "/" + projectIndexCard.name + ".md", emptyString);
-            
+                    projectIndexCard.file = file;
+
                     // Write the dataview script into the file then add the frontmatter properties. 
                     await app.vault.modify(file, projectPageContent());
                     await projectIndexCard.save(app.fileManager, file);
@@ -88,15 +88,16 @@ export class Planner implements IPlanner {
         this.projectsModal.open();
     }
 
-    createTask(giventaskIndexCard?: ITaskIndexCard): void{
-        // Make sure there is a valid taskINdexCard im play
-        const taskIndexCard: ITaskIndexCard = (typeof giventaskIndexCard === 'undefined') ? new TaskIndexCard() : giventaskIndexCard;
+    createTask(giventaskIndexCard?: TaskIndexCard): void{
+        // Make sure there is a valid taskIndexCard im play
+        const taskIndexCard: TaskIndexCard = (typeof giventaskIndexCard === 'undefined') ? new TaskIndexCard() : giventaskIndexCard;
  
         this.tasksModal = new TasksModal(this.app, this.settings, taskIndexCard, DisplayMode.CREATE_MODE, 
         async (hasChanged: boolean, openFile: boolean, app: App, settings: Settings) => {
             if (hasChanged) {
                 await createFolder(app.vault, settings.tasksFolder);
                 const file: TFile = await app.vault.create(settings.tasksFolder + "/" + taskIndexCard.name + ".md", emptyString);
+                taskIndexCard.file = file;
 
                 // Save the data from the form into the files frontmatter then write the dataviw script
                 await app.vault.modify(file, taskPageContent())
@@ -111,7 +112,7 @@ export class Planner implements IPlanner {
 
         },
         (taskIndexCard: ITaskIndexCard) => {
-            const subtaskIndexCard: ISubtaskIndexCard = new SubtaskIndexCard();
+            const subtaskIndexCard: SubtaskIndexCard = new SubtaskIndexCard();
             taskIndexCard.copyInto(subtaskIndexCard);
             this.tasksModal?.close();
             this.tasksModal = null;
@@ -120,7 +121,7 @@ export class Planner implements IPlanner {
         this.tasksModal.open();
     }
 
-    createSubtask(givenSubtaskIndexCard?: ISubtaskIndexCard): void{
+    createSubtask(givenSubtaskIndexCard?: SubtaskIndexCard): void{
         const subtaskIndexCard = (typeof givenSubtaskIndexCard === 'undefined') ? new SubtaskIndexCard : givenSubtaskIndexCard
 
         this.subtasksModal = new SubtasksModal(this.app, this.settings, subtaskIndexCard, DisplayMode.CREATE_MODE, 
@@ -129,6 +130,7 @@ export class Planner implements IPlanner {
             if (hasChanged) {
                 await createFolder(app.vault, settings.subtasksFolder);
                 const file: TFile = await app.vault.create(settings.subtasksFolder + "/" + subtaskIndexCard.name + ".md", emptyString);
+                subtaskIndexCard.file = file;
 
                 // Save the data from the form into the files frontmatter then write the dataviw script
                 await app.vault.modify(file, taskPageContent())
@@ -142,7 +144,7 @@ export class Planner implements IPlanner {
             this.subtasksModal = null;
         },
         (subtaskIndexCard: ISubtaskIndexCard) => {
-            const taskIndexCard: ITaskIndexCard = new TaskIndexCard();
+            const taskIndexCard: TaskIndexCard = new TaskIndexCard();
             subtaskIndexCard.copyInto(taskIndexCard);
             this.subtasksModal?.close();
             this.subtasksModal = null;
@@ -240,7 +242,7 @@ export class Planner implements IPlanner {
                     this.tasksModal = null;
                  },
                 async (subtaskindexCard: ISubtaskIndexCard) => {
-                    const taskIndexCard: ITaskIndexCard = new TaskIndexCard();
+                    const taskIndexCard: TaskIndexCard = new TaskIndexCard();
                     subtaskIndexCard.copyInto(taskIndexCard);
                     this.subtasksModal?.close();
                     this.subtasksModal = null;

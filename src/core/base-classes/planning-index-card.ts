@@ -3,6 +3,7 @@ import { arraycopy, generateUUID } from 'src/utils/utils';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
+import { UUID } from '../types/types';
 
 export const fieldNames = {
     REF_ID_FIELD: "plrefId",
@@ -18,7 +19,8 @@ export const fieldNames = {
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
     
-    private _refId: string | null;
+    private _refId: string;
+    private _file: TFile | undefined;
     private _name: string;
     private _categoryTag: string;
     private _identTag: string;
@@ -30,6 +32,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     constructor(identTag: string) {
         this._refId = generateUUID();
+        this._file = undefined;
         this._name = "";
         this._categoryTag = "";
         this._identTag = identTag;
@@ -42,6 +45,14 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     get refId() : UUID {
         return this._refId as UUID;
+    }
+
+    get file(): TFile | undefined{
+        return this._file;
+    }
+
+    set file(value: TFile) {
+        this._file = value;
     }
 
     get name(): string {
@@ -120,6 +131,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     async load(fileManager: FileManager, file: TFile): Promise<void> {
         await fileManager.processFrontMatter(file, (frontMatter: FrontMatterCache) => {
             this.loadFromFrontMatter(frontMatter);
+            this._file = file;
         });
     }
 
