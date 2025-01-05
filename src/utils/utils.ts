@@ -3,6 +3,7 @@
 import {
     App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault
 } from 'obsidian';
+import * as path from 'path';
 import { fieldNames } from 'src/core/base-classes/planning-index-card';
 import { emptyString, IDictionary } from 'src/core/types/types';
 
@@ -74,6 +75,12 @@ export function getNameOptions(app: App, rootPath: string, searchTag: string): s
         }
     });
     return options;
+}
+
+export function getBasename(normalisedPath: string): string {
+    const extName: string = path.extname(normalisedPath);
+    const basename:string = path.basename(normalisedPath, extName);
+    return basename;
 }
 
 export function generateUUID(): string {

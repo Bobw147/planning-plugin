@@ -2,6 +2,7 @@ import {
     App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault
 } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
+import { getBasename } from 'src/utils/utils';
 
 import { fieldNames } from '../base-classes/planning-index-card';
 import { GoalIndexCard } from '../goals/goal-index-card';
@@ -58,7 +59,55 @@ export class IndexCardManager {
                 break;
         }
     }
-    
+
+    private findFiles(rootPath: string, searchTag: string): void {
+        const rootFolder: TFolder | null = this.app.vault.getFolderByPath(rootPath);
+        
+        if (rootFolder == null)
+            return;
+        
+        Vault.recurseChildren(rootFolder, (child:TAbstractFile) => {
+            // Make sure what we have is a file and not a folder. The latter is ignored
+            if (child instanceof TFile) {
+                // Get the frontmatter for the file
+                let indexCard: GoalIndexCard | ProjectIndexCard | TaskIndexCard | SubtaskIndexCard;
+                const cache: CachedMetadata | null = this.app.metadataCache.getCache((child.path));
+                const frontMatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
+                if (frontMatter[fieldNames.IDENT_TAG_FIELD] == searchTag) {
+                    switch (searchTag) {
+                        case identTags.PLANNING_GOAL:
+                            indexCard = new GoalIndexCard();
+                            indexCard.loadFromFrontMatter(frontMatter);
+                            indexCard.file = child;
+                            this.add(indexCard);
+                            break;
+ 
+                        case identTags.PLANNING_PROJECT:
+                            indexCard = new ProjectIndexCard();
+                            indexCard.loadFromFrontMatter(frontMatter);
+                            indexCard.file = child;
+                            this.add(indexCard);
+                            break;
+ 
+                        case identTags.PLANNING_TASK:
+                            indexCard = new TaskIndexCard();
+                            indexCard.loadFromFrontMatter(frontMatter);
+                            indexCard.file = child;
+                            this.add(indexCard);
+                            break;
+
+                        case identTags.PLANNING_SUBTASK:
+                            indexCard = new SubtaskIndexCard();
+                            indexCard.loadFromFrontMatter(frontMatter);
+                            indexCard.file = child;
+                            this.add(indexCard);
+                            break;
+                    }
+                }
+            }
+        })
+    }
+ 
     loadIndexCards(settings: Settings): void {
         this.findFiles(settings.goalsFolder, identTags.PLANNING_GOAL);
         this.findFiles(settings.projectsFolder, identTags.PLANNING_PROJECT);
@@ -93,47 +142,34 @@ export class IndexCardManager {
             return;
     }
 
-   private findFiles(rootPath: string, searchTag: string): void {
-       const rootFolder: TFolder | null = this.app.vault.getFolderByPath(rootPath);
-       
-       if (rootFolder == null)
-           return;
-       
-       Vault.recurseChildren(rootFolder, (child:TAbstractFile) => {
-           // Make sure what we have is a file and not a folder. The latter is ignored
-           if (child instanceof TFile) {
-               // Get the frontmatter for the file
-               let indexCard: GoalIndexCard | ProjectIndexCard | TaskIndexCard | SubtaskIndexCard;
-               const cache: CachedMetadata | null = this.app.metadataCache.getCache((child.path));
-               const frontMatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
-               if (frontMatter[fieldNames.IDENT_TAG_FIELD] == searchTag) {
-                    switch (searchTag) {
-                        case identTags.PLANNING_GOAL:
-                            indexCard = new GoalIndexCard();
-                            indexCard.loadFromFrontMatter(frontMatter);
-                            this.add(indexCard);
-                            break;
-
-                        case identTags.PLANNING_PROJECT:
-                            indexCard = new ProjectIndexCard();
-                            indexCard.loadFromFrontMatter(frontMatter);
-                            this.add(indexCard);
-                            break;
-
-                        case identTags.PLANNING_TASK:
-                            indexCard = new TaskIndexCard();
-                            indexCard.loadFromFrontMatter(frontMatter);
-                            this.add(indexCard);
-                            break;
-                        
-                        case identTags.PLANNING_SUBTASK:
-                            indexCard = new SubtaskIndexCard();
-                            indexCard.loadFromFrontMatter(frontMatter);
-                            this.add(indexCard);
-                            break;
-                    }
-                }
+    private renameCard(oldName: string, newFile: TFile, refLookup: Record<string, UUID>, 
+        indexCards: Record<string, IPlanningIndexCard>): boolean {
+        if (oldName in refLookup) {
+            const refId = refLookup[oldName];
+            if (refId in indexCards) {
+                indexCards[refId].file = newFile;
+                indexCards[refId].name = newFile.basename;
             }
-        })
+            delete refLookup[oldName];
+            refLookup[newFile.basename] = refId;
+            return true;
+        }
+        return false;
+    }
+    
+    rename(newFile: TFile, oldPath: string) {
+        debugger;
+        const oldName: string = getBasename(oldPath);
+        if (this.renameCard(oldName, newFile, this.goalRefLookup, this.goalIndexCards))
+            return;
+
+        if (this.renameCard(oldName, newFile, this.projectRefLookup, this.projectIndexCards))
+            return;
+
+        if (this.renameCard(oldName, newFile, this.taskRefLookup, this.taskIndexCards))
+            return;
+
+        if (this.renameCard(oldName, newFile, this.subtaskRefLookup, this.subtaskIndexCards))
+            return;
     }
 }

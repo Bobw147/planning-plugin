@@ -47,8 +47,10 @@ export class Planner implements IPlanner {
             }
         });
 
-        this.app.vault.on('rename', (file: TAbstractFile) => {
-
+        this.app.vault.on('rename', (file: TAbstractFile, oldPath: string) => {
+            if (file instanceof TFile) {
+                this.indexCardManager.rename(file, oldPath);
+            }
         });
     }
     
