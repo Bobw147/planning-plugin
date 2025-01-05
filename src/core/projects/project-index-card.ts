@@ -2,14 +2,14 @@ import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 
 import { PlanningIndexCard } from '../base-classes/planning-index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
-import { identTags } from '../types/types';
+import { identTags, UUID } from '../types/types';
 
 const projectFieldNames = {
     PARENT_GOAL: "plparent"
 }
 
 export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndexCard {
-    private _parentGoal: string;
+    private _parentGoal: UUID;
     
     constructor() {
         super(identTags.PLANNING_PROJECT);
@@ -37,11 +37,11 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
         });
     }
 
-    public get parentGoal(): string {
+    public get parentGoal(): UUID {
         return this._parentGoal;
     }
 
-    public set parentGoal(value: string)  {
+    public set parentGoal(value: UUID)  {
         this._parentGoal = value;
     }
 }

@@ -19,9 +19,9 @@ export const fieldNames = {
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
     
-    private _refId: string;
-    private _file: TFile | undefined;
-    private _name: string;
+    private _refId: UUID;
+    private _file: TFile | null;
+    private _name: UUID;
     private _categoryTag: string;
     private _identTag: string;
     private _statusTag: string;
@@ -32,7 +32,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     constructor(identTag: string) {
         this._refId = generateUUID();
-        this._file = undefined;
+        this._file = null;
         this._name = "";
         this._categoryTag = "";
         this._identTag = identTag;
@@ -47,11 +47,11 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         return this._refId as UUID;
     }
 
-    get file(): TFile | undefined{
+    get file(): TFile | null {
         return this._file;
     }
 
-    set file(value: TFile) {
+    set file(value: TFile | null) {
         this._file = value;
     }
 

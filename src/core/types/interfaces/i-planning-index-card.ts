@@ -9,8 +9,8 @@ export interface IPlanningIndexCard{
 
     get refId(): UUID;
 
-    get file(): TFile | undefined;
-    set file(value: TFile);
+    get file(): TFile | null;
+    set file(value: TFile | null);
 
     get name(): string;
     set name(value: string);
