@@ -11,7 +11,7 @@ import { SubtaskIndexCard } from '../subtasks/subtask-index-card';
 import { TaskIndexCard } from '../tasks/task-index-card';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { identTags, IDictionary, UUID } from '../types/types';
+import { emptyString, identTags, IDictionary, UUID } from '../types/types';
 
 export class IndexCardManager {
     private app: App;
@@ -86,6 +86,10 @@ export class IndexCardManager {
                             indexCard = new ProjectIndexCard();
                             indexCard.loadFromFrontMatter(frontMatter);
                             indexCard.file = child;
+                            if ((indexCard as ProjectIndexCard).parentGoal !== emptyString) {
+                                (indexCard as ProjectIndexCard).parentGoalRefs
+                                    .push(this.goalRefLookup[(indexCard as ProjectIndexCard).parentGoal]);
+                            }
                             this.add(indexCard);
                             break;
  
@@ -93,6 +97,10 @@ export class IndexCardManager {
                             indexCard = new TaskIndexCard();
                             indexCard.loadFromFrontMatter(frontMatter);
                             indexCard.file = child;
+                            if ((indexCard as TaskIndexCard).parentProject !== emptyString) {
+                                (indexCard as TaskIndexCard).parentProjectRefs
+                                    .push(this.projectRefLookup[(indexCard as TaskIndexCard).parentProject]);
+                            }
                             this.add(indexCard);
                             break;
 
@@ -158,7 +166,6 @@ export class IndexCardManager {
     }
     
     rename(newFile: TFile, oldPath: string) {
-        debugger;
         const oldName: string = getBasename(oldPath);
         if (this.renameCard(oldName, newFile, this.goalRefLookup, this.goalIndexCards))
             return;

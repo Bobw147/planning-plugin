@@ -9,11 +9,13 @@ const projectFieldNames = {
 }
 
 export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndexCard {
-    private _parentGoal: UUID;
-    
+    private _parentGoal: string;
+    private _parentGoalRefs: UUID[];
+
     constructor() {
         super(identTags.PLANNING_PROJECT);
         this._parentGoal = "";
+        this._parentGoalRefs = [];
     }
 
     async load(fileManager: FileManager, file: TFile): Promise<void> {
@@ -37,11 +39,11 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
         });
     }
 
-    public get parentGoal(): UUID {
+    public get parentGoal(): string {
         return this._parentGoal;
     }
 
-    public set parentGoal(value: UUID)  {
+    public set parentGoal(value: string)  {
         this._parentGoal = value;
     }
 }

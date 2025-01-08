@@ -3,18 +3,20 @@ import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { PlanningIndexCard } from '../base-classes/planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { emptyString, identTags, UUID } from '../types/types';
+import { emptyString, identTags } from '../types/types';
 
 const taskFieldNames = {
     PARENT_PROJECT: "plparent"
 }
 
 export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
-    private _parentProject: UUID;
+    private _parentProjectRefs: UUID[];
+    private _parentProject: string;
 
     constructor(){
         super(identTags.PLANNING_TASK);
         this._parentProject = "";
+        this._parentProjectRefs = [];
     }
 
     copyInto(subtaskIndexCard: ISubtaskIndexCard): void {
@@ -50,11 +52,11 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
         })
     }
 
-    public get parentProject(): UUID {
+    public get parentProject(): string {
         return this._parentProject;
     }
 
-    public set parentProject(value: UUID) {
+    public set parentProject(value: string) {
         this._parentProject = value;
     }
 }
