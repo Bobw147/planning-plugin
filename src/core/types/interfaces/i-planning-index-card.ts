@@ -33,6 +33,10 @@ export interface IPlanningIndexCard{
     get completedDate(): Date | null;
     set completedDate(value: Date | null);
 
+    get upstreamLinks(): UUID[];
+
+    get downStreamLinks():UUID[];
+
     get userTags(): string[];
     set userTags(value: string[]);
 }

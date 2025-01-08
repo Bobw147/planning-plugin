@@ -28,6 +28,8 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _targetDate: Date | null;
     private _expectedDate: Date | null;
     private _completedDate: Date | null;
+    private _downstreamLinks: UUID[];
+    private _upstreamLinks: UUID[];
     private _userTags: string[];
 
     constructor(identTag: string) {
@@ -40,6 +42,8 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._targetDate = null;
         this._expectedDate = null;
         this._completedDate = null;
+        this._downstreamLinks = [];
+        this._upstreamLinks = [];
         this._userTags = [];
     }
 
@@ -112,10 +116,18 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._completedDate = value;
     }
 
+    get upstreamLinks(): UUID[] {
+        return this._upstreamLinks
+    }
+
+    get downStreamLinks(): UUID[] {
+        return this._downstreamLinks
+    }
+
     get userTags(): string[] {
         return arraycopy(this._userTags);
     }
-
+    
     set userTags(value: string[]) {
         value.forEach(element => {
             if (! element.startsWith("#")){
