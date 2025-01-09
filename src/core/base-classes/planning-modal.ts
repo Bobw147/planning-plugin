@@ -9,7 +9,7 @@ import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { emptyString, IDictionary, zerothItem } from '../types/types';
-import { fieldNames } from './planning-index-card';
+import { FieldNames } from './planning-index-card';
 
 export abstract class PlanningModal extends Modal implements IModalForm {
     public app: App;
@@ -82,8 +82,8 @@ export abstract class PlanningModal extends Modal implements IModalForm {
                 // Get the frontmatter for the file
                 const cache: CachedMetadata | null = this.app.metadataCache.getCache((child.path));
                 const frontmatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
-                if (frontmatter[fieldNames.IDENT_TAG_FIELD] == searchTag) {
-                    dropdown.addOption(frontmatter[fieldNames.NAME_FIELD], frontmatter[fieldNames.NAME_FIELD]);
+                if (frontmatter[FieldNames.IDENT_TAG_FIELD] == searchTag) {
+                    dropdown.addOption(frontmatter[FieldNames.NAME_FIELD], frontmatter[FieldNames.NAME_FIELD]);
                 }
             }
         });

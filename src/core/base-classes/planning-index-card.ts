@@ -5,7 +5,7 @@ import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { UUID } from '../types/types';
 
-export const fieldNames = {
+export const FieldNames = {
     REF_ID_FIELD: "plrefId",
     NAME_FIELD: "plname",
     CATEGORY_TAG_FIELD: "plcategory",
@@ -16,6 +16,8 @@ export const fieldNames = {
     COMPLETED_DATE_FIELD: "plcompletedDateField",
     USER_TAGS_FIELD: "puserTags"
 }
+
+export type FieldNames = typeof FieldNames[keyof typeof FieldNames];
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
     
@@ -149,14 +151,14 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     loadFromFrontMatter(frontMatter: FrontMatterCache): void {
         if (frontMatter) {
-            this._refId = frontMatter[fieldNames.REF_ID_FIELD];
-            this.name = frontMatter[fieldNames.NAME_FIELD];
-            this.categoryTag = frontMatter[fieldNames.CATEGORY_TAG_FIELD];
-            this.statusTag = frontMatter[fieldNames.STATUS_TAG_FIELD];
-            this.targetDate = new Date(frontMatter[fieldNames.TARGET_DATE_FIELD]);
-            this.expectedDate = new Date(frontMatter[fieldNames.EXPECTED_DATE_FIELD]);
-            this.completedDate = new Date(frontMatter[fieldNames.COMPLETED_DATE_FIELD]);
-            this.userTags = frontMatter[fieldNames.USER_TAGS_FIELD]; 
+            this._refId = frontMatter[FieldNames.REF_ID_FIELD];
+            this.name = frontMatter[FieldNames.NAME_FIELD];
+            this.categoryTag = frontMatter[FieldNames.CATEGORY_TAG_FIELD];
+            this.statusTag = frontMatter[FieldNames.STATUS_TAG_FIELD];
+            this.targetDate = new Date(frontMatter[FieldNames.TARGET_DATE_FIELD]);
+            this.expectedDate = new Date(frontMatter[FieldNames.EXPECTED_DATE_FIELD]);
+            this.completedDate = new Date(frontMatter[FieldNames.COMPLETED_DATE_FIELD]);
+            this.userTags = frontMatter[FieldNames.USER_TAGS_FIELD]; 
         }
     }
 
@@ -164,15 +166,15 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     {
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter) {
-                frontMatter[fieldNames.REF_ID_FIELD] = this.refId;
-                frontMatter[fieldNames.NAME_FIELD] = this.name;
-                frontMatter[fieldNames.IDENT_TAG_FIELD] = this.identTag;
-                frontMatter[fieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;
-                frontMatter[fieldNames.STATUS_TAG_FIELD] = this.statusTag;
-                frontMatter[fieldNames.TARGET_DATE_FIELD] = this.targetDate;
-                frontMatter[fieldNames.EXPECTED_DATE_FIELD] = this.expectedDate;
-                frontMatter[fieldNames.COMPLETED_DATE_FIELD] = this.completedDate;
-                frontMatter[fieldNames.USER_TAGS_FIELD] = this.userTags;
+                frontMatter[FieldNames.REF_ID_FIELD] = this.refId;
+                frontMatter[FieldNames.NAME_FIELD] = this.name;
+                frontMatter[FieldNames.IDENT_TAG_FIELD] = this.identTag;
+                frontMatter[FieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;
+                frontMatter[FieldNames.STATUS_TAG_FIELD] = this.statusTag;
+                frontMatter[FieldNames.TARGET_DATE_FIELD] = this.targetDate;
+                frontMatter[FieldNames.EXPECTED_DATE_FIELD] = this.expectedDate;
+                frontMatter[FieldNames.COMPLETED_DATE_FIELD] = this.completedDate;
+                frontMatter[FieldNames.USER_TAGS_FIELD] = this.userTags;
             }
         });
     }

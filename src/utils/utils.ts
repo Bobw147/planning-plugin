@@ -4,7 +4,7 @@ import {
     App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault
 } from 'obsidian';
 import * as path from 'path';
-import { fieldNames } from 'src/core/base-classes/planning-index-card';
+import { FieldNames } from 'src/core/base-classes/planning-index-card';
 import { emptyString, IDictionary } from 'src/core/types/types';
 
 /* Arraye helpers */
@@ -69,8 +69,8 @@ export function getNameOptions(app: App, rootPath: string, searchTag: string): s
             // Get the frontmatter for the file
             const cache: CachedMetadata | null = app.metadataCache.getCache((child.path));
             const frontmatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
-            if (frontmatter[fieldNames.IDENT_TAG_FIELD] == searchTag) {
-                options.push(frontmatter[fieldNames.NAME_FIELD]);
+            if (frontmatter[FieldNames.IDENT_TAG_FIELD] == searchTag) {
+                options.push(frontmatter[FieldNames.NAME_FIELD]);
             }
         }
     });
