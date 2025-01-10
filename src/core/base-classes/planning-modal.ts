@@ -5,6 +5,7 @@ import {
 import { Settings } from 'src/settings/Settings';
 import { dateFormatter } from 'src/utils/utils';
 
+import { IndexCardManager } from '../planner/index-card-manager';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
@@ -14,6 +15,7 @@ import { FieldNames } from './planning-index-card';
 export abstract class PlanningModal extends Modal implements IModalForm {
     public app: App;
     protected settings: Settings;
+    protected indexCardManager: IndexCardManager;
     private _nameSection?: Setting;
     protected _parentSection?: Setting;
     protected _subtaskToggleSection?: Setting;
@@ -25,10 +27,11 @@ export abstract class PlanningModal extends Modal implements IModalForm {
     private _userTagsSection?: Setting;
     private _buttonsSection?: Setting;
 
-    constructor(app: App, settings: Settings) {
+    constructor(app: App, settings: Settings, indexCardManager: IndexCardManager) {
         super(app);
         this.app = app;
         this.settings = settings;
+        this.indexCardManager = indexCardManager;
     }
 
     get nameSection(): Setting | undefined {
@@ -70,9 +73,9 @@ export abstract class PlanningModal extends Modal implements IModalForm {
         return this._buttonsSection;
     }
     
-    protected addNames(dropdown: DropdownComponent, rootPath: string, searchTag: string): void {
+    protected addNames(dropdown: DropdownComponent, rootPath: string, searchTag: string, 
+                        callback: (dropdown: DropdownComponent, parentName: string) => void): void {
         const rootFolder: TFolder | null = this.app.vault.getFolderByPath(rootPath);
-    
         if (rootFolder == null)
             return;
     
@@ -83,7 +86,7 @@ export abstract class PlanningModal extends Modal implements IModalForm {
                 const cache: CachedMetadata | null = this.app.metadataCache.getCache((child.path));
                 const frontmatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
                 if (frontmatter[FieldNames.IDENT_TAG_FIELD] == searchTag) {
-                    dropdown.addOption(frontmatter[FieldNames.NAME_FIELD], frontmatter[FieldNames.NAME_FIELD]);
+                    callback(dropdown, child.basename)
                 }
             }
         });

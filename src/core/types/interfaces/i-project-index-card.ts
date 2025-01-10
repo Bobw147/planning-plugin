@@ -5,8 +5,8 @@ import { IPlanningIndexCard } from './i-planning-index-card';
 
 export interface IProjectIndexCard extends IPlanningIndexCard{
 
-    get parentGoal() : UUID;
-    set parentGoal(value: UUID);
+    get parentGoalRefId() : UUID;
+    set parentGoalRefId(value: UUID);
 
     loadFromFrontMatter(frontMatter: FrontMatterCache): void;
 }

@@ -5,7 +5,7 @@ import {
 } from 'obsidian';
 import * as path from 'path';
 import { FieldNames } from 'src/core/base-classes/planning-index-card';
-import { emptyString, IDictionary } from 'src/core/types/types';
+import { emptyString, IDictionary, zerothItem } from 'src/core/types/types';
 
 /* Arraye helpers */
 export function arraymove<T>(
@@ -13,7 +13,7 @@ export function arraymove<T>(
     fromIndex: number,
     toIndex: number
 ): void {
-    if (toIndex < 0 || toIndex === arr.length) {
+    if (toIndex < zerothItem || toIndex === arr.length) {
         return;
     }
     const element = arr[fromIndex];
@@ -81,14 +81,6 @@ export function getBasename(normalisedPath: string): string {
     const extName: string = path.extname(normalisedPath);
     const basename:string = path.basename(normalisedPath, extName);
     return basename;
-}
-
-export function generateUUID(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = (Math.random() * 16) | 0;
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
 }
 
 

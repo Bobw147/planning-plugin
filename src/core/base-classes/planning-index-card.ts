@@ -1,9 +1,9 @@
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
-import { arraycopy, generateUUID } from 'src/utils/utils';
+import { arraycopy } from 'src/utils/utils';
+import { UUID, UUIDV4 } from 'src/utils/uuid-generator';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { UUID } from '../types/types';
 
 export const FieldNames = {
     REF_ID_FIELD: "plrefId",
@@ -35,7 +35,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _userTags: string[];
 
     constructor(identTag: string) {
-        this._refId = generateUUID();
+        this._refId = new UUIDV4().generateUUID();
         this._file = null;
         this._name = "";
         this._categoryTag = "";

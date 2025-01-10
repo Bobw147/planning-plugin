@@ -2,6 +2,7 @@ import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { PlanningModal } from '../base-classes/planning-modal';
+import { IndexCardManager } from '../planner/index-card-manager';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
@@ -13,10 +14,11 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
     private onSubmit;
     private onSwitchToTaskMode;
 
-    constructor(app: App, settings: Settings, subtaskIndexCard: ISubtaskIndexCard, displayMode: DisplayMode, 
+    constructor(app: App, settings: Settings, subtaskIndexCard: ISubtaskIndexCard, 
+        indexCardManager: IndexCardManager, displayMode: DisplayMode, 
         onSubmit: (hasChanged: boolean, openFile: boolean, app:App, settings: Settings) => void,
         onSwitchToTaskMode: (subtaskIndexCard: ISubtaskIndexCard) => void) {
-        super(app, settings);
+        super(app, settings, indexCardManager);
         this.displayMode = displayMode;
         this.subtaskIndexCard = subtaskIndexCard;
         this.onSubmit = onSubmit;
@@ -28,10 +30,6 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
         super.open();
         super.buildForm(this.contentEl);
 
-        // Open the form to create the DOM so that we can manipulate the class names settings
-        // to just show the Task part of the form
-        super.open();
-
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.setTitle(translate(UserMessageId.CREATE_SUBTASK_TITLE));
             
@@ -42,7 +40,11 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 .setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.SUBTASK_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
-                    this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK)
+                    this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK,
+                        (dropdown, name) => {
+                            dropdown.addOption(this.indexCardManager.getTaskRefId(name), name);
+                        }
+                    )
                 );
 
             (this.subtaskToggleSection as Setting)
@@ -102,7 +104,11 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
             parentSetting?.setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_IC))
                 .setDesc(translate(UserMessageId.SUBTASK_PARENT_DESCRIPTION_IC))
                 .addDropdown(dropdown =>
-                    this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK)
+                    this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK,
+                        (dropdown, name) => {
+                            dropdown.addOption(this.indexCardManager.getTaskRefId(name), name);
+                        }
+                    )
                 );
 
             this.categoryTagSection?.setName(translate(UserMessageId.SUBTASK_CATEGORY_LABEL_IC));
@@ -129,14 +135,17 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
     }
         
     showCurrentValues(indexCard: ISubtaskIndexCard): void {
+        debugger;
         super.showCurrentValues(indexCard);
         if (this.parentSection !== undefined)
-            (this.parentSection.components[zerothItem] as DropdownComponent).setValue(indexCard.parentTask)
+            (this.parentSection.components[zerothItem] as DropdownComponent)
+                .setValue(indexCard.parentTaskRefId);
     }
     
-    updateIndexCard(indexCard: ISubtaskIndexCard): void {
+    updateIndexCard(indexCard: ISubtaskIndexCard): void {;
         super.updateIndexCard(indexCard);
-        indexCard.parentTask = (this.parentSection !== undefined)
-            ? (this.parentSection.components[zerothItem] as DropdownComponent).getValue() : emptyString;
+        if ((this.parentSection !== undefined)) {
+            indexCard.parentTaskRefId = (this.parentSection.components[zerothItem] as DropdownComponent).getValue();
+        }
     }
 }

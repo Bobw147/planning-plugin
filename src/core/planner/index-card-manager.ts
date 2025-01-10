@@ -3,14 +3,18 @@ import {
 } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 import { getBasename } from 'src/utils/utils';
+import { UUID } from 'src/utils/uuid-generator';
 
 import { FieldNames } from '../base-classes/planning-index-card';
 import { GoalIndexCard } from '../goals/goal-index-card';
 import { ProjectIndexCard } from '../projects/project-index-card';
 import { SubtaskIndexCard } from '../subtasks/subtask-index-card';
 import { TaskIndexCard } from '../tasks/task-index-card';
+import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { emptyString, identTags, IDictionary, UUID } from '../types/types';
+import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
+import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
+import { emptyString, identTags, IDictionary } from '../types/types';
 
 export class IndexCardManager {
     private app: App;
@@ -39,6 +43,42 @@ export class IndexCardManager {
         this.orphanProjects = {};
         this.orphanTasks = {};
         this.orphanSubtasks = {};
+    }
+
+    getGoalRefId(goalName: string): UUID {
+        return this.goalRefLookup[goalName];
+    }
+
+    getProjectParentName(goalRefId: UUID): string
+    {
+        const goalIndexCard: IGoalIndexCard | undefined = this.goalIndexCards[goalRefId];
+        if (goalIndexCard !== undefined)
+            return goalIndexCard.name;
+        return emptyString;
+    }
+
+    getProjectRefId(projectName: string): UUID {
+        return this.projectRefLookup[projectName];
+    }
+
+    getTaskParentName(taskRefId: UUID): string
+    {
+        const projectIndexCard: IProjectIndexCard | undefined = this.projectIndexCards[taskRefId];
+        if (projectIndexCard !== undefined)
+            return projectIndexCard.name;
+        return emptyString;
+    }
+
+    getTaskRefId(name: string): UUID {
+        return this.taskRefLookup[name];
+    }
+
+    getsubtaskParentName(taskRefId: UUID): string
+    {
+        const taskIndexCard: ITaskIndexCard | undefined = this.taskIndexCards[taskRefId];
+        if (taskIndexCard !== undefined)
+            return taskIndexCard.name;
+        return emptyString;
     }
 
     add(indexCard: IPlanningIndexCard): void {
@@ -76,7 +116,7 @@ export class IndexCardManager {
             if (file instanceof TFile) {
                 // Get the frontmatter for the file
                 let indexCard: GoalIndexCard | ProjectIndexCard | TaskIndexCard | SubtaskIndexCard;
-                const cache: CachedMetadata | null = this.app.metadataCache.getCache((child.path));
+                const cache: CachedMetadata | null = this.app.metadataCache.getCache((file.path));
                 const frontMatter: FrontMatterCache | undefined = cache?.frontmatter as IDictionary<string>;
                 if (frontMatter[FieldNames.IDENT_TAG_FIELD] == searchTag) {
                     switch (searchTag) {

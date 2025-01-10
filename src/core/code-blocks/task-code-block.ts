@@ -1,4 +1,4 @@
-export const taskDataview = 
+const taskDataview = 
 "\
 ```IndexCard\n \
 Task\n \

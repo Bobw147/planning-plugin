@@ -6,8 +6,8 @@ import { ISubtaskIndexCard } from './i-subtask-index-card';
 
 export interface ITaskIndexCard extends IPlanningIndexCard {
 
-    get parentProject(): UUID;
-    set parentProject(value: UUID);
+    get parentProjectRefId(): UUID;
+    set parentProjectRefId(value: UUID);
 
     copyInto(subTaskIndexCard: ISubtaskIndexCard): void;
     loadFromFrontMatter(frontMatter: FrontMatterCache): void;

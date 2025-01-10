@@ -2,19 +2,21 @@ import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
 import { PlanningModal } from '../base-classes/planning-modal';
+import { IndexCardManager } from '../planner/index-card-manager';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
-import { DisplayMode, emptyString, identTags, zerothItem } from '../types/types';
+import { DisplayMode, identTags, zerothItem } from '../types/types';
 
 export class ProjectsModal extends PlanningModal implements IModalForm {
     private displayMode: DisplayMode;
     private projectIndexCard: IProjectIndexCard;
     private onSubmit;
  
-    constructor(app: App, settings: Settings, projectIndexCard: IProjectIndexCard, displayMode: DisplayMode, 
+    constructor(app: App, settings: Settings, projectIndexCard: IProjectIndexCard, 
+        indexCardManager: IndexCardManager, displayMode: DisplayMode, 
         onSubmit: (resulthasChanged: boolean, openFile: boolean, app: App, settings: Settings) => void) {
-		super(app, settings);
+		super(app, settings, indexCardManager);
         this.displayMode = displayMode;
         this.projectIndexCard = projectIndexCard;
         this.onSubmit = onSubmit;
@@ -35,8 +37,12 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
                 .setName(translate(UserMessageId.PROJECT_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
-                    this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL)
-            );
+                    this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL,
+                        (dropdown, name) => {
+                            dropdown.addOption(this.indexCardManager.getGoalRefId(name), name);
+                        }
+                    )
+                );
 
             this.targetDateSection?.setName(translate(UserMessageId.PROJECT_TARGET_DATE_LABEL_CREATE));
             this.targetDateSection?.setDesc(translate(UserMessageId.PROJECT_TARGET_DATE_DESCRIPTION_CREATE));
@@ -77,7 +83,11 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
             parentSetting?.setName(translate(UserMessageId.PROJECT_PARENT_LABEL_IC))
                 .setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_IC))
                 .addDropdown(dropdown =>
-                    this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL)
+                    this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL,
+                        (dropdown, name) => {
+                            dropdown.addOption(this.indexCardManager.getGoalRefId(name), name);
+                        }
+                    )
                 );
 
             this.categoryTagSection?.setName(translate(UserMessageId.PROJECT_CATEGORY_LABEL_IC));
@@ -118,12 +128,13 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
     showCurrentValues(indexCard: IProjectIndexCard): void {
         super.showCurrentValues(indexCard);
         if (this.parentSection !== undefined)
-            (this.parentSection.components[zerothItem] as DropdownComponent).setValue(indexCard.parentGoal)
+            (this.parentSection.components[zerothItem] as DropdownComponent)
+                .setValue(indexCard.parentGoalRefId)
     }
 
     updateIndexCard(indexCard: IProjectIndexCard): void {
         super.updateIndexCard(indexCard);
-        indexCard.parentGoal = (this.parentSection !== undefined)
-            ? (this.parentSection.components[zerothItem] as DropdownComponent).getValue() : emptyString;
+        if (this.parentSection !== undefined)
+            indexCard.parentGoalRefId = (this.parentSection.components[zerothItem] as DropdownComponent).getValue();
     }
 }

@@ -1,20 +1,31 @@
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { UUID } from 'src/utils/uuid-generator';
 
 import { PlanningIndexCard } from '../base-classes/planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString, identTags } from '../types/types';
 
-const subtaskFieldNames = {
-    PARENT_TASK: "plparent",
+export const SubtaskFieldNames = {
+    PARENT_TASK_REFID: "pl-parent",
 }
 
+export type SubtaskFieldNames = typeof SubtaskFieldNames[keyof typeof SubtaskFieldNames];
+
 export class SubtaskIndexCard extends PlanningIndexCard implements ISubtaskIndexCard {
-    private _parentTask: string;
+    private _parentTaskRefId: UUID;
 
     constructor(){
         super(identTags.PLANNING_SUBTASK);
-        this._parentTask = "";
+        this._parentTaskRefId = "";
+    }
+
+    public get parentTaskRefId(): string {
+        return this._parentTaskRefId;
+    }
+
+    public set parentTaskRefId(value: string) {
+        this._parentTaskRefId = value;
     }
 
     copyInto(taskIndexCard: ITaskIndexCard): void {
@@ -29,31 +40,24 @@ export class SubtaskIndexCard extends PlanningIndexCard implements ISubtaskIndex
     }
 
     async load(fileManager: FileManager, file: TFile): Promise<void> {
-        super.load(fileManager, file);
+        await super.load(fileManager, file);
         fileManager.processFrontMatter(file,(frontMatter) => {
             if (frontMatter)
-                this.parentTask = frontMatter[subtaskFieldNames.PARENT_TASK];
+                this.parentTaskRefId = frontMatter[SubtaskFieldNames.PARENT_TASK_REFID];
         })
     }
 
     loadFromFrontMatter(frontMatter: FrontMatterCache): void {
         super.loadFromFrontMatter(frontMatter);
-        this.parentTask = frontMatter[subtaskFieldNames.PARENT_TASK];
+        this.parentTaskRefId = frontMatter[SubtaskFieldNames.PARENT_TASK_REFID];
     }
 
     async save(fileManager: FileManager, file: TFile) : Promise<void> {
+        debugger;
         await super.save(fileManager, file);
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter)
-                frontMatter[subtaskFieldNames.PARENT_TASK] = this.parentTask;
+                frontMatter[SubtaskFieldNames.PARENT_TASK_REFID] = this.parentTaskRefId;
         })
-    }
-
-    public get parentTask(): string {
-        return this._parentTask;
-    }
-
-    public set parentTask(value: string) {
-        this._parentTask = value;
     }
 }
