@@ -1,8 +1,8 @@
 import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
-import { PlanningModal } from '../base-classes/planning-modal';
 import { IndexCardManager } from '../planner/index-card-manager';
+import { PlanningModal } from '../planner/planning-modal';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';

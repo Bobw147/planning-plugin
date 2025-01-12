@@ -1,7 +1,8 @@
 import { App, ButtonComponent } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 
-import { PlanningModal } from '../base-classes/planning-modal';
+import { IndexCardManager } from '../planner/index-card-manager';
+import { PlanningModal } from '../planner/planning-modal';
 import { translate, UserMessageId } from '../types/i18n';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { IModalForm } from '../types/interfaces/i-modal-form';
@@ -12,9 +13,9 @@ export class GoalsModal extends PlanningModal implements IModalForm {
     private displayMode: DisplayMode;
     private onSubmit;
 
-    constructor(app: App, settings: Settings, goalIndexCard: IGoalIndexCard,
+    constructor(app: App, settings: Settings, goalIndexCard: IGoalIndexCard, indexCardManager: IndexCardManager,
         displayMode: DisplayMode,  onSubmit: (result: boolean, openFile: boolean, app: App, settings: Settings) => void) {
-		super(app, settings);
+		super(app, settings, indexCardManager);
         this.displayMode = displayMode;
         this.goalIndexCard = goalIndexCard;
         this.onSubmit = onSubmit

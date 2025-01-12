@@ -1,7 +1,7 @@
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { UUID } from 'src/utils/uuid-generator';
 
-import { PlanningIndexCard } from '../base-classes/planning-index-card';
+import { PlanningIndexCard } from '../planner/planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString, identTags } from '../types/types';

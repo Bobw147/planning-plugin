@@ -1,7 +1,7 @@
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { UUID } from 'src/utils/uuid-generator';
 
-import { PlanningIndexCard } from '../base-classes/planning-index-card';
+import { PlanningIndexCard } from '../planner/planning-index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { identTags } from '../types/types';
 

@@ -5,7 +5,6 @@ import { Settings } from 'src/settings/Settings';
 import { getBasename } from 'src/utils/utils';
 import { UUID } from 'src/utils/uuid-generator';
 
-import { FieldNames } from '../base-classes/planning-index-card';
 import { GoalIndexCard } from '../goals/goal-index-card';
 import { ProjectIndexCard } from '../projects/project-index-card';
 import { SubtaskIndexCard } from '../subtasks/subtask-index-card';
@@ -15,6 +14,7 @@ import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString, identTags, IDictionary } from '../types/types';
+import { FieldNames } from './planning-index-card';
 
 export class IndexCardManager {
     private app: App;
@@ -196,13 +196,16 @@ export class IndexCardManager {
             return;
     }
 
-    private renameCard(oldName: string, newFile: TFile, refLookup: Record<string, UUID>, 
-        indexCards: Record<string, IPlanningIndexCard>): boolean {
+    private async renameCard(oldName: string, newFile: TFile, refLookup: Record<string, UUID>, 
+        indexCards: Record<string, IPlanningIndexCard>): Promise<boolean> {
         if (oldName in refLookup) {
             const refId = refLookup[oldName];
             if (refId in indexCards) {
                 indexCards[refId].file = newFile;
                 indexCards[refId].name = newFile.basename;
+                // Update the frontmatter on disk and relaod to update locally
+                await indexCards[refId].save(this.app.fileManager, newFile);
+                await indexCards[refId].load(this.app.fileManager, newFile);
             }
             delete refLookup[oldName];
             refLookup[newFile.basename] = refId;
@@ -211,18 +214,19 @@ export class IndexCardManager {
         return false;
     }
     
-    rename(newFile: TFile, oldPath: string) {
+    async rename(newFile: TFile, oldPath: string) {
+        debugger;
         const oldName: string = getBasename(oldPath);
-        if (this.renameCard(oldName, newFile, this.goalRefLookup, this.goalIndexCards))
+        if (await this.renameCard(oldName, newFile, this.goalRefLookup, this.goalIndexCards))
             return;
 
-        if (this.renameCard(oldName, newFile, this.projectRefLookup, this.projectIndexCards))
+        if (await this.renameCard(oldName, newFile, this.projectRefLookup, this.projectIndexCards))
             return;
 
-        if (this.renameCard(oldName, newFile, this.taskRefLookup, this.taskIndexCards))
+        if (await this.renameCard(oldName, newFile, this.taskRefLookup, this.taskIndexCards))
             return;
 
-        if (this.renameCard(oldName, newFile, this.subtaskRefLookup, this.subtaskIndexCards))
+        if (await this.renameCard(oldName, newFile, this.subtaskRefLookup, this.subtaskIndexCards))
             return;
     }
 }

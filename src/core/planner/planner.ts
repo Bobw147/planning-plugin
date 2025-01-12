@@ -42,7 +42,7 @@ export class Planner implements IPlanner {
 
     init(): void {
         //  This a place to hang the event handlers for file delete and rename operations
-        this.app.vault.on('delete', (file: TAbstractFile) => {
+        this.app.vault.on('delete', async (file: TAbstractFile) => {
             if (file instanceof TFile) {
                 this.indexCardManager.remove(file.basename);
             }
@@ -57,7 +57,12 @@ export class Planner implements IPlanner {
     
     createGoal(): void {       
         const goalIndexCard: GoalIndexCard = new GoalIndexCard();
-        this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.CREATE_MODE, 
+        this.goalsModal = new GoalsModal(
+            this.app, 
+            this.settings, 
+            goalIndexCard, 
+            this.indexCardManager,
+            DisplayMode.CREATE_MODE, 
             async (hasChanged: boolean, openFile: boolean, app, settings: Settings) => {
                 if (hasChanged) {
                     // Make sure the target folder exists then create the file
@@ -82,7 +87,12 @@ export class Planner implements IPlanner {
 
     createProject(): void {
         const projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
-        this.projectsModal = new ProjectsModal(this.app, this.settings, projectIndexCard, this.indexCardManager, DisplayMode.CREATE_MODE, 
+        this.projectsModal = new ProjectsModal(
+            this.app, 
+            this.settings, 
+            projectIndexCard, 
+            this.indexCardManager, 
+            DisplayMode.CREATE_MODE, 
             async (hasChanged: boolean, openFile: boolean, app: App, settings: Settings) => {
              if (hasChanged) {
                     await createFolder(app.vault, settings.projectsFolder);
@@ -188,7 +198,12 @@ export class Planner implements IPlanner {
         if (activeFile !== null) {
             const goalIndexCard: GoalIndexCard = new GoalIndexCard()
             await goalIndexCard.load(this.app.fileManager, activeFile);
-            this.goalsModal = new GoalsModal(this.app, this.settings, goalIndexCard, DisplayMode.INDEX_CARD_MODE, 
+            this.goalsModal = new GoalsModal(
+                this.app, 
+                this.settings, 
+                goalIndexCard, 
+                this.indexCardManager,
+                DisplayMode.INDEX_CARD_MODE, 
                 async (hasChanged: boolean, openFile: boolean, app: App, settings: Settings) => {
                     // This callback occurs when the modal is closing.
                     if (hasChanged) {

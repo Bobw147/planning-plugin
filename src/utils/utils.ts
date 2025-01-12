@@ -4,7 +4,7 @@ import {
     App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault
 } from 'obsidian';
 import * as path from 'path';
-import { FieldNames } from 'src/core/base-classes/planning-index-card';
+import { FieldNames } from 'src/core/planner/planning-index-card';
 import { emptyString, IDictionary, zerothItem } from 'src/core/types/types';
 
 /* Arraye helpers */
