@@ -3,7 +3,7 @@ import {
 } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 import { getBasename } from 'src/utils/utils';
-import { UUID } from 'src/utils/uuid-generator';
+import { UUID, UUIDV4 as UuidGenerator } from 'src/utils/uuid-generator';
 
 import { GoalIndexCard } from '../goals/goal-index-card';
 import { ProjectIndexCard } from '../projects/project-index-card';
@@ -29,6 +29,7 @@ export class IndexCardManager {
     private orphanSubtasks: {[index: UUID]: SubtaskIndexCard};
     private orphanTasks: {[index: UUID]: TaskIndexCard};
     private orphanProjects: {[index: UUID]: ProjectIndexCard};
+    private uuidGenerator: UuidGenerator;
 
     constructor(app: App){
         this.app = app;
@@ -43,6 +44,7 @@ export class IndexCardManager {
         this.orphanProjects = {};
         this.orphanTasks = {};
         this.orphanSubtasks = {};
+        this.uuidGenerator = new UuidGenerator();
     }
 
     getGoalRefId(goalName: string): UUID {
@@ -165,6 +167,10 @@ export class IndexCardManager {
     }
 
     private buildDownstreamLinks(): void {
+        for (const key in this.subtaskIndexCards) {
+            const taskRefId: UUID = (this.subtaskIndexCards[key] as SubtaskIndexCard).parentTaskRefId;
+            this.taskIndexCards[taskRefId].
+        }
         Object.entries(this.subtaskIndexCards).forEach(([refId, subtaskIndexCard]) => {
             
         });
@@ -215,7 +221,6 @@ export class IndexCardManager {
     }
     
     async rename(newFile: TFile, oldPath: string) {
-        debugger;
         const oldName: string = getBasename(oldPath);
         if (await this.renameCard(oldName, newFile, this.goalRefLookup, this.goalIndexCards))
             return;
