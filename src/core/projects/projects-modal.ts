@@ -28,7 +28,6 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
         super.open();
         super.buildForm(this.contentEl);
 
-        this.indexCardManager.loadIndexCards(this.settings);
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.setTitle(translate(UserMessageId.CREATE_PROJECT_TITLE));
 
