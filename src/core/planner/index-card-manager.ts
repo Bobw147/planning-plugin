@@ -184,15 +184,15 @@ export class IndexCardManager {
         }
 
         for (const taskIndexCardRefId in this.taskIndexCards) {
-            const taskIndexCard = (this.taskIndexCards[taskIndexCardRefId] as TaskIndexCard);
-            const projectRefId: UUID = new UUID(false, taskIndexCard.parentProjectRefId.getValue() as uuid);
-            if (! projectRefId.isNullUUID)
+            const taskIndexCard = <TaskIndexCard> this.taskIndexCards[taskIndexCardRefId];
+            const projectRefId: UUID = new UUID(false, taskIndexCard.parentProjectRefId.getValue());
+            if (! projectRefId.isNullUUID())
                 this.projectIndexCards[projectRefId.getRefId()].downStreamLinks.push(taskIndexCard.refId);
         }
 
         for (const projectIndexCardRefId in this.projectIndexCards) {
-            const projectIndexCard: IProjectIndexCard = this.projectIndexCards[projectIndexCardRefId];
-            const goalRefId: UUID = new UUID(false, projectIndexCard.parentGoalRefId.getValue() as uuid);
+            const projectIndexCard = <ProjectIndexCard> this.projectIndexCards[projectIndexCardRefId];
+            const goalRefId: UUID = new UUID(false, projectIndexCard.parentGoalRefId.getValue());
             if (! goalRefId.isNullUUID())
                 this.goalIndexCards[goalRefId.getRefId()].downStreamLinks.push(projectIndexCard.refId);
         }
