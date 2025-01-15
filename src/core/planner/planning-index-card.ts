@@ -1,9 +1,10 @@
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { arraycopy } from 'src/utils/utils';
-import { UUID, UUIDV4 } from 'src/utils/uuid-generator';
+import { UUID } from 'src/utils/uuid-generator';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
+import { emptyString } from '../types/types';
 
 export const FieldNames = {
     REF_ID_FIELD: "plrefId",
@@ -23,7 +24,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     
     private _refId: UUID;
     private _file: TFile | null;
-    private _name: UUID;
+    private _name: string;
     private _categoryTag: string;
     private _identTag: string;
     private _statusTag: string;
@@ -35,10 +36,10 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _userTags: string[];
 
     constructor(identTag: string) {
-        this._refId = new UUIDV4().generateUUID();
+        this._refId = new UUID(true);
         this._file = null;
-        this._name = "";
-        this._categoryTag = "";
+        this._name = emptyString;
+        this._categoryTag = emptyString;
         this._identTag = identTag;
         this._statusTag = "";
         this._targetDate = null;
@@ -151,7 +152,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
 
     loadFromFrontMatter(frontMatter: FrontMatterCache): void {
         if (frontMatter) {
-            this._refId = frontMatter[FieldNames.REF_ID_FIELD];
+            this._refId = new UUID(false, frontMatter[FieldNames.REF_ID_FIELD]);
             this.name = frontMatter[FieldNames.NAME_FIELD];
             this.categoryTag = frontMatter[FieldNames.CATEGORY_TAG_FIELD];
             this.statusTag = frontMatter[FieldNames.STATUS_TAG_FIELD];
@@ -166,7 +167,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     {
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter) {
-                frontMatter[FieldNames.REF_ID_FIELD] = this.refId;
+                frontMatter[FieldNames.REF_ID_FIELD] = this.refId.getValue();
                 frontMatter[FieldNames.NAME_FIELD] = this.name;
                 frontMatter[FieldNames.IDENT_TAG_FIELD] = this.identTag;
                 frontMatter[FieldNames.CATEGORY_TAG_FIELD] = this.categoryTag;

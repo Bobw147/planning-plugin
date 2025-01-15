@@ -1,5 +1,6 @@
 import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
+import { uuid, UUID } from 'src/utils/uuid-generator';
 
 import { IndexCardManager } from '../planner/index-card-manager';
 import { PlanningModal } from '../planner/planning-modal';
@@ -27,19 +28,19 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
         super.open();
         super.buildForm(this.contentEl);
 
+        this.indexCardManager.loadIndexCards(this.settings);
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.setTitle(translate(UserMessageId.CREATE_PROJECT_TITLE));
 
             this.nameSection?.setName(translate(UserMessageId.PROJECT_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.PROJECT_NAME_DESCRIPTION_CREATE));
-
             (this.parentSection as Setting)
                 .setName(translate(UserMessageId.PROJECT_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.PROJECT_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL,
                         (dropdown, name) => {
-                            dropdown.addOption(this.indexCardManager.getGoalRefId(name), name);
+                            dropdown.addOption(this.indexCardManager.getGoalUUID(name).getRefId(), name);
                         }
                     )
                 );
@@ -85,7 +86,7 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.goalsFolder, identTags.PLANNING_GOAL,
                         (dropdown, name) => {
-                            dropdown.addOption(this.indexCardManager.getGoalRefId(name), name);
+                            dropdown.addOption(this.indexCardManager.getGoalUUID(name).getRefId(), name);
                         }
                     )
                 );
@@ -129,12 +130,12 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
         super.showCurrentValues(indexCard);
         if (this.parentSection !== undefined)
             (this.parentSection.components[zerothItem] as DropdownComponent)
-                .setValue(indexCard.parentGoalRefId)
+                .setValue(indexCard.parentGoalRefId.getRefId())
     }
 
     updateIndexCard(indexCard: IProjectIndexCard): void {
         super.updateIndexCard(indexCard);
         if (this.parentSection !== undefined)
-            indexCard.parentGoalRefId = (this.parentSection.components[zerothItem] as DropdownComponent).getValue();
+            indexCard.parentGoalRefId = new UUID(false, (this.parentSection.components[zerothItem] as DropdownComponent).getValue() as uuid);
     }
 }

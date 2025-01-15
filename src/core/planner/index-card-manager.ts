@@ -1,9 +1,10 @@
+
 import {
     App, CachedMetadata, FrontMatterCache, TAbstractFile, TFile, TFolder, Vault
 } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 import { getBasename } from 'src/utils/utils';
-import { UUID, UUIDV4 as UuidGenerator } from 'src/utils/uuid-generator';
+import { refId, uuid, UUID } from 'src/utils/uuid-generator';
 
 import { GoalIndexCard } from '../goals/goal-index-card';
 import { ProjectIndexCard } from '../projects/project-index-card';
@@ -18,18 +19,17 @@ import { FieldNames } from './planning-index-card';
 
 export class IndexCardManager {
     private app: App;
-    private goalIndexCards: {[index: UUID]: GoalIndexCard};
-    private projectIndexCards: {[index: UUID]: ProjectIndexCard};
-    private taskIndexCards: {[index: UUID]: TaskIndexCard};
-    private subtaskIndexCards: {[index: UUID]: SubtaskIndexCard};
-    private goalRefLookup: {[index: string]: string};
-    private projectRefLookup: {[index: string]: string};
-    private taskRefLookup: {[index: string]: string};
-    private subtaskRefLookup: {[index: string]: string};
-    private orphanSubtasks: {[index: UUID]: SubtaskIndexCard};
-    private orphanTasks: {[index: UUID]: TaskIndexCard};
-    private orphanProjects: {[index: UUID]: ProjectIndexCard};
-    private uuidGenerator: UuidGenerator;
+    private goalIndexCards: {[key: refId]: GoalIndexCard} = {};
+    private projectIndexCards: {[index: refId]: ProjectIndexCard};
+    private taskIndexCards: {[index: refId]: TaskIndexCard};
+    private subtaskIndexCards: {[index: refId]: SubtaskIndexCard};
+    private goalRefLookup: {[index: string]: UUID};
+    private projectRefLookup: {[index: string]: UUID};
+    private taskRefLookup: {[index: string]: UUID};
+    private subtaskRefLookup: {[index: string]: UUID};
+    private orphanSubtasks: {[index: refId]: SubtaskIndexCard};
+    private orphanTasks: {[index: refId]: TaskIndexCard};
+    private orphanProjects: {[index: refId]: ProjectIndexCard};
 
     constructor(app: App){
         this.app = app;
@@ -44,18 +44,19 @@ export class IndexCardManager {
         this.orphanProjects = {};
         this.orphanTasks = {};
         this.orphanSubtasks = {};
-        this.uuidGenerator = new UuidGenerator();
     }
 
-    getGoalRefId(goalName: string): UUID {
+    getGoalUUID(goalName: string): UUID {
         return this.goalRefLookup[goalName];
     }
 
     getProjectParentName(goalRefId: UUID): string
     {
-        const goalIndexCard: IGoalIndexCard | undefined = this.goalIndexCards[goalRefId];
-        if (goalIndexCard !== undefined)
-            return goalIndexCard.name;
+        if (! goalRefId.isNullUUID) {
+            const goalIndexCard: IGoalIndexCard | undefined = this.goalIndexCards[goalRefId.getRefId()];
+            if (goalIndexCard !== undefined)
+                return goalIndexCard.name;
+        }
         return emptyString;
     }
 
@@ -65,7 +66,7 @@ export class IndexCardManager {
 
     getTaskParentName(taskRefId: UUID): string
     {
-        const projectIndexCard: IProjectIndexCard | undefined = this.projectIndexCards[taskRefId];
+        const projectIndexCard: IProjectIndexCard | undefined = this.projectIndexCards[taskRefId.getRefId()];
         if (projectIndexCard !== undefined)
             return projectIndexCard.name;
         return emptyString;
@@ -77,7 +78,7 @@ export class IndexCardManager {
 
     getsubtaskParentName(taskRefId: UUID): string
     {
-        const taskIndexCard: ITaskIndexCard | undefined = this.taskIndexCards[taskRefId];
+        const taskIndexCard: ITaskIndexCard | undefined = this.taskIndexCards[taskRefId.getRefId()];
         if (taskIndexCard !== undefined)
             return taskIndexCard.name;
         return emptyString;
@@ -85,25 +86,29 @@ export class IndexCardManager {
 
     add(indexCard: IPlanningIndexCard): void {
         if (indexCard instanceof GoalIndexCard) {
-            this.goalIndexCards[indexCard.refId] = indexCard;
+            this.goalIndexCards[indexCard.refId.getRefId()] = indexCard;
             this.goalRefLookup[indexCard.name] = indexCard.refId;
             return;
         }
         if (indexCard instanceof ProjectIndexCard) {
-            this.projectIndexCards[indexCard.refId] = indexCard;
+            this.projectIndexCards[indexCard.refId.getRefId()] = indexCard;
             this.projectRefLookup[indexCard.name] = indexCard.refId;
+            if (indexCard.parentGoalRefId.isNullUUID())
+                this.orphanProjects[indexCard.refId.getRefId()] = indexCard;
             return;
         }
         if (indexCard instanceof TaskIndexCard) {
-            this.taskIndexCards[indexCard.refId] = indexCard;
+            this.taskIndexCards[indexCard.refId.getRefId()] = indexCard;
             this.taskRefLookup[indexCard.name] = indexCard.refId;
+            if (indexCard.parentProjectRefId.isNullUUID())
+                this.orphanTasks[indexCard.refId.getRefId()] = indexCard;
             return;
         }
         if (indexCard instanceof SubtaskIndexCard) {
-            this.subtaskIndexCards[indexCard.refId] = indexCard;
+            this.subtaskIndexCards[indexCard.refId.getRefId()] = indexCard;
             this.subtaskRefLookup[indexCard.name] = indexCard.refId;
-            if (indexCard.parentTaskRefId === emptyString)
-                this.orphanSubtasks[indexCard.refId] = indexCard;
+            if (indexCard.parentTaskRefId.isNullUUID())
+                this.orphanSubtasks[indexCard.refId.getRefId()] = indexCard;
         }
     }
 
@@ -164,23 +169,47 @@ export class IndexCardManager {
         // Now that all this relevant index cards have been loaded they
         // can be used to build the downstream links of each card type
         this.buildDownstreamLinks();
+        this.buildInterdependencies();
+
     }
 
     private buildDownstreamLinks(): void {
-        for (const key in this.subtaskIndexCards) {
-            const taskRefId: UUID = (this.subtaskIndexCards[key] as SubtaskIndexCard).parentTaskRefId;
-            this.taskIndexCards[taskRefId].
+        // Loop through ALL sub task index card keys
+        for (const subTaskIndexCardRefId in this.subtaskIndexCards) {
+            // Get the associated subTaskIndexCard
+            const subTaskIndexCard = <SubtaskIndexCard> this.subtaskIndexCards[subTaskIndexCardRefId];
+            const taskRefId: UUID = new UUID(false, subTaskIndexCard.parentTaskRefId.getValue());
+            if (! taskRefId.isNullUUID())
+                this.taskIndexCards[taskRefId.getRefId()].downStreamLinks.push(subTaskIndexCard.refId);
         }
-        Object.entries(this.subtaskIndexCards).forEach(([refId, subtaskIndexCard]) => {
-            
-        });
+
+        for (const taskIndexCardRefId in this.taskIndexCards) {
+            const taskIndexCard = (this.taskIndexCards[taskIndexCardRefId] as TaskIndexCard);
+            const projectRefId: UUID = new UUID(false, taskIndexCard.parentProjectRefId.getValue() as uuid);
+            if (! projectRefId.isNullUUID)
+                this.projectIndexCards[projectRefId.getRefId()].downStreamLinks.push(taskIndexCard.refId);
+        }
+
+        for (const projectIndexCardRefId in this.projectIndexCards) {
+            const projectIndexCard: IProjectIndexCard = this.projectIndexCards[projectIndexCardRefId];
+            const goalRefId: UUID = new UUID(false, projectIndexCard.parentGoalRefId.getValue() as uuid);
+            if (! goalRefId.isNullUUID())
+                this.goalIndexCards[goalRefId.getRefId()].downStreamLinks.push(projectIndexCard.refId);
+        }
     }
+
+    private buildInterdependencies(): void
+    {
+        // Pass the date value UP the hierarchy as these are set by the tasks/actions
+
+    }
+
     private delete(indexCardName: string, refLookup: Record<string, UUID>, 
-            indexCards: Record<UUID, IPlanningIndexCard>): boolean {
+            indexCards: Record<refId, IPlanningIndexCard>): boolean {
         
         if (indexCardName in refLookup) {
-            if (refLookup[indexCardName] in indexCards) {
-                delete indexCards[refLookup[indexCardName]];
+            if (refLookup[indexCardName].getRefId() in indexCards) {
+                delete indexCards[refLookup[indexCardName].getRefId()];
             }
             delete refLookup[indexCardName];
             return true;
@@ -205,16 +234,16 @@ export class IndexCardManager {
     private async renameCard(oldName: string, newFile: TFile, refLookup: Record<string, UUID>, 
         indexCards: Record<string, IPlanningIndexCard>): Promise<boolean> {
         if (oldName in refLookup) {
-            const refId = refLookup[oldName];
-            if (refId in indexCards) {
-                indexCards[refId].file = newFile;
-                indexCards[refId].name = newFile.basename;
+            const cardRefId = refLookup[oldName];
+            if (cardRefId.getRefId() in indexCards) {
+                indexCards[cardRefId.getRefId()].file = newFile;
+                indexCards[cardRefId.getRefId()].name = newFile.basename;
                 // Update the frontmatter on disk and relaod to update locally
-                await indexCards[refId].save(this.app.fileManager, newFile);
-                await indexCards[refId].load(this.app.fileManager, newFile);
+                await indexCards[cardRefId.getRefId()].save(this.app.fileManager, newFile);
+                await indexCards[cardRefId.getRefId()].load(this.app.fileManager, newFile);
             }
             delete refLookup[oldName];
-            refLookup[newFile.basename] = refId;
+            refLookup[newFile.basename] = cardRefId;
             return true;
         }
         return false;

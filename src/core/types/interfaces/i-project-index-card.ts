@@ -1,6 +1,6 @@
 import { FrontMatterCache } from 'obsidian';
+import { UUID } from 'src/utils/uuid-generator';
 
-import { UUID } from '../types';
 import { IPlanningIndexCard } from './i-planning-index-card';
 
 export interface IProjectIndexCard extends IPlanningIndexCard{

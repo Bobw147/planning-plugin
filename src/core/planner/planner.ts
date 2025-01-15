@@ -275,7 +275,6 @@ export class Planner implements IPlanner {
     }
 
     async showSubtaskIndexCard(givenSubtaskIndexCard?: ISubtaskIndexCard): Promise<void> {
-        debugger;
         const activeFile: TFile | null = this.app.workspace.getActiveFile();
         if (activeFile !== null) {
             // Make sure we have the correct typwe ofindex card loaded

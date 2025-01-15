@@ -1,6 +1,5 @@
 import { FileManager, TFile } from 'obsidian';
-
-import { UUID } from '../types';
+import { UUID } from 'src/utils/uuid-generator';
 
 export interface IPlanningIndexCard{
 

@@ -10,18 +10,18 @@ const projectFieldNames = {
 }
 
 export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndexCard {
-    private _parentGoalRefId: string;
+    private _parentGoalRefId: UUID;
 
     constructor() {
         super(identTags.PLANNING_PROJECT);
-        this._parentGoalRefId = "";
+        this._parentGoalRefId = new UUID(false);
     }
 
-    public get parentGoalRefId(): string {
+    public get parentGoalRefId(): UUID {
         return this._parentGoalRefId;
     }
 
-    public set parentGoalRefId(value: string)  {
+    public set parentGoalRefId(value: UUID)  {
         this._parentGoalRefId = value;
     }
 
@@ -29,20 +29,20 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
         super.load(fileManager, file);
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter)
-                this.parentGoalRefId = frontMatter[projectFieldNames.PARENT_GOAL_REFID];
+                this.parentGoalRefId = new UUID(false, frontMatter[projectFieldNames.PARENT_GOAL_REFID]);
         });
     }
 
     loadFromFrontMatter(frontMatter: FrontMatterCache): void {
         super.loadFromFrontMatter(frontMatter);
-        this.parentGoalRefId = frontMatter[projectFieldNames.PARENT_GOAL_REFID];
+        this.parentGoalRefId = new UUID(false, frontMatter[projectFieldNames.PARENT_GOAL_REFID]);
     }
 
     async save(fileManager: FileManager, file: TFile) : Promise<void> {
         await super.save(fileManager, file);
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter)
-                frontMatter[projectFieldNames.PARENT_GOAL_REFID] = this.parentGoalRefId;
+                frontMatter[projectFieldNames.PARENT_GOAL_REFID] = this.parentGoalRefId.getRefId();
         });
     }
 }

@@ -1,5 +1,6 @@
 import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
+import { uuid, UUID } from 'src/utils/uuid-generator';
 
 import { IndexCardManager } from '../planner/index-card-manager';
 import { PlanningModal } from '../planner/planning-modal';
@@ -42,7 +43,7 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK,
                         (dropdown, name) => {
-                            dropdown.addOption(this.indexCardManager.getTaskRefId(name), name);
+                            dropdown.addOption(this.indexCardManager.getTaskRefId(name).getRefId(), name);
                         }
                     )
                 );
@@ -106,7 +107,7 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK,
                         (dropdown, name) => {
-                            dropdown.addOption(this.indexCardManager.getTaskRefId(name), name);
+                            dropdown.addOption(this.indexCardManager.getTaskRefId(name).getRefId(), name);
                         }
                     )
                 );
@@ -135,17 +136,16 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
     }
         
     showCurrentValues(indexCard: ISubtaskIndexCard): void {
-        debugger;
         super.showCurrentValues(indexCard);
         if (this.parentSection !== undefined)
             (this.parentSection.components[zerothItem] as DropdownComponent)
-                .setValue(indexCard.parentTaskRefId);
+                .setValue(indexCard.parentTaskRefId.getRefId());
     }
     
     updateIndexCard(indexCard: ISubtaskIndexCard): void {
         super.updateIndexCard(indexCard);
         if ((this.parentSection !== undefined)) {
-            indexCard.parentTaskRefId = (this.parentSection.components[zerothItem] as DropdownComponent).getValue();
+            indexCard.parentTaskRefId = new UUID(false, (this.parentSection.components[zerothItem] as DropdownComponent).getValue() as uuid);
         }
     }
 }

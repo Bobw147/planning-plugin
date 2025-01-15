@@ -4,7 +4,7 @@ import { UUID } from 'src/utils/uuid-generator';
 import { PlanningIndexCard } from '../planner/planning-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { emptyString, identTags } from '../types/types';
+import { identTags } from '../types/types';
 
 const taskFieldNames = {
     PARENT_PROJECT_REFID: "plparent"
@@ -15,20 +15,20 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
 
     constructor(){
         super(identTags.PLANNING_TASK);
-        this._parentProjectRefId = "";
+        this._parentProjectRefId = new UUID(false);
     }
 
-    public getParentProjectRefId(): string {
+    public get parentProjectRefId(): UUID {
         return this._parentProjectRefId;
     }
 
-    public set parentProjectRefId(value: string) {
+    public set parentProjectRefId(value: UUID) {
         this._parentProjectRefId = value;
     }
 
     copyInto(subtaskIndexCard: ISubtaskIndexCard): void {
         subtaskIndexCard.name = this.name;
-        subtaskIndexCard.parentTaskRefId = emptyString;
+        subtaskIndexCard.parentTaskRefId = new UUID(false);
         subtaskIndexCard.categoryTag = this.categoryTag;
         subtaskIndexCard.statusTag = this.statusTag;
         subtaskIndexCard.targetDate = this.targetDate;
@@ -41,21 +41,21 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
         super.load(fileManager, file);
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter) {
-                this.parentProjectRefId = frontMatter[taskFieldNames.PARENT_PROJECT_REFID];
+                this.parentProjectRefId = new UUID(false, frontMatter[taskFieldNames.PARENT_PROJECT_REFID]);
             }
         })
     }
 
     loadFromFrontMatter(frontMatter: FrontMatterCache): void {
         super.loadFromFrontMatter(frontMatter);
-        this.parentProjectRefId = frontMatter[taskFieldNames.PARENT_PROJECT_REFID];
+        this.parentProjectRefId = new UUID(false, frontMatter[taskFieldNames.PARENT_PROJECT_REFID]);
     }
 
     async save(fileManager: FileManager, file: TFile) : Promise<void> {
         await super.save(fileManager, file);
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter)
-                frontMatter[taskFieldNames.PARENT_PROJECT_REFID] = this.parentProjectRefId;
+                frontMatter[taskFieldNames.PARENT_PROJECT_REFID] = this.parentProjectRefId.getRefId();
         })
     }
 }
