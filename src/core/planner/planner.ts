@@ -98,6 +98,7 @@ export class Planner implements IPlanner {
                     await createFolder(app.vault, settings.projectsFolder);
                     const file: TFile = await app.vault.create(settings.projectsFolder + "/" + projectIndexCard.name + ".md", emptyString);
                     projectIndexCard.file = file;
+                    this.indexCardManager.setCategoryTag(projectIndexCard);
 
                     // Write the dataview script into the file then add the frontmatter properties. 
                     await app.vault.modify(file, projectPageContent());
@@ -129,6 +130,7 @@ export class Planner implements IPlanner {
                 await createFolder(app.vault, settings.tasksFolder);
                 const file: TFile = await app.vault.create(settings.tasksFolder + "/" + taskIndexCard.name + ".md", emptyString);
                 taskIndexCard.file = file;
+                this.indexCardManager.setCategoryTag(taskIndexCard);
 
                 // Save the data from the form into the files frontmatter then write the dataviw script
                 await app.vault.modify(file, taskPageContent())
@@ -167,6 +169,7 @@ export class Planner implements IPlanner {
                 await createFolder(app.vault, settings.subtasksFolder);
                 const file: TFile = await app.vault.create(settings.subtasksFolder + "/" + subtaskIndexCard.name + ".md", emptyString);
                 subtaskIndexCard.file = file;
+                this.indexCardManager.setCategoryTag(subtaskIndexCard);
 
                 // Save the data from the form into the files frontmatter then write the dataviw script
                 await app.vault.modify(file, subtaskPageContent())
