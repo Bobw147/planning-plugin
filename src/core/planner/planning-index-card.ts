@@ -4,7 +4,7 @@ import { UUID } from 'src/utils/uuid-generator';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { emptyString } from '../types/types';
+import { emptyString, nullDateTimestamp } from '../types/types';
 
 export const FieldNames = {
     REF_ID_FIELD: "plrefId",
@@ -28,9 +28,9 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _categoryTag: string;
     private _identTag: string;
     private _statusTag: string;
-    private _targetDate: Date | null;
-    private _expectedDate: Date | null;
-    private _completedDate: Date | null;
+    private _targetDate: Date;
+    private _expectedDate: Date;
+    private _completedDate: Date;
     private _downstreamLinks: UUID[];
     private _upstreamLinks: UUID[];
     private _userTags: string[];
@@ -42,9 +42,9 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._categoryTag = emptyString;
         this._identTag = identTag;
         this._statusTag = "";
-        this._targetDate = null;
-        this._expectedDate = null;
-        this._completedDate = null;
+        this._targetDate = new Date(nullDateTimestamp);
+        this._expectedDate = new Date(nullDateTimestamp);
+        this._completedDate = new Date(nullDateTimestamp);
         this._downstreamLinks = [];
         this._upstreamLinks = [];
         this._userTags = [];
@@ -94,28 +94,28 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._statusTag = (this._validateTag(value, "#status/")) ? value : "";
     }
 
-    get targetDate(): Date | null {
+    get targetDate(): Date{
         return this._targetDate;
     }
 
-    set targetDate(value: Date | null)
+    set targetDate(value: Date)
     {
         this._targetDate = value;
     }
 
-    get expectedDate(): Date | null {
+    get expectedDate(): Date {
         return this._expectedDate;
     }
 
-    set expectedDate(value: Date | null) {
+    set expectedDate(value: Date) {
         this._expectedDate = value;
     }
 
-    get completedDate(): Date | null {
+    get completedDate(): Date {
         return this._completedDate;
     }
 
-    set completedDate(value: Date | null) {
+    set completedDate(value: Date ) {
         this._completedDate = value;
     }
 

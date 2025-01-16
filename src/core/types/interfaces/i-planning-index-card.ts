@@ -23,14 +23,14 @@ export interface IPlanningIndexCard{
     get statusTag(): string;
     set statusTag(value: string);
 
-    get targetDate(): Date | null;
-    set targetDate(value: Date | null);
+    get targetDate(): Date;
+    set targetDate(value: Date);
 
-    get expectedDate(): Date | null;
-    set expectedDate(value: Date | null);
+    get expectedDate(): Date;
+    set expectedDate(value: Date);
 
-    get completedDate(): Date | null;
-    set completedDate(value: Date | null);
+    get completedDate(): Date;
+    set completedDate(value: Date);
 
     get upstreamLinks(): UUID[];
 
