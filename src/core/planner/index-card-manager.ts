@@ -13,6 +13,7 @@ import { TaskIndexCard } from '../tasks/task-index-card';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
+import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
 import { emptyString, identTags, IDictionary } from '../types/types';
 import { FieldNames } from './planning-index-card';
@@ -44,6 +45,10 @@ export class IndexCardManager {
         this.orphanProjects = {};
         this.orphanTasks = {};
         this.orphanSubtasks = {};
+    }
+
+    getGoalIndexCard(lookupRef: refId): IGoalIndexCard {
+        return this.goalIndexCards[lookupRef];
     }
 
     getGoalUUID(goalName: string): UUID {
@@ -168,9 +173,7 @@ export class IndexCardManager {
 
         // Now that all this relevant index cards have been loaded they
         // can be used to build the downstream links of each card type
-        this.buildDownstreamLinks();
-        this.buildInterdependencies();
-
+        this.buildDownstreamLinks();   
     }
 
     private buildDownstreamLinks(): void {
@@ -196,12 +199,6 @@ export class IndexCardManager {
             if (! goalRefId.isNullUUID())
                 this.goalIndexCards[goalRefId.getRefId()].downStreamLinks.push(projectIndexCard.refId);
         }
-    }
-
-    private buildInterdependencies(): void
-    {
-        // Pass the date value UP the hierarchy as these are set by the tasks/actions
-
     }
 
     private delete(indexCardName: string, refLookup: Record<string, UUID>, 
@@ -262,5 +259,36 @@ export class IndexCardManager {
 
         if (await this.renameCard(oldName, newFile, this.subtaskRefLookup, this.subtaskIndexCards))
             return;
+    }
+
+    setCategoryTag(indexCard: IPlanningIndexCard): void {
+        let parentUUID: UUID = new UUID(false);
+        let upstreamIndexCard: IPlanningIndexCard | null = null;
+        
+        switch (indexCard.identTag) {
+            case identTags.PLANNING_PROJECT :
+                parentUUID = (<IProjectIndexCard> indexCard).parentGoalRefId;
+                if (! parentUUID.isNullUUID()) {
+                    upstreamIndexCard = this.goalIndexCards[parentUUID.getRefId()];
+                }
+                break;
+
+            case identTags.PLANNING_TASK :
+                parentUUID = (<ITaskIndexCard> indexCard).parentProjectRefId;
+                if (! parentUUID.isNullUUID()) {
+                    upstreamIndexCard = this.projectIndexCards[parentUUID.getRefId()];
+                }
+                break;
+
+            case identTags.PLANNING_SUBTASK :
+                parentUUID = (<ISubtaskIndexCard> indexCard).parentTaskRefId;
+                if (! parentUUID.isNullUUID()) {
+                    upstreamIndexCard = this.taskIndexCards[parentUUID.getRefId()];
+                }
+                break;
+        }
+        if (upstreamIndexCard != null) {
+            indexCard.categoryTag = upstreamIndexCard.categoryTag;
+        }
     }
 }
