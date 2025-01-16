@@ -2,6 +2,8 @@ export interface IDictionary<T> {
     [key: string]: T;
 }
 
+export const nullDateTimestamp = 0;
+
 export const Ident = {
     GOAL: 0,
     PROJECT: 1,
