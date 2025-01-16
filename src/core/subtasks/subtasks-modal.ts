@@ -131,6 +131,17 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 this.subtaskToggleSection,
                 this.buttonsSection,
             ])
+
+            this.disable([
+                this.nameSection,
+                this.parentSection,
+                this.categoryTagSection,
+                this.statusTagSection,
+                this.targetDateSection,
+                this.expectedDateSection,
+                this.completedDateSection,
+                this.userTagsSection,
+            ]);
         }
         this.showCurrentValues(this.subtaskIndexCard);
     }
