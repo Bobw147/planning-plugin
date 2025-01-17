@@ -183,22 +183,29 @@ export class IndexCardManager {
             const subTaskIndexCard = <SubtaskIndexCard> this.subtaskIndexCards[subTaskIndexCardRefId];
             const taskRefId: UUID = new UUID(false, subTaskIndexCard.parentTaskRefId.getValue());
             if (! taskRefId.isNullUUID())
-                this.taskIndexCards[taskRefId.getRefId()].downStreamLinks.push(subTaskIndexCard.refId);
+                this.taskIndexCards[taskRefId.getRefId()].downStreamLinks[subTaskIndexCard.refId.getRefId()] = subTaskIndexCard;
         }
 
         for (const taskIndexCardRefId in this.taskIndexCards) {
             const taskIndexCard = <TaskIndexCard> this.taskIndexCards[taskIndexCardRefId];
             const projectRefId: UUID = new UUID(false, taskIndexCard.parentProjectRefId.getValue());
             if (! projectRefId.isNullUUID())
-                this.projectIndexCards[projectRefId.getRefId()].downStreamLinks.push(taskIndexCard.refId);
+                this.projectIndexCards[projectRefId.getRefId()].downStreamLinks[taskIndexCard.refId.getRefId()] = taskIndexCard;
         }
 
         for (const projectIndexCardRefId in this.projectIndexCards) {
             const projectIndexCard = <ProjectIndexCard> this.projectIndexCards[projectIndexCardRefId];
             const goalRefId: UUID = new UUID(false, projectIndexCard.parentGoalRefId.getValue());
             if (! goalRefId.isNullUUID())
-                this.goalIndexCards[goalRefId.getRefId()].downStreamLinks.push(projectIndexCard.refId);
+                this.goalIndexCards[goalRefId.getRefId()].downStreamLinks[projectIndexCard.refId.getRefId()] = projectIndexCard;
         }
+    }
+
+    updateDateDependencies(): void {
+        // This is done top down
+        Object.entries(this.goalIndexCards).forEach(([goalRefId, goalIndexCard]) => {
+            goalIndexCard.updateDateDependencies();
+        });
     }
 
     private delete(indexCardName: string, refLookup: Record<string, UUID>, 
