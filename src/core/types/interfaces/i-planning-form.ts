@@ -8,14 +8,14 @@ export interface IPlanningForm {
     configureForIndexCardMode(indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void>;
     updateIndexCard(indexCard: IPlanningIndexCard): void;
 
-    get nameSection(): Setting | undefined;
-    get parentSection(): Setting | undefined;
-    get subtaskToggleSection(): Setting | undefined;
-    get categoryTagSection(): Setting | undefined;
-    get statusTagSection(): Setting | undefined;
-    get targetDateSection(): Setting | undefined;
-    get expectedDateSection(): Setting | undefined;
-    get completedDateSection(): Setting | undefined;
-    get userTagsSection(): Setting | undefined;
-    get buttonsSection(): Setting | undefined;
+    get nameSection(): Setting;
+    get parentSection(): Setting;
+    get subtaskToggleSection(): Setting;
+    get categoryTagSection(): Setting;
+    get statusTagSection(): Setting;
+    get targetDateSection(): Setting;
+    get expectedDateSection(): Setting;
+    get completedDateSection(): Setting;
+    get userTagsSection(): Setting;
+    get buttonsSection(): Setting;
 }

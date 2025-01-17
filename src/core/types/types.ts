@@ -3,6 +3,7 @@ export interface IDictionary<T> {
 }
 
 export const nullDateTimestamp = 0;
+export const nullDate = new Date(nullDateTimestamp);
 
 export const Ident = {
     GOAL: 0,

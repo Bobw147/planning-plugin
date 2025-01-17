@@ -31,17 +31,16 @@ export class TasksModal extends PlanningModal implements IModalForm{
     }
 
     open(): void {
-        this.contentEl.empty();
         super.open();
-        super.buildForm(this.contentEl);
 
         if (this.displayMode == DisplayMode.CREATE_MODE) {
             this.setTitle(translate(UserMessageId.CREATE_TASK_TITLE));
             
             this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_CREATE));
             this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_DESCRIPTION_CREATE));
+            this.nameSection?.addText(()=>{});
 
-            (this.parentSection as Setting)
+            this.parentSection
                 .setName(translate(UserMessageId.TASK_PARENT_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.TASK_PARENT_DESCRIPTION_CREATE))
                 .addDropdown(dropdown =>
@@ -52,8 +51,7 @@ export class TasksModal extends PlanningModal implements IModalForm{
                     )
                 );
 
-
-            (this.subtaskToggleSection as Setting)
+            this.subtaskToggleSection
                 .setName(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_LABEL_CREATE))
                 .setDesc(translate(UserMessageId.TASK_SUBTASK_CHECKBOX_DESCRIPTION_CREATE))
                 .addToggle(toggle =>
@@ -64,44 +62,55 @@ export class TasksModal extends PlanningModal implements IModalForm{
                             this.onSwitchToSubtaskMode(this.taskIndexCard);
                         })
                 );
-
-
+    
             this.statusTagSection?.setName(translate(UserMessageId.TASK_STATUS_LABEL_CREATE));
             this.statusTagSection?.setDesc(translate(UserMessageId.TASK_STATUS_DESCRIPTION_CREATE));
-
+            this.statusTagSection.addDropdown(dropdownComponent =>
+                this.addOptions(dropdownComponent, this.settings.statusTags, '', true)
+            )
+    
             this.targetDateSection?.setName(translate(UserMessageId.TASK_TARGET_DATE_LABEL_CREATE));
             this.targetDateSection?.setDesc(translate(UserMessageId.TASK_TARGET_DATE_DESCRIPTION_CREATE));
+            this.targetDateSection.addText(text =>   
+                text.inputEl.setAttr('type', 'date')
+            );
+    
+            this.buttonsSection.addButton(button =>
+                button
+                    .setButtonText(translate(UserMessageId.CREATE_AND_OPEN_BUTTON_TEXT))
+                    .onClick(async () => {
+                        this.updateIndexCard(this.taskIndexCard);
+                        this.onSubmit(true, true, this.app, this.settings);
+                    })
+            )
+            .addButton(button =>
+                button
+                    .setButtonText(translate(UserMessageId.CREATE_ONLY_BUTTON_TEXT))
+                    .onClick(async () => {
+                        this.updateIndexCard(this.taskIndexCard);
+                        this.onSubmit(true, false, this.app, this.settings);
+                    })
+            )
+            .addButton(button =>
+                button
+                    .setButtonText(translate(UserMessageId.CANCEL_BUTTON_TEXT))
+                    .onClick(async () => {
+                        this.onSubmit(false, false, this.app, this.settings);
+                    })
+            );
 
             this.hide([
                 this.categoryTagSection,
                 this.expectedDateSection,
                 this.completedDateSection,
             ]);
-
-            if (this.buttonsSection !== undefined) {
-                //  Add a handler to the 'Create & Open' button
-                (this.buttonsSection.components[zerothItem] as ButtonComponent).onClick(async () => {
-                    this.updateIndexCard(this.taskIndexCard);
-                    this.onSubmit(true, true, this.app, this.settings);
-                });
-
-                //  Add a handler to the 'Create' button
-                (this.buttonsSection.components[1] as ButtonComponent).onClick(async () => {
-                    this.updateIndexCard(this.taskIndexCard);
-                    this.onSubmit(true, false, this.app, this.settings);
-                });
-                
-                //  Add a handler to the 'Cancel' button
-                (this.buttonsSection.components[2] as ButtonComponent).onClick(async () => {
-                    this.onSubmit(false, false, this.app, this.settings);
-                });
-            }
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
             this.setTitle(translate(UserMessageId.TASK_INDEX_CARD_TITLE));
 
             this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_IC));
             this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_LABEL_DESCRIPTION_IC))
+            this.nameSection?.addText(()=>{});
 
             const parentSetting: Setting | undefined = this._parentSection
             parentSetting?.setName(translate(UserMessageId.TASK_PARENT_LABEL_IC))
@@ -116,18 +125,33 @@ export class TasksModal extends PlanningModal implements IModalForm{
 
             this.categoryTagSection?.setName(translate(UserMessageId.TASK_CATEGORY_LABEL_IC));
             this.categoryTagSection?.setDesc(translate(UserMessageId.TASK_CATEGORY_DESCRIPTION_IC));
+            this.categoryTagSection.addDropdown(dropdownComponent =>
+                super.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
+            );
 
             this.statusTagSection?.setName(translate(UserMessageId.TASK_STATUS_LABEL_IC));
             this.statusTagSection?.setDesc(translate(UserMessageId.TASK_STATUS_DESCRIPTION_IC))
+            this.statusTagSection.addDropdown(dropdownComponent =>
+                super.addOptions(dropdownComponent, this.settings.statusTags, '', true)
+            )
 
             this.targetDateSection?.setName(translate(UserMessageId.TASK_TARGET_DATE_LABEL_IC));
             this.targetDateSection?.setDesc(translate(UserMessageId.TASK_TARGET_DATE_DESCRIPTION_IC));
+            this.targetDateSection.addText(text =>   
+                text.inputEl.setAttr('type', 'date')
+            );
 
             this.expectedDateSection?.setName(translate(UserMessageId.TASK_EXPECTED_DATE_LABEL_IC));
             this.expectedDateSection?.setDesc(translate(UserMessageId.TASK_EXPECTED_DATE_DESCRIPTION_IC));
+            this.expectedDateSection.addText(text =>   
+                text.inputEl.setAttr('type', 'date')
+            );
 
             this.completedDateSection?.setName(translate(UserMessageId.TASK_COMPLETED_DATE_LABEL_IC));
             this.completedDateSection?.setDesc(translate(UserMessageId.TASK_COMPLETED_DATE_DESCRIPTION_IC));
+            this.completedDateSection.addText(text =>   
+                text.inputEl.setAttr('type', 'date')
+            );
     
             this.hide([
                 this.subtaskToggleSection,
@@ -150,15 +174,12 @@ export class TasksModal extends PlanningModal implements IModalForm{
         
     showCurrentValues(indexCard: ITaskIndexCard): void {
         super.showCurrentValues(indexCard);
-        if (this.parentSection !== undefined)
-            (this.parentSection.components[zerothItem] as DropdownComponent)
-                .setValue(indexCard.parentProjectRefId.getRefId())
+        (this.parentSection.components[zerothItem] as DropdownComponent)
+            .setValue(indexCard.parentProjectRefId.getRefId())
     }
     
     updateIndexCard(indexCard: ITaskIndexCard): void {
         super.updateIndexCard(indexCard);
-        if ((this.parentSection !== undefined)) {
-            indexCard.parentProjectRefId = new UUID(false, (this.parentSection.components[zerothItem] as DropdownComponent).getValue() as uuid);
-        }
+        indexCard.parentProjectRefId = new UUID(false, (this.parentSection.components[zerothItem] as DropdownComponent).getValue() as uuid);
     }
 }

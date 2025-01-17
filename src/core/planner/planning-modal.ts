@@ -9,67 +9,79 @@ import { IndexCardManager } from '../planner/index-card-manager';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { emptyString, IDictionary, zerothItem } from '../types/types';
+import { emptyString, IDictionary, nullDate, nullDateTimestamp, zerothItem } from '../types/types';
 import { FieldNames } from './planning-index-card';
 
 export abstract class PlanningModal extends Modal implements IModalForm {
-    public app: App;
     protected settings: Settings;
     protected indexCardManager: IndexCardManager;
-    private _nameSection?: Setting;
-    protected _parentSection?: Setting;
-    protected _subtaskToggleSection?: Setting;
-    private _categoryTagSection?: Setting;
-    private _statusTagSection?: Setting;
-    private _targetDateSection?: Setting;
-    private _expectedDateSection?: Setting;
-    private _completedDateSection?: Setting;
-    private _userTagsSection?: Setting;
-    private _buttonsSection?: Setting;
+    private _nameSection: Setting;
+    protected _parentSection: Setting;
+    protected _subtaskToggleSection: Setting;
+    private _categoryTagSection: Setting;
+    private _statusTagSection: Setting;
+    private _targetDateSection: Setting;
+    private _expectedDateSection: Setting;
+    private _completedDateSection: Setting;
+    private _userTagsSection: Setting;
+    private _buttonsSection: Setting;
 
     constructor(app: App, settings: Settings, indexCardManager: IndexCardManager) {
         super(app);
-        this.app = app;
         this.settings = settings;
         this.indexCardManager = indexCardManager;
+
+        // The form component section placeholders MUST be in the sequnce they appear in the forms.
+        this.contentEl.empty();
+        this._nameSection = new Setting(this.contentEl);
+        this._parentSection = new Setting(this.contentEl);
+        this._subtaskToggleSection = new Setting(this.contentEl);
+        this._categoryTagSection = new Setting(this.contentEl);
+        this._statusTagSection = new Setting(this.contentEl);
+        this._targetDateSection = new Setting(this.contentEl);
+        this._expectedDateSection = new Setting(this.contentEl);
+        this._completedDateSection = new Setting(this.contentEl);
+        this._userTagsSection = new Setting(this.contentEl);
+        this._buttonsSection = new Setting(this.contentEl);
     }
 
-    get nameSection(): Setting | undefined {
+    get nameSection(): Setting {
         return this._nameSection;
     }
 
-    get parentSection(): Setting | undefined{
+    get parentSection(): Setting {
         return this._parentSection;
     }
 
-    get subtaskToggleSection(): Setting | undefined {
+    get subtaskToggleSection(): Setting {
         return this._subtaskToggleSection;
     }
 
-    get categoryTagSection(): Setting | undefined {
+    get categoryTagSection(): Setting {
         return this._categoryTagSection;
     }
 
-    get statusTagSection(): Setting | undefined {
+    get statusTagSection(): Setting {
         return this._statusTagSection;
     }
 
-    get targetDateSection(): Setting | undefined {
+    get targetDateSection(): Setting {
         return this._targetDateSection;
     }
 
-    get expectedDateSection(): Setting | undefined {
+    get expectedDateSection(): Setting {
         return this._expectedDateSection;
     }
 
-    get completedDateSection(): Setting | undefined{
+    get completedDateSection(): Setting {
         return this._completedDateSection;
     }
 
-    get userTagsSection(): Setting | undefined {
+    get userTagsSection(): Setting {
         return this._userTagsSection;
     }
-    get buttonsSection(): Setting | undefined {
+
+    get buttonsSection(): Setting {
         return this._buttonsSection;
     }
     
@@ -92,82 +104,24 @@ export abstract class PlanningModal extends Modal implements IModalForm {
         });
     }
 
-    private addOptions(dropdown: DropdownComponent, optionList: string[], selectedOption: string, clearFirst: boolean): void {
+    protected addOptions(dropdown: DropdownComponent, optionList: string[], selectedOption: string, clearFirst: boolean): void {
         if (clearFirst)
             dropdown.selectEl.empty();
     
-        let index: number = 0;
         optionList.forEach((option) => {
             dropdown.addOption(option, option)
-            if (option == selectedOption)
-//                option.selectedIndex = index;
-            index++;
         });
     }
 
-    buildForm(parent: HTMLElement): void{
-        // Put all of the form together regardless of how it is being used
-        this._nameSection = new Setting(parent)
-            .addText(text =>
-                text
-            );
-
-        // Create a parentSection dropdown setting as a hierarchical placeholder.
-        // It will be initialised as required in a derived modal 
-        this._parentSection = new Setting(parent);
-
-        // Ditto the toggle switch
-        this._subtaskToggleSection = new Setting(parent);
-
-        this._categoryTagSection = new Setting(parent)
-            .addDropdown(dropdownComponent =>
-                this.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
-        );
-
-        this._statusTagSection = new Setting(parent)
-            .addDropdown(dropdownComponent =>
-                this.addOptions(dropdownComponent, this.settings.statusTags, '', true)
-            )
-
-        this._targetDateSection = new Setting(parent)
-            .addText(text =>   
-                text.inputEl.setAttr('type', 'date')
-            );
-
-        this._expectedDateSection = new Setting(parent)
-            .addText(text =>
-                text.inputEl.setAttribute('type', 'date')
-            );
-
-        this._completedDateSection = new Setting(parent)
-            .addText(text =>
-                text.inputEl.setAttribute('type', 'date')
-            );
-
-        this._buttonsSection = new Setting(parent)
-            .addButton(button =>
-                button
-                    .setButtonText(translate(UserMessageId.CREATE_AND_OPEN_BUTTON_TEXT))
-            )
-            .addButton(button =>
-                button
-                    .setButtonText(translate(UserMessageId.CREATE_ONLY_BUTTON_TEXT))
-            )
-            .addButton(button =>
-                button
-                    .setButtonText(translate(UserMessageId.CANCEL_BUTTON_TEXT))
-            );
-    }
-
-    disable(settings: Array<Setting | undefined>): void {
-        settings.forEach((setting: Setting | undefined) => {
-            setting?.setDisabled(true);
+    disable(settings: Array<Setting>): void {
+        settings.forEach((setting: Setting) => {
+            setting.setDisabled(true);
         })
     }
 
-    hide(settings:Array<Setting | undefined>): void {
-        settings.forEach((setting: Setting | undefined) => {
-            setting?.settingEl.hide();
+    hide(settings:Array<Setting>): void {
+        settings.forEach((setting: Setting) => {
+            setting.settingEl.hide();
         })
     }
 
@@ -176,51 +130,44 @@ export abstract class PlanningModal extends Modal implements IModalForm {
     }
 
     showCurrentValues(indexCard: IPlanningIndexCard): void {
-        if (this.nameSection !== undefined)
-            (this.nameSection.components[zerothItem] as TextComponent).setValue(indexCard.name);
 
-        if (this.categoryTagSection !== undefined)
-            (this.categoryTagSection.components[zerothItem] as DropdownComponent).setValue(indexCard.categoryTag);
+        (this.nameSection.components[zerothItem] as TextComponent).setValue(indexCard.name);
+        (this.categoryTagSection.components[zerothItem] as DropdownComponent).setValue(indexCard.categoryTag);
+        (this.statusTagSection.components[zerothItem] as DropdownComponent).setValue(indexCard.statusTag);
 
-        if (this.statusTagSection !== undefined)
-            (this.statusTagSection.components[zerothItem] as DropdownComponent).setValue(indexCard.statusTag);
+        (this.targetDateSection.components[zerothItem] as TextComponent)
+            .setValue((indexCard.targetDate != nullDate) ? dateFormatter(indexCard.targetDate) : emptyString);
 
-        if (this.targetDateSection !== undefined && indexCard.targetDate)
-            (this.targetDateSection.components[zerothItem] as TextComponent)
-            .setValue((indexCard.targetDate != null) ? dateFormatter(indexCard.targetDate) : emptyString);
+        (this.expectedDateSection.components[zerothItem] as TextComponent)
+            .setValue((indexCard.expectedDate != nullDate) ? dateFormatter(indexCard.expectedDate) : emptyString);
 
-        if (this.expectedDateSection !== undefined && indexCard.expectedDate)
-            (this.expectedDateSection.components[zerothItem] as TextComponent)
-            .setValue((indexCard.expectedDate != null) ? dateFormatter(indexCard.expectedDate) : emptyString);
-
-        if (this.completedDateSection !== undefined && indexCard.completedDate)
-            (this.completedDateSection.components[zerothItem] as TextComponent)
-            .setValue((indexCard.completedDate != null) ? dateFormatter(indexCard.completedDate) : emptyString);
+        (this.completedDateSection.components[zerothItem] as TextComponent)
+            .setValue((indexCard.completedDate != nullDate) ? dateFormatter(indexCard.completedDate) : emptyString);
     }
 
     updateIndexCard(indexCard: IPlanningIndexCard): void {
         indexCard.name = (this.nameSection !== undefined) 
             ? (this.nameSection.components[zerothItem] as TextComponent).getValue() : emptyString;
 
-        indexCard.categoryTag = (this.categoryTagSection !== undefined)
+        indexCard.categoryTag = (this.categoryTagSection.components.length > 0)
             ? (this.categoryTagSection.components[zerothItem] as DropdownComponent).getValue() : emptyString;
 
-        indexCard.statusTag = (this.statusTagSection !== undefined)
+        indexCard.statusTag = (this.statusTagSection.components.length > 0)
             ? (this.statusTagSection.components[zerothItem] as DropdownComponent).getValue() : emptyString ;
                 
         if (this.targetDateSection !== undefined) {
             const targetDate = (this.targetDateSection.components[zerothItem] as TextComponent).getValue();
-            indexCard.targetDate = (targetDate != emptyString) ? new Date(targetDate) : null;
+            indexCard.targetDate = (targetDate != emptyString) ? new Date(targetDate) : new Date(nullDateTimestamp);
         }
                 
-        if (this.expectedDateSection !== undefined) {
+        if (this.expectedDateSection.components.length > 0) {
             const expectedDate = (this.expectedDateSection.components[zerothItem] as TextComponent).getValue();
-            indexCard.expectedDate = (expectedDate != emptyString) ? new Date(expectedDate) : null;
+            indexCard.expectedDate = (expectedDate != emptyString) ? new Date(expectedDate) : new Date(nullDateTimestamp);
         }
                 
-        if (this.completedDateSection !== undefined) {
+        if (this.completedDateSection.components.length > 0) {
             const completedDate = (this.completedDateSection.components[zerothItem] as TextComponent).getValue();
-            indexCard.completedDate = (completedDate != emptyString) ? new Date(completedDate) : null;
+            indexCard.completedDate = (completedDate != emptyString) ? new Date(completedDate) : new Date(nullDateTimestamp);
         }
     }
 }

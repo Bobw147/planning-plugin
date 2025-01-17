@@ -58,4 +58,10 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
                 frontMatter[taskFieldNames.PARENT_PROJECT_REFID] = this.parentProjectRefId.getRefId();
         })
     }
+    
+    refreshExpectedDates(subtask: ISubtaskIndexCard): void {
+        if (subtask.expectedDate > this.expectedDate) {
+            this.expectedDate = subtask.expectedDate;
+        }
+    }
 }
