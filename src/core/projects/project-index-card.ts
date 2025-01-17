@@ -2,8 +2,9 @@ import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { UUID } from 'src/utils/uuid-generator';
 
 import { PlanningIndexCard } from '../planner/planning-index-card';
+import { TaskIndexCard } from '../tasks/task-index-card';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
-import { identTags } from '../types/types';
+import { identTags, nullDate } from '../types/types';
 
 const projectFieldNames = {
     PARENT_GOAL_REFID: "plparent"
@@ -44,5 +45,22 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
             if (frontMatter)
                 frontMatter[projectFieldNames.PARENT_GOAL_REFID] = this.parentGoalRefId.getRefId();
         });
+    }
+
+    updateExpectedDate() : void {
+        let mostDistantDate = nullDate;
+        for (const taskRefId in this.downStreamLinks) {
+            const taskIndexCard: TaskIndexCard = <TaskIndexCard> this.downStreamLinks[taskRefId];
+            
+            // Update this task index cards expected date from its downstream links
+            taskIndexCard.updateExpectedDate();
+
+            // See if it is the latest running so far
+            if (taskIndexCard.expectedDate > mostDistantDate)
+                mostDistantDate = taskIndexCard.expectedDate;
+        }
+        if (this.expectedDate > mostDistantDate) {
+            this.expectedDate = mostDistantDate;
+        }    
     }
 }

@@ -59,4 +59,6 @@ export class SubtaskIndexCard extends PlanningIndexCard implements ISubtaskIndex
                 frontMatter[SubtaskFieldNames.PARENT_TASK_REFID] = this.parentTaskRefId.getRefId();
         })
     }
+
+    updateExpectedDate(): void {}
 }

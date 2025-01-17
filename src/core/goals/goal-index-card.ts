@@ -1,8 +1,10 @@
 import { FrontMatterCache } from 'obsidian';
 
 import { PlanningIndexCard } from '../planner/planning-index-card';
+import { ProjectIndexCard } from '../projects/project-index-card';
 import { IGoalIndexCard } from '../types/interfaces/i-goal-index-card';
-import { identTags } from '../types/types';
+import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
+import { identTags, nullDate } from '../types/types';
 
 export class GoalIndexCard extends PlanningIndexCard implements IGoalIndexCard {
     constructor(){
@@ -11,5 +13,22 @@ export class GoalIndexCard extends PlanningIndexCard implements IGoalIndexCard {
 
     loadFromFrontMatter(frontMatter: FrontMatterCache): void {
         super.loadFromFrontMatter(frontMatter);
+    }
+
+    updateExpectedDate() : void {
+        let mostDistantDate = nullDate;
+        for (const projectRefId in this.downStreamLinks) {
+            const projectIndexCard: ProjectIndexCard = <ProjectIndexCard> this.downStreamLinks[projectRefId];
+            
+            // Update this project index cards expected date from its downstream links
+            projectIndexCard.updateExpectedDate();
+
+            // See if it is the latest running so far
+            if (projectIndexCard.expectedDate > mostDistantDate)
+                mostDistantDate = projectIndexCard.expectedDate;
+        }
+        if (this.expectedDate > mostDistantDate) {
+            this.expectedDate = mostDistantDate;
+        }    
     }
 }

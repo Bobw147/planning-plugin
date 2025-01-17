@@ -2,9 +2,10 @@ import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { UUID } from 'src/utils/uuid-generator';
 
 import { PlanningIndexCard } from '../planner/planning-index-card';
+import { SubtaskIndexCard } from '../subtasks/subtask-index-card';
 import { ISubtaskIndexCard } from '../types/interfaces/i-subtask-index-card';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { identTags } from '../types/types';
+import { identTags, nullDate } from '../types/types';
 
 const taskFieldNames = {
     PARENT_PROJECT_REFID: "plparent"
@@ -63,5 +64,22 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
         if (subtask.expectedDate > this.expectedDate) {
             this.expectedDate = subtask.expectedDate;
         }
+    }
+
+    updateExpectedDate() : void {
+        let mostDistantDate = nullDate;
+        for (const subtaskRefId in this.downStreamLinks) {
+            const subtaskIndexCard: SubtaskIndexCard = <SubtaskIndexCard> this.downStreamLinks[subtaskRefId];
+            
+            // Update this task index cards expected date from its downstream links
+            subtaskIndexCard.updateExpectedDate();
+
+            // See if it is the latest running so far
+            if (subtaskIndexCard.expectedDate > mostDistantDate)
+                mostDistantDate = subtaskIndexCard.expectedDate;
+        }
+        if (this.expectedDate > mostDistantDate) {
+            this.expectedDate = mostDistantDate;
+        }    
     }
 }

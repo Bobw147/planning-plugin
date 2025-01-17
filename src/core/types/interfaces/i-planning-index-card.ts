@@ -1,10 +1,8 @@
 import { FileManager, TFile } from 'obsidian';
-import { UUID } from 'src/utils/uuid-generator';
+import { PlanningIndexCard } from 'src/core/planner/planning-index-card';
+import { refId, UUID } from 'src/utils/uuid-generator';
 
 export interface IPlanningIndexCard{
-
-    load(fileManager: FileManager, file: TFile): Promise<void>;
-    save(fileManager: FileManager, file: TFile): Promise<void>;
 
     get refId(): UUID;
 
@@ -34,8 +32,12 @@ export interface IPlanningIndexCard{
 
     get upstreamLinks(): UUID[];
 
-    get downStreamLinks():UUID[];
+    get downStreamLinks(): Record<refId, PlanningIndexCard>;
 
     get userTags(): string[];
     set userTags(value: string[]);
+
+    load(fileManager: FileManager, file: TFile): Promise<void>;
+    save(fileManager: FileManager, file: TFile): Promise<void>;
+    updateExpectedDate(): void;
 }

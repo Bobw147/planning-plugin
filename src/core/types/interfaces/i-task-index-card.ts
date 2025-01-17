@@ -11,5 +11,4 @@ export interface ITaskIndexCard extends IPlanningIndexCard {
 
     copyInto(subTaskIndexCard: ISubtaskIndexCard): void;
     loadFromFrontMatter(frontMatter: FrontMatterCache): void;
-    refreshDates(subtask: ISubtaskIndexCard): void;
 }

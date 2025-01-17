@@ -4,7 +4,7 @@ import {
 } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 import { getBasename } from 'src/utils/utils';
-import { refId, uuid, UUID } from 'src/utils/uuid-generator';
+import { refId, UUID } from 'src/utils/uuid-generator';
 
 import { GoalIndexCard } from '../goals/goal-index-card';
 import { ProjectIndexCard } from '../projects/project-index-card';
@@ -202,9 +202,10 @@ export class IndexCardManager {
     }
 
     updateDateDependencies(): void {
-        // This is done top down
+        // This is done top down. The single call will also update dowmstream project and task
+        // dependencies
         Object.entries(this.goalIndexCards).forEach(([goalRefId, goalIndexCard]) => {
-            goalIndexCard.updateDateDependencies();
+            goalIndexCard.updateExpectedDate();
         });
     }
 

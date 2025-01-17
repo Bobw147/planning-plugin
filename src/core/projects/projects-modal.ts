@@ -1,6 +1,6 @@
 import { App, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
-import { uuid, UUID } from 'src/utils/uuid-generator';
+import { refId, uuid, UUID } from 'src/utils/uuid-generator';
 
 import { IndexCardManager } from '../planner/index-card-manager';
 import { PlanningModal } from '../planner/planning-modal';

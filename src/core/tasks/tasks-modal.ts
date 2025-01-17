@@ -1,4 +1,4 @@
-import { App, ButtonComponent, DropdownComponent, Setting } from 'obsidian';
+import { App, DropdownComponent, Setting } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 import { uuid, UUID } from 'src/utils/uuid-generator';
 
@@ -58,6 +58,7 @@ export class TasksModal extends PlanningModal implements IModalForm{
                     toggle
                         .setValue(false)
                         .onChange(() => {
+                            this.indexCardManager.updateDateDependencies();
                             this.updateIndexCard(this.taskIndexCard);
                             this.onSwitchToSubtaskMode(this.taskIndexCard);
                         })

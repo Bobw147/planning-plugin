@@ -1,6 +1,6 @@
 import { FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { arraycopy } from 'src/utils/utils';
-import { UUID } from 'src/utils/uuid-generator';
+import { refId, UUID } from 'src/utils/uuid-generator';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
@@ -31,7 +31,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _targetDate: Date;
     private _expectedDate: Date;
     private _completedDate: Date;
-    private _downstreamLinks: UUID[];
+    private _downstreamLinks: Record<refId, PlanningIndexCard>;
     private _upstreamLinks: UUID[];
     private _userTags: string[];
 
@@ -45,7 +45,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         this._targetDate = new Date(nullDateTimestamp);
         this._expectedDate = new Date(nullDateTimestamp);
         this._completedDate = new Date(nullDateTimestamp);
-        this._downstreamLinks = [];
+        this._downstreamLinks = {};
         this._upstreamLinks = [];
         this._userTags = [];
     }
@@ -123,7 +123,7 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         return this._upstreamLinks
     }
 
-    get downStreamLinks(): UUID[] {
+    get downStreamLinks(): Record<refId, PlanningIndexCard> {
         return this._downstreamLinks
     }
 
@@ -179,6 +179,8 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
             }
         });
     }
+
+    abstract updateExpectedDate(): void;
 
     _validateTag(tag:string, mustHave: string | null): boolean {
         if (tag === undefined) return false;
