@@ -111,10 +111,18 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
 
             this.nameSection.setName(translate(UserMessageId.SUBTASK_NAME_LABEL_IC));
             this.nameSection.setDesc(translate(UserMessageId.SUBTASK_NAME_LABEL_DESCRIPTION_IC))
-            this.nameSection.addText(()=>{});
+            this.nameSection.addText((text) => {
+                text.onChange((value) => {
+                    this.subtaskIndexCard.name = value;
+                });
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             const parentSetting: Setting | undefined = this._parentSection
-            parentSetting?.setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_IC))
+            parentSetting
+                .setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_IC))
                 .setDesc(translate(UserMessageId.SUBTASK_PARENT_DESCRIPTION_IC))
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK,
@@ -122,38 +130,63 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                             dropdown.addOption(this.indexCardManager.getTaskRefId(name).getRefId(), name);
                         }
                     )
-                );
+                )
+                .addButton(button =>
+                    button.setIcon('lock')
+                )
+    
 
             this.categoryTagSection.setName(translate(UserMessageId.SUBTASK_CATEGORY_LABEL_IC));
             this.categoryTagSection.setDesc(translate(UserMessageId.SUBTASK_CATEGORY_DESCRIPTION_IC));
             this.categoryTagSection.addDropdown(dropdownComponent =>
-                super.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
+                this.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
             );
 
             this.statusTagSection.setName(translate(UserMessageId.SUBTASK_STATUS_LABEL_IC));
             this.statusTagSection.setDesc(translate(UserMessageId.SUBTASK_STATUS_DESCRIPTION_IC))
             this.statusTagSection.addDropdown(dropdownComponent =>
-                super.addOptions(dropdownComponent, this.settings.statusTags, '', true)
+                this.addOptions(dropdownComponent, this.settings.statusTags, '', true)
+            )
+            .addButton(button =>
+                button.setIcon('lock')
             )
 
             this.targetDateSection.setName(translate(UserMessageId.SUBTASK_TARGET_DATE_LABEL_IC));
             this.targetDateSection.setDesc(translate(UserMessageId.SUBTASK_TARGET_DATE_DESCRIPTION_IC));
-            this.targetDateSection.addText(text =>   
-                text.inputEl.setAttr('type', 'date')
-            );
+            this.targetDateSection.addText((text) => {
+                text.onChange((value) => {
+                    text.inputEl.setAttr('type', 'date')
+                    this.subtaskIndexCard.targetDate = new Date(value);
+                });
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.expectedDateSection.setName(translate(UserMessageId.SUBTASK_EXPECTED_DATE_LABEL_IC));
             this.expectedDateSection.setDesc(translate(UserMessageId.SUBTASK_EXPECTED_DATE_DESCRIPTION_IC));
-            this.expectedDateSection.addText(text =>   
+            this.expectedDateSection.addText((text) => {
                 text.inputEl.setAttr('type', 'date')
-            );
+                text.onChange((value) => {
+                    this.subtaskIndexCard.expectedDate = new Date(value);
+                });
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.completedDateSection.setName(translate(UserMessageId.SUBTASK_COMPLETED_DATE_LABEL_IC));
             this.completedDateSection.setDesc(translate(UserMessageId.SUBTASK_COMPLETED_DATE_DESCRIPTION_IC));
-            this.completedDateSection.addText(text =>   
+            this.completedDateSection.addText((text) => {
                 text.inputEl.setAttr('type', 'date')
-            );
-    
+                text.onChange((value) => {
+                    this.subtaskIndexCard.completedDate = new Date(value);
+                });
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
+
             this.hide([
                 this.subtaskToggleSection,
                 this.buttonsSection,

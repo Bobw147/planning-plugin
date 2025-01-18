@@ -92,7 +92,14 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
 
             this.nameSection.setName(translate(UserMessageId.PROJECT_NAME_LABEL_IC));
             this.nameSection.setDesc(translate(UserMessageId.PROJECT_NAME_DESCRIPTION_IC));
-            this.nameSection.addText(()=>{});
+            this.nameSection.addText((text) => {
+                text.onChange((value) => {
+                    this.projectIndexCard.name = value;
+                });
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.parentSection
                 .setName(translate(UserMessageId.PROJECT_PARENT_LABEL_IC))
@@ -103,13 +110,19 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
                             dropdown.addOption(this.indexCardManager.getGoalUUID(name).getRefId(), name);
                         }
                     )
-                );
-
+                )
+                .addButton(button =>
+                    button.setIcon('lock')
+                )
+    
             this.categoryTagSection.setName(translate(UserMessageId.PROJECT_CATEGORY_LABEL_IC));
             this.categoryTagSection.setDesc(translate(UserMessageId.PROJECT_CATEGORY_DESCRIPTION_IC));
             this.categoryTagSection.addDropdown(dropdownComponent =>
                 super.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
-            );
+            )
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.statusTagSection.setName(translate(UserMessageId.PROJECT_STATUS_LABEL_IC));
             this.statusTagSection.setDesc(translate(UserMessageId.PROJECT_STATUS_DESCRIPTION_IC));
@@ -121,7 +134,10 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
             this.targetDateSection.setDesc(translate(UserMessageId.PROJECT_TARGET_DATE_DESCRIPTION_IC));
             this.targetDateSection.addText(text =>   
                 text.inputEl.setAttr('type', 'date')
-            );
+            )
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.expectedDateSection.setName(translate(UserMessageId.PROJECT_EXPECTED_DATE_LABEL_IC));
             this.expectedDateSection.setDesc(translate(UserMessageId.PROJECT_EXPECTED_DATE_DESCRIPTION_IC));

@@ -111,7 +111,14 @@ export class TasksModal extends PlanningModal implements IModalForm{
 
             this.nameSection?.setName(translate(UserMessageId.TASK_NAME_LABEL_IC));
             this.nameSection?.setDesc(translate(UserMessageId.TASK_NAME_LABEL_DESCRIPTION_IC))
-            this.nameSection?.addText(()=>{});
+            this.nameSection.addText((text) => {
+                text.onChange((value) => {
+                    this.taskIndexCard.name = value;
+                });
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             const parentSetting: Setting | undefined = this._parentSection
             parentSetting?.setName(translate(UserMessageId.TASK_PARENT_LABEL_IC))
@@ -122,7 +129,11 @@ export class TasksModal extends PlanningModal implements IModalForm{
                             dropdown.addOption(this.indexCardManager.getProjectRefId(name).getRefId(), name);
                         }
                     )
-                );
+                )
+                .addButton(button =>
+                    button.setIcon('lock')
+                )
+    
 
             this.categoryTagSection?.setName(translate(UserMessageId.TASK_CATEGORY_LABEL_IC));
             this.categoryTagSection?.setDesc(translate(UserMessageId.TASK_CATEGORY_DESCRIPTION_IC));
@@ -135,24 +146,36 @@ export class TasksModal extends PlanningModal implements IModalForm{
             this.statusTagSection.addDropdown(dropdownComponent =>
                 super.addOptions(dropdownComponent, this.settings.statusTags, '', true)
             )
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.targetDateSection?.setName(translate(UserMessageId.TASK_TARGET_DATE_LABEL_IC));
             this.targetDateSection?.setDesc(translate(UserMessageId.TASK_TARGET_DATE_DESCRIPTION_IC));
             this.targetDateSection.addText(text =>   
                 text.inputEl.setAttr('type', 'date')
-            );
+            )
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.expectedDateSection?.setName(translate(UserMessageId.TASK_EXPECTED_DATE_LABEL_IC));
             this.expectedDateSection?.setDesc(translate(UserMessageId.TASK_EXPECTED_DATE_DESCRIPTION_IC));
             this.expectedDateSection.addText(text =>   
                 text.inputEl.setAttr('type', 'date')
-            );
+            )
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.completedDateSection?.setName(translate(UserMessageId.TASK_COMPLETED_DATE_LABEL_IC));
             this.completedDateSection?.setDesc(translate(UserMessageId.TASK_COMPLETED_DATE_DESCRIPTION_IC));
             this.completedDateSection.addText(text =>   
                 text.inputEl.setAttr('type', 'date')
-            );
+            )
+            .addButton(button =>
+                button.setIcon('lock')
+            )
     
             this.hide([
                 this.subtaskToggleSection,

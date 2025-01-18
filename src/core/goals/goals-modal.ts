@@ -1,5 +1,6 @@
 import { App } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
+import { text } from 'stream/consumers';
 
 import { IndexCardManager } from '../planner/index-card-manager';
 import { PlanningModal } from '../planner/planning-modal';
@@ -35,13 +36,14 @@ export class GoalsModal extends PlanningModal implements IModalForm {
             
             this.nameSection.setName(translate(UserMessageId.GOAL_NAME_LABEL_CREATE));
             this.nameSection.setDesc(translate(UserMessageId.GOAL_NAME_DESCRIPTION_CREATE));
-            this.nameSection.addText(()=>{});
+            this.nameSection.addText((text) => {});
 
             this.categoryTagSection.setName(translate(UserMessageId.GOAL_CATEGORY_LABEL_CREATE));
             this.categoryTagSection.setDesc(translate(UserMessageId.GOAL_CATEGORY_DESCRIPTION_CREATE));
-            this.categoryTagSection.addDropdown(dropdownComponent =>
-                super.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
-            );
+            this.categoryTagSection.addDropdown(dropdownComponent => {
+                this.addOptions(dropdownComponent, this.settings.categoryTags, '', true);
+            });
+
 
             this.targetDateSection.setName(translate(UserMessageId.GOAL_TARGET_DATE_LABEL_CREATE));
             this.targetDateSection.setDesc(translate(UserMessageId.GOAL_TARGET_DATE_DESCRIPTION_CREATE));
@@ -86,26 +88,51 @@ export class GoalsModal extends PlanningModal implements IModalForm {
 
             this.nameSection.setName(translate(UserMessageId.GOAL_NAME_LABEL_IC));
             this.nameSection.setDesc(translate(UserMessageId.GOAL_NAME_DESCRIPTION_IC));
-            this.nameSection.addText(()=>{});
+            this.nameSection.addText((text) => {
+                text.onChange((value) => {
+                    this.goalIndexCard.name = value;
+                });
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
 
             this.categoryTagSection.setName(translate(UserMessageId.GOAL_CATEGORY_LABEL_IC));
             this.categoryTagSection.setDesc(translate(UserMessageId.GOAL_CATEGORY_DESCRIPTION_IC));
-            this.categoryTagSection.addDropdown(dropdownComponent =>
-                super.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
-            );
-
+            this.categoryTagSection.addDropdown(dropdownComponent => {
+                this.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
+                dropdownComponent.onChange((value) => {
+                    this.goalIndexCard.categoryTag = value;
+                })
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
+ 
             this.statusTagSection.setName(translate(UserMessageId.GOAL_STATUS_LABEL_IC));
             this.statusTagSection.setDesc(translate(UserMessageId.GOAL_STATUS_DESCRIPTION_IC));
-            this.statusTagSection.addDropdown(dropdownComponent =>
-                super.addOptions(dropdownComponent, this.settings.statusTags, '', true)
+            this.statusTagSection.addDropdown(dropdownComponent => {
+                this.addOptions(dropdownComponent, this.settings.statusTags, '', true)
+                dropdownComponent.onChange((value) => {
+                    this.goalIndexCard.statusTag = value;
+                })
+            })
+            .addButton(button =>
+                button.setIcon('lock')
             )
 
             this.targetDateSection.setName(translate(UserMessageId.GOAL_TARGET_DATE_LABEL_IC));
             this.targetDateSection.setDesc(translate(UserMessageId.GOAL_TARGET_DATE_DESCRIPTION_IC));
-            this.targetDateSection.addText(text =>   
+            this.targetDateSection.addText(text => {
                 text.inputEl.setAttr('type', 'date')
-            );
-
+                text.onChange((value) => { 
+                    this.goalIndexCard.targetDate = new Date(value);
+                })
+            })
+            .addButton(button =>
+                button.setIcon('lock')
+            )
+    
             this.expectedDateSection.setName(translate(UserMessageId.GOAL_EXPECTED_DATE_LABEL_IC));
             this.expectedDateSection.setDesc(translate(UserMessageId.GOAL_EXPECTED_DATE_DESCRIPTION_IC));
             this.expectedDateSection.addText(text =>   
