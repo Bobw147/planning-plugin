@@ -1,6 +1,6 @@
-import { App } from 'obsidian';
+import { App, TextComponent } from 'obsidian';
+import { LockableInputSetting } from 'src/settings/lockable-settings';
 import { Settings } from 'src/settings/Settings';
-import { text } from 'stream/consumers';
 
 import { IndexCardManager } from '../planner/index-card-manager';
 import { PlanningModal } from '../planner/planning-modal';
@@ -84,17 +84,36 @@ export class GoalsModal extends PlanningModal implements IModalForm {
             ]);
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
+            let nameAccessLocked: boolean;
+            let nameTextComponent: TextComponent;
+
             this.setTitle(translate(UserMessageId.GOAL_INDEX_CARD_TITLE));
 
             this.nameSection.setName(translate(UserMessageId.GOAL_NAME_LABEL_IC));
             this.nameSection.setDesc(translate(UserMessageId.GOAL_NAME_DESCRIPTION_IC));
             this.nameSection.addText((text) => {
+                nameAccessLocked = true;
+                nameTextComponent = text;
+                text.setDisabled(true)
                 text.onChange((value) => {
                     this.goalIndexCard.name = value;
+                    nameTextComponent.setDisabled(false)
                 });
             })
             .addButton(button =>
                 button.setIcon('lock')
+                .onClick(() => {
+                    if (nameAccessLocked) {
+                        button.setIcon('lock-open');
+                        nameAccessLocked = false;
+                        nameTextComponent.setDisabled(false)
+                    }
+                    else {
+                        button.setIcon('lock');
+                        nameAccessLocked = true
+                        nameTextComponent.setDisabled(true);
+                    }
+                })
             )
 
             this.categoryTagSection.setName(translate(UserMessageId.GOAL_CATEGORY_LABEL_IC));
@@ -152,7 +171,6 @@ export class GoalsModal extends PlanningModal implements IModalForm {
             ]);
     
             this.disable([
-                this.nameSection,
                 this.categoryTagSection,
                 this.statusTagSection,
                 this.targetDateSection,

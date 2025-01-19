@@ -2,11 +2,11 @@ import {
     App, CachedMetadata, DropdownComponent, FrontMatterCache, Modal, Setting, TAbstractFile,
     TextComponent, TFile, TFolder, Vault
 } from 'obsidian';
+import { LockableInputSetting } from 'src/settings/lockable-settings';
 import { Settings } from 'src/settings/Settings';
 import { dateFormatter } from 'src/utils/utils';
 
 import { IndexCardManager } from '../planner/index-card-manager';
-import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import { emptyString, IDictionary, nullDate, nullDateTimestamp, zerothItem } from '../types/types';
@@ -33,7 +33,7 @@ export abstract class PlanningModal extends Modal implements IModalForm {
 
         // The form component section placeholders MUST be in the sequnce they appear in the forms.
         this.contentEl.empty();
-        this._nameSection = new Setting(this.contentEl);
+        this._nameSection = new LockableInputSetting(this.contentEl);
         this._parentSection = new Setting(this.contentEl);
         this._subtaskToggleSection = new Setting(this.contentEl);
         this._categoryTagSection = new Setting(this.contentEl);
