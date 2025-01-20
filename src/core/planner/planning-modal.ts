@@ -2,11 +2,12 @@ import {
     App, CachedMetadata, DropdownComponent, FrontMatterCache, Modal, Setting, TAbstractFile,
     TextComponent, TFile, TFolder, Vault
 } from 'obsidian';
-import { LockableDateSetting } from 'src/custom-components/lockable-date-component';
-import { LockableTextSetting } from 'src/custom-components/lockable-text-component';
+import { LockableDateSetting } from 'src/core/custom-components/lockable-date-component';
+import { LockableTextSetting } from 'src/core/custom-components/lockable-text-component';
 import { Settings } from 'src/settings/Settings';
 import { dateFormatter } from 'src/utils/utils';
 
+import { LockableDropdownSetting } from '../custom-components/lockable-dropdown-component';
 import { IndexCardManager } from '../planner/index-card-manager';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
@@ -19,8 +20,8 @@ export abstract class PlanningModal extends Modal implements IModalForm {
     private _nameSection: LockableTextSetting;
     protected _parentSection: Setting;
     protected _subtaskToggleSection: Setting;
-    private _categoryTagSection: Setting;
-    private _statusTagSection: Setting;
+    private _categoryTagSection: LockableDropdownSetting;
+    private _statusTagSection: LockableDropdownSetting;
     private _targetDateSection: LockableDateSetting;
     private _expectedDateSection: LockableDateSetting;
     private _completedDateSection: LockableDateSetting;
@@ -37,8 +38,8 @@ export abstract class PlanningModal extends Modal implements IModalForm {
         this._nameSection = new LockableTextSetting(this.contentEl);
         this._parentSection = new Setting(this.contentEl);
         this._subtaskToggleSection = new Setting(this.contentEl);
-        this._categoryTagSection = new Setting(this.contentEl);
-        this._statusTagSection = new Setting(this.contentEl);
+        this._categoryTagSection = new LockableDropdownSetting(this.contentEl);
+        this._statusTagSection = new LockableDropdownSetting(this.contentEl);
         this._targetDateSection = new LockableDateSetting(this.contentEl);
         this._expectedDateSection = new LockableDateSetting(this.contentEl);
         this._completedDateSection = new LockableDateSetting(this.contentEl);
@@ -59,11 +60,11 @@ export abstract class PlanningModal extends Modal implements IModalForm {
         return this._subtaskToggleSection;
     }
 
-    get categoryTagSection(): Setting {
+    get categoryTagSection(): LockableDropdownSetting {
         return this._categoryTagSection;
     }
 
-    get statusTagSection(): Setting {
+    get statusTagSection(): LockableDropdownSetting {
         return this._statusTagSection;
     }
 
@@ -107,6 +108,7 @@ export abstract class PlanningModal extends Modal implements IModalForm {
     }
 
     protected addOptions(dropdown: DropdownComponent, optionList: string[], selectedOption: string, clearFirst: boolean): void {
+        debugger;
         if (clearFirst)
             dropdown.selectEl.empty();
     

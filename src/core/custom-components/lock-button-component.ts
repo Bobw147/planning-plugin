@@ -1,36 +1,36 @@
-import { ButtonComponent, TextComponent } from 'obsidian';
+import { ButtonComponent, DropdownComponent, TextComponent } from 'obsidian';
 
 export class LockButtonComponent extends ButtonComponent {
     private _isLocked: boolean;
-    private _textComponent: TextComponent;
+    private _lockableComponent: TextComponent | DropdownComponent;
 
-    constructor(container: HTMLElement, textComponent: TextComponent) {
+    constructor(container: HTMLElement, lockableComponent: TextComponent | DropdownComponent) {
         super(container);
-        this._textComponent = textComponent;
+        this._lockableComponent = lockableComponent;
         this._isLocked = true;
         this.lock();
         this.onClick(()=> {
-            this.toggle(this._textComponent);
+            this.toggle(this._lockableComponent);
         })
     }
 
     public lock(): void {
         this._isLocked = true;
         this.setIcon('lock');
-        this._textComponent.setDisabled(true);
+        this._lockableComponent.setDisabled(true);
     }
 
     public unlock(): void {
         this._isLocked = false;
         this.setIcon('lock-open');
-        this._textComponent.setDisabled(false);
+        this._lockableComponent.setDisabled(false);
     }
 
     public isLocked(): boolean {
         return this._isLocked;
     }
 
-    public toggle(textComponent: TextComponent): void {
+    public toggle(lockableComponent: TextComponent | DropdownComponent): void {
         this.isLocked() ? this.unlock() : this.lock();
     }
 }

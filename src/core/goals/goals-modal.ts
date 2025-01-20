@@ -95,27 +95,22 @@ export class GoalsModal extends PlanningModal implements IModalForm {
 
             this.categoryTagSection.setName(translate(UserMessageId.GOAL_CATEGORY_LABEL_IC));
             this.categoryTagSection.setDesc(translate(UserMessageId.GOAL_CATEGORY_DESCRIPTION_IC));
-            this.categoryTagSection.addDropdown(dropdownComponent => {
-                this.addOptions(dropdownComponent, this.settings.categoryTags, '', true)
-                dropdownComponent.onChange((value) => {
+            this.categoryTagSection.addLockableDropdownComponent((dropdown) => {
+                this.addOptions(dropdown, this.settings.categoryTags, '', true)
+                dropdown.onChange((value) => {
+                    debugger;
                     this.goalIndexCard.categoryTag = value;
                 })
             })
-            .addButton(button =>
-                button.setIcon('lock')
-            )
  
             this.statusTagSection.setName(translate(UserMessageId.GOAL_STATUS_LABEL_IC));
             this.statusTagSection.setDesc(translate(UserMessageId.GOAL_STATUS_DESCRIPTION_IC));
-            this.statusTagSection.addDropdown(dropdownComponent => {
-                this.addOptions(dropdownComponent, this.settings.statusTags, '', true)
-                dropdownComponent.onChange((value) => {
+            this.statusTagSection.addLockableDropdownComponent((dropdown) => {
+                this.addOptions(dropdown, this.settings.statusTags, '', true)
+                dropdown.onChange((value) => {
                     this.goalIndexCard.statusTag = value;
                 })
             })
-            .addButton(button =>
-                button.setIcon('lock')
-            )
 
             this.targetDateSection.setName(translate(UserMessageId.GOAL_TARGET_DATE_LABEL_IC));
             this.targetDateSection.setDesc(translate(UserMessageId.GOAL_TARGET_DATE_DESCRIPTION_IC));
@@ -148,8 +143,6 @@ export class GoalsModal extends PlanningModal implements IModalForm {
             ]);
     
             this.disable([
-                this.categoryTagSection,
-                this.statusTagSection,
                 this.userTagsSection,
             ]);
 
