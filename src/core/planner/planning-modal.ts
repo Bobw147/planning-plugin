@@ -2,7 +2,8 @@ import {
     App, CachedMetadata, DropdownComponent, FrontMatterCache, Modal, Setting, TAbstractFile,
     TextComponent, TFile, TFolder, Vault
 } from 'obsidian';
-import { LockableInputSetting } from 'src/settings/lockable-settings';
+import { LockableDateSetting } from 'src/custom-components/lockable-date-component';
+import { LockableTextSetting } from 'src/custom-components/lockable-text-component';
 import { Settings } from 'src/settings/Settings';
 import { dateFormatter } from 'src/utils/utils';
 
@@ -15,14 +16,14 @@ import { FieldNames } from './planning-index-card';
 export abstract class PlanningModal extends Modal implements IModalForm {
     protected settings: Settings;
     protected indexCardManager: IndexCardManager;
-    private _nameSection: Setting;
+    private _nameSection: LockableTextSetting;
     protected _parentSection: Setting;
     protected _subtaskToggleSection: Setting;
     private _categoryTagSection: Setting;
     private _statusTagSection: Setting;
-    private _targetDateSection: Setting;
-    private _expectedDateSection: Setting;
-    private _completedDateSection: Setting;
+    private _targetDateSection: LockableDateSetting;
+    private _expectedDateSection: LockableDateSetting;
+    private _completedDateSection: LockableDateSetting;
     private _userTagsSection: Setting;
     private _buttonsSection: Setting;
 
@@ -33,19 +34,20 @@ export abstract class PlanningModal extends Modal implements IModalForm {
 
         // The form component section placeholders MUST be in the sequnce they appear in the forms.
         this.contentEl.empty();
-        this._nameSection = new LockableInputSetting(this.contentEl);
+        this._nameSection = new LockableTextSetting(this.contentEl);
         this._parentSection = new Setting(this.contentEl);
         this._subtaskToggleSection = new Setting(this.contentEl);
         this._categoryTagSection = new Setting(this.contentEl);
         this._statusTagSection = new Setting(this.contentEl);
-        this._targetDateSection = new Setting(this.contentEl);
-        this._expectedDateSection = new Setting(this.contentEl);
-        this._completedDateSection = new Setting(this.contentEl);
+        this._targetDateSection = new LockableDateSetting(this.contentEl);
+        this._expectedDateSection = new LockableDateSetting(this.contentEl);
+        this._completedDateSection = new LockableDateSetting(this.contentEl);
         this._userTagsSection = new Setting(this.contentEl);
         this._buttonsSection = new Setting(this.contentEl);
     }
 
-    get nameSection(): Setting {
+    get nameSection(): LockableTextSetting
+    {
         return this._nameSection;
     }
 
@@ -65,15 +67,15 @@ export abstract class PlanningModal extends Modal implements IModalForm {
         return this._statusTagSection;
     }
 
-    get targetDateSection(): Setting {
+    get targetDateSection(): LockableDateSetting {
         return this._targetDateSection;
     }
 
-    get expectedDateSection(): Setting {
+    get expectedDateSection(): LockableDateSetting {
         return this._expectedDateSection;
     }
 
-    get completedDateSection(): Setting {
+    get completedDateSection(): LockableDateSetting {
         return this._completedDateSection;
     }
 
