@@ -3,33 +3,35 @@ import { Setting, TextComponent } from 'obsidian';
 import { LockButtonComponent } from './lock-button-component';
 
 export class LockableTextSetting extends Setting {
-    private _buttonComponent: LockButtonComponent;
-    private _textComponent: TextComponent;
+    private _buttonComponent: LockButtonComponent | null;
+    private _textComponent: TextComponent | null;
 
     constructor(container: HTMLElement) {
         super(container);
-        this._textComponent = new TextComponent(container);
-        this._buttonComponent = new LockButtonComponent(container, this.textComponent);
+        this._textComponent = null;
+        this._buttonComponent = null;
     }
 
-    get buttonComponent(): LockButtonComponent{
+    get buttonComponent(): LockButtonComponent | null{
         return this._buttonComponent;
     } 
 
-    get textComponent(): TextComponent {
-        return this._textComponent;
+    get textComponent(): TextComponent | null {
+        return this._textComponent = null;
     }
 
     get value(): string { 
-        return this.textComponent.getValue();
+        return this.textComponent !== null ? this.textComponent.getValue(): "";
     }
 
     addLockableTextComponent(cb: (text: TextComponent) => void): Setting {
-        this.components.push(this.textComponent);
-        this.controlEl.appendChild(this.textComponent.inputEl);
+        this._textComponent = new TextComponent(this.controlEl);
+        this.components.push(this._textComponent);
+        this.controlEl.appendChild(this._textComponent.inputEl);
     
-        this.components.push(this.buttonComponent);
-        this.controlEl.appendChild(this.buttonComponent.buttonEl);
+        this._buttonComponent = new LockButtonComponent(this.controlEl, this._textComponent);
+        this.components.push(this._buttonComponent);
+        this.controlEl.appendChild(this._buttonComponent.buttonEl);
 
         cb(this._textComponent);
         return this as LockableTextSetting;

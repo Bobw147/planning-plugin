@@ -1,7 +1,10 @@
-import { App, DropdownComponent, Setting } from 'obsidian';
+import { App, DropdownComponent, TFile } from 'obsidian';
 import { Settings } from 'src/settings/Settings';
 import { uuid, UUID } from 'src/utils/uuid-generator';
 
+import { LockableDateSetting } from '../custom-components/lockable-date-component';
+import { LockableDropdownSetting } from '../custom-components/lockable-dropdown-component';
+import { LockableTextSetting } from '../custom-components/lockable-text-component';
 import { IndexCardManager } from '../planner/index-card-manager';
 import { PlanningModal } from '../planner/planning-modal';
 import { translate, UserMessageId } from '../types/i18n';
@@ -24,7 +27,7 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
         onSubmit: (hasChanged: boolean, openFile: boolean, app:App, settings: Settings) => void,
         onSwitchToTaskMode: (subtaskIndexCard: ISubtaskIndexCard) => void) {
 
-        super(app, settings, indexCardManager);
+        super(app, settings, indexCardManager, displayMode);
         this.displayMode = displayMode;
         this.subtaskIndexCard = subtaskIndexCard;
         this.onSubmit = onSubmit;
@@ -47,7 +50,7 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 .addDropdown(dropdown =>
                     this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK,
                         (dropdown, name) => {
-                            dropdown.addOption(this.indexCardManager.getTaskRefId(name).getRefId(), name);
+                            dropdown.addOption(this.indexCardManager.getTaskUUID(name).getRefId(), name);
                         }
                     )
                 );
@@ -104,37 +107,33 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
                 this.categoryTagSection,
                 this.expectedDateSection,
                 this.completedDateSection,
+                this.userTagsSection,
             ]);
         }
         else if (this.displayMode == DisplayMode.INDEX_CARD_MODE) {
             this.setTitle(translate(UserMessageId.SUBTASK_INDEX_CARD_TITLE));
 
             this.nameSection.setName(translate(UserMessageId.SUBTASK_NAME_LABEL_IC));
-            this.nameSection.setDesc(translate(UserMessageId.SUBTASK_NAME_LABEL_DESCRIPTION_IC))
-            this.nameSection.addText((text) => {
-                text.onChange((value) => {
+            this.nameSection.setDesc(translate(UserMessageId.SUBTASK_NAME_LABEL_DESCRIPTION_IC));
+            (<LockableTextSetting> this.nameSection).addLockableTextComponent((text) => {
+                text.onChange(async (value) => {
                     this.subtaskIndexCard.name = value;
-                });
-            })
-            .addButton(button =>
-                button.setIcon('lock')
-            )
+                    await this.subtaskIndexCard.save(this.app.fileManager, this.subtaskIndexCard.file as TFile)
+                })
+            });
 
-            const parentSetting: Setting | undefined = this._parentSection
-            parentSetting
-                .setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_IC))
-                .setDesc(translate(UserMessageId.SUBTASK_PARENT_DESCRIPTION_IC))
-                .addDropdown(dropdown =>
-                    this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK,
-                        (dropdown, name) => {
-                            dropdown.addOption(this.indexCardManager.getTaskRefId(name).getRefId(), name);
-                        }
-                    )
-                )
-                .addButton(button =>
-                    button.setIcon('lock')
-                )
-    
+            this.parentSection.setName(translate(UserMessageId.SUBTASK_PARENT_LABEL_IC));
+            this.parentSection.setDesc(translate(UserMessageId.SUBTASK_PARENT_DESCRIPTION_IC));
+            (<LockableDropdownSetting> this.parentSection).addLockableDropdownComponent((dropdown) => {
+                this.addNames(dropdown, this.settings.tasksFolder, identTags.PLANNING_TASK, 
+                    (dropdown, name) => {
+                        dropdown.addOption(this.indexCardManager.getTaskUUID(name).getRefId(), name);
+                    })
+                dropdown.onChange(async (value) => {
+                    this.subtaskIndexCard.parentTaskRefId = new UUID(false, value as uuid);
+                    await this.subtaskIndexCard.save(this.app.fileManager, this.subtaskIndexCard.file as TFile)
+                })
+            });       
 
             this.categoryTagSection.setName(translate(UserMessageId.SUBTASK_CATEGORY_LABEL_IC));
             this.categoryTagSection.setDesc(translate(UserMessageId.SUBTASK_CATEGORY_DESCRIPTION_IC));
@@ -143,63 +142,50 @@ export class SubtasksModal extends PlanningModal implements IModalForm {
             );
 
             this.statusTagSection.setName(translate(UserMessageId.SUBTASK_STATUS_LABEL_IC));
-            this.statusTagSection.setDesc(translate(UserMessageId.SUBTASK_STATUS_DESCRIPTION_IC))
-            this.statusTagSection.addDropdown(dropdownComponent =>
-                this.addOptions(dropdownComponent, this.settings.statusTags, '', true)
-            )
-            .addButton(button =>
-                button.setIcon('lock')
-            )
+            this.statusTagSection.setDesc(translate(UserMessageId.SUBTASK_STATUS_DESCRIPTION_IC));
+            (<LockableDropdownSetting> this.statusTagSection) .addLockableDropdownComponent((dropdown) => {
+                this.addOptions(dropdown, this.settings.statusTags, '', true)
+                dropdown.onChange(async (value) => {
+                    this.subtaskIndexCard.statusTag = value;
+                    await this.subtaskIndexCard.save(this.app.fileManager, this.subtaskIndexCard.file as TFile)
+                })
+            });
 
             this.targetDateSection.setName(translate(UserMessageId.SUBTASK_TARGET_DATE_LABEL_IC));
             this.targetDateSection.setDesc(translate(UserMessageId.SUBTASK_TARGET_DATE_DESCRIPTION_IC));
-            this.targetDateSection.addText((text) => {
-                text.onChange((value) => {
-                    text.inputEl.setAttr('type', 'date')
+            (<LockableDateSetting> this.targetDateSection).addLockableDateComponent((date) => {
+                date.onChange(async(value) => { 
                     this.subtaskIndexCard.targetDate = new Date(value);
-                });
-            })
-            .addButton(button =>
-                button.setIcon('lock')
-            )
+                    await this.subtaskIndexCard.save(this.app.fileManager, this.subtaskIndexCard.file as TFile)
+                })
+            });
 
             this.expectedDateSection.setName(translate(UserMessageId.SUBTASK_EXPECTED_DATE_LABEL_IC));
             this.expectedDateSection.setDesc(translate(UserMessageId.SUBTASK_EXPECTED_DATE_DESCRIPTION_IC));
-            this.expectedDateSection.addText((text) => {
-                text.inputEl.setAttr('type', 'date')
-                text.onChange((value) => {
+            (<LockableDateSetting> this.expectedDateSection).addLockableDateComponent((date) => {
+                date.onChange(async (value) => { 
                     this.subtaskIndexCard.expectedDate = new Date(value);
-                });
-            })
-            .addButton(button =>
-                button.setIcon('lock')
-            )
+                    await this.subtaskIndexCard.save(this.app.fileManager, this.subtaskIndexCard.file as TFile)
+                })
+            });
 
             this.completedDateSection.setName(translate(UserMessageId.SUBTASK_COMPLETED_DATE_LABEL_IC));
             this.completedDateSection.setDesc(translate(UserMessageId.SUBTASK_COMPLETED_DATE_DESCRIPTION_IC));
-            this.completedDateSection.addText((text) => {
-                text.inputEl.setAttr('type', 'date')
-                text.onChange((value) => {
+            (<LockableDateSetting> this.completedDateSection).addLockableDateComponent((date) => {
+                date.onChange(async(value) => { 
                     this.subtaskIndexCard.completedDate = new Date(value);
-                });
-            })
-            .addButton(button =>
-                button.setIcon('lock')
-            )
+                    await this.subtaskIndexCard.save(this.app.fileManager, this.subtaskIndexCard.file as TFile)
+                })
+            });
 
             this.hide([
                 this.subtaskToggleSection,
+                this.userTagsSection,
                 this.buttonsSection,
             ])
 
             this.disable([
-                this.nameSection,
-                this.parentSection,
                 this.categoryTagSection,
-                this.statusTagSection,
-                this.targetDateSection,
-                this.expectedDateSection,
-                this.completedDateSection,
                 this.userTagsSection,
             ]);
         }

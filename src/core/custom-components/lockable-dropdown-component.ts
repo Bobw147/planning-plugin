@@ -3,33 +3,36 @@ import { DropdownComponent, Setting } from 'obsidian';
 import { LockButtonComponent } from './lock-button-component';
 
 export class LockableDropdownSetting extends Setting {
-    private _buttonComponent: LockButtonComponent;
-    private _dropdownComponent: DropdownComponent;
+    private _buttonComponent: LockButtonComponent | null;
+    private _dropdownComponent: DropdownComponent | null;
 
     constructor(container: HTMLElement) {
         super(container);
-        this._dropdownComponent = new DropdownComponent(container);
-        this._buttonComponent = new LockButtonComponent(container, this.dropdownComponent);
+        this._dropdownComponent = null;
+        this._buttonComponent = null;
     }
 
-    get buttonComponent(): LockButtonComponent{
+    get buttonComponent(): LockButtonComponent | null {
         return this._buttonComponent;
     } 
 
-    get dropdownComponent(): DropdownComponent {
+    get dropdownComponent(): DropdownComponent | null {
         return this._dropdownComponent;
     }
 
     get value(): string { 
-        return this.dropdownComponent.getValue();
+        return this.dropdownComponent !== null ? this.dropdownComponent.getValue() : "";
     }
 
     addLockableDropdownComponent(cb: (dropdown: DropdownComponent) => void): Setting {
-        this.components.push(this.dropdownComponent);
-        this.controlEl.appendChild(this.dropdownComponent.selectEl);
 
-        this.components.push(this.buttonComponent);
-        this.controlEl.appendChild(this.buttonComponent.buttonEl);
+        this._dropdownComponent = new DropdownComponent(this.controlEl);
+        this.components.push(this._dropdownComponent);
+        this.controlEl.appendChild(this._dropdownComponent.selectEl);
+
+        this._buttonComponent = new LockButtonComponent(this.controlEl, this._dropdownComponent);
+        this.components.push(this._buttonComponent);
+        this.controlEl.appendChild(this._buttonComponent.buttonEl);
 
         cb(this._dropdownComponent);
         return this as LockableDropdownSetting;

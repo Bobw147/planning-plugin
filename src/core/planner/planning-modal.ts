@@ -11,48 +11,71 @@ import { LockableDropdownSetting } from '../custom-components/lockable-dropdown-
 import { IndexCardManager } from '../planner/index-card-manager';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { emptyString, IDictionary, nullDate, nullDateTimestamp, zerothItem } from '../types/types';
+import {
+    DisplayMode, emptyString, IDictionary, nullDate, nullDateTimestamp, zerothItem
+} from '../types/types';
 import { FieldNames } from './planning-index-card';
 
 export abstract class PlanningModal extends Modal implements IModalForm {
     protected settings: Settings;
     protected indexCardManager: IndexCardManager;
-    private _nameSection: LockableTextSetting;
-    protected _parentSection: Setting;
+    private _nameSection: Setting | LockableTextSetting;
+    protected _parentSection: Setting | LockableDropdownSetting;
     protected _subtaskToggleSection: Setting;
-    private _categoryTagSection: LockableDropdownSetting;
-    private _statusTagSection: LockableDropdownSetting;
-    private _targetDateSection: LockableDateSetting;
-    private _expectedDateSection: LockableDateSetting;
-    private _completedDateSection: LockableDateSetting;
+    private _categoryTagSection: Setting | LockableDropdownSetting;
+    private _statusTagSection: Setting | LockableDropdownSetting;
+    private _targetDateSection: Setting | LockableDateSetting;
+    private _expectedDateSection: Setting | LockableDateSetting;
+    private _completedDateSection: Setting | LockableDateSetting;
     private _userTagsSection: Setting;
     private _buttonsSection: Setting;
 
-    constructor(app: App, settings: Settings, indexCardManager: IndexCardManager) {
+    constructor(
+        app: App, 
+        settings: Settings, 
+        indexCardManager: IndexCardManager,
+        displayMode: DisplayMode) {
+
         super(app);
         this.settings = settings;
         this.indexCardManager = indexCardManager;
 
-        // The form component section placeholders MUST be in the sequnce they appear in the forms.
         this.contentEl.empty();
-        this._nameSection = new LockableTextSetting(this.contentEl);
-        this._parentSection = new Setting(this.contentEl);
-        this._subtaskToggleSection = new Setting(this.contentEl);
-        this._categoryTagSection = new LockableDropdownSetting(this.contentEl);
-        this._statusTagSection = new LockableDropdownSetting(this.contentEl);
-        this._targetDateSection = new LockableDateSetting(this.contentEl);
-        this._expectedDateSection = new LockableDateSetting(this.contentEl);
-        this._completedDateSection = new LockableDateSetting(this.contentEl);
-        this._userTagsSection = new Setting(this.contentEl);
-        this._buttonsSection = new Setting(this.contentEl);
+
+        // The form section placeholders MUST be in the sequence they appear in the forms.
+        // The display order is determined by the sequence in which they are added to this.contentEl
+        if (displayMode == DisplayMode.CREATE_MODE) {
+            this._nameSection = new Setting(this.contentEl);  
+            this._parentSection = new Setting(this.contentEl);
+            this._subtaskToggleSection = new Setting(this.contentEl);
+            this._categoryTagSection = new Setting(this.contentEl);
+            this._statusTagSection = new Setting(this.contentEl);
+            this._targetDateSection = new Setting(this.contentEl);
+            this._expectedDateSection = new Setting(this.contentEl);
+            this._completedDateSection = new Setting(this.contentEl);
+            this._userTagsSection = new Setting(this.contentEl);
+            this._buttonsSection = new Setting(this.contentEl);
+        }
+        else {
+            this._nameSection = new LockableTextSetting(this.contentEl);
+            this._parentSection = new LockableDropdownSetting(this.contentEl);
+            this._subtaskToggleSection = new Setting(this.contentEl);
+            this._categoryTagSection = new LockableDropdownSetting(this.contentEl);
+            this._statusTagSection = new LockableDropdownSetting(this.contentEl);
+            this._targetDateSection = new LockableDateSetting(this.contentEl);
+            this._expectedDateSection = new LockableDateSetting(this.contentEl);
+            this._completedDateSection = new LockableDateSetting(this.contentEl);
+            this._userTagsSection = new Setting(this.contentEl);
+            this._buttonsSection = new Setting(this.contentEl);
+            }
     }
 
-    get nameSection(): LockableTextSetting
+    get nameSection(): Setting | LockableTextSetting
     {
         return this._nameSection;
     }
 
-    get parentSection(): Setting {
+    get parentSection(): Setting | LockableDropdownSetting {
         return this._parentSection;
     }
 
@@ -60,23 +83,23 @@ export abstract class PlanningModal extends Modal implements IModalForm {
         return this._subtaskToggleSection;
     }
 
-    get categoryTagSection(): LockableDropdownSetting {
+    get categoryTagSection(): Setting | LockableDropdownSetting {
         return this._categoryTagSection;
     }
 
-    get statusTagSection(): LockableDropdownSetting {
+    get statusTagSection(): Setting | LockableDropdownSetting {
         return this._statusTagSection;
     }
 
-    get targetDateSection(): LockableDateSetting {
+    get targetDateSection(): Setting| LockableDateSetting {
         return this._targetDateSection;
     }
 
-    get expectedDateSection(): LockableDateSetting {
+    get expectedDateSection(): Setting | LockableDateSetting {
         return this._expectedDateSection;
     }
 
-    get completedDateSection(): LockableDateSetting {
+    get completedDateSection(): Setting | LockableDateSetting {
         return this._completedDateSection;
     }
 
@@ -108,7 +131,6 @@ export abstract class PlanningModal extends Modal implements IModalForm {
     }
 
     protected addOptions(dropdown: DropdownComponent, optionList: string[], selectedOption: string, clearFirst: boolean): void {
-        debugger;
         if (clearFirst)
             dropdown.selectEl.empty();
     
@@ -150,8 +172,7 @@ export abstract class PlanningModal extends Modal implements IModalForm {
     }
 
     updateIndexCard(indexCard: IPlanningIndexCard): void {
-        indexCard.name = (this.nameSection !== undefined) 
-            ? (this.nameSection.components[zerothItem] as TextComponent).getValue() : emptyString;
+        indexCard.name = (this.nameSection.components[zerothItem] as TextComponent).getValue()
 
         indexCard.categoryTag = (this.categoryTagSection.components.length > 0)
             ? (this.categoryTagSection.components[zerothItem] as DropdownComponent).getValue() : emptyString;

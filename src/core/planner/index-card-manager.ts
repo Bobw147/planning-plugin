@@ -65,7 +65,7 @@ export class IndexCardManager {
         return emptyString;
     }
 
-    getProjectRefId(projectName: string): UUID {
+    getProjectUUID(projectName: string): UUID {
         return this.projectRefLookup[projectName];
     }
 
@@ -77,7 +77,7 @@ export class IndexCardManager {
         return emptyString;
     }
 
-    getTaskRefId(name: string): UUID {
+    getTaskUUID(name: string): UUID {
         return this.taskRefLookup[name];
     }
 

@@ -11,14 +11,14 @@ export interface IPlanningForm {
     configureForIndexCardMode(indexCard: IPlanningIndexCard, fileManager: FileManager, file: TFile): Promise<void>;
     updateIndexCard(indexCard: IPlanningIndexCard): void;
 
-    get nameSection(): LockableTextSetting;
-    get parentSection(): Setting;
+    get nameSection(): Setting| LockableTextSetting;
+    get parentSection(): Setting | LockableDropdownSetting;
     get subtaskToggleSection(): Setting;
-    get categoryTagSection(): LockableDropdownSetting;
-    get statusTagSection(): LockableDropdownSetting;
-    get targetDateSection(): LockableDateSetting;
-    get expectedDateSection(): Setting;
-    get completedDateSection(): Setting;
+    get categoryTagSection(): Setting |  LockableDropdownSetting;
+    get statusTagSection(): Setting | LockableDropdownSetting;
+    get targetDateSection(): Setting | LockableDateSetting;
+    get expectedDateSection(): Setting | LockableDateSetting;
+    get completedDateSection(): Setting | LockableDateSetting;
     get userTagsSection(): Setting;
     get buttonsSection(): Setting;
 }
