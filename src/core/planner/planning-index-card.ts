@@ -1,10 +1,10 @@
-import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { App, FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { arraycopy } from 'src/utils/utils';
 import { refId, UUID } from 'src/utils/uuid-generator';
 
 import { UserTagError } from '../exceptions/exceptions';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
-import { emptyString, nullDateTimestamp } from '../types/types';
+import { emptyString, identTags, nullDateTimestamp } from '../types/types';
 
 export const FieldNames = {
     REF_ID_FIELD: "plrefId",
@@ -22,6 +22,7 @@ export type FieldNames = typeof FieldNames[keyof typeof FieldNames];
 
 export abstract class PlanningIndexCard implements IPlanningIndexCard {
     
+    protected app: App
     private _refId: UUID;
     private _file: TFile | null;
     private _name: string;
@@ -35,7 +36,8 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
     private _upstreamLinks: UUID[];
     private _userTags: string[];
 
-    constructor(identTag: string) {
+    constructor(app: App, identTag: string) {
+        this.app = app
         this._refId = new UUID(true);
         this._file = null;
         this._name = emptyString;
@@ -180,6 +182,11 @@ export abstract class PlanningIndexCard implements IPlanningIndexCard {
         });
     }
 
+    resetDownstreamLinks(): void {
+        this._downstreamLinks = {};
+    }
+
+    abstract updateCategoryTag(categoryTag: identTags): void;
     abstract updateExpectedDate(): void;
 
     _validateTag(tag:string, mustHave: string | null): boolean {

@@ -1,4 +1,4 @@
-import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { App, FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { UUID } from 'src/utils/uuid-generator';
 
 import { PlanningIndexCard } from '../planner/planning-index-card';
@@ -15,8 +15,8 @@ export type SubtaskFieldNames = typeof SubtaskFieldNames[keyof typeof SubtaskFie
 export class SubtaskIndexCard extends PlanningIndexCard implements ISubtaskIndexCard {
     private _parentTaskRefId: UUID;
 
-    constructor(){
-        super(identTags.PLANNING_SUBTASK);
+    constructor(app: App){
+        super(app, identTags.PLANNING_SUBTASK);
         this._parentTaskRefId = new UUID(false);
     }
 
@@ -60,5 +60,6 @@ export class SubtaskIndexCard extends PlanningIndexCard implements ISubtaskIndex
         })
     }
 
+    updateCategoryTag(categoryTag: identTags): void {}
     updateExpectedDate(): void {}
 }
