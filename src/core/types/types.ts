@@ -22,7 +22,8 @@ export const DisplayMode = {
 export type DisplayMode = typeof DisplayMode[keyof typeof DisplayMode];
 
 export const emptyString: string = "";
-export const zerothItem = 0;
+export const FirstItem: number = 0;
+export const zero: number = 0;
 
 export const defaultStatusTags: Array<string> = [
     "#status/inbox",

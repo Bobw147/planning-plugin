@@ -10,7 +10,7 @@ import { PlanningModal } from '../planner/planning-modal';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { ITaskIndexCard } from '../types/interfaces/i-task-index-card';
-import { DisplayMode, identTags, zerothItem } from '../types/types';
+import { DisplayMode, FirstItem, identTags } from '../types/types';
 
 export class TasksModal extends PlanningModal implements IModalForm{
     private displayMode: DisplayMode;
@@ -197,12 +197,12 @@ export class TasksModal extends PlanningModal implements IModalForm{
         
     showCurrentValues(indexCard: ITaskIndexCard): void {
         super.showCurrentValues(indexCard);
-        (this.parentSection.components[zerothItem] as DropdownComponent)
+        (this.parentSection.components[FirstItem] as DropdownComponent)
             .setValue(indexCard.parentProjectRefId.getRefId())
     }
     
     updateIndexCard(indexCard: ITaskIndexCard): void {
         super.updateIndexCard(indexCard);
-        indexCard.parentProjectRefId = new UUID(false, (this.parentSection.components[zerothItem] as DropdownComponent).getValue() as uuid);
+        indexCard.parentProjectRefId = new UUID(false, (this.parentSection.components[FirstItem] as DropdownComponent).getValue() as uuid);
     }
 }

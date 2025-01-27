@@ -12,7 +12,7 @@ import { IndexCardManager } from '../planner/index-card-manager';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IPlanningIndexCard } from '../types/interfaces/i-planning-index-card';
 import {
-    DisplayMode, emptyString, IDictionary, nullDate, nullDateTimestamp, zerothItem
+    DisplayMode, emptyString, FirstItem, IDictionary, nullDate, nullDateTimestamp
 } from '../types/types';
 import { FieldNames } from './planning-index-card';
 
@@ -157,41 +157,41 @@ export abstract class PlanningModal extends Modal implements IModalForm {
 
     showCurrentValues(indexCard: IPlanningIndexCard): void {
 
-        (this.nameSection.components[zerothItem] as TextComponent).setValue(indexCard.name);
-        (this.categoryTagSection.components[zerothItem] as DropdownComponent).setValue(indexCard.categoryTag);
-        (this.statusTagSection.components[zerothItem] as DropdownComponent).setValue(indexCard.statusTag);
+        (this.nameSection.components[FirstItem] as TextComponent).setValue(indexCard.name);
+        (this.categoryTagSection.components[FirstItem] as DropdownComponent).setValue(indexCard.categoryTag);
+        (this.statusTagSection.components[FirstItem] as DropdownComponent).setValue(indexCard.statusTag);
 
-        (this.targetDateSection.components[zerothItem] as TextComponent)
+        (this.targetDateSection.components[FirstItem] as TextComponent)
             .setValue((indexCard.targetDate != nullDate) ? dateFormatter(indexCard.targetDate) : emptyString);
 
-        (this.expectedDateSection.components[zerothItem] as TextComponent)
+        (this.expectedDateSection.components[FirstItem] as TextComponent)
             .setValue((indexCard.expectedDate != nullDate) ? dateFormatter(indexCard.expectedDate) : emptyString);
 
-        (this.completedDateSection.components[zerothItem] as TextComponent)
+        (this.completedDateSection.components[FirstItem] as TextComponent)
             .setValue((indexCard.completedDate != nullDate) ? dateFormatter(indexCard.completedDate) : emptyString);
     }
 
     updateIndexCard(indexCard: IPlanningIndexCard): void {
-        indexCard.name = (this.nameSection.components[zerothItem] as TextComponent).getValue()
+        indexCard.name = (this.nameSection.components[FirstItem] as TextComponent).getValue()
 
         indexCard.categoryTag = (this.categoryTagSection.components.length > 0)
-            ? (this.categoryTagSection.components[zerothItem] as DropdownComponent).getValue() : emptyString;
+            ? (this.categoryTagSection.components[FirstItem] as DropdownComponent).getValue() : emptyString;
 
         indexCard.statusTag = (this.statusTagSection.components.length > 0)
-            ? (this.statusTagSection.components[zerothItem] as DropdownComponent).getValue() : emptyString ;
+            ? (this.statusTagSection.components[FirstItem] as DropdownComponent).getValue() : emptyString ;
                 
         if (this.targetDateSection !== undefined) {
-            const targetDate = (this.targetDateSection.components[zerothItem] as TextComponent).getValue();
+            const targetDate = (this.targetDateSection.components[FirstItem] as TextComponent).getValue();
             indexCard.targetDate = (targetDate != emptyString) ? new Date(targetDate) : new Date(nullDateTimestamp);
         }
                 
         if (this.expectedDateSection.components.length > 0) {
-            const expectedDate = (this.expectedDateSection.components[zerothItem] as TextComponent).getValue();
+            const expectedDate = (this.expectedDateSection.components[FirstItem] as TextComponent).getValue();
             indexCard.expectedDate = (expectedDate != emptyString) ? new Date(expectedDate) : new Date(nullDateTimestamp);
         }
                 
         if (this.completedDateSection.components.length > 0) {
-            const completedDate = (this.completedDateSection.components[zerothItem] as TextComponent).getValue();
+            const completedDate = (this.completedDateSection.components[FirstItem] as TextComponent).getValue();
             indexCard.completedDate = (completedDate != emptyString) ? new Date(completedDate) : new Date(nullDateTimestamp);
         }
     }

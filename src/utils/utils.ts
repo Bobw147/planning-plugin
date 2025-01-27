@@ -5,7 +5,7 @@ import {
 } from 'obsidian';
 import * as path from 'path';
 import { FieldNames } from 'src/core/planner/planning-index-card';
-import { emptyString, IDictionary, zerothItem } from 'src/core/types/types';
+import { emptyString, FirstItem, IDictionary } from 'src/core/types/types';
 
 /* Arraye helpers */
 export function arraymove<T>(
@@ -13,7 +13,7 @@ export function arraymove<T>(
     fromIndex: number,
     toIndex: number
 ): void {
-    if (toIndex < zerothItem || toIndex === arr.length) {
+    if (toIndex < FirstItem || toIndex === arr.length) {
         return;
     }
     const element = arr[fromIndex];

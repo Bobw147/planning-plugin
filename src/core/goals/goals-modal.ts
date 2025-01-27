@@ -1,4 +1,5 @@
 import { App, TFile } from 'obsidian';
+import { GtdTableProcessor } from 'src/handlers/gtd-table-processor';
 import { Settings } from 'src/settings/Settings';
 
 import { LockableDateSetting } from '../custom-components/lockable-date-component';

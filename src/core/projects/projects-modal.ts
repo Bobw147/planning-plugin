@@ -10,7 +10,7 @@ import { PlanningModal } from '../planner/planning-modal';
 import { translate, UserMessageId } from '../types/i18n';
 import { IModalForm } from '../types/interfaces/i-modal-form';
 import { IProjectIndexCard } from '../types/interfaces/i-project-index-card';
-import { DisplayMode, identTags, zerothItem } from '../types/types';
+import { DisplayMode, FirstItem, identTags } from '../types/types';
 
 export class ProjectsModal extends PlanningModal implements IModalForm {
     private displayMode: DisplayMode;
@@ -178,12 +178,12 @@ export class ProjectsModal extends PlanningModal implements IModalForm {
 
     showCurrentValues(indexCard: IProjectIndexCard): void {
         super.showCurrentValues(indexCard);
-        (this.parentSection.components[zerothItem] as DropdownComponent)
+        (this.parentSection.components[FirstItem] as DropdownComponent)
             .setValue(indexCard.parentGoalRefId.getRefId())
     }
 
     updateIndexCard(indexCard: IProjectIndexCard): void {
         super.updateIndexCard(indexCard);
-        indexCard.parentGoalRefId = new UUID(false, (this.parentSection.components[zerothItem] as DropdownComponent).getValue() as uuid);
+        indexCard.parentGoalRefId = new UUID(false, (this.parentSection.components[FirstItem] as DropdownComponent).getValue() as uuid);
     }
 }

@@ -3,7 +3,8 @@ import { DEFAULT_SETTINGS, PlanningSettingsTab, Settings } from 'src/settings/Se
 
 import { Planner } from './core/planner/planner';
 import { CommandHandler } from './handlers/command-handlers';
-import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
+import { gtdTableProcessor } from './handlers/gtd-table-processor';
+import { indexCardProcessor } from './handlers/index-card-post-processor';
 
   export default class PlanningPlugin extends Plugin {
 	public settings: Settings;
@@ -50,8 +51,12 @@ import { indexCardButtonHandler } from './handlers/index-card-form-buttons';
 		this.addSettingTab(new PlanningSettingsTab(this));
 
 		this.registerMarkdownCodeBlockProcessor("IndexCard", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
-			indexCardButtonHandler(source, el, this.planner);
+			indexCardProcessor(source, el, this.planner);
 		})
+
+        this.registerMarkdownCodeBlockProcessor("GTD_Table", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
+            gtdTableProcessor(source, el, this.planner);
+        })
 
         this.app.workspace.onLayoutReady(async () => {
             this.planner = new Planner(this);

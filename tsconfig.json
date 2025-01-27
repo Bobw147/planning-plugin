@@ -3,9 +3,10 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    "declaration": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "module": "ESNext",
+    "module": "commonjs",
     "target": "ES6",
     "allowJs": true,
     "noImplicitAny": true,
@@ -22,6 +23,7 @@
     ]
   },
   "include": [
-    "src/**/*.ts"
-  ]
+    "src/**/*.ts", 
+    "src/handlers/w2ui-2.0.es6.js" 
+, "src/core/custom-components/complex-components/rbw-table-component.ts", "tests/webbuilder/rbw-table-component.test.ts"]
 }
