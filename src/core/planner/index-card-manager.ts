@@ -133,28 +133,28 @@ export class IndexCardManager {
                 if (frontMatter[FieldNames.IDENT_TAG_FIELD] == searchTag) {
                     switch (searchTag) {
                         case identTags.PLANNING_GOAL:
-                            indexCard = new GoalIndexCard();
+                            indexCard = new GoalIndexCard(this.app);
                             indexCard.loadFromFrontMatter(frontMatter);
                             indexCard.file = file;
                             this.add(indexCard);
                             break;
  
                         case identTags.PLANNING_PROJECT:
-                            indexCard = new ProjectIndexCard();
+                            indexCard = new ProjectIndexCard(this.app);
                             indexCard.loadFromFrontMatter(frontMatter);
                             indexCard.file = file;
                             this.add(indexCard);
                             break;
  
                         case identTags.PLANNING_TASK:
-                            indexCard = new TaskIndexCard();
+                            indexCard = new TaskIndexCard(this.app);
                             indexCard.loadFromFrontMatter(frontMatter);
                             indexCard.file = file;
                             this.add(indexCard);
                             break;
 
                         case identTags.PLANNING_SUBTASK:
-                            indexCard = new SubtaskIndexCard();
+                            indexCard = new SubtaskIndexCard(this.app);
                             indexCard.loadFromFrontMatter(frontMatter);
                             indexCard.file = file;
                             this.add(indexCard);
@@ -174,38 +174,49 @@ export class IndexCardManager {
         // Now that all this relevant index cards have been loaded they
         // can be used to build the downstream links of each card type
         this.buildDownstreamLinks();   
+        this.updateDependencies();
     }
 
     private buildDownstreamLinks(): void {
         // Loop through ALL sub task index card keys
         for (const subTaskIndexCardRefId in this.subtaskIndexCards) {
-            // Get the associated subTaskIndexCard
+            // Get the associated subTaskIndexCard 
             const subTaskIndexCard = <SubtaskIndexCard> this.subtaskIndexCards[subTaskIndexCardRefId];
-            const taskRefId: UUID = new UUID(false, subTaskIndexCard.parentTaskRefId.getValue());
-            if (! taskRefId.isNullUUID())
-                this.taskIndexCards[taskRefId.getRefId()].downStreamLinks[subTaskIndexCard.refId.getRefId()] = subTaskIndexCard;
+
+            const taskUUID: UUID = new UUID(false, subTaskIndexCard.parentTaskRefId.getValue());
+            if (! taskUUID.isNullUUID()) {
+                const taskIndexCard: ITaskIndexCard = this.taskIndexCards[taskUUID.getRefId()];
+                taskIndexCard.resetDownstreamLinks();
+                taskIndexCard.downStreamLinks[subTaskIndexCard.refId.getRefId()] = subTaskIndexCard;
+            }
         }
 
         for (const taskIndexCardRefId in this.taskIndexCards) {
             const taskIndexCard = <TaskIndexCard> this.taskIndexCards[taskIndexCardRefId];
-            const projectRefId: UUID = new UUID(false, taskIndexCard.parentProjectRefId.getValue());
-            if (! projectRefId.isNullUUID())
-                this.projectIndexCards[projectRefId.getRefId()].downStreamLinks[taskIndexCard.refId.getRefId()] = taskIndexCard;
+            const projectUUID: UUID = new UUID(false, taskIndexCard.parentProjectRefId.getValue());
+            if (! projectUUID.isNullUUID()) {
+                const projectIdexCard: IProjectIndexCard = this.projectIndexCards[projectUUID.getRefId()]; 
+                projectIdexCard.downStreamLinks[taskIndexCard.refId.getRefId()] = taskIndexCard;
+            }   
         }
 
         for (const projectIndexCardRefId in this.projectIndexCards) {
             const projectIndexCard = <ProjectIndexCard> this.projectIndexCards[projectIndexCardRefId];
-            const goalRefId: UUID = new UUID(false, projectIndexCard.parentGoalRefId.getValue());
-            if (! goalRefId.isNullUUID())
-                this.goalIndexCards[goalRefId.getRefId()].downStreamLinks[projectIndexCard.refId.getRefId()] = projectIndexCard;
+            const goalUUID: UUID = new UUID(false, projectIndexCard.parentGoalRefId.getValue());
+            if (! goalUUID.isNullUUID()) {
+                const goalIndexCard: IGoalIndexCard = this.goalIndexCards[goalUUID.getRefId()];
+                goalIndexCard.resetDownstreamLinks();  
+                goalIndexCard.downStreamLinks[projectIndexCard.refId.getRefId()] = projectIndexCard;
+            }
         }
     }
 
-    updateDateDependencies(): void {
+    public updateDependencies(): void {
         // This is done top down. The single call will also update dowmstream project and task
         // dependencies
         Object.entries(this.goalIndexCards).forEach(([goalRefId, goalIndexCard]) => {
             goalIndexCard.updateExpectedDate();
+            goalIndexCard.updateCategoryTag(goalIndexCard.categoryTag);
         });
     }
 

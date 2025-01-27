@@ -56,7 +56,7 @@ export class Planner implements IPlanner {
     }
     
     createGoal(): void {       
-        const goalIndexCard: GoalIndexCard = new GoalIndexCard();
+        const goalIndexCard: GoalIndexCard = new GoalIndexCard(this.app);
         this.goalsModal = new GoalsModal(
             this.app, 
             this.settings, 
@@ -86,7 +86,7 @@ export class Planner implements IPlanner {
     }
 
     createProject(): void {
-        const projectIndexCard: ProjectIndexCard = new ProjectIndexCard();
+        const projectIndexCard: ProjectIndexCard = new ProjectIndexCard(this.app);
         this.projectsModal = new ProjectsModal(
             this.app, 
             this.settings, 
@@ -117,7 +117,7 @@ export class Planner implements IPlanner {
 
     createTask(giventaskIndexCard?: TaskIndexCard): void{
         // Make sure there is a valid taskIndexCard im play
-        const taskIndexCard: TaskIndexCard = (typeof giventaskIndexCard === 'undefined') ? new TaskIndexCard() : giventaskIndexCard;
+        const taskIndexCard: TaskIndexCard = (typeof giventaskIndexCard === 'undefined') ? new TaskIndexCard(this.app) : giventaskIndexCard;
  
         this.tasksModal = new TasksModal(
             this.app, 
@@ -145,7 +145,7 @@ export class Planner implements IPlanner {
 
         },
         (taskIndexCard: ITaskIndexCard) => {
-            const subtaskIndexCard: SubtaskIndexCard = new SubtaskIndexCard();
+            const subtaskIndexCard: SubtaskIndexCard = new SubtaskIndexCard(this.app);
             taskIndexCard.copyInto(subtaskIndexCard);
             this.tasksModal?.close();
             this.tasksModal = null;
@@ -155,7 +155,7 @@ export class Planner implements IPlanner {
     }
 
     createSubtask(givenSubtaskIndexCard?: SubtaskIndexCard): void{
-        const subtaskIndexCard = (typeof givenSubtaskIndexCard === 'undefined') ? new SubtaskIndexCard : givenSubtaskIndexCard
+        const subtaskIndexCard = (typeof givenSubtaskIndexCard === 'undefined') ? new SubtaskIndexCard(this.app) : givenSubtaskIndexCard
 
         this.subtasksModal = new SubtasksModal(
             this.app, 
@@ -183,7 +183,7 @@ export class Planner implements IPlanner {
             this.subtasksModal = null;
         },
         (subtaskIndexCard: ISubtaskIndexCard) => {
-            const taskIndexCard: TaskIndexCard = new TaskIndexCard();
+            const taskIndexCard: TaskIndexCard = new TaskIndexCard(this.app);
             subtaskIndexCard.copyInto(taskIndexCard);
             this.subtasksModal?.close();
             this.subtasksModal = null;
@@ -199,7 +199,7 @@ export class Planner implements IPlanner {
     async showGoalIndexCard(): Promise<void>{
         const activeFile: TFile | null = this.app.workspace.getActiveFile();
         if (activeFile !== null) {
-            const goalIndexCard: GoalIndexCard = new GoalIndexCard()
+            const goalIndexCard: GoalIndexCard = new GoalIndexCard(this.app)
             await goalIndexCard.load(this.app.fileManager, activeFile);
             this.goalsModal = new GoalsModal(
                 this.app, 
@@ -223,7 +223,7 @@ export class Planner implements IPlanner {
     async showProjectIndexCard(): Promise<void> {
         const activeFile: TFile | null = this.app.workspace.getActiveFile();
         if (activeFile !== null) {
-            const projectIndexCard: IProjectIndexCard = new ProjectIndexCard()
+            const projectIndexCard: IProjectIndexCard = new ProjectIndexCard(this.app)
             await projectIndexCard.load(this.app.fileManager, activeFile);
             this.projectsModal = new ProjectsModal(
                 this.app, 
@@ -249,7 +249,7 @@ export class Planner implements IPlanner {
         if (activeFile !== null) {
             // Make sure we have the correct typwe ofindex card loaded
             const taskIndexCard: ITaskIndexCard = (typeof givenTaskIndexCard === 'undefined')
-            ? new TaskIndexCard() : givenTaskIndexCard;
+            ? new TaskIndexCard(this.app) : givenTaskIndexCard;
             await taskIndexCard.load(this.app.fileManager, activeFile);
 
             this.tasksModal = new TasksModal(this.app, 
@@ -266,7 +266,7 @@ export class Planner implements IPlanner {
                     this.tasksModal = null;
                  },
                 async (taskIndexCard: ITaskIndexCard) => {
-                    const subtaskIndexCard: ISubtaskIndexCard = new SubtaskIndexCard();
+                    const subtaskIndexCard: ISubtaskIndexCard = new SubtaskIndexCard(this.app);
                     taskIndexCard.copyInto(subtaskIndexCard);
                     this.tasksModal?.close();
                     this.tasksModal = null;
@@ -282,7 +282,7 @@ export class Planner implements IPlanner {
         if (activeFile !== null) {
             // Make sure we have the correct typwe ofindex card loaded
             const subtaskIndexCard: ISubtaskIndexCard = (typeof givenSubtaskIndexCard === 'undefined') 
-            ? new SubtaskIndexCard() : givenSubtaskIndexCard;
+            ? new SubtaskIndexCard(this.app) : givenSubtaskIndexCard;
             await subtaskIndexCard.load(this.app.fileManager, activeFile);
 
             this.subtasksModal = new SubtasksModal(
@@ -300,7 +300,7 @@ export class Planner implements IPlanner {
                     this.tasksModal = null;
                  },
                 async (subtaskindexCard: ISubtaskIndexCard) => {
-                    const taskIndexCard: TaskIndexCard = new TaskIndexCard();
+                    const taskIndexCard: TaskIndexCard = new TaskIndexCard(this.app);
                     subtaskIndexCard.copyInto(taskIndexCard);
                     this.subtasksModal?.close();
                     this.subtasksModal = null;

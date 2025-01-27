@@ -1,4 +1,4 @@
-import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { App, FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { UUID } from 'src/utils/uuid-generator';
 
 import { PlanningIndexCard } from '../planner/planning-index-card';
@@ -13,8 +13,8 @@ const projectFieldNames = {
 export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndexCard {
     private _parentGoalRefId: UUID;
 
-    constructor() {
-        super(identTags.PLANNING_PROJECT);
+    constructor(app: App) {
+        super(app, identTags.PLANNING_PROJECT);
         this._parentGoalRefId = new UUID(false);
     }
 
@@ -44,6 +44,14 @@ export class ProjectIndexCard extends PlanningIndexCard implements IProjectIndex
         await fileManager.processFrontMatter(file, (frontMatter) => {
             if (frontMatter)
                 frontMatter[projectFieldNames.PARENT_GOAL_REFID] = this.parentGoalRefId.getRefId();
+        });
+    }
+
+    updateCategoryTag(categoryTag: identTags): void {
+        Object.entries(this.downStreamLinks).forEach(([taskRefId, taskIndexCard]) => {
+            taskIndexCard.categoryTag = categoryTag;
+            taskIndexCard.save(this.app.fileManager, taskIndexCard.file as TFile);
+            taskIndexCard.updateCategoryTag(categoryTag);
         });
     }
 

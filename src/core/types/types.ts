@@ -43,6 +43,8 @@ export const identTags = {
     PLANNING_SUBTASK: "#planning/subtask",
 }
 
+export type identTags = typeof identTags[keyof typeof identTags];
+
 export const defaultCategoryTags: Array<string>  = [
     "#planning/business",
     "#planning/personal",

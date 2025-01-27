@@ -39,5 +39,7 @@ export interface IPlanningIndexCard{
 
     load(fileManager: FileManager, file: TFile): Promise<void>;
     save(fileManager: FileManager, file: TFile): Promise<void>;
+    resetDownstreamLinks(): void;
+    updateCategoryTag(categoryTag: string): void;
     updateExpectedDate(): void;
 }

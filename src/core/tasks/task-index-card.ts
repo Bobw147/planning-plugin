@@ -1,4 +1,4 @@
-import { FileManager, FrontMatterCache, TFile } from 'obsidian';
+import { App, FileManager, FrontMatterCache, TFile } from 'obsidian';
 import { UUID } from 'src/utils/uuid-generator';
 
 import { PlanningIndexCard } from '../planner/planning-index-card';
@@ -14,8 +14,8 @@ const taskFieldNames = {
 export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
     private _parentProjectRefId: UUID;
 
-    constructor(){
-        super(identTags.PLANNING_TASK);
+    constructor(app: App){
+        super(app, identTags.PLANNING_TASK);
         this._parentProjectRefId = new UUID(false);
     }
 
@@ -64,6 +64,13 @@ export class TaskIndexCard extends PlanningIndexCard implements ITaskIndexCard {
         if (subtask.expectedDate > this.expectedDate) {
             this.expectedDate = subtask.expectedDate;
         }
+    }
+
+    updateCategoryTag(categoryTag: identTags): void {
+        Object.entries(this.downStreamLinks).forEach(([subtaskRefId, subtaskIndexCard]) => {
+            subtaskIndexCard.categoryTag = categoryTag;
+            subtaskIndexCard.save(this.app.fileManager, subtaskIndexCard.file as TFile);
+        });
     }
 
     updateExpectedDate() : void {
