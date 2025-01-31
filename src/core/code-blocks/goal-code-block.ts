@@ -1,3 +1,4 @@
+import { getAPI as dv } from 'obsidian-dataview';
 
 export const goalDataview = 
 " \
@@ -6,7 +7,7 @@ Goal\n \
 ```\n \
 \n\
 \n\
-```GTD_Table\n \
+```GtdTable\n \
 Goal\n \
 ```\n \
 \n \
@@ -16,3 +17,4 @@ Goal\n \
 export function goalPageContent() : string {
 	return goalDataview;
 }
+

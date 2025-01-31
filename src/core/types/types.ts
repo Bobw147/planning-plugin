@@ -1,7 +1,11 @@
 export interface IDictionary<T> {
     [key: string]: T;
-}
+};
 
+export type NestedDictionary<T> = {
+    [x: string]: T | NestedDictionary<T> | Array<NestedDictionary<T>>;
+};
+  
 export const nullDateTimestamp = 0;
 export const nullDate = new Date(nullDateTimestamp);
 

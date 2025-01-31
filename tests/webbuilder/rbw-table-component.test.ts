@@ -2,7 +2,7 @@ import { emptyString } from 'src/core/types/types';
 
 import {
     TableCellComponent
-} from '../../src/core/custom-components/complex-components/rbw-table-component';
+} from '../../src/core/custom-components/table-component/table-component';
 
 describe('TableCellComponent', () => {
     it('should initialize with correct column and row', () => {

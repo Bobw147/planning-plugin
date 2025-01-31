@@ -5,7 +5,7 @@ import {
 } from 'obsidian';
 import * as path from 'path';
 import { FieldNames } from 'src/core/planner/planning-index-card';
-import { emptyString, FirstItem, IDictionary } from 'src/core/types/types';
+import { emptyString, FirstItem, IDictionary, NestedDictionary } from 'src/core/types/types';
 
 /* Arraye helpers */
 export function arraymove<T>(
@@ -48,6 +48,10 @@ export function dateFormatter(date: Date): string {
     const splitDate: string = date.toISOString().split(dateTimeSeparator)[datePart];
     return (splitDate != referenceDate) ? splitDate : emptyString;
 } 
+
+export function dictionaryHasKey(dictionary: IDictionary<string> | NestedDictionary<string>, keyname: string): boolean {
+    return Object.keys(dictionary).contains(keyname);
+}
 
 /* Tag helpers */
 export function flattenedTags(userTags: string[]) : string {

@@ -1,4 +1,5 @@
-import { App, TAbstractFile, TFile } from 'obsidian';
+import { App, MarkdownPostProcessorContext, TAbstractFile, TFile } from 'obsidian';
+import { DataviewApi, getAPI } from 'obsidian-dataview';
 import PlanningPlugin from 'src/main';
 import { Settings } from 'src/settings/Settings';
 import { createFolder } from 'src/utils/utils';
@@ -7,6 +8,7 @@ import { goalPageContent } from '../code-blocks/goal-code-block';
 import { projectPageContent } from '../code-blocks/project-code-block';
 import { subtaskPageContent } from '../code-blocks/subtask-code-block';
 import { taskPageContent } from '../code-blocks/task-code-block';
+import { TableComponent } from '../custom-components/table-component/table-component';
 import { GoalIndexCard } from '../goals/goal-index-card';
 import { GoalsModal } from '../goals/goals-modal';
 import { ProjectIndexCard } from '../projects/project-index-card';
@@ -32,15 +34,18 @@ export class Planner implements IPlanner {
     private app: App;
     private settings: Settings;
     private indexCardManager;
+    private dv: DataviewApi;
  
     constructor(private plugin: PlanningPlugin){
         this.plugin = plugin;
         this.app = this.plugin.app;
         this.settings = this.plugin.settings;
         this.indexCardManager = new IndexCardManager(this.app);
+        this.dv = getAPI(this.app);
     }
 
     init(): void {
+
         //  This a place to hang the event handlers for file delete and rename operations
         this.app.vault.on('delete', async (file: TAbstractFile) => {
             if (file instanceof TFile) {
@@ -309,5 +314,71 @@ export class Planner implements IPlanner {
             );
             this.subtasksModal.open();
         }
+    }
+
+    public showGoalTable(source: string, container: HTMLElement, ctk: MarkdownPostProcessorContext): void {
+        const table = new TableComponent(container, {
+                'table-config': {
+                    'name': 'goal-overview',
+                    'id': 'goal-overview',
+                    'style': {
+                        'width': '800px',
+                        'height': '600px',
+                    },
+                },
+                'show': {'toolbar' : 'true'},
+                'columns': [
+                    {'header': 'column 1'},
+                    {'header': 'column 2'},
+                    {'header': 'column 3'},
+                    {'header': 'column 4'},
+                    {'header': 'column 5'},
+                ]
+            }
+        );
+        table.render();
+/*
+        if (this.dv) {
+            const table = this.dv.markdownTable(
+                ["Col1", "Col2", "Col3"],
+                [
+                    ["Row1", "Dummy", "Dummy"],
+                    ["Row2", [
+                            "Bullet1",
+                            "Bullet2",
+                            "Bullet3"
+                        ],
+                     "Dummy"
+                    ],
+                    ["Row3", "Dummy", "Dummy"],
+                ],
+                this.settings
+            )
+            this.dv.paragraph(table);
+/*            this.dv.table(
+                ["Col1", "Col2", "Col3"],
+                [
+                    ["Row1", "Dummy", "Dummy"],
+                    ["Row2", [
+                            "Bullet1",
+                            "Bullet2",
+                            "Bullet3"
+                        ],
+                     "Dummy"
+                    ],
+                    ["Row3", "Dummy", "Dummy"],
+                ],
+                container,
+                ctk,
+                source
+            );
+        }
+*/
+    }
+
+    public showProjectTable(source: string, container: HTMLElement, ctk: MarkdownPostProcessorContext): void {
+    }
+
+    public showTaskTable(source: string, container: HTMLElement, ctk: MarkdownPostProcessorContext): void {
     }
 }

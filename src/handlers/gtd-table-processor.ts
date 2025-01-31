@@ -1,12 +1,24 @@
+import { MarkdownPostProcessorContext } from 'obsidian';
 import { Planner } from 'src/core/planner/planner';
 
-import { W2Grid } from './w2ui';
+export function gtdTableProcessor(source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext, planner: Planner): void {
+    debugger;
+    switch (source.trim()) {
+        case 'Goal':
+            planner.showGoalTable(source, el, ctk);
+            break;
 
-export function gtdTableProcessor(source: string, el: HTMLElement, planner: Planner): void {
+        case 'Project':
+            planner.showProjectTable(source, el, ctk);
+            break;
 
-    new GtdTableProcessor(el);
+        case 'Task':
+            planner.showTaskTable(source, el, ctk);
+            break;
+    }
 }
 
+/*
 export class GtdTableProcessor {
     private grid: W2Grid;
 
@@ -42,3 +54,4 @@ export class GtdTableProcessor {
         });
     }
 }
+*/

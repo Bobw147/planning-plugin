@@ -54,8 +54,8 @@ import { indexCardProcessor } from './handlers/index-card-post-processor';
 			indexCardProcessor(source, el, this.planner);
 		})
 
-        this.registerMarkdownCodeBlockProcessor("GTD_Table", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
-            gtdTableProcessor(source, el, this.planner);
+        this.registerMarkdownCodeBlockProcessor("GtdTable", (source: string, el: HTMLElement, ctk: MarkdownPostProcessorContext) => {
+            gtdTableProcessor(source, el, ctk, this.planner);
         })
 
         this.app.workspace.onLayoutReady(async () => {

@@ -35,5 +35,5 @@
   "include": [
     "src/**/*.ts", 
     "src/handlers/w2ui-2.0.es6.js" 
-, "src/core/custom-components/complex-components/rbw-table-component.ts", "tests/webbuilder/rbw-table-component.test.ts"]
+, "src/core/custom-components/table-component/table-component.ts", "tests/webbuilder/rbw-table-component.test.ts"]
 }
